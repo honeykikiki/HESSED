@@ -171,4 +171,8 @@ psd
 thumb
 sketch
 
+## scss
+
+scss/
+
 # End of https://www.toptal.com/developers/gitignore/api/react,node

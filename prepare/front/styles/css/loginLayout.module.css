@@ -1,0 +1,33 @@
+.back {
+  background-color: #3b3733;
+  width: 100vw;
+  height: 100vh;
+}
+
+.back .maxWidth {
+  max-width: 800px;
+  margin: auto;
+}
+
+.back input,
+.back button {
+  width: calc(100% - 20%);
+  height: 35px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.back button {
+  background-color: #409857;
+  color: white;
+}
+
+.logo {
+  padding-top: 200px;
+  padding-bottom: 50px;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+}
