@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import LoginLayout from '../LoginLayout';
 import useinput from '../../hooks/useinput';
-import styles from '../../styles/css/loginForm.module.css';
+import style from '../../styles/css/loginForm.module.css';
 
 const Login = () => {
   const [id, onchangeId, setId] = useinput('');
@@ -15,9 +15,8 @@ const Login = () => {
 
   return (
     <LoginLayout>
-      <form className={styles.form} onSubmit={onSubmit}>
+      <form className={style.form} onSubmit={onSubmit}>
         <input
-          className="id-input"
           placeholder="아이디를 입력해주세요"
           value={id}
           onChange={onchangeId}
@@ -26,7 +25,6 @@ const Login = () => {
         />
 
         <input
-          className="password-input"
           placeholder="비밀번호를 입력해주세요"
           value={password}
           onChange={onchangePassword}
@@ -35,8 +33,8 @@ const Login = () => {
 
         <button>로그인</button>
       </form>
-      <div className={styles.div}>
-        <Link href="/signup">
+      <div className={style.div}>
+        <Link href="/login/loginInfo">
           <a>
             <p>
               로그인 정보를 잊으셨나요?

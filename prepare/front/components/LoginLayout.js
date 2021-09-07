@@ -1,17 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
 
-import styles from '../styles/css/loginLayout.module.css';
+import style from '../styles/css/loginLayout.module.css';
 
 const MainLayout = ({ children }) => {
   return (
-    <div className={styles.back}>
-      <div className={styles.maxWidth}>
-        <Link href="/">
-          <a>
-            <h1 className={styles.logo}>HESSED</h1>
-          </a>
-        </Link>
+    <div className={style.back}>
+      <div className={style.maxWidth}>
+        <div className={style.logoBox}>
+          <Link href="/">
+            <a>
+              <h1 className={style.logo}>HESSED</h1>
+            </a>
+          </Link>
+        </div>
         <div>{children}</div>
       </div>
     </div>

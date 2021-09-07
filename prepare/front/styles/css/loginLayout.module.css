@@ -7,6 +7,7 @@
 .back .maxWidth {
   max-width: 800px;
   margin: auto;
+  padding-top: 200px;
 }
 
 .back input,
@@ -20,14 +21,18 @@
 }
 
 .back button {
+  margin-top: 20px;
   background-color: #409857;
   color: white;
 }
 
-.logo {
-  padding-top: 200px;
-  padding-bottom: 50px;
+.logoBox {
   text-align: center;
+}
+
+.logo {
+  display: inline-block;
+  margin-bottom: 50px;
   color: white;
   font-size: 50px;
 }

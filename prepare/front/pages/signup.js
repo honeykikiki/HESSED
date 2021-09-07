@@ -11,7 +11,7 @@ const Login = () => {
   const [nickname, onChangeNickname, setNickname] = useinput('');
   const [phone, onChangePhone, setPhone] = useinput('');
   const [area, onChangeArea, setArea] = useinput('');
-  const [agree, onChangeAgree, setAgree] = useinput('');
+  const [agree, onChangeAgree, setAgree] = useinput();
 
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -34,7 +34,6 @@ const Login = () => {
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
         <input
-          className="id-input"
           placeholder="아이디를 입력해주세요"
           value={id}
           onChange={onChangeId}
@@ -45,7 +44,6 @@ const Login = () => {
         <br />
 
         <input
-          name="user-password"
           placeholder="비밀번호를 입력해주세요"
           type="password"
           value={password}
@@ -56,7 +54,6 @@ const Login = () => {
 
         <input
           style={{ marginTop: -5 }}
-          name="user-password-check"
           placeholder="비밀번호를 다시한번 입력해주세요"
           type="password"
           value={passwordCheck}
@@ -71,7 +68,6 @@ const Login = () => {
         <br />
 
         <input
-          name="user-nickname"
           placeholder="이름을 입력해주세요"
           type="text"
           value={nickname}
@@ -81,7 +77,6 @@ const Login = () => {
         <br />
 
         <input
-          name="user-Phone"
           placeholder="ex) 01012345678"
           type="text"
           value={phone}
@@ -90,24 +85,11 @@ const Login = () => {
         />
         <br />
 
-        <input
-          name="user-area"
-          placeholder="ex) 둔산동"
-          type="text"
-          value={area}
-          onChange={onChangeArea}
-          required
-        />
+        <input placeholder="ex) 둔산동" type="text" value={area} onChange={onChangeArea} required />
         <br />
 
         <div className={style.checkBox}>
-          <input
-            name="user-nickname"
-            type="checkbox"
-            value={agree}
-            onChange={onChangeNickname}
-            required
-          />
+          <input type="checkbox" value={agree} onChange={onChangeNickname} required />
           <span>개인정보 활용 동의 (보기)</span>
         </div>
         <br />

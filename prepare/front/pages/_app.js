@@ -12,7 +12,7 @@ const Hessed = ({ Component }) => {
       setTimeout(() => {
         const loadingPage = document.querySelector('.loadingPage');
         loadingPage.style.display = 'none';
-      }, 0);
+      }, 1000);
     }
   }, [loading]);
   return (

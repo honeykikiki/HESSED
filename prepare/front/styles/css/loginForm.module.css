@@ -18,15 +18,12 @@
 }
 
 .div {
+  margin-top: 20px;
   text-align: center;
 }
 
-.div a {
-  display: block;
-  margin-top: 20px;
-}
-
 .div a p {
+  display: inline;
   font-size: 1.4rem;
   color: #409857;
 }
