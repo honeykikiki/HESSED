@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import Link from 'next/link';
 
 import LoginLayout from '../components/LoginLayout';
 import useinput from '../hooks/useinput';
