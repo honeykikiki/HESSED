@@ -1,12 +1,21 @@
 * {
   padding: 0;
   margin: 0;
+}
+
+html,
+body {
   font-size: 10px;
 }
 
 a {
   text-decoration: none;
   color: black;
+}
+
+ul,
+ol {
+  list-style: none;
 }
 
 @-webkit-keyframes loading {
@@ -35,8 +44,6 @@ a {
 }
 
 .loadingPage h1 {
-  color: white;
-  font-size: 50px;
   position: absolute;
   left: 50%;
   top: 50%;

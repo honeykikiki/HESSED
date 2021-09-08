@@ -24,13 +24,14 @@
 }
 
 .loadingPage h1 {
-  color: white;
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  font-size: 50px;
   -webkit-animation: loading 1s linear;
           animation: loading 1s linear;
+  background: url(../../public/HESSED_LOGO-W.png) center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }

@@ -15,6 +15,7 @@
   width: calc(100% - 22%);
   padding-top: 5px;
   color: white;
+  font-size: 1.2rem;
 }
 
 .div {
@@ -24,7 +25,7 @@
 
 .div a p {
   display: inline;
-  font-size: 1.4rem;
+  font-size: 0.4rem;
   color: #409857;
 }
 
@@ -35,6 +36,7 @@
 
 .checkBox {
   width: calc(100% - 20%);
+  margin-top: -20px;
 }
 
 .checkBox input {
@@ -45,8 +47,8 @@
 
 .checkBox span {
   display: block;
-  margin-top: 10px;
+  margin-top: 12px;
   margin-left: 30px;
-  font-size: 1.2rem;
+  font-size: 0.4rem;
   color: white;
 }

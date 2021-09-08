@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Head from 'next/head';
-import useinput from '../hooks/useinput';
 
 import MainLayout from '../components/MainLayout';
 import '../styles/scss/mainPage.module.scss';
 import LoginForm from '../components/login/LoginForm';
-import Loading from '../pages/loading';
+import PostCart from '../components/mainContent/PostCard';
 
 const Home = () => {
-  return <>{false ? <MainLayout></MainLayout> : <LoginForm />}</>;
+  return (
+    <>
+      {true ? (
+        <MainLayout>
+          <PostCart />
+        </MainLayout>
+      ) : (
+        <LoginForm />
+      )}
+    </>
+  );
 };
 
 Home.propTypes = {

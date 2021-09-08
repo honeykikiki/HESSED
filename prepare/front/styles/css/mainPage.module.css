@@ -1,3 +1,121 @@
-.up {
-  margin-top: 20px;
+#header {
+  width: 100%;
+  background-color: #409857;
+}
+
+#header .maxWidth {
+  max-width: 935px;
+  height: 100%;
+}
+
+#header .logo {
+  width: 100%;
+  height: 44px;
+  background-color: #409857;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#header h1 {
+  background: url(../../public/HESSED_LOGO-W.png) center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 103px;
+  height: 100%;
+  margin: auto;
+}
+
+#gnb {
+  width: 100%;
+  height: 44px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: #409857;
+}
+
+#gnb div {
+  max-width: 800px;
+  height: 100%;
+  margin: auto;
+}
+
+#gnb ul {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#gnb ul li a {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+#gnb ul li:nth-child(1) a {
+  background-image: url(../../public/2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#gnb ul li:nth-child(2) a {
+  background-image: url(../../public/2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#gnb ul li:nth-child(3) a {
+  background-image: url(../../public/2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#gnb ul li:nth-child(4) a {
+  background-image: url(../../public/2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@media screen and (min-width: 935px) {
+  #header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    position: fixed;
+  }
+  #header .maxWidth {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 935px;
+    height: 100%;
+  }
+  #header .logo {
+    width: 50%;
+    background-color: none;
+    position: relative;
+  }
+  #header h1 {
+    margin: 0px;
+  }
+  #gnb {
+    position: relative;
+  }
+  #gnb ul {
+    width: 50%;
+    float: right;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
 }

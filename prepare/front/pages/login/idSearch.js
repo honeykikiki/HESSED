@@ -31,7 +31,7 @@ const IdSearch = () => {
           value={phone}
           onChange={onChangePhone}
           type="number"
-          maxlength="11"
+          maxLength="11"
         />
         <br />
 

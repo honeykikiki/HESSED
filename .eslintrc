@@ -28,9 +28,8 @@
 
     "prettier/prettier": "error",
     "consistent-return": "off",
-    "no-unused-expressions": "off",
     "eslint-disable ": "off",
     "react/prop-types": "off",
-    "eslint-disable-next-line": "react/jsx-props-no-spreading"
+    "eslint-disable-next-line": "off"
   }
 }

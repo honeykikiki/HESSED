@@ -67,6 +67,7 @@ const Login = () => {
         <br />
 
         <input
+          style={{ marginTop: -10 }}
           placeholder="이름을 입력해주세요"
           type="text"
           value={nickname}
@@ -91,9 +92,7 @@ const Login = () => {
           <input type="checkbox" value={agree} onChange={onChangeNickname} required />
           <span>개인정보 활용 동의 (보기)</span>
         </div>
-        <br />
-
-        <button>가입하기</button>
+        <button style={{ marginTop: 5 }}>가입하기</button>
       </form>
     </LoginLayout>
   );

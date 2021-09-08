@@ -1,0 +1,15 @@
+.a {
+  font-size: 2rem;
+  padding-top: 54px;
+}
+
+.a .maxWidth {
+  max-width: 935px;
+  margin: auto;
+}
+
+.a .maxWidth div {
+  background-color: aquamarine;
+  width: 100%;
+  margin: auto;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head'; // 헤드 컴포넌트
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 import '../styles/css/style.css';
 
@@ -22,7 +23,7 @@ const Hessed = ({ Component }) => {
         <title>HESSED</title>
       </Head>
       <div className="loadingPage">
-        <h1>HESSED</h1>
+        <h1></h1>
       </div>
       <Component />
     </>
@@ -30,7 +31,7 @@ const Hessed = ({ Component }) => {
 };
 
 Hessed.propTypes = {
-  Component: PropTypes.elementType.isRequiredssss,
+  Component: PropTypes.elementType.isRequired,
 };
 
 export default Hessed;
