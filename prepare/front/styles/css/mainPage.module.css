@@ -61,7 +61,7 @@
 }
 
 #gnb ul li:nth-child(1) a {
-  background-image: url(../../public/2.png);
+  background-image: url(../../public/1.svg);
   background-size: contain;
   background-repeat: no-repeat;
 }
