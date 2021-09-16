@@ -1,6 +1,7 @@
 #header {
   width: 100%;
   background-color: #409857;
+  z-index: 20;
 }
 
 #header .maxWidth {
@@ -15,6 +16,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 20;
 }
 
 #header h1 {
@@ -33,6 +35,7 @@
   left: 0;
   bottom: 0;
   background-color: #409857;
+  z-index: 20;
 }
 
 #gnb div {
@@ -58,30 +61,6 @@
   display: block;
   width: 24px;
   height: 24px;
-}
-
-#gnb ul li:nth-child(1) a {
-  background-image: url(../../public/1.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-#gnb ul li:nth-child(2) a {
-  background-image: url(../../public/2.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-#gnb ul li:nth-child(3) a {
-  background-image: url(../../public/2.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-#gnb ul li:nth-child(4) a {
-  background-image: url(../../public/2.png);
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 @media screen and (min-width: 935px) {

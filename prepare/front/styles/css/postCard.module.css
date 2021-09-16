@@ -1,6 +1,7 @@
 .a {
-  font-size: 2rem;
-  padding-top: 54px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 40px;
 }
 
 .a .maxWidth {
@@ -8,8 +9,66 @@
   margin: auto;
 }
 
-.a .maxWidth div {
-  background-color: aquamarine;
-  width: 100%;
+.a .maxWidth .postCard {
+  max-width: 600px;
+  height: 100%;
+}
+
+.postHead {
+  background: azure;
+  width: calc(100% - 40px);
+  height: 40px;
   margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.postHead header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.postHead header div:nth-child(1) img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.postHead header div {
+  margin-right: 20px;
+}
+
+.postHead .menu {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.postImage {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.postImage div {
+  width: 1000%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.postImage div img {
+  width: 10%;
+  -webkit-transform: translate3d(0%, 0px, 0px);
+          transform: translate3d(0%, 0px, 0px);
 }

@@ -3,11 +3,6 @@
   margin: 0;
 }
 
-html,
-body {
-  font-size: 10px;
-}
-
 a {
   text-decoration: none;
   color: black;
@@ -16,6 +11,12 @@ a {
 ul,
 ol {
   list-style: none;
+}
+
+html,
+body {
+  width: 100%;
+  font-size: 10px;
 }
 
 @-webkit-keyframes loading {
@@ -48,7 +49,7 @@ ol {
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   -webkit-animation: loading 1s linear;
-          animation: loading 1s linear;
+  animation: loading 1s linear;
 }

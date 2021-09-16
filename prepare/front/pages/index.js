@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import MainLayout from '../components/MainLayout';
-import '../styles/scss/mainPage.module.scss';
 import LoginForm from '../components/login/LoginForm';
-import PostCart from '../components/mainContent/PostCard';
+import PostCart from '../components/PostCard/PostCard';
 
 const Home = () => {
   return (
     <>
       {true ? (
         <MainLayout>
+          <div style={{ paddingTop: '10px' }}></div>
           <PostCart />
+          <PostCart />
+          <PostCart />
+          <PostCart />
+          <div style={{ paddingBottom: '54px' }}></div>
         </MainLayout>
       ) : (
         <LoginForm />
@@ -20,8 +24,6 @@ const Home = () => {
   );
 };
 
-Home.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-};
+Home.propTypes = {};
 
 export default Home;

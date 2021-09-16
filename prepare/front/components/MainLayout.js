@@ -16,23 +16,38 @@ const MainLayout = ({ children }) => {
               <div>
                 <ul>
                   <li>
-                    <Link href="">
-                      <a></a>
+                    <Link href="/">
+                      {/* Postcard */}
+                      <a>
+                        {true ? <img src="/icon/home-w.svg" /> : <img src="/icon/home-b.svg" />}
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/upload">
+                      {/* UpLoad */}
+                      <a>
+                        {false ? (
+                          <img src="/icon/upLoad-w.svg" />
+                        ) : (
+                          <img src="/icon/upLoad-b.svg" />
+                        )}
+                      </a>
                     </Link>
                   </li>
                   <li>
                     <Link href="">
-                      <a></a>
+                      {/* QrCode */}
+
+                      <a>{false ? <img src="/icon/QR-w.svg" /> : <img src="/icon/QR-b.svg" />}</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="">
-                      <a></a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="">
-                      <a></a>
+                      {/* profile */}
+                      <a>
+                        <div style={{ borderRadius: '50%', background: 'gray' }}></div>
+                      </a>
                     </Link>
                   </li>
                 </ul>

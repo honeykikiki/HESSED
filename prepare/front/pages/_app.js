@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head'; // 헤드 컴포넌트
 import PropTypes from 'prop-types';
-import Image from 'next/image';
 
 import '../styles/css/style.css';
 

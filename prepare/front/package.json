@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p 3030"
+    "dev": "next -p 3030",
     "build": "next build"
-
   },
   "author": "honey.kikiki",
   "license": "ISC",
