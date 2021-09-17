@@ -9,22 +9,7 @@ const MainLayout = ({ children }) => {
   const [postCardOnClick, setPostCardOnClick] = useState(true);
   const [upLoadCardOnClick, setUpLoadCardOnClick] = useState(false);
 
-  // console.log(postCardOnClick);
-  // console.log(upLoadCardOnClick);
-
-  // const PostOnClick = useCallback(() => {
-  //   if (postCardOnClick === false) {
-  //     setPostCardOnClick((prev) => !prev);
-  //     setUpLoadCardOnClick(false);
-  //   }
-  // }, [postCardOnClick, upLoadCardOnClick]);
-
-  // const upLoadOnClick = useCallback(() => {
-  //   if (upLoadCardOnClick === false) {
-  //     setUpLoadCardOnClick((prev) => !prev);
-  //     setPostCardOnClick(false);
-  //   }
-  // }, [upLoadCardOnClick, upLoadCardOnClick]);
+  const [upLoadCardOnClick, setUpLoadCardOnClick] = useState(false);
 
   return (
     <>
