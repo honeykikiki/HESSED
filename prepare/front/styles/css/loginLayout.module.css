@@ -1,0 +1,42 @@
+.back {
+  background-color: #3b3733;
+  width: 100vw;
+  height: 100vh;
+}
+
+.back .maxWidth {
+  max-width: 800px;
+  margin: auto;
+  padding-top: 200px;
+}
+
+.back input,
+.back button {
+  width: calc(100% - 20%);
+  height: 35px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.back button {
+  margin-top: 20px;
+  background-color: #409857;
+  color: white;
+}
+
+.logoBox {
+  text-align: center;
+}
+
+.logo {
+  display: inline-block;
+  margin-bottom: 50px;
+  color: white;
+  background: url(../../public/HESSED_LOGO-W.png) center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 37px;
+}

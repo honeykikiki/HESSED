@@ -1,0 +1,9 @@
+.art {
+  width: calc(100% - 40px);
+  margin: auto;
+  margin-top: 10px;
+}
+
+.art div {
+  margin-top: 5px;
+}

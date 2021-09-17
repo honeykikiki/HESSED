@@ -1,0 +1,54 @@
+.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form div {
+  width: calc(100% - 22%);
+  padding-top: 5px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.div {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.div a p {
+  display: inline;
+  font-size: 0.4rem;
+  color: #409857;
+}
+
+.div a p em {
+  color: white;
+  margin-left: 10px;
+}
+
+.checkBox {
+  width: calc(100% - 20%);
+  margin-top: -20px;
+}
+
+.checkBox input {
+  width: 15px;
+  float: left;
+  margin-top: 0px;
+}
+
+.checkBox span {
+  display: block;
+  margin-top: 12px;
+  margin-left: 30px;
+  font-size: 0.4rem;
+  color: white;
+}

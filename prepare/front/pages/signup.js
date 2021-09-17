@@ -1,0 +1,101 @@
+import React, { useCallback, useState } from 'react';
+
+import LoginLayout from '../components/LoginLayout';
+import useInput from '../hooks/useInput';
+import style from '../styles/css/loginForm.module.css';
+
+const Login = () => {
+  const [id, onChangeId, setId] = useInput('');
+  const [password, onChangePassword, setPassword] = useInput('');
+  const [nickname, onChangeNickname, setNickname] = useInput('');
+  const [phone, onChangePhone, setPhone] = useInput('');
+  const [area, onChangeArea, setArea] = useInput('');
+  const [agree, onChangeAgree, setAgree] = useInput();
+
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+
+  const onChangePasswordCheck = useCallback(
+    (e) => {
+      setPasswordCheck(e.target.value);
+      setPasswordError(e.target.value !== password);
+    },
+    [password],
+  );
+
+  const onSubmit = useCallback((e) => {
+    e.preventdefault();
+  }, []);
+
+  const onClick = () => {};
+
+  return (
+    <LoginLayout>
+      <form className={style.form} onSubmit={onSubmit}>
+        <input
+          placeholder="아이디를 입력해주세요"
+          value={id}
+          onChange={onChangeId}
+          type="text"
+          required
+        />
+
+        <br />
+
+        <input
+          placeholder="비밀번호를 입력해주세요"
+          type="password"
+          value={password}
+          onChange={onChangePassword}
+          required
+        />
+        <br />
+
+        <input
+          style={{ marginTop: -5 }}
+          placeholder="비밀번호를 다시한번 입력해주세요"
+          type="password"
+          value={passwordCheck}
+          required
+          onChange={onChangePasswordCheck}
+        />
+        {passwordError ? (
+          <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
+        ) : (
+          <div>{`*보안100%`}</div>
+        )}
+        <br />
+
+        <input
+          style={{ marginTop: -10 }}
+          placeholder="이름을 입력해주세요"
+          type="text"
+          value={nickname}
+          onChange={onChangeNickname}
+          required
+        />
+        <br />
+
+        <input
+          placeholder="ex) 01012345678"
+          type="text"
+          value={phone}
+          onChange={onChangePhone}
+          required
+        />
+        <br />
+
+        <input placeholder="ex) 둔산동" type="text" value={area} onChange={onChangeArea} required />
+        <br />
+
+        <div className={style.checkBox}>
+          <input type="checkbox" value={agree} onChange={onChangeNickname} required />
+          <span>개인정보 활용 동의 (보기)</span>
+        </div>
+        <button style={{ marginTop: 5 }}>가입하기</button>
+      </form>
+    </LoginLayout>
+  );
+};
+
+export default Login;
