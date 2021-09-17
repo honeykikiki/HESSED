@@ -3,11 +3,11 @@ import Link from 'next/link';
 
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
-import useinput from '../../hooks/useinput';
+import useInput from '../../hooks/useInput';
 
 const IdSearch = () => {
-  const [nickname, onChangeNickname, setNickname] = useinput('');
-  const [phone, onChangePhone, setPhone] = useinput('');
+  const [nickname, onChangeNickname, setNickname] = useInput('');
+  const [phone, onChangePhone, setPhone] = useInput('');
 
   const onSubmitIdSearch = useCallback((e) => {
     e.preventDefault();

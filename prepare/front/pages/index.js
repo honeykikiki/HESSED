@@ -15,6 +15,9 @@ const Home = () => {
           <PostCart />
           <PostCart />
           <PostCart />
+          <PostCart />
+          <PostCart />
+
           <div style={{ paddingBottom: '54px' }}></div>
         </MainLayout>
       ) : (

@@ -1,14 +1,13 @@
 import React, { useCallback } from 'react';
 import Link from 'next/link';
-import Router from 'next/router';
 
 import LoginLayout from '../LoginLayout';
-import useinput from '../../hooks/useinput';
+import useInput from '../../hooks/useInput';
 import style from '../../styles/css/login.module.css';
 
 const Login = () => {
-  const [id, onchangeId, setId] = useinput('');
-  const [password, onchangePassword, setPassword] = useinput('');
+  const [id, onchangeId, setId] = useInput('');
+  const [password, onchangePassword, setPassword] = useInput('');
 
   const onSubmit = useCallback((e) => {
     e.preventdefault();

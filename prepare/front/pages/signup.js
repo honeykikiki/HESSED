@@ -1,16 +1,16 @@
 import React, { useCallback, useState } from 'react';
 
 import LoginLayout from '../components/LoginLayout';
-import useinput from '../hooks/useinput';
+import useInput from '../hooks/useInput';
 import style from '../styles/css/loginForm.module.css';
 
 const Login = () => {
-  const [id, onChangeId, setId] = useinput('');
-  const [password, onChangePassword, setPassword] = useinput('');
-  const [nickname, onChangeNickname, setNickname] = useinput('');
-  const [phone, onChangePhone, setPhone] = useinput('');
-  const [area, onChangeArea, setArea] = useinput('');
-  const [agree, onChangeAgree, setAgree] = useinput();
+  const [id, onChangeId, setId] = useInput('');
+  const [password, onChangePassword, setPassword] = useInput('');
+  const [nickname, onChangeNickname, setNickname] = useInput('');
+  const [phone, onChangePhone, setPhone] = useInput('');
+  const [area, onChangeArea, setArea] = useInput('');
+  const [agree, onChangeAgree, setAgree] = useInput();
 
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);

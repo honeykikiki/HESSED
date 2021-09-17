@@ -19,7 +19,7 @@
   z-index: 20;
 }
 
-#header h1 {
+#header .logo h1 {
   background: url(../../public/HESSED_LOGO-W.png) center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -55,6 +55,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#gnb ul li {
+  padding: 10px;
 }
 
 #gnb ul li a {
