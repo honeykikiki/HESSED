@@ -1,0 +1,120 @@
+.a {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+.a .maxWidth {
+  max-width: 935px;
+  margin: auto;
+}
+
+.a .maxWidth .postCard {
+  max-width: 600px;
+  height: 100%;
+}
+
+.imageBox {
+  overflow: hidden;
+  position: relative;
+}
+
+.imageBox ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1000%;
+}
+
+.imageBox ul li {
+  width: 10%;
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+}
+
+.imageBox ul li img {
+  width: 100%;
+}
+
+.imageBox span {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: rgba(64, 152, 87, 0.4);
+}
+
+.imageBox .left {
+  opacity: 0;
+}
+
+.imageBox .left img {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 24px;
+}
+
+.imageBox ul li:hover .right {
+  opacity: 1;
+}
+
+.imageBox .right {
+  opacity: 0;
+}
+
+.imageBox .right img {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 24px;
+}
+
+.imageInput {
+  width: calc(100% - 40px);
+  margin: auto;
+  margin-top: 20px;
+}
+
+.imageInput span {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.imageInput span img {
+  margin-right: 20px;
+}
+
+.textInput {
+  width: calc(100% - 40px);
+  margin: auto;
+  margin-top: 20px;
+}
+
+.textInput textarea {
+  border: none;
+  border-bottom: 1px solid black;
+  width: calc(100% - 60px);
+}
+
+.textInput button {
+  margin-left: 20px;
+  border: none;
+  background-color: transparent;
+  color: #409857;
+  font-weight: bold;
+}
