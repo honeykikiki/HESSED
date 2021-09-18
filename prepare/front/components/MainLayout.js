@@ -9,8 +9,6 @@ const MainLayout = ({ children }) => {
   const [postCardOnClick, setPostCardOnClick] = useState(true);
   const [upLoadCardOnClick, setUpLoadCardOnClick] = useState(false);
 
-  const [upLoadCardOnClick, setUpLoadCardOnClick] = useState(false);
-
   return (
     <>
       <div className={style.wrapper}>
@@ -60,7 +58,7 @@ const MainLayout = ({ children }) => {
                   </li>
 
                   <li>
-                    <Link href="">
+                    <Link href="profile">
                       {/* profile */}
                       <a>
                         <div
