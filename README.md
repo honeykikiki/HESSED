@@ -77,7 +77,7 @@
 
     문제 / scss를 컴파일 후 react에서 작동이 안되는 문제 <br/>
     해결 / 우선 npm i scss를 하고 scss 네이밍에 module.scss를 추가하는 방법으로 해결했다
-    참고 = https://medium.com/sebride/next-js-with-module-sass-a8fe3976147
+    참고  https://medium.com/sebride/next-js-with-module-sass-a8fe3976147
 
 > }
 
@@ -116,5 +116,27 @@
 > 문제 / 해결:
 
     문제 : 이미지 업로드를 하기위해 input 설정 방법 이해하기
+
+}
+
+## 이미지 박스 2차원배열
+
+{
+
+> 문제 / 해결:
+
+    문제 : react에서 데이터 가져와 2차원 배열 만들기 for문 사용 안됨
+    해결 :  {a.map((v, i) => {
+              if (i % 3 === 0) {
+                // i = 0 3 6 9
+                return (
+                  <ul className={style.upLoadImage}>
+                    <li>{<img src={`${a[i + 0]}`} />}</li>
+                    {a[i + 1] && <li>{<img src={`${a[i + 1]}`} />}</li>}
+                    {a[i + 2] && <li>{<img src={`${a[i + 2]}`} />}</li>}
+                  </ul>
+                );
+              }
+            })}
 
 }
