@@ -12,6 +12,7 @@ const PostContent = () => {
       <div>
         <p>{false ? `comment` : null}</p>
       </div>
+      <br />
       <div>
         <p>{`2020년 07월 08일`}</p>
       </div>
