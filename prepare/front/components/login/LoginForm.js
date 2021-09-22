@@ -4,14 +4,25 @@ import Link from 'next/link';
 import LoginLayout from '../LoginLayout';
 import useInput from '../../hooks/useInput';
 import style from '../../styles/css/loginForm.module.css';
+import { useDispatch } from 'react-redux';
+import { LOG_IN_REQUEST } from '../../reducers/user';
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [id, onchangeId, setId] = useInput('');
   const [password, onchangePassword, setPassword] = useInput('');
 
-  const onSubmit = useCallback((e) => {
-    e.preventdefault();
-  }, []);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch({
+        type: LOG_IN_REQUEST,
+        data: { id, password },
+      });
+    },
+    [id, password],
+  );
 
   return (
     <LoginLayout>
@@ -31,7 +42,7 @@ const Login = () => {
           type="password"
         />
 
-        <button>로그인</button>
+        <button type="submit">로그인</button>
       </form>
       <div className={style.div}>
         <Link href="/login/loginInfo">

@@ -3,6 +3,7 @@ import Head from 'next/head'; // 헤드 컴포넌트
 import PropTypes from 'prop-types';
 
 import '../styles/css/style.css';
+import wrapper from '../store/configureStore';
 
 const Hessed = ({ Component }) => {
   const [loading, setLoading] = useState(true);
@@ -33,4 +34,4 @@ Hessed.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default Hessed;
+export default wrapper.withRedux(Hessed);

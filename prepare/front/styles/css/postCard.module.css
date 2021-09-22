@@ -12,10 +12,10 @@
 .a .maxWidth .postCard {
   max-width: 600px;
   height: 100%;
+  border: 1px solid #dbdbdb;
 }
 
 .postHead {
-  background: azure;
   width: calc(100% - 40px);
   height: 40px;
   margin: auto;
@@ -37,14 +37,15 @@
           align-items: center;
 }
 
+.postHead header div {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
 .postHead header div:nth-child(1) img {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-}
-
-.postHead header div {
-  margin-right: 20px;
 }
 
 .postHead .menu {
@@ -82,7 +83,7 @@
   .postImage div img {
     width: 10%;
     height: 600px;
-    -webkit-transform: translate3d(-100%, 0px, 0px);
-            transform: translate3d(-100%, 0px, 0px);
+    -webkit-transform: translate3d(0%, 0px, 0px);
+            transform: translate3d(0%, 0px, 0px);
   }
 }
