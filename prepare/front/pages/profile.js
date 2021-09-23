@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import faker from 'faker';
 import Router from 'next/router';
 
 import MainLayout from '../components/MainLayout';
 
 import style from '../styles/css/profile.module.css';
+import { useSelector } from 'react-redux';
 
 const a = Array(10)
   .fill(faker.image.image())
@@ -57,10 +58,12 @@ const b = [
   },
 ];
 
-console.log(b[0].nickname);
-
 const Profile = () => {
+  const { profile } = useSelector((state) => state.menu);
+
   const [followPage, setFollowPage] = useState(true);
+
+  useEffect(() => {}, []);
 
   const onClickRouter = useCallback((e) => {
     e.preventDefault();
@@ -98,6 +101,7 @@ const Profile = () => {
           </div>
 
           <div className={style.profileNameReSet}>프로필수정</div>
+
           {followPage ? (
             <div className={style.upLoadImageBox}>
               {a.map((v, i) => {

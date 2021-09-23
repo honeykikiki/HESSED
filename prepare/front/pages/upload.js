@@ -7,17 +7,22 @@ import style from '../styles/css/upload.module.css';
 
 const Home = () => {
   const imageInput = useRef();
+
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
-  console.log(imageInput);
+
+  const upLoadFormClick = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
   return (
     <>
       <MainLayout>
         <div style={{ paddingTop: '24px' }}></div>
         <section className={style.a}>
           <article className={style.maxWidth}>
-            <form className={style.upLoadForm}>
+            <form className={style.upLoadForm} onClick={upLoadFormClick}>
               <div className={style.imageBox}>
                 <ul>
                   <li>

@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import MainLayout from '../components/MainLayout';
 import LoginForm from '../components/login/LoginForm';
-import PostCart from '../components/PostCard/PostCard';
+import PostCard from '../components/PostCard/PostCard';
 
 const Home = () => {
-  const { logInDone } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
+  const { mainPosts } = useSelector((state) => state.post);
 
   return (
     <>
-      {logInDone ? (
+      {me ? (
         <MainLayout>
           <div style={{ paddingTop: '10px' }}></div>
-          <PostCart />
-          <PostCart />
-          <PostCart />
-          <PostCart />
-          <PostCart />
-          <PostCart />
+
+          {mainPosts.map((v) => {
+            return <PostCard key={v.id} post={v} />;
+          })}
 
           <div style={{ paddingBottom: '54px' }}></div>
         </MainLayout>
@@ -28,7 +27,5 @@ const Home = () => {
     </>
   );
 };
-
-Home.propTypes = {};
 
 export default Home;
