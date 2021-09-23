@@ -1,10 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Router from 'next/router';
 
 import LoginLayout from '../components/LoginLayout';
 import useInput from '../hooks/useInput';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 import style from '../styles/css/loginForm.module.css';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const { signUpDone } = useSelector((state) => state.user);
+
   const [id, onChangeId, setId] = useInput('');
   const [password, onChangePassword, setPassword] = useInput('');
   const [nickname, onChangeNickname, setNickname] = useInput('');
@@ -23,11 +29,32 @@ const Login = () => {
     [password],
   );
 
-  const onSubmit = useCallback((e) => {
-    e.preventdefault();
-  }, []);
+  useEffect(() => {
+    if (signUpDone) {
+      Router.replace('/');
+    }
+  }, [signUpDone]);
 
-  const onClick = () => {};
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      if (password !== passwordCheck) {
+        return setPasswordError(true);
+      }
+      if (agree) {
+        return setTermError(true);
+      }
+      if (phone.length !== 11) {
+        return alert('올바른 전화번호를 입력해주세요');
+      }
+      dispatch({
+        type: SIGN_UP_REQUEST,
+        data: { id, password, nickname, phone, area },
+      });
+    },
+    [id, password, nickname, phone, area],
+  );
 
   return (
     <LoginLayout>
@@ -81,15 +108,27 @@ const Login = () => {
           type="text"
           value={phone}
           onChange={onChangePhone}
+          maxLength="11"
           required
         />
         <br />
 
-        <input placeholder="ex) 둔산동" type="text" value={area} onChange={onChangeArea} required />
+        <input
+          placeholder="ex) 둔산동"
+          type="text"
+          value={area}
+          onChange={onChangeArea}
+          required
+        />
         <br />
 
         <div className={style.checkBox}>
-          <input type="checkbox" value={agree} onChange={onChangeNickname} required />
+          <input
+            type="checkbox"
+            value={agree}
+            onChange={onChangeNickname}
+            required
+          />
           <span>개인정보 활용 동의 (보기)</span>
         </div>
         <button style={{ marginTop: 5 }}>가입하기</button>

@@ -10,7 +10,7 @@ const Login = () => {
   const [password, onchangePassword, setPassword] = useInput('');
 
   const onSubmit = useCallback((e) => {
-    e.preventdefault();
+    e.preventDefault();
   }, []);
 
   return (

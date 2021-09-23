@@ -1,8 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import style from '../../styles/css/QrCode.module.css';
 
 const QrCode = () => {
+  const { qrCode } = useSelector((state) => state.menu);
+
   return (
     <>
       <div>
@@ -10,7 +13,7 @@ const QrCode = () => {
         클릭하면 첫번쨰 true 다른거 클릭하면 false
         두번쨰 참거짓 qr코드가있으면 true 없으면 false
         */}
-        {true ? null : false ? (
+        {qrCode ? null : true ? (
           <div className={style.qr}>
             <h1>
               <img src="/icon/HESSED_LOGO-B.png" />

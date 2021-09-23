@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'; //리듀서 합치는거
 
 import user from './user';
 import post from './post';
+import menu from './menu';
 
 const rootReducer = (state, action) => {
   switch (action.type) {
@@ -13,6 +14,7 @@ const rootReducer = (state, action) => {
       const combineReducer = combineReducers({
         user,
         post,
+        menu,
       });
       return combineReducer(state, action);
   }

@@ -40,6 +40,7 @@ const Login = () => {
           value={password}
           onChange={onchangePassword}
           type="password"
+          required
         />
 
         <button type="submit">로그인</button>
