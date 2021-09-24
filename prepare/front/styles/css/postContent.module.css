@@ -4,6 +4,35 @@
   margin-top: 10px;
 }
 
-.art div {
+.art > div {
+  margin-top: 5px;
+}
+
+.content > p {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.content button {
+  border: none;
+  font-size: 1.4rem;
+  background-color: transparent;
+  color: #A2A2A2;
+}
+
+.comment span:nth-child(1) {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.comment span:nth-child(2) {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-right: 10px;
+}
+
+.commentMore {
+  color: #A2A2A2;
   margin-top: 5px;
 }
