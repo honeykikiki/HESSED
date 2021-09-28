@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../../hooks/useInput';
 import { ADD_COMMENT_REQUEST } from '../../reducers/post';
+import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postComment.module.css';
+import useInput from '../../hooks/useInput';
 
 const PostContent = ({ post }) => {
   const dispatch = useDispatch();
@@ -51,6 +52,19 @@ const PostContent = ({ post }) => {
       </form>
     </>
   );
+};
+
+PostContent.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number,
+    user: PropTypes.object,
+    content: PropTypes.string,
+    createdAt: PropTypes.string,
+    comments: PropTypes.arrayOf(PropTypes.object),
+    Images: PropTypes.arrayOf(PropTypes.object),
+    Likers: PropTypes.arrayOf(PropTypes.object),
+    Retweet: PropTypes.objectOf(PropTypes.any),
+  }).isRequired,
 };
 
 export default PostContent;

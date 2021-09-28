@@ -5,12 +5,16 @@ export const initialState = {
   upLoad: false,
   qrCode: true,
   profile: false,
+  commentToReply: true,
 };
 
 export const POST_CARD = 'POST_CARD';
 export const UP_LOAD = 'UP_LOAD';
 export const QR_CODE = 'QR_CODE';
 export const PROFILE = 'PROFILE';
+
+export const COMMENT_TO_REPLY_OPEN = 'COMMENT_TO_REPLY_OPEN';
+export const COMMENT_TO_REPLY_CLOSE = 'COMMENT_TO_REPLY_CLOSE';
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -38,6 +42,13 @@ const reducer = (state = initialState, action) => {
         draft.upLoad = false;
         draft.qrCode = true;
         draft.profile = true;
+        break;
+
+      case COMMENT_TO_REPLY_CLOSE:
+        draft.commentToReply = true;
+        break;
+      case COMMENT_TO_REPLY_OPEN:
+        draft.commentToReply = false;
         break;
       default:
         break;

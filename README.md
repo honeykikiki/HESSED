@@ -55,6 +55,8 @@
         들어가는 기능
         1. 좋아요 및 취소
         2. 댓글 및 삭제
+            >2-1 댓글 더보기 기능
+            >2-2 댓글의 답글 기능
         3. 공유
         4. 저장 및 취소
         5. 수정
@@ -197,6 +199,25 @@
 > 문제 / 해결:
 
     문제 : 댓글에 더보기 기능 추가하기
+    해결 : slice 를 이용해 해결하엿다
+
+}
+
+## 댓글창 크기 자동조절
+
+{
+
+> 문제 / 해결:
+
+    문제 : 댓글을 작성할떄 크기를 자동조절하기
     해결 :
+        >const ref = useRef();
+        >const handleResizeHeight = useCallback(() => {
+        >  if (ref === null || ref.current === null) {
+        >    return;
+        >  }
+        >  ref.current.style.height = '20px';
+        >  ref.current.style.height = ref.current.scrollHeight + 'px';
+        >}, []);
 
 }

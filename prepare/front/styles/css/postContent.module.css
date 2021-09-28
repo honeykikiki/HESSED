@@ -10,19 +10,19 @@
 
 .content > p {
   font-size: 1.4rem;
-  font-weight: bold;
+  font-weight: 550;
 }
 
 .content button {
   border: none;
   font-size: 1.4rem;
   background-color: transparent;
-  color: #A2A2A2;
+  color: #8e8e8e;
 }
 
 .comment span:nth-child(1) {
   font-size: 1.4rem;
-  font-weight: bold;
+  font-weight: 550;
   margin-right: 10px;
 }
 
@@ -33,6 +33,6 @@
 }
 
 .commentMore {
-  color: #A2A2A2;
+  color: #8e8e8e;
   margin-top: 5px;
 }

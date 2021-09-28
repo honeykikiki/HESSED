@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postImage.module.css';
 
@@ -28,6 +29,7 @@ const PostImages = ({ images }) => {
         {images.map((v, i) => {
           return (
             <img
+              key={v.id}
               src={v.src}
               style={{
                 transform: `translate3d(-${imageCuurrentNo * 100}%, 0px, 0px)`,
@@ -39,6 +41,10 @@ const PostImages = ({ images }) => {
       </div>
     </>
   );
+};
+
+PostImages.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default PostImages;

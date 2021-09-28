@@ -109,6 +109,8 @@
   border: none;
   border-bottom: 1px solid black;
   width: calc(100% - 60px);
+  outline-color: white;
+  resize: none;
 }
 
 .textInput button {
