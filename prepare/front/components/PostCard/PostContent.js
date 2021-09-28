@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import style from '../../styles/css/postContent.module.css';
 import useInput from '../../hooks/useInput';
@@ -29,13 +30,17 @@ const PostContent = ({ post }) => {
           <button onClick={contentbrief}>간략하게보기</button>
         )}
       </div>
-      {post.Comments.length > 2 && (
-        <p className={style.commentMore}>
-          {post.Comments.length}개의 댓글 모두보기
-        </p>
+      {post?.Comments?.length > 2 && (
+        <Link href={`/${post.id}/comment`}>
+          <a>
+            <p className={style.commentMore}>
+              {post.Comments.length}개의 댓글 모두보기
+            </p>
+          </a>
+        </Link>
       )}
       <div>
-        <p>
+        <div>
           {post.Comments ? (
             <div className={style.comment}>
               <div>
@@ -48,7 +53,7 @@ const PostContent = ({ post }) => {
               </div>
             </div>
           ) : null}
-        </p>
+        </div>
       </div>
       <div>
         <p>{`2020년 07월 08일`}</p>
@@ -59,11 +64,11 @@ const PostContent = ({ post }) => {
 
 PostContent.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.string,
-    user: PropTypes.object,
+    id: PropTypes.number,
+    User: PropTypes.object,
     content: PropTypes.string,
     createdAt: PropTypes.string,
-    comments: PropTypes.arrayOf(PropTypes.object),
+    Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
     Retweet: PropTypes.objectOf(PropTypes.any),

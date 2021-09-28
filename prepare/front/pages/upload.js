@@ -1,12 +1,13 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import faker from 'faker';
 
 import MainLayout from '../components/MainLayout';
-
 import style from '../styles/css/upload.module.css';
+import useInput from '../hooks/useInput';
 
 const Home = () => {
   const imageInput = useRef();
+  const [imagesInput, setImagesInput] = useState();
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -52,14 +53,15 @@ const Home = () => {
                   type="file"
                   name="image"
                   ref={imageInput}
-                  hidden
+                  value={imagesInput}
+                  onChange={onClickImageUpload}
+                  // hidden
                   multiple
-                  required
                 />
-                <span onClick={onClickImageUpload}>
+                <div>
                   <img src="/icon/addphoto.svg" />
                   <p>등록할 사진을 가지고와주세요.</p>
-                </span>
+                </div>
               </div>
 
               <div className={style.textInput}>

@@ -25,6 +25,23 @@ export const SIGN_UP_REQUEST = 'SING_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SING_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SING_UP_FAILURE';
 
+const dummyUser = (data) => ({
+  ...data,
+  nickname: 'kikiki',
+  id: 1,
+  Posts: [{ id: 1 }],
+  Followings: [
+    { nickname: '부기초' },
+    { nickname: 'chanho lee' },
+    { nickname: 'nenu zeal' },
+  ],
+  Fllowers: [
+    { nickname: '부기초' },
+    { nickname: 'chanho lee' },
+    { nickname: 'nenu zeal' },
+  ],
+});
+
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
@@ -37,7 +54,7 @@ const reducer = (state = initialState, action) => {
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
         draft.logInDone = true;
-        draft.me = action.data;
+        draft.me = dummyUser(action.data); //action.data;
         break;
       case LOG_IN_FAILURE:
         draft.logInLoading = false;

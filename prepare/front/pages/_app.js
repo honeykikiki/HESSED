@@ -13,7 +13,7 @@ const Hessed = ({ Component }) => {
       setTimeout(() => {
         const loadingPage = document.querySelector('.loadingPage');
         loadingPage.style.display = 'none';
-      }, 1000);
+      }, 100);
     }
   }, [loading]);
   return (
@@ -23,7 +23,9 @@ const Hessed = ({ Component }) => {
         <title>HESSED</title>
       </Head>
       <div className="loadingPage">
-        <h1></h1>
+        <h1>
+          <img src="/icon/HESSED_LOGO-W.png" width="180" />
+        </h1>
       </div>
       <Component />
     </>
