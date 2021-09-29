@@ -221,3 +221,33 @@
         >}, []);
 
 }
+
+## 댓글에 답글달기
+
+{
+
+> 문제 / 해결:
+
+    문제 : 댓글의 답글달기
+    해결 :
+        1. 댓글단 게시물찾기
+        2. 게시물에 댓글찾기
+        3. 찾은 댓글 안에 답글 넣기
+        > const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        >post.Comments.find(
+        >  (v) => v.User.id === action.data.userId,
+        >).Comments.push(action.data);
+
+}
+
+## 답글보기 기능 클릭시 모든댓글의 답글이 다같이 보여진다
+
+{
+
+> 문제 / 해결:
+
+    문제 : 답글보기 기능 클릭시 모든댓글의 답글이 다같이 보여진다
+    해결 :
+
+
+}
