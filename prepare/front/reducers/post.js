@@ -32,6 +32,7 @@ export const generateDummyPost = (number) =>
       ],
       Comments: [
         {
+          id: shortId.generate(),
           User: {
             id: shortId.generate(),
             nickname: faker.name.findName(),
@@ -40,6 +41,7 @@ export const generateDummyPost = (number) =>
           Comments: [],
         },
         {
+          id: shortId.generate(),
           User: {
             id: shortId.generate(),
             nickname: faker.name.findName(),
@@ -85,17 +87,31 @@ export const generateDummyPost = (number) =>
 export const initialState = {
   mainPosts: generateDummyPost(10),
   imagePaths: [],
+  removePostLoading: false,
+  removePostDone: false,
+  removePostError: null,
   addCommentLoading: false,
   addCommentDone: false,
   addCommentError: null,
+  removeCommentLoading: false,
+  removeCommentDone: false,
+  removeCommentError: null,
   addCommentReplyLoading: false,
   addCommentReplyDone: false,
   addCommentReplyError: null,
 };
 
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+export const REMOVE_COMMENT_REQUEST = 'REMOVE_COMMENT_REQUEST';
+export const REMOVE_COMMENT_SUCCESS = 'REMOVE_COMMENT_SUCCESS';
+export const REMOVE_COMMENT_FAILURE = 'REMOVE_COMMENT_FAILURE';
 
 export const ADD_COMMENT_REPLY_REQUEST = 'ADD_COMMENT_REPLY_REQUEST';
 export const ADD_COMMENT_REPLY_SUCCESS = 'ADD_COMMENT_REPLY_SUCCESS';
@@ -104,6 +120,26 @@ export const ADD_COMMENT_REPLY_FAILURE = 'ADD_COMMENT_REPLY_FAILURE';
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      // 게시물 삭제
+      case REMOVE_POST_REQUEST:
+        draft.removePostLoading = true;
+        draft.removePostDone = false;
+        draft.removePostError = null;
+        break;
+      case REMOVE_POST_SUCCESS: {
+        draft.removePostLoading = false;
+        draft.removePostDone = true;
+        draft.removePostError = null;
+        draft.mainPosts = draft.mainPosts.filter(
+          (v) => v.id !== action.data.postId,
+        );
+        break;
+      }
+      case REMOVE_POST_FAILURE:
+        draft.removePostDone = false;
+        draft.removePostError = action.error;
+        break;
+
       // 댓글달기
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;
@@ -122,6 +158,35 @@ const reducer = (state = initialState, action) => {
         draft.addCommentDone = false;
         draft.addCommentError = action.error;
         break;
+      // 댓글 삭제
+      case REMOVE_COMMENT_REQUEST:
+        draft.removeCommentLoading = true;
+        draft.removeCommentDone = false;
+        draft.removeCommentError = null;
+        break;
+      case REMOVE_COMMENT_SUCCESS: {
+        // post.Comments.filter((v) => v.User.id !== action.data.userId);
+        draft.removeCommentLoading = false;
+        draft.removeCommentDone = true;
+        draft.removeCommentError = null;
+        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        const postNum = draft.mainPosts.indexOf(post);
+
+        const postC = draft.mainPosts[postNum].Comments;
+        const c = postC.find((v) => v === action.data.userId);
+        const d = postC.findIndex((v) => v.id === c);
+        draft.mainPosts[postNum].Comments.splice(d, 1);
+        // draft.mainPosts = draft.mainPosts[postNum].Comments.filter(
+        //   (v) => v.User.id !== action.data.userId,
+        // );
+
+        break;
+      }
+      case REMOVE_COMMENT_FAILURE:
+        draft.removeCommentDone = false;
+        draft.removeCommentError = action.error;
+        break;
+
       // 댓글의 답글달기
       case ADD_COMMENT_REPLY_REQUEST:
         draft.addCommentReplyLoading = true;
@@ -130,7 +195,6 @@ const reducer = (state = initialState, action) => {
         break;
       case ADD_COMMENT_REPLY_SUCCESS: {
         const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-
         post.Comments.find(
           (v) => v.User.id === action.data.userId,
         ).Comments.push(action.data);

@@ -51,11 +51,12 @@ const MobileComment = ({ id }) => {
         type: ADD_COMMENT_REQUEST,
         data: {
           content: comment,
-          postId: Number(id),
+          postId: +id,
           User: {
             id: me.id,
             nickname: me.nickname,
           },
+          Comments: [],
         },
       });
     },

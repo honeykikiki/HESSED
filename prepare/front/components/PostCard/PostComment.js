@@ -29,8 +29,9 @@ const PostContent = ({ post }) => {
         type: ADD_COMMENT_REQUEST,
         data: {
           content: comment,
-          postId: post.id,
+          postId: +post.id,
           User: { id, nickname: 'kikiki' },
+          Comments: [],
         },
       });
     },

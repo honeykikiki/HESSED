@@ -28,7 +28,7 @@ export const SIGN_UP_FAILURE = 'SING_UP_FAILURE';
 const dummyUser = (data) => ({
   ...data,
   nickname: 'kikiki',
-  id: 1,
+  id: 20,
   Posts: [{ id: 1 }],
   Followings: [
     { nickname: '부기초' },
