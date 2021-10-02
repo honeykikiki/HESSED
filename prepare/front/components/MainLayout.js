@@ -10,9 +10,7 @@ import { LOG_OUT_REQUEST } from '../reducers/user';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
-  const { postCard, upLoad, qrCode, profile } = useSelector(
-    (state) => state.menu,
-  );
+  const { postCard, upLoad, qrCode } = useSelector((state) => state.menu);
 
   const [profileToggle, setProfileToggle] = useState(false);
 
