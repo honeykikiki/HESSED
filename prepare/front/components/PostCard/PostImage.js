@@ -20,12 +20,17 @@ const PostImages = ({ images }) => {
   return (
     <>
       <div className={style.imageBox}>
-        <div className={style.left} onClick={onClickLeft}>
-          <img src="/icon/left.png" />
-        </div>
-        <div className={style.right} onClick={onClickRight}>
-          <img src="/icon/right.png" />
-        </div>
+        {imageCuurrentNo >= 1 && (
+          <div className={style.left} onClick={onClickLeft}>
+            <img src="/icon/left.png" />
+          </div>
+        )}
+
+        {imageCuurrentNo < images.length - 1 && (
+          <div className={style.right} onClick={onClickRight}>
+            <img src="/icon/right.png" />
+          </div>
+        )}
         {images.map((v, i) => {
           return (
             <img

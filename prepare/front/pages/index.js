@@ -13,7 +13,7 @@ const Home = () => {
     <>
       {me ? (
         <MainLayout>
-          <div style={{ paddingTop: '10px' }}></div>
+          <div style={{ paddingTop: '30px' }}></div>
 
           {mainPosts.map((v) => {
             return <PostCard key={v.id} post={v} />;

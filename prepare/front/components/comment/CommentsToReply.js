@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ADD_COMMENT_REPLY_REQUEST } from '../../reducers/post';
 import { COMMENT_TO_REPLY_CLOSE } from '../../reducers/menu';
 
+import CommentOptionBtn from './CommentOptionBtn';
+
 const CommentsToReply = ({ v, i, userId, nickname, id }) => {
   const dispatch = useDispatch();
   const { commentToReply } = useSelector((state) => state.menu);
@@ -32,7 +34,6 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
     }
     if (addCommentReplyDone) {
       setCommentReply('');
-      ref.current.style.height = '20px';
       dispatch({
         type: COMMENT_TO_REPLY_CLOSE,
       });
@@ -55,13 +56,12 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
       if (!commentReply) {
         return alert('댓글을 작성해주세요');
       }
-
       dispatch({
         type: ADD_COMMENT_REPLY_REQUEST,
         data: {
           content: commentReply,
-          postId: Number(id),
-          userId: userId,
+          postId: +id,
+          userId,
           User: {
             id: me.id,
             nickname: me.nickname,
@@ -74,7 +74,7 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
 
   return (
     <>
-      {!v.Comments[0] ? null : reply ? (
+      {!v?.Comments[0] ? null : reply ? (
         <button onClick={onClickReply}>
           <span></span>
           <p>답글 보기({v.Comments.length}개)</p>
@@ -109,6 +109,10 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
                     <div className={style.contentInComment}>
                       <span>{v.User.nickname}</span>
                       <span>{v.content}</span>
+                      <span>
+                        <CommentOptionBtn post={v} postId={id} bool={false} />
+                      </span>
+                      <span></span>
                     </div>
                   </li>
                 </ul>

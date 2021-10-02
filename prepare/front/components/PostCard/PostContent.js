@@ -44,12 +44,12 @@ const PostContent = ({ post }) => {
           {post.Comments ? (
             <div className={style.comment}>
               <div>
-                <span>{`${post.Comments[0]?.User?.nickname}`}</span>
-                <span>{`${post.Comments[0].content}`}</span>
+                <span>{`${post.Comments[0]?.User?.nickname ?? ''}`}</span>
+                <span>{`${post.Comments[0]?.content ?? ''}`}</span>
               </div>
               <div>
-                <span>{`${post.Comments[1]?.User?.nickname ?? ''}  `}</span>
-                <span>{`${post.Comments[1]?.content ?? ''} `}</span>
+                <span>{`${post?.Comments[1]?.User?.nickname ?? ''}  `}</span>
+                <span>{`${post?.Comments[1]?.content ?? ''} `}</span>
               </div>
             </div>
           ) : null}

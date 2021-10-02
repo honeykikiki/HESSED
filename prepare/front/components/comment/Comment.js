@@ -7,7 +7,8 @@ import CommentsToReply from './CommentsToReply';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { COMMENT_TO_REPLY_OPEN } from '../../reducers/menu';
-import { ADD_COMMENT_REPLY_REQUEST } from '../../reducers/post';
+
+import CommentOptionBtn from './CommentOptionBtn';
 
 const Comment = ({ mainPosts, id }) => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Comment = ({ mainPosts, id }) => {
     <div>
       {mainPosts?.Comments.map((v, i) => {
         return (
-          <ul key={v.id}>
+          <ul key={v.User.nickname}>
             <li>
               <div>
                 <div
@@ -54,6 +55,17 @@ const Comment = ({ mainPosts, id }) => {
               <div className={style.contentInComment}>
                 <span>{v.User.nickname}</span>
                 <span>{v.content}</span>
+                {/* <span
+                  style={{
+                    backgroundImage: 'url(/icon/btn.svg)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <img />
+                </span> */}
+                <span>
+                  <CommentOptionBtn post={v} postId={id} bool={true} />
+                </span>
               </div>
             </li>
 

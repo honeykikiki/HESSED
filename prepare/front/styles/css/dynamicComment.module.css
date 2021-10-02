@@ -85,9 +85,17 @@
   display: flex;
 }
 
+.postComment ul .contentInComment span {
+  margin-right: 10px;
+}
+
+.postComment ul .contentInComment span img {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 .postComment ul .contentInComment span:nth-child(1) {
   font-weight: 550;
-  margin-right: 10px;
 }
 
 .postComment ul .reply {
