@@ -4,9 +4,18 @@ import PropTypes from 'prop-types';
 import style from '../../styles/css/postCard.module.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { REMOVE_COMMENT_REQUEST } from '../../reducers/post';
+import {
+  REMOVE_COMMENT_REPLY_REQUEST,
+  REMOVE_COMMENT_REQUEST,
+} from '../../reducers/post';
 
-const CommentOptionBtn = ({ post, postId }) => {
+const CommentOptionBtn = ({
+  post,
+  postId,
+  commentId,
+  bool,
+  commentReplyCheckdId,
+}) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
   const [optionButton, setOptionButton] = useState(true);
@@ -23,22 +32,39 @@ const CommentOptionBtn = ({ post, postId }) => {
       return;
     }
   }, [optionButton]);
-  // console.log(typeof +postId, typeof me.id);
-  // console.log(post);
+
   const onClickCommentRemove = useCallback(() => {
     dispatch({
       type: REMOVE_COMMENT_REQUEST,
-      data: { postId: +postId, userId: me.id },
+      data: {
+        commentId,
+        postId: +postId,
+        userId: me.id,
+      },
     });
-  }, []);
+  }, [commentId]);
+
+  const onClickCommentReplyRemove = useCallback(() => {
+    dispatch({
+      type: REMOVE_COMMENT_REPLY_REQUEST,
+      data: {
+        commentId,
+        commentReplyId: commentReplyCheckdId,
+        postId: +postId,
+        userId: me.id,
+      },
+    });
+  }, [commentId, commentReplyCheckdId, postId]);
 
   return (
     <>
-      {true ? (
+      {bool ? (
         //댓글용
         <span
           className={style.menu}
-          style={{ backgroundImage: 'url(/icon/btn.svg)' }}
+          style={{
+            backgroundImage: 'url(/icon/btn.svg)',
+          }}
           onClick={onClickOptionOpen}
         >
           <img />
@@ -73,7 +99,9 @@ const CommentOptionBtn = ({ post, postId }) => {
         //답글용
         <span
           className={style.menu}
-          style={{ backgroundImage: 'url(/icon/btn.svg)' }}
+          style={{
+            backgroundImage: 'url(/icon/btn.svg)',
+          }}
           onClick={onClickOptionOpen}
         >
           <img />
@@ -83,7 +111,7 @@ const CommentOptionBtn = ({ post, postId }) => {
               className={style.optionButton}
               style={{ border: '1px solid black' }}
             >
-              <div onClick={onClickCommentRemove}>
+              <div onClick={onClickCommentReplyRemove}>
                 <p>삭제</p>
               </div>
               <div onClick={onClickOptionClose}>
@@ -120,6 +148,10 @@ CommentOptionBtn.propTypes = {
     Likers: PropTypes.arrayOf(PropTypes.object),
     Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
+  postId: PropTypes.number.isRequired,
+  commentId: PropTypes?.number.isRequired,
+  bool: PropTypes.bool.isRequired,
+  commentReplyCheckdId: PropTypes?.number.isRequired,
 };
 
 export default CommentOptionBtn;

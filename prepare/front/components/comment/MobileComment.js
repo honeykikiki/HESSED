@@ -37,7 +37,7 @@ const MobileComment = ({ id }) => {
   useEffect(() => {
     if (addCommentDone) {
       setComment('');
-      ref.current.style.height = '20px';
+      // ref.current.style.height = '20px';
     }
   }, [addCommentDone]);
 
@@ -50,12 +50,15 @@ const MobileComment = ({ id }) => {
       dispatch({
         type: ADD_COMMENT_REQUEST,
         data: {
-          content: comment,
           postId: +id,
+          commentId:
+            mainPosts[id].Comments[mainPosts[id].Comments.length - 1]
+              ?.commentId + 1 || 1,
           User: {
             id: me.id,
             nickname: me.nickname,
           },
+          content: comment,
           Comments: [],
         },
       });

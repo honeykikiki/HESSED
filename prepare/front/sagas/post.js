@@ -13,6 +13,9 @@ import {
   REMOVE_COMMENT_REQUEST,
   REMOVE_COMMENT_SUCCESS,
   REMOVE_COMMENT_FAILURE,
+  REMOVE_COMMENT_REPLY_REQUEST,
+  REMOVE_COMMENT_REPLY_SUCCESS,
+  REMOVE_COMMENT_REPLY_FAILURE,
 } from '../reducers/post';
 
 //댓글달기
@@ -79,6 +82,27 @@ function* addPostCommentReply(action) {
     });
   }
 }
+// 댓글의 답글 삭제하기
+function removeCommentReplyAPI(data) {
+  return axios.delete(`/post/${data}/comment/${data}`);
+}
+
+function* removeCommentReply(action) {
+  try {
+    // const result = yield call(removeCommentReplyAPI, action.data)
+    yield delay(1000);
+    yield put({
+      type: REMOVE_COMMENT_REPLY_SUCCESS,
+      data: action.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: REMOVE_COMMENT_REPLY_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
 
 // 게시물 삭제하기
 function removePostAPI(data) {
@@ -114,6 +138,10 @@ function* watchAddPostCommentReply() {
   yield takeLatest(ADD_COMMENT_REPLY_REQUEST, addPostCommentReply);
 }
 
+function* watchAddRemoveCommentReply() {
+  yield takeLatest(REMOVE_COMMENT_REPLY_REQUEST, removeCommentReply);
+}
+
 function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
@@ -123,6 +151,7 @@ export default function* userSaga() {
     fork(watchAddPostComment),
     fork(watchAddRemoveComment),
     fork(watchAddPostCommentReply),
+    fork(watchAddRemoveCommentReply),
     fork(watchRemovePost),
   ]);
 }
