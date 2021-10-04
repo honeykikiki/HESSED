@@ -14,8 +14,9 @@ const Comment = ({ mainPosts, id }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
-  const [userId, setUserId] = useState(null);
-  const [nickname, setNickname] = useState(null);
+  const [userId, setUserId] = useState();
+  const [nickname, setNickname] = useState();
+  const [commentId, setCommentId] = useState();
 
   useEffect(() => {
     if (!me) {
@@ -25,20 +26,28 @@ const Comment = ({ mainPosts, id }) => {
 
   const onClick = useCallback(
     (v) => () => {
-      setUserId(v.id);
-      setNickname(v.nickname);
+      setUserId(v.User.id);
+      setNickname(v.User.nickname);
+      setCommentId(v.commentId);
       dispatch({
         type: COMMENT_TO_REPLY_OPEN,
       });
     },
-    [userId, nickname],
+    [],
+  );
+
+  const onClickOption = useCallback(
+    (v) => () => {
+      setCommentId(v.commentId);
+    },
+    [commentId],
   );
 
   return (
     <div>
       {mainPosts?.Comments.map((v, i) => {
         return (
-          <ul key={v.User.nickname}>
+          <ul key={i}>
             <li>
               <div>
                 <div
@@ -63,8 +72,13 @@ const Comment = ({ mainPosts, id }) => {
                 >
                   <img />
                 </span> */}
-                <span>
-                  <CommentOptionBtn post={v} postId={id} bool={true} />
+                <span onClick={onClickOption(v)}>
+                  <CommentOptionBtn
+                    post={v}
+                    postId={id}
+                    bool={true}
+                    commentId={commentId}
+                  />
                 </span>
               </div>
             </li>
@@ -74,7 +88,7 @@ const Comment = ({ mainPosts, id }) => {
                 <p>시간</p>
               </div>
               <div>
-                <button style={{ marginTop: -20 }} onClick={onClick(v.User)}>
+                <button style={{ marginTop: -20 }} onClick={onClick(v)}>
                   답글 달기
                 </button>
               </div>
@@ -86,7 +100,9 @@ const Comment = ({ mainPosts, id }) => {
                 i={i}
                 userId={userId}
                 nickname={nickname}
+                commentId={commentId}
                 id={id}
+                onClickOption={onClickOption}
               />
             </li>
           </ul>

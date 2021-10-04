@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/dynamicComment.module.css';
@@ -10,14 +10,23 @@ import { COMMENT_TO_REPLY_CLOSE } from '../../reducers/menu';
 
 import CommentOptionBtn from './CommentOptionBtn';
 
-const CommentsToReply = ({ v, i, userId, nickname, id }) => {
+const CommentsToReply = ({
+  v,
+  userId,
+  nickname,
+  id,
+  commentId,
+  onClickOption,
+}) => {
   const dispatch = useDispatch();
   const { commentToReply } = useSelector((state) => state.menu);
-  const { addCommentReplyDone } = useSelector((state) => state.post);
+  const { addCommentReplyDone, mainPosts } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
 
   const [reply, onChangereply, setReply] = useInput(true);
   const [commentReply, onChangeInput, setCommentReply] = useInput('');
+
+  const [commentReplyCheckdId, setCommentReplyCheckdId] = useState();
 
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {
@@ -50,6 +59,16 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
     });
   }, [commentToReply]);
 
+  const CommentsNum = mainPosts[id]?.Comments?.findIndex(
+    (v) => v.commentId === commentId,
+  );
+  const commentReplyIdNum =
+    mainPosts[id].Comments[CommentsNum]?.Comments[
+      mainPosts[id].Comments[CommentsNum]?.Comments.length - 1
+    ]?.commentReplyId + 1 || 1;
+
+  console.log(commentId);
+
   const onClickAddReply = useCallback(
     (e) => {
       e.preventDefault();
@@ -59,17 +78,26 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
       dispatch({
         type: ADD_COMMENT_REPLY_REQUEST,
         data: {
-          content: commentReply,
           postId: +id,
+          commentId,
+          commentReplyId: commentReplyIdNum,
           userId,
           User: {
             id: me.id,
             nickname: me.nickname,
           },
+          content: commentReply,
         },
       });
     },
-    [commentReply, userId],
+    [commentId, commentReply, userId],
+  );
+
+  const onCLickCommentReplyCheckdId = useCallback(
+    (v) => () => {
+      setCommentReplyCheckdId(v.commentReplyId);
+    },
+    [commentReplyCheckdId],
   );
 
   return (
@@ -92,8 +120,8 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
           {!reply &&
             v.Comments.map((v, i) => {
               return (
-                <ul key={v.content}>
-                  <li>
+                <ul key={v.commentReplyId}>
+                  <li onClick={onClickOption(v)}>
                     <div>
                       <div
                         className={style.userIcon}
@@ -109,10 +137,15 @@ const CommentsToReply = ({ v, i, userId, nickname, id }) => {
                     <div className={style.contentInComment}>
                       <span>{v.User.nickname}</span>
                       <span>{v.content}</span>
-                      <span>
-                        <CommentOptionBtn post={v} postId={id} bool={false} />
+                      <span onClick={onCLickCommentReplyCheckdId(v)}>
+                        <CommentOptionBtn
+                          post={v}
+                          postId={id}
+                          bool={false}
+                          commentReplyCheckdId={commentReplyCheckdId}
+                          commentId={commentId}
+                        />
                       </span>
-                      <span></span>
                     </div>
                   </li>
                 </ul>
@@ -161,6 +194,9 @@ CommentsToReply.proptypes = {
   }).isRequired,
   userId: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  commentId: PropTypes.number.isRequired,
+  onClickOption: PropTypes.object.isRequired,
   // id,
 };
 

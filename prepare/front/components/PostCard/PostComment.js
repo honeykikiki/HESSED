@@ -9,6 +9,7 @@ import useInput from '../../hooks/useInput';
 const PostContent = ({ post }) => {
   const dispatch = useDispatch();
   const { addCommentDone } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
 
   const id = useSelector((state) => state.user.me?.id);
   const [comment, onChangeInput, setComment] = useInput('');
@@ -28,9 +29,13 @@ const PostContent = ({ post }) => {
       dispatch({
         type: ADD_COMMENT_REQUEST,
         data: {
-          content: comment,
           postId: +post.id,
-          User: { id, nickname: 'kikiki' },
+          CommentId: post.Comments[post.Comments.length - 1]?.id + 1 || 1,
+          User: {
+            id: me.id,
+            nickname: me.nickname,
+          },
+          content: comment,
           Comments: [],
         },
       });
