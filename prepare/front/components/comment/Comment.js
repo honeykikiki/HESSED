@@ -47,7 +47,7 @@ const Comment = ({ mainPosts, id }) => {
     <div>
       {mainPosts?.Comments.map((v, i) => {
         return (
-          <ul key={i}>
+          <ul key={v.commentId}>
             <li>
               <div>
                 <div
@@ -123,6 +123,7 @@ Comment.propTypes = {
     Likers: PropTypes.arrayOf(PropTypes.object),
     Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default Comment;

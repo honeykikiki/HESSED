@@ -67,8 +67,6 @@ const CommentsToReply = ({
       mainPosts[id].Comments[CommentsNum]?.Comments.length - 1
     ]?.commentReplyId + 1 || 1;
 
-  console.log(commentId);
-
   const onClickAddReply = useCallback(
     (e) => {
       e.preventDefault();

@@ -10,6 +10,12 @@ import {
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE,
+  SAVE_POST_REQUEST,
+  SAVE_POST_SUCCESS,
+  SAVE_POST_FAILURE,
+  UNSAVE_POST_REQUEST,
+  UNSAVE_POST_SUCCESS,
+  UNSAVE_POST_FAILURE,
 } from '../reducers/user';
 
 // 로그인
@@ -79,6 +85,49 @@ function* signUp(action) {
   }
 }
 
+// 게시물 저장
+function savePostAPI(data) {
+  return axios.post(`/user`, data);
+}
+
+function* savePost(action) {
+  try {
+    // const result = yield call(savePostAPI);
+    yield delay(1000);
+    yield put({
+      type: SAVE_POST_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SAVE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+// 게시물 저장 취소
+function unSavePostAPI(data) {
+  return axios.post(`/user`, data);
+}
+
+function* unSavePost(action) {
+  try {
+    // const result = yield call(unSavePostAPI);
+    yield delay(1000);
+    yield put({
+      type: UNSAVE_POST_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UNSAVE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
@@ -88,7 +137,19 @@ function* watchLogOut() {
 function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
+function* watchSavePost() {
+  yield takeLatest(SAVE_POST_REQUEST, savePost);
+}
+function* watchUnSavePost() {
+  yield takeLatest(UNSAVE_POST_REQUEST, unSavePost);
+}
 
 export default function* userSaga() {
-  yield all([fork(watchLogIn), fork(watchLogOut), fork(watchSignUp)]);
+  yield all([
+    fork(watchLogIn),
+    fork(watchLogOut),
+    fork(watchSignUp),
+    fork(watchSavePost),
+    fork(watchUnSavePost),
+  ]);
 }
