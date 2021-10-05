@@ -20,7 +20,7 @@ const PostContent = ({ post }) => {
 
   return (
     <article className={style.art}>
-      <div>{`좋아요 0개`}</div>
+      <div>{`좋아요 ${post.Likers.length || 0}개`}</div>
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
         <span>{`${post.content.slice(0, more)} `}</span>

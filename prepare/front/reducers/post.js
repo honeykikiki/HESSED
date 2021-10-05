@@ -12,6 +12,7 @@ export const generateDummyPost = (number) =>
         nickname: faker.name.findName(),
       },
       content: faker.lorem.paragraph(),
+      Likers: [],
       Images: [
         {
           id: shortId.generate(),
@@ -36,21 +37,27 @@ export const generateDummyPost = (number) =>
 export const initialState = {
   mainPosts: generateDummyPost(10),
   imagePaths: [],
-  removePostLoading: false,
+  removePostLoading: false, // 게시물 삭제
   removePostDone: false,
   removePostError: null,
-  addCommentLoading: false,
+  addCommentLoading: false, // 댓글달기
   addCommentDone: false,
   addCommentError: null,
-  removeCommentLoading: false,
+  removeCommentLoading: false, // 댓글 삭제
   removeCommentDone: false,
   removeCommentError: null,
-  addCommentReplyLoading: false,
+  addCommentReplyLoading: false, // 댓글의 답글 달기
   addCommentReplyDone: false,
   addCommentReplyError: null,
-  removeCommentReplyLoading: false,
+  removeCommentReplyLoading: false, // 댓글의 답글 삭제
   removeCommentReplyDone: false,
   removeCommentReplyError: null,
+  likePostLoading: false, // 좋아요
+  likePostDone: false,
+  likePostError: null,
+  unLikePostLoading: false, // 좋아요 취소
+  unLikePostDone: false,
+  unLikePostError: null,
 };
 
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
@@ -72,6 +79,14 @@ export const ADD_COMMENT_REPLY_FAILURE = 'ADD_COMMENT_REPLY_FAILURE';
 export const REMOVE_COMMENT_REPLY_REQUEST = 'REMOVE_COMMENT_REPLY_REQUEST';
 export const REMOVE_COMMENT_REPLY_SUCCESS = 'REMOVE_COMMENT_REPLY_SUCCESS';
 export const REMOVE_COMMENT_REPLY_FAILURE = 'REMOVE_COMMENT_REPLY_FAILURE';
+
+export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
+export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
+export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
+
+export const UNLIKE_POST_REQUEST = 'UNLIKE_POST_REQUEST';
+export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
+export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -181,12 +196,52 @@ const reducer = (state = initialState, action) => {
         draft.removeCommentReplyLoading = false;
         draft.removeCommentReplyDone = true;
         draft.removeCommentReplyError = null;
-
         break;
       }
       case REMOVE_COMMENT_REPLY_FAILURE:
         draft.removeCommentReplyDone = false;
         draft.removeCommentReplyError = action.error;
+        break;
+
+      // 좋아요
+      case LIKE_POST_REQUEST:
+        draft.likePostLoading = true;
+        draft.likePostDone = false;
+        draft.likePostError = null;
+        break;
+      case LIKE_POST_SUCCESS: {
+        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        if (post) {
+          post.Likers.push({ id: action.data.userId });
+        }
+        draft.likePostLoading = false;
+        draft.likePostDone = true;
+        draft.likePostError = null;
+        break;
+      }
+      case LIKE_POST_FAILURE:
+        draft.likePostDone = false;
+        draft.likePostError = action.error;
+        break;
+      // 좋아요 취소
+      case UNLIKE_POST_REQUEST:
+        draft.unLikePostLoading = true;
+        draft.unLikePostDone = false;
+        draft.unLikePostError = null;
+        break;
+      case UNLIKE_POST_SUCCESS: {
+        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        if (post) {
+          post.Likers = post.Likers.filter((v) => v.id !== action.data.userId);
+        }
+        draft.unLikePostLoading = false;
+        draft.unLikePostDone = true;
+        draft.unLikePostError = null;
+        break;
+      }
+      case UNLIKE_POST_FAILURE:
+        draft.unLikePostDone = false;
+        draft.unLikePostError = action.error;
         break;
 
       default:

@@ -9,7 +9,13 @@ export const initialState = {
   logOutError: null, //
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
-  signUpError: null, //
+  signUpError: null,
+  savePostLoading: false, // 게시물 저장
+  savePostDone: false,
+  savePostError: null,
+  unSavePostLoading: false, // 게시물 저장취소
+  unSavePostDone: false,
+  unSavePostError: null,
   me: null,
 };
 
@@ -25,11 +31,21 @@ export const SIGN_UP_REQUEST = 'SING_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SING_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SING_UP_FAILURE';
 
+export const SAVE_POST_REQUEST = 'SAVE_POST_REQUEST';
+export const SAVE_POST_SUCCESS = 'SAVE_POST_SUCCESS';
+export const SAVE_POST_FAILURE = 'SAVE_POST_FAILURE';
+
+export const UNSAVE_POST_REQUEST = 'UNSAVE_POST_REQUEST';
+export const UNSAVE_POST_SUCCESS = 'UNSAVE_POST_SUCCESS';
+export const UNSAVE_POST_FAILURE = 'UNSAVE_POST_FAILURE';
+
 const dummyUser = (data) => ({
   ...data,
   nickname: 'kikiki',
   id: 20,
   Posts: [{ id: 1 }],
+  Liked: [],
+  Saved: [],
   Followings: [
     { nickname: '부기초' },
     { nickname: 'chanho lee' },
@@ -88,6 +104,43 @@ const reducer = (state = initialState, action) => {
       case SIGN_UP_FAILURE:
         draft.signUpLoading = false;
         draft.signUpError = action.error;
+        break;
+
+      // 게시물 저장하기
+      case SAVE_POST_REQUEST:
+        draft.savePostLoading = true;
+        draft.savePostDone = false;
+        draft.savePostError = null;
+        break;
+      case SAVE_POST_SUCCESS: {
+        draft.savePostLoading = false;
+        draft.savePostDone = true;
+        draft.savePostError = null;
+        draft.me.Saved.push({ id: action.data.postId });
+        break;
+      }
+      case SAVE_POST_FAILURE:
+        draft.savePostDone = false;
+        draft.savePostError = action.error;
+        break;
+      // 게시물 저장하기 취소
+      case UNSAVE_POST_REQUEST:
+        draft.unSavePostLoading = true;
+        draft.unSavePostDone = false;
+        draft.unSavePostError = null;
+        break;
+      case UNSAVE_POST_SUCCESS: {
+        draft.me.Saved = draft.me.Saved.filter(
+          (v) => v.id !== action.data.postId,
+        );
+        draft.unSavePostLoading = false;
+        draft.unSavePostDone = true;
+        draft.unSavePostError = null;
+        break;
+      }
+      case UNSAVE_POST_FAILURE:
+        draft.unSavePostDone = false;
+        draft.unSavePostError = action.error;
         break;
 
       default:

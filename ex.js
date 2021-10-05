@@ -41,7 +41,9 @@ const me = {
   nickname,
   area,
   phonenumber,
+  mypost: [],
   liked: [],
   saved: [],
-  mypost: [],
+  Followers: [],
+  Followings: [],
 };
