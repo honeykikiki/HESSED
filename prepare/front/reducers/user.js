@@ -51,7 +51,7 @@ const dummyUser = (data) => ({
     { nickname: 'chanho lee' },
     { nickname: 'nenu zeal' },
   ],
-  Fllowers: [
+  Followers: [
     { nickname: '부기초' },
     { nickname: 'chanho lee' },
     { nickname: 'nenu zeal' },

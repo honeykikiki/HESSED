@@ -6,7 +6,7 @@ import style from '../../styles/css/postContent.module.css';
 import useInput from '../../hooks/useInput';
 
 const PostContent = ({ post }) => {
-  const [more, setMore] = useState(50);
+  const [more, setMore] = useState(20);
   const [moreButtonOnClick, setMoreButtonOnClick] = useState(true);
 
   const contentMore = useCallback(() => {
@@ -17,14 +17,14 @@ const PostContent = ({ post }) => {
     setMore(50);
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
-
+  console.log(post.content.length > 20);
   return (
     <article className={style.art}>
       <div>{`좋아요 ${post.Likers.length || 0}개`}</div>
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
-        <span>{`${post.content.slice(0, more)} `}</span>
-        {moreButtonOnClick ? (
+        <span>{`${post.content?.slice(0, more)} `}</span>
+        {post.content.length < 20 ? null : moreButtonOnClick ? (
           <button onClick={contentMore}>... 더보기</button>
         ) : (
           <button onClick={contentbrief}>간략하게보기</button>

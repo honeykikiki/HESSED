@@ -10,7 +10,7 @@ const MainLayout = ({ children }) => {
         <div className={style.logoBox}>
           <Link href="/">
             <a>
-              <h1 className={style.logo}></h1>
+              <div className={style.logo}></div>
             </a>
           </Link>
         </div>

@@ -23,9 +23,9 @@ const Hessed = ({ Component }) => {
         <title>HESSED</title>
       </Head>
       <div className="loadingPage">
-        <h1>
+        <div>
           <img src="/icon/HESSED_LOGO-W.png" width="180" />
-        </h1>
+        </div>
       </div>
       <Component />
     </>

@@ -7,7 +7,7 @@ const mainposts = [
     },
     content,
     Images: [],
-    liked,
+    Likers,
 
     Comments: [
       {

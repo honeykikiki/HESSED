@@ -22,7 +22,53 @@ import {
   UNLIKE_POST_REQUEST,
   UNLIKE_POST_SUCCESS,
   UNLIKE_POST_FAILURE,
+  ADD_POST_SUCCESS,
+  ADD_POST_FAILURE,
+  ADD_POST_REQUEST,
 } from '../reducers/post';
+
+// 게시물 등록하시
+function addPostAPI(data) {
+  return axios.delete(`/post/${data.postId}`);
+}
+
+function* addPost(action) {
+  try {
+    // const result = yield call(addPostAPI, action.data)
+    yield delay(1000);
+    yield put({
+      type: ADD_POST_SUCCESS,
+      data: action.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: ADD_POST_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
+// 게시물 삭제하기
+function removePostAPI(data) {
+  return axios.delete(`/post/${data.postId}`);
+}
+
+function* removePost(action) {
+  try {
+    // const result = yield call(removePostAPI, action.data)
+    yield delay(1000);
+    yield put({
+      type: REMOVE_POST_SUCCESS,
+      data: action.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: REMOVE_POST_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
 
 //댓글달기
 function addPostCommentAPI(data) {
@@ -110,28 +156,6 @@ function* removeCommentReply(action) {
   }
 }
 
-// 게시물 삭제하기
-function removePostAPI(data) {
-  return axios.delete(`/post/${data.postId}`);
-}
-
-function* removePost(action) {
-  try {
-    // const result = yield call(removePostAPI, action.data)
-    yield delay(1000);
-    yield put({
-      type: REMOVE_POST_SUCCESS,
-      data: action.data,
-    });
-  } catch (error) {
-    console.error(error);
-    yield put({
-      type: REMOVE_POST_FAILURE,
-      data: error.response.data,
-    });
-  }
-}
-
 // 좋아요
 function likePostAPI(data) {
   return axios.delete(`/post/${data}/like`);
@@ -175,6 +199,13 @@ function* unLikePost(action) {
   }
 }
 
+function* watchAddPost() {
+  yield takeLatest(ADD_POST_REQUEST, addPost);
+}
+function* watchRemovePost() {
+  yield takeLatest(REMOVE_POST_REQUEST, removePost);
+}
+
 function* watchAddPostComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addPostComment);
 }
@@ -191,10 +222,6 @@ function* watchAddRemoveCommentReply() {
   yield takeLatest(REMOVE_COMMENT_REPLY_REQUEST, removeCommentReply);
 }
 
-function* watchRemovePost() {
-  yield takeLatest(REMOVE_POST_REQUEST, removePost);
-}
-
 function* watchLikePost() {
   yield takeLatest(LIKE_POST_REQUEST, likePost);
 }
@@ -205,11 +232,12 @@ function* watchUnLikePost() {
 
 export default function* userSaga() {
   yield all([
+    fork(watchAddPost),
+    fork(watchRemovePost),
     fork(watchAddPostComment),
     fork(watchAddRemoveComment),
     fork(watchAddPostCommentReply),
     fork(watchAddRemoveCommentReply),
-    fork(watchRemovePost),
     fork(watchLikePost),
     fork(watchUnLikePost),
   ]);

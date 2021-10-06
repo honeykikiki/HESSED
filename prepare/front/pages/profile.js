@@ -60,10 +60,15 @@ const b = [
 
 const Profile = () => {
   const { profile } = useSelector((state) => state.menu);
+  const { me } = useSelector((state) => state.user);
 
   const [followPage, setFollowPage] = useState(true);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!me) {
+      Router.push('/');
+    }
+  }, []);
 
   const onClickRouter = useCallback((e) => {
     e.preventDefault();
@@ -80,22 +85,22 @@ const Profile = () => {
               <div>
                 <img src="icon/profle_img.png" />
               </div>
-              <p>{faker.name.findName()}</p>
+              <p>{me.nickname}</p>
             </div>
 
             <ul>
               <li>
                 게시글
-                <p>0</p>
+                <p>{me.Posts.length ?? 0}</p>
               </li>
 
               <li onClick={onClickRouter}>
                 팔로워
-                <p>0</p>
+                <p>{me.Followers.length ?? 0}</p>
               </li>
               <li onClick={onClickRouter}>
                 팔로잉
-                <p>0</p>
+                <p>{me.Followings.length ?? 0}</p>
               </li>
             </ul>
           </div>

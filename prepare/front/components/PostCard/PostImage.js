@@ -35,7 +35,7 @@ const PostImages = ({ images }) => {
           return (
             <img
               key={v.id}
-              src={v.src}
+              src={v.url}
               style={{
                 transform: `translate3d(-${imageCuurrentNo * 100}%, 0px, 0px)`,
               }}
