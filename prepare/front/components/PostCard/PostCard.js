@@ -30,6 +30,7 @@ const PostCard = ({ post }) => {
 
           <div className={style.postImage}>
             <div>
+              {/* {post?.Images || <PostImages images={post.Images} />} */}
               <PostImages images={post.Images} />
               {/* 이미지 사이즈 조절하는법 찾기 */}
             </div>

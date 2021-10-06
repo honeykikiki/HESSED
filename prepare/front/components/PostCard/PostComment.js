@@ -30,7 +30,8 @@ const PostContent = ({ post }) => {
         type: ADD_COMMENT_REQUEST,
         data: {
           postId: +post.id,
-          CommentId: post.Comments[post.Comments.length - 1]?.id + 1 || 1,
+          commentId:
+            post.Comments[post.Comments.length - 1]?.commentId + 1 || 1,
           User: {
             id: me.id,
             nickname: me.nickname,

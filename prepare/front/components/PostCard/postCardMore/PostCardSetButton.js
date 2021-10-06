@@ -36,13 +36,13 @@ const PostCardSetButton = ({ post }) => {
       <div className={style.menu} onClick={onClickOptionOpen}>
         <img src="/icon/btn.svg" />
 
-        {optionButton ? null : me.id === post.id ? (
+        {optionButton ? null : me.id === post.User.id ? (
           // post.User.id == me.id
-          <div className={style.optionButton}>
-            <div
-              onClick={onClickPostCardRemove}
-              style={{ border: '1px solid black' }}
-            >
+          <div
+            className={style.optionButton}
+            style={{ border: '1px solid black' }}
+          >
+            <div onClick={onClickPostCardRemove}>
               <p>삭제</p>
             </div>
             <div onClick={onClickOptionClose}>

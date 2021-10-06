@@ -35,8 +35,11 @@ export const generateDummyPost = (number) =>
     }));
 
 export const initialState = {
-  mainPosts: generateDummyPost(10),
+  mainPosts: [],
   imagePaths: [],
+  addPostLoading: false, // 게시물 등록
+  addPostDone: false,
+  addPostError: null,
   removePostLoading: false, // 게시물 삭제
   removePostDone: false,
   removePostError: null,
@@ -59,6 +62,10 @@ export const initialState = {
   unLikePostDone: false,
   unLikePostError: null,
 };
+
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
@@ -91,6 +98,23 @@ export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      // 게시물 등록
+      case ADD_POST_REQUEST:
+        draft.addPostLoading = true;
+        draft.addPostDone = false;
+        draft.addPostError = null;
+        break;
+      case ADD_POST_SUCCESS: {
+        draft.addPostLoading = false;
+        draft.addPostDone = true;
+        draft.addPostError = null;
+        draft.mainPosts.unshift(action.data);
+        break;
+      }
+      case ADD_POST_FAILURE:
+        draft.addPostDone = false;
+        draft.addPostError = action.error;
+        break;
       // 게시물 삭제
       case REMOVE_POST_REQUEST:
         draft.removePostLoading = true;

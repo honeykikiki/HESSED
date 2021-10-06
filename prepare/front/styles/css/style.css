@@ -3,6 +3,11 @@
   margin: 0;
 }
 
+html,
+body {
+  font-size: 10px;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -11,12 +16,6 @@ a {
 ul,
 ol {
   list-style: none;
-}
-
-html,
-body {
-  width: 100%;
-  font-size: 10px;
 }
 
 @-webkit-keyframes loading {
