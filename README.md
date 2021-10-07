@@ -109,20 +109,31 @@
 
 > postCard관련
 
-     2-1 이미지 슬라이드 (완료)
-     2-2 댓글달기 (완료)
-     2-3 댓글 더보기기능 (완료)
-     2-4 댓글 삭제기능 (완료)
-     2-5 답글 달기기능 (완료)
-     2-6 답글 삭제기능 (완료)
-     2-7 좋아요 (게시물 좋아요 클릭시 좋아요 수 늘어나기) (완료)
-     2-8 게시물 저장히기
-     2-9 좋아요 갯수 클릭시 좋아요 한사람들 표시
+    2-1 이미지 슬라이드 (완료)
+    2-2 댓글달기 (완료)
+    2-3 댓글 더보기기능 (완료)
+    2-4 댓글 삭제기능 (완료)
+    2-5 답글 달기기능 (완료)
+    2-6 답글 삭제기능 (완료)
+    2-7 좋아요 (게시물 좋아요 클릭시 좋아요 수 늘어나기) (완료)
+    2-8 게시물 저장히기
+    2-9 좋아요 갯수 클릭시 좋아요 한사람들 표시
 
 > upload 관련
->
-> > 3-1
-> > 3-2
+
+    3-1 사진 업로드
+    3-2 사진 미리보기
+    3-3 댓글쓰기
+
+> qr코드
+
+> 프로필 관련
+
+    1-1 프로필 게시글, 팔로워, 팔로잉, 수 보여주기
+    1-2 프로필 수정하기 (닉네임, 이미지)
+    1-3 내가 작성한 이미지 3배열로 보여주기
+    1-4 게시글 이미지 클릭시 다이나믹 라우팅으로 게시물 하나씩 보여주기
+    1-5 팔로워 팔로잉 하는 사람 보여주기
 
 ---
 
@@ -163,18 +174,22 @@
 > 문제 / 해결:
 
     문제 : react에서 데이터 가져와 2차원 배열 만들기 for문 사용 안됨
-    해결 :  {a.map((v, i) => {
-              if (i % 3 === 0) {
-                // i = 0 3 6 9
-                return (
-                  <ul className={style.upLoadImage}>
-                    <li>{<img src={`${a[i + 0]}`} />}</li>
-                    {a[i + 1] && <li>{<img src={`${a[i + 1]}`} />}</li>}
-                    {a[i + 2] && <li>{<img src={`${a[i + 2]}`} />}</li>}
-                  </ul>
-                );
-              }
-            })}
+    해결 :
+
+    ```js
+    {a.map((v, i) => {
+      if (i % 3 === 0) {
+        // i = 0 3 6 9
+        return (
+          <ul className={style.upLoadImage}>
+            <li>{<img src={`${a[i + 0]}`} />}</li>
+            {a[i + 1] && <li>{<img src={`${a[i + 1]}`} />}</li>}
+            {a[i + 2] && <li>{<img src={`${a[i + 2]}`} />}</li>}
+          </ul>
+        );
+      }
+    })}
+    ```
 
 # postCard 부분
 
@@ -198,14 +213,17 @@
 
     문제 : 댓글을 작성할떄 크기를 자동조절하기
     해결 :
-        >const ref = useRef();
-        >const handleResizeHeight = useCallback(() => {
-        >  if (ref === null || ref.current === null) {
-        >    return;
-        >  }
-        >  ref.current.style.height = '20px';
-        >  ref.current.style.height = ref.current.scrollHeight + 'px';
-        >}, []);
+
+    ```js
+        const ref = useRef();
+        const handleResizeHeight = useCallback(() => {
+          if (ref === null || ref.current === null) {
+            return;
+          }
+          ref.current.style.height = '20px';
+          ref.current.style.height = ref.current.scrollHeight + 'px';
+        }, []);
+    ```
 
 ## 댓글에 답글달기
 
@@ -216,10 +234,14 @@
         1. 댓글단 게시물찾기
         2. 게시물에 댓글찾기
         3. 찾은 댓글 안에 답글 넣기
-        > const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-        >post.Comments.find(
-        >  (v) => v.User.id === action.data.userId,
-        >).Comments.push(action.data);
+
+    ```js
+        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        post.Comments.find(
+            (v) => v.User.id === action.data.userId,
+        ).Comments.push(action.data);
+
+    ```
 
 ## 답글보기 기능 클릭시 모든댓글의 답글이 다같이 보여진다
 
@@ -251,16 +273,49 @@
 
 # upLoad 부분
 
-## 사진 업로드하기
+## input 숨기고 다른 이미지 클릭해서 업로드하기
 
 > 문제 / 해결:
 
-    문제 : 이미지 정보 받아와서 사진 미리보기 해주기
+    문제 : React에서 사진 업로드하기
     해결 :
+        1. useRef를 이용해 input에 접근하고 input에는 hidden값을 넣어준다
 
-## 사진 업로드하기
+    ```js
+         const onClickImageUpload = useCallback(() => {
+            imageInput.current.click();
+          }, [imageInput.current]);
+    ```
+        2. input에 대채할 이미지에 클릭값을 넣어준다
+        3. 이제 파일 선택창이 뜨고 이미지를 넣어주면 된다
+
+## 사진 미리보기
 
 > 문제 / 해결:
 
-    문제 :
+    문제 : 업로드한 이미지 정보 받아와서 사진 미리보기 해주기
     해결 :
+        1. 업로드한 사진의 정보를 반복문을 통해서 id, file, url을 객체 따로 만들어준다
+        2. 객체로 만든 정보들을 photoToAddList에 넣어준다
+        3. 이후 사진을 추가하면 앞에 쌓이는 식으로 만들어 주었다
+
+    ```js
+        const handleImage = useCallback(
+          (e) => {
+            const temp = [];
+            const photoToAdd = e.target.files;
+            for (let i = 0; i < photoToAdd.length; i++) {
+              temp.push({
+                id: photoToAdd[i].name,
+                file: photoToAdd[i],
+                url: URL.createObjectURL(photoToAdd[i]),
+              });
+            }
+            setPhotoToAddList(temp.concat(photoToAddList));
+          },
+        [photoToAddList],
+        );
+
+```
+
+```

@@ -1,80 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import faker from 'faker';
 import Router from 'next/router';
+import Link from 'next/link';
 
 import MainLayout from '../components/MainLayout';
 
 import style from '../styles/css/profile.module.css';
 import { useSelector } from 'react-redux';
 
-const a = Array(10)
-  .fill(faker.image.image())
-  .map((v, i) => v + (i + 1));
-
-const b = [
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-  {
-    nickname: faker.name.firstName(),
-    image: faker.image.image(),
-  },
-];
-
 const Profile = () => {
   const { profile } = useSelector((state) => state.menu);
   const { me } = useSelector((state) => state.user);
-
-  const [followPage, setFollowPage] = useState(true);
+  const { mainPosts } = useSelector((state) => state.post);
 
   useEffect(() => {
     if (!me) {
       Router.push('/');
     }
-  }, []);
+  }, [me]);
+
+  const myPost = mainPosts.filter((v) => v.User.id === me?.id);
+
+  const [followPage, setFollowPage] = useState(true);
 
   const onClickRouter = useCallback((e) => {
     e.preventDefault();
     setFollowPage((prev) => !prev);
   }, []);
-
+  console.log(myPost);
   return (
     <MainLayout>
       <div style={{ paddingTop: '10px' }}></div>
@@ -85,22 +37,22 @@ const Profile = () => {
               <div>
                 <img src="icon/profle_img.png" />
               </div>
-              <p>{me.nickname}</p>
+              <p>{me?.nickname}</p>
             </div>
 
             <ul>
               <li>
                 게시글
-                <p>{me.Posts.length ?? 0}</p>
+                <p>{myPost.length ?? 0}</p>
               </li>
 
               <li onClick={onClickRouter}>
                 팔로워
-                <p>{me.Followers.length ?? 0}</p>
+                <p>{me?.Followers.length ?? 0}</p>
               </li>
               <li onClick={onClickRouter}>
                 팔로잉
-                <p>{me.Followings.length ?? 0}</p>
+                <p>{me?.Followings.length ?? 0}</p>
               </li>
             </ul>
           </div>
@@ -109,14 +61,38 @@ const Profile = () => {
 
           {followPage ? (
             <div className={style.upLoadImageBox}>
-              {a.map((v, i) => {
+              {myPost.map((v, i) => {
+                // console.log(v);
+                // console.log(v[i + 1]);
                 if (i % 3 === 0) {
                   // i = 0 3 6 9
+                  // console.log(i);
+
                   return (
                     <ul className={style.upLoadImage}>
-                      <li>{<img src={`${a[i + 0]}`} />}</li>
-                      {a[i + 1] && <li>{<img src={`${a[i + 1]}`} />}</li>}
-                      {a[i + 2] && <li>{<img src={`${a[i + 2]}`} />}</li>}
+                      <li>
+                        <Link href={`post/${myPost[i].id}`}>
+                          <a>{<img src={`${myPost[i].Images[0].url}`} />}</a>
+                        </Link>
+                      </li>
+                      {myPost[i + 1] && (
+                        <li>
+                          <Link href={`post/${myPost[i + 1].id}`}>
+                            <a>
+                              {<img src={`${myPost[i + 1].Images[0].url}`} />}
+                            </a>
+                          </Link>
+                        </li>
+                      )}
+                      {myPost[i + 2] && (
+                        <li>
+                          <Link href={`post/${myPost[i + 2].id}`}>
+                            <a>
+                              {<img src={`${myPost[i + 2].Images[0].url}`} />}
+                            </a>
+                          </Link>
+                        </li>
+                      )}
                     </ul>
                   );
                 }
@@ -127,7 +103,7 @@ const Profile = () => {
               <div className={style.follow}>
                 <h2>팔로워</h2>
                 <ul>
-                  {b.map((v, i) => {
+                  {me?.Followers.map((v, i) => {
                     return (
                       <li>
                         <div className={style.imageBox}>
@@ -143,7 +119,7 @@ const Profile = () => {
               <div className={style.follow}>
                 <h2>팔로잉</h2>
                 <ul>
-                  {b.map((v, i) => {
+                  {me?.Followings.map((v, i) => {
                     return (
                       <li>
                         <div className={style.imageBox}>

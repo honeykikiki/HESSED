@@ -14,13 +14,13 @@ const CommentsToReply = ({
   v,
   userId,
   nickname,
-  id,
   commentId,
   onClickOption,
+  post,
 }) => {
   const dispatch = useDispatch();
   const { commentToReply } = useSelector((state) => state.menu);
-  const { addCommentReplyDone, mainPosts } = useSelector((state) => state.post);
+  const { addCommentReplyDone } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
 
   const [reply, onChangereply, setReply] = useInput(true);
@@ -59,12 +59,12 @@ const CommentsToReply = ({
     });
   }, [commentToReply]);
 
-  const CommentsNum = mainPosts[id]?.Comments?.findIndex(
+  const CommentsNum = post?.Comments?.findIndex(
     (v) => v.commentId === commentId,
   );
   const commentReplyIdNum =
-    mainPosts[id].Comments[CommentsNum]?.Comments[
-      mainPosts[id].Comments[CommentsNum]?.Comments.length - 1
+    post.Comments[CommentsNum]?.Comments[
+      post.Comments[CommentsNum]?.Comments.length - 1
     ]?.commentReplyId + 1 || 1;
 
   const onClickAddReply = useCallback(
@@ -76,7 +76,7 @@ const CommentsToReply = ({
       dispatch({
         type: ADD_COMMENT_REPLY_REQUEST,
         data: {
-          postId: +id,
+          postId: post.id,
           commentId,
           commentReplyId: commentReplyIdNum,
           userId,
@@ -138,7 +138,7 @@ const CommentsToReply = ({
                       <span onClick={onCLickCommentReplyCheckdId(v)}>
                         <CommentOptionBtn
                           post={v}
-                          postId={id}
+                          postId={post.id}
                           bool={false}
                           commentReplyCheckdId={commentReplyCheckdId}
                           commentId={commentId}

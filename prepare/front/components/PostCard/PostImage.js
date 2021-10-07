@@ -38,6 +38,7 @@ const PostImages = ({ images }) => {
               src={v.url}
               style={{
                 transform: `translate3d(-${imageCuurrentNo * 100}%, 0px, 0px)`,
+                transition: 'all .4s',
               }}
             />
           );

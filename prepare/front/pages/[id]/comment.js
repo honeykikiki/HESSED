@@ -22,28 +22,27 @@ const Post = () => {
   const dispatch = useDispatch();
   const { mainPosts } = useSelector((state) => state.post);
 
+  const post = mainPosts.find((v) => v.id === +id);
+  console.log(id);
   return (
     // <MainLayout>
     <>
       <Head>
-        <title>
-          {mainPosts[id]?.User.nickname}
-          님의 글
-        </title>
+        <title>{`HESSED ${post?.User.nickname} 님의 게사글`}</title>
         <meta
           name="description"
-          content={`${mainPosts[id]?.User.nickname}님의 게시글`}
+          content={`${post?.User.nickname}님의 게시글`}
         />
         <meta
           property="og:title"
-          content={`${mainPosts[id]?.User.nickname}님의 게시글`}
+          content={`${post?.User.nickname}님의 게시글`}
         />
         <meta
           property="og:description"
-          content={`${mainPosts[id]?.User.nickname}님의 게시글`}
+          content={`${post?.User.nickname}님의 게시글`}
         />
-        <meta property="og:image" content="https://nodebird.com/favicon.ico" />
-        <meta property="og:url" content={`https://nodebird.com/user/${id}`} />
+        <meta property="og:image" content="/icon/HESSED_LOGO-W.png" />
+        {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
 
       {windowScreenWidth > 767 ? (
@@ -51,7 +50,7 @@ const Post = () => {
         <div>ss</div>
       ) : (
         // 767이하일떄 화면
-        <MobileComment id={id} />
+        <MobileComment post={post} />
       )}
     </>
     // </MainLayout>

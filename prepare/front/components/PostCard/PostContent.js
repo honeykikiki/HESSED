@@ -14,16 +14,30 @@ const PostContent = ({ post }) => {
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
   const contentbrief = useCallback(() => {
-    setMore(50);
+    setMore(20);
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
-  console.log(post.content.length > 20);
+
   return (
     <article className={style.art}>
-      <div>{`좋아요 ${post.Likers.length || 0}개`}</div>
+      <div>
+        {post.Likers.length > 0 && `좋아요 ${post.Likers.length || 0}개`}
+      </div>
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
         <span>{`${post.content?.slice(0, more)} `}</span>
+        {/* <span>
+          {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
+            if (v.match(/(#[^\s#]+)/g)) {
+              return (
+                <Link href={`/hashtag/${v.slice(1)}`} key={i}>
+                  <a style={{ color: '#00376b' }}>{v}</a>
+                </Link>
+              );
+            }
+            return v.slice(0, more);
+          })}
+        </span> */}
         {post.content.length < 20 ? null : moreButtonOnClick ? (
           <button onClick={contentMore}>... 더보기</button>
         ) : (

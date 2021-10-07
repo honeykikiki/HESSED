@@ -1,5 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { Router } from 'next/router';
 
 import style from '../../styles/css/postCard.module.css';
 
@@ -8,11 +10,16 @@ import PostIcon from '../PostCard/PostIcon';
 import PostContent from '../PostCard/PostContent';
 import PostComment from '../PostCard/PostComment';
 import PostCardSetButton from './postCardMore/PostCardSetButton';
-import { useSelector } from 'react-redux';
 
 const PostCard = ({ post }) => {
   const { me } = useSelector((state) => state.user);
   const id = useSelector((state) => state.user.me && state.user.me.id);
+
+  useEffect(() => {
+    if (!me) {
+      Router.push('/');
+    }
+  }, []);
 
   return (
     <section className={style.a}>
@@ -30,8 +37,8 @@ const PostCard = ({ post }) => {
 
           <div className={style.postImage}>
             <div>
-              {/* {post?.Images || <PostImages images={post.Images} />} */}
-              <PostImages images={post.Images} />
+              {post?.Images.length > 0 && <PostImages images={post.Images} />}
+              {/* <PostImages images={post.Images} /> */}
               {/* 이미지 사이즈 조절하는법 찾기 */}
             </div>
           </div>

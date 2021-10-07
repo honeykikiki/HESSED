@@ -120,7 +120,10 @@
 .textInput textarea {
   border: none;
   border-bottom: 1px solid black;
-  width: calc(100% - 60px);
+  overflow: visible;
+  width: 80%;
+  height: 20px;
+  max-height: 80px;
   outline-color: white;
   resize: none;
 }

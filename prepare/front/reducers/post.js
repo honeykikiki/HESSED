@@ -6,9 +6,9 @@ export const generateDummyPost = (number) =>
   Array(number)
     .fill()
     .map((v, i) => ({
-      id: i,
+      id: 3 - i,
       User: {
-        id: shortId.generate(),
+        id: 20,
         nickname: faker.name.findName(),
       },
       content: faker.lorem.paragraph(),
@@ -16,26 +16,26 @@ export const generateDummyPost = (number) =>
       Images: [
         {
           id: shortId.generate(),
-          src: faker.image.image(),
+          url: faker.image.image(),
         },
         {
           id: shortId.generate(),
-          src: faker.image.image(),
+          url: faker.image.image(),
         },
         {
           id: shortId.generate(),
-          src: faker.image.image(),
+          url: faker.image.image(),
         },
         {
           id: shortId.generate(),
-          src: faker.image.image(),
+          url: faker.image.image(),
         },
       ],
       Comments: [],
     }));
 
 export const initialState = {
-  mainPosts: [],
+  mainPosts: generateDummyPost(4),
   imagePaths: [],
   addPostLoading: false, // 게시물 등록
   addPostDone: false,
