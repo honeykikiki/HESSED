@@ -19,6 +19,15 @@ const Home = () => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
   const [content, onChangeContent, setContetn] = useInput();
 
+  const ref = useRef();
+  const handleResizeHeight = useCallback(() => {
+    if (ref === null || ref.current === null) {
+      return;
+    }
+    ref.current.style.height = '20px';
+    ref.current.style.height = ref.current.scrollHeight + 'px';
+  }, []); //댓글창 크기 자동조절
+
   useEffect(() => {
     if (!me) {
       Router.push('/');
@@ -26,26 +35,23 @@ const Home = () => {
     if (imageCuurrentNo < 0) {
       setImageCuurrentNo(0);
     }
-    // if (addPostDone) {
-    //   Router.push('/');
-    // }
   }, [me, imageCuurrentNo]);
 
   const onClickLeft = useCallback(() => {
     if (imageCuurrentNo > 0) {
       setImageCuurrentNo((prev) => prev - 1);
     }
-  }, [imageCuurrentNo]);
+  }, [imageCuurrentNo, photoToAddList]);
 
   const onClickRight = useCallback(() => {
     if (imageCuurrentNo < photoToAddList.length - 1) {
       setImageCuurrentNo((prev) => prev + 1);
-      console.log('right');
     }
-  }, [imageCuurrentNo]);
+  }, [imageCuurrentNo, photoToAddList]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
+    setImageCuurrentNo(0);
   }, [imageInput.current]);
 
   const handleImage = useCallback(
@@ -78,10 +84,15 @@ const Home = () => {
   const upLoadFormClick = useCallback(
     (e) => {
       e.preventDefault();
-      if (!photoToAddList) {
+      if (!photoToAddList.length > 0) {
         alert('이미지를 등록해주세요');
         return;
       }
+      if (!content) {
+        alert('이미지를 등록해주세요');
+        return;
+      }
+
       dispatch({
         type: ADD_POST_REQUEST,
         data: {
@@ -96,27 +107,15 @@ const Home = () => {
           Comments: [],
         },
       });
-      // if (addPostDone) {
-      //   Router.push('/');
-      //   dispatch({
-      //     type: POST_CARD,
-      //   });
-      // }
-      setTimeout(() => {
-        if (addPostDone) {
-          Router.push('/');
-          dispatch({
-            type: POST_CARD,
-          });
-        }
-        console.log('완료');
-      }, 1000);
+      if (addPostDone) {
+        Router.push('/');
+        dispatch({
+          type: POST_CARD,
+        });
+      }
     },
     [photoToAddList, mainPosts, content],
   );
-  console.log(mainPosts[mainPosts.length - 1]?.id + 1 || 0);
-  console.log(mainPosts[mainPosts.length - 1]);
-  console.log(mainPosts.length - 1);
 
   return (
     <>
@@ -164,8 +163,8 @@ const Home = () => {
                 )}
 
                 {imageCuurrentNo < photoToAddList.length - 1 && (
-                  <div className={style.right}>
-                    <img src="/icon/right.png" onClick={onClickRight} />
+                  <div className={style.right} onClick={onClickRight}>
+                    <img src="/icon/right.png" />
                   </div>
                 )}
                 <span>
@@ -194,6 +193,8 @@ const Home = () => {
                 <textarea
                   type="text"
                   placeholder="문구를 입력해주세요"
+                  ref={ref}
+                  onInput={handleResizeHeight}
                   onChange={onChangeContent}
                   maxLength={140}
                   required

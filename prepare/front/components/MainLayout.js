@@ -7,6 +7,7 @@ import style from '../styles/css/mainPage.module.css';
 import QrCode from './QrCode/QrCode';
 import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
 import { LOG_OUT_REQUEST } from '../reducers/user';
+import Router from 'next/router';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -44,7 +45,9 @@ const MainLayout = ({ children }) => {
       data,
     });
   }, []);
-
+  const onProfile = useCallback(() => {
+    Router.push('profile');
+  }, []);
   return (
     <>
       <div className={style.wrapper}>
@@ -116,15 +119,9 @@ const MainLayout = ({ children }) => {
                         {profileToggle ? (
                           <div className={style.profileBox}>
                             <div>
-                              <p>
-                                <Link href="/profile">
-                                  <a>
-                                    <span></span>
-                                    프로필
-                                  </a>
-                                </Link>
-                              </p>
-                              <p onClick={onLogOut}>로그아웃</p>
+                              <span></span>
+                              <div onClick={onProfile}>프로필</div>
+                              <div onClick={onLogOut}>로그아웃</div>
                             </div>
                           </div>
                         ) : null}

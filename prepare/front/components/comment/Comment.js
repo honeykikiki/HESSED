@@ -10,7 +10,7 @@ import { COMMENT_TO_REPLY_OPEN } from '../../reducers/menu';
 
 import CommentOptionBtn from './CommentOptionBtn';
 
-const Comment = ({ mainPosts, id }) => {
+const Comment = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
@@ -35,7 +35,6 @@ const Comment = ({ mainPosts, id }) => {
     },
     [],
   );
-
   const onClickOption = useCallback(
     (v) => () => {
       setCommentId(v.commentId);
@@ -45,7 +44,7 @@ const Comment = ({ mainPosts, id }) => {
 
   return (
     <div>
-      {mainPosts?.Comments.map((v, i) => {
+      {post?.Comments.map((v, i) => {
         return (
           <ul key={v.commentId}>
             <li>
@@ -75,7 +74,7 @@ const Comment = ({ mainPosts, id }) => {
                 <span onClick={onClickOption(v)}>
                   <CommentOptionBtn
                     post={v}
-                    postId={id}
+                    postId={post.id}
                     bool={true}
                     commentId={commentId}
                   />
@@ -97,12 +96,11 @@ const Comment = ({ mainPosts, id }) => {
             <li className={style.reply}>
               <CommentsToReply
                 v={v}
-                i={i}
                 userId={userId}
                 nickname={nickname}
                 commentId={commentId}
-                id={id}
                 onClickOption={onClickOption}
+                post={post}
               />
             </li>
           </ul>
@@ -113,7 +111,7 @@ const Comment = ({ mainPosts, id }) => {
 };
 
 Comment.propTypes = {
-  mainPosts: PropTypes.shape({
+  post: PropTypes.shape({
     id: PropTypes.number,
     user: PropTypes.object,
     content: PropTypes.string,
@@ -123,7 +121,6 @@ Comment.propTypes = {
     Likers: PropTypes.arrayOf(PropTypes.object),
     Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
-  id: PropTypes.number.isRequired,
 };
 
 export default Comment;

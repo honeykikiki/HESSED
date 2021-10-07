@@ -9,11 +9,10 @@ import useInput from '../../hooks/useInput';
 import Router from 'next/router';
 import Comment from './Comment';
 
-const MobileComment = ({ id }) => {
+const MobileComment = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { addCommentDone, mainPosts } = useSelector((state) => state.post);
-  const { post } = useSelector((state) => state);
+  const { addCommentDone } = useSelector((state) => state.post);
   const { commentToReply } = useSelector((state) => state.menu);
 
   const [comment, onChangeInput, setComment] = useInput('');
@@ -50,10 +49,9 @@ const MobileComment = ({ id }) => {
       dispatch({
         type: ADD_COMMENT_REQUEST,
         data: {
-          postId: +id,
+          postId: post.id,
           commentId:
-            mainPosts[id].Comments[mainPosts[id].Comments.length - 1]
-              ?.commentId + 1 || 1,
+            post.Comments[post.Comments.length - 1]?.commentId + 1 || 1,
           User: {
             id: me.id,
             nickname: me.nickname,
@@ -63,7 +61,7 @@ const MobileComment = ({ id }) => {
         },
       });
     },
-    [comment, id],
+    [comment, post, me],
   );
 
   const onClickBack = useCallback(() => {
@@ -80,15 +78,13 @@ const MobileComment = ({ id }) => {
       <div>
         <div className={style.mContent}>
           <div className={style.userNickname}>
-            <div className={style.userIcon}>
-              {mainPosts[id]?.User.nickname[0]}
-            </div>
-            <p>{mainPosts[id]?.User.nickname}</p>
+            <div className={style.userIcon}>{post?.User.nickname[0]}</div>
+            <p>{post?.User.nickname}</p>
           </div>
-          <div className={style.postContent}>{mainPosts[id]?.content}</div>
+          <div className={style.postContent}>{post?.content}</div>
         </div>
         <div className={style.postComment}>
-          <Comment mainPosts={mainPosts[id]} id={id} />
+          <Comment post={post} />
         </div>
       </div>
 
@@ -118,7 +114,16 @@ const MobileComment = ({ id }) => {
 };
 
 MobileComment.propTypes = {
-  id: PropTypes.any.isRequired,
+  post: PropTypes.shape({
+    id: PropTypes.number,
+    user: PropTypes.object,
+    content: PropTypes.string,
+    createdAt: PropTypes.string,
+    comments: PropTypes.arrayOf(PropTypes.object),
+    Images: PropTypes.arrayOf(PropTypes.object),
+    Likers: PropTypes.arrayOf(PropTypes.object),
+    Retweet: PropTypes.objectOf(PropTypes.any),
+  }).isRequired,
 };
 
 export default MobileComment;

@@ -80,14 +80,14 @@
   z-index: 10;
 }
 
-.profileBox > div p {
+.profileBox > div div {
   padding-top: 10px;
   font-size: 1.4rem;
   cursor: pointer;
   color: white;
 }
 
-.profileBox > div p a {
+.profileBox > div div a {
   color: white;
 }
 
