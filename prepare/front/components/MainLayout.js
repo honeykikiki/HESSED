@@ -19,7 +19,6 @@ const MainLayout = ({ children }) => {
     setProfileToggle((prev) => !prev);
     dispatch({
       type: PROFILE,
-      data,
     });
   }, []);
 

@@ -16,6 +16,9 @@ import {
   UNSAVE_POST_REQUEST,
   UNSAVE_POST_SUCCESS,
   UNSAVE_POST_FAILURE,
+  CHANGE_NICKNAME_REQUEST,
+  CHANGE_NICKNAME_SUCCESS,
+  CHANGE_NICKNAME_FAILURE,
 } from '../reducers/user';
 
 // 로그인
@@ -128,6 +131,28 @@ function* unSavePost(action) {
   }
 }
 
+// 닉네임 수정
+function changeNicknameAPI(data) {
+  return axios.post(`/user/nickname`, data);
+}
+
+function* changeNickname(action) {
+  try {
+    // const result = yield call(changeNicknameAPI);
+    yield delay(1000);
+    yield put({
+      type: CHANGE_NICKNAME_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: CHANGE_NICKNAME_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
@@ -143,6 +168,9 @@ function* watchSavePost() {
 function* watchUnSavePost() {
   yield takeLatest(UNSAVE_POST_REQUEST, unSavePost);
 }
+function* watchChangeNickname() {
+  yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
+}
 
 export default function* userSaga() {
   yield all([
@@ -151,5 +179,6 @@ export default function* userSaga() {
     fork(watchSignUp),
     fork(watchSavePost),
     fork(watchUnSavePost),
+    fork(watchChangeNickname),
   ]);
 }
