@@ -11,7 +11,7 @@ const PostIcon = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
   const liked = post.Likers?.find((v) => v.id === me.id);
-  const saved = me.Saved?.find((v) => v.id === post.id);
+  const saved = me?.Saved.find((v) => v.id === post.id);
 
   const onLike = useCallback(() => {
     dispatch({

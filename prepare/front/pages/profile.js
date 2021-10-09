@@ -64,6 +64,12 @@ const Profile = () => {
     [changeNickname],
   );
 
+  const savedArray = [];
+  const meSa = me?.Saved.forEach((v) => {
+    savedArray.push(v.id);
+  });
+  const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
+
   return (
     <MainLayout>
       <div style={{ paddingTop: '10px' }}></div>
@@ -116,7 +122,11 @@ const Profile = () => {
               postToSave={postToSave}
             />
 
-            {postToSave ? <ProfilePost myPost={myPost} /> : null}
+            {postToSave ? (
+              <ProfilePost myPost={myPost} />
+            ) : (
+              <ProfilePost myPost={savePost} />
+            )}
           </div>
           {/* 
             <div>
