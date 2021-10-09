@@ -28,10 +28,10 @@ const Login = () => {
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
         <input
+          type="text"
           placeholder="아이디를 입력해주세요"
           value={id}
           onChange={onchangeId}
-          type="text"
           required
         />
 

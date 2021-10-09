@@ -5,28 +5,65 @@ import Link from 'next/link';
 import MainLayout from '../components/MainLayout';
 
 import style from '../styles/css/profile.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../hooks/useInput';
+import { CHANGE_NICKNAME_REQUEST } from '../reducers/user';
+import ProfileIcon from '../components/profile/ProfileIcon';
+import ProfilePost from '../components/profile/ProfilePost';
+import { compose } from 'redux';
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.menu);
-  const { me } = useSelector((state) => state.user);
+  const { me, changeNicknameDone } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
+
+  const myPost = mainPosts.filter((v) => v.User.id === me?.id);
+
+  const [followPage, setFollowPage] = useState(true);
+  const [nicknameSet, setNicknameSet] = useState(true);
+  const [postToSave, setpostToSave] = useState(true);
+  const [changeNickname, onChangeNickname, setNickname] = useInput();
 
   useEffect(() => {
     if (!me) {
       Router.push('/');
     }
-  }, [me]);
+    if (changeNicknameDone) {
+      setNickname('');
+    }
+  }, [me, changeNickname]);
 
-  const myPost = mainPosts.filter((v) => v.User.id === me?.id);
+  const onPost = useCallback(() => {
+    setpostToSave(true);
+  }, [postToSave]);
 
-  const [followPage, setFollowPage] = useState(true);
-
+  const onSave = useCallback(() => {
+    setpostToSave(false);
+  }, [postToSave]);
   const onClickRouter = useCallback((e) => {
     e.preventDefault();
     setFollowPage((prev) => !prev);
   }, []);
-  console.log(myPost);
+
+  const profileSet = useCallback((e) => {
+    setNicknameSet((prev) => !prev);
+  }, []);
+
+  const clickChangeNickname = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch({
+        type: CHANGE_NICKNAME_REQUEST,
+        data: {
+          userId: me.id,
+          nickname: changeNickname,
+        },
+      });
+    },
+    [changeNickname],
+  );
+
   return (
     <MainLayout>
       <div style={{ paddingTop: '10px' }}></div>
@@ -56,49 +93,32 @@ const Profile = () => {
               </li>
             </ul>
           </div>
+          <div className={style.profileNameReSet} onClick={profileSet}>
+            프로필수정
+          </div>
+          {!me?.id ? null : nicknameSet ? null : (
+            <form className={style.changeNickname}>
+              <input
+                type="text"
+                placeholder="변경할 닉네임을 입력해 주세요"
+                value={changeNickname}
+                onChange={onChangeNickname}
+                required
+              />
+              <button onClick={clickChangeNickname}>바꾸기</button>
+            </form>
+          )}
 
-          <div className={style.profileNameReSet}>프로필수정</div>
+          <div>
+            <ProfileIcon
+              onSave={onSave}
+              onPost={onPost}
+              postToSave={postToSave}
+            />
 
-          {followPage ? (
-            <div className={style.upLoadImageBox}>
-              {myPost.map((v, i) => {
-                // console.log(v);
-                // console.log(v[i + 1]);
-                if (i % 3 === 0) {
-                  // i = 0 3 6 9
-                  // console.log(i);
-
-                  return (
-                    <ul className={style.upLoadImage}>
-                      <li>
-                        <Link href={`post/${myPost[i].id}`}>
-                          <a>{<img src={`${myPost[i].Images[0].url}`} />}</a>
-                        </Link>
-                      </li>
-                      {myPost[i + 1] && (
-                        <li>
-                          <Link href={`post/${myPost[i + 1].id}`}>
-                            <a>
-                              {<img src={`${myPost[i + 1].Images[0].url}`} />}
-                            </a>
-                          </Link>
-                        </li>
-                      )}
-                      {myPost[i + 2] && (
-                        <li>
-                          <Link href={`post/${myPost[i + 2].id}`}>
-                            <a>
-                              {<img src={`${myPost[i + 2].Images[0].url}`} />}
-                            </a>
-                          </Link>
-                        </li>
-                      )}
-                    </ul>
-                  );
-                }
-              })}
-            </div>
-          ) : (
+            {postToSave ? <ProfilePost myPost={myPost} /> : null}
+          </div>
+          {/* 
             <div>
               <div className={style.follow}>
                 <h2>팔로워</h2>
@@ -133,22 +153,7 @@ const Profile = () => {
                 </ul>
               </div>
             </div>
-          )}
-
-          {/* <ul className={style.upLoadImage}>
-            
-
-            <li>이미지 박스</li>
-            <li>이미지 박스</li>
-            <li>이미지 박스</li>
-
-            <li>이미지 박스</li>
-            <li>이미지 박스</li>
-            <li>이미지 박스</li>
-
-            <li>이미지 박스</li>
-            <li>이미지 박스</li>
-          </ul> */}
+          )} */}
         </article>
       </section>
       <div style={{ paddingBottom: '54px' }}></div>

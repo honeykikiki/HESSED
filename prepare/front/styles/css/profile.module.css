@@ -59,8 +59,53 @@
   margin-top: 20px;
 }
 
+.changeNickname {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 10px;
+}
+
+.changeNickname input {
+  border: none;
+  border-bottom: 1px solid black;
+  overflow: visible;
+  outline-style: dashed;
+  width: 60%;
+  height: 20px;
+  max-height: 80px;
+  outline-color: white;
+  text-align: center;
+}
+
+.changeNickname button {
+  margin-left: 20px;
+  border: none;
+  background-color: transparent;
+  color: #409857;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.postBox {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  margin-top: calc(10px + 1%);
+}
+
+.postBox div {
+  width: 50%;
+}
+
 .upLoadImageBox {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 .upLoadImage {

@@ -125,6 +125,7 @@
   height: 20px;
   max-height: 80px;
   outline-color: white;
+  outline-style: dashed;
   resize: none;
 }
 

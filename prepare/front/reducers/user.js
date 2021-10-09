@@ -16,6 +16,9 @@ export const initialState = {
   unSavePostLoading: false, // 게시물 저장취소
   unSavePostDone: false,
   unSavePostError: null,
+  changeNicknameLoading: false, // 닉네임 수정
+  changeNicknameDone: false,
+  changeNicknameError: null,
   me: null,
 };
 
@@ -38,6 +41,10 @@ export const SAVE_POST_FAILURE = 'SAVE_POST_FAILURE';
 export const UNSAVE_POST_REQUEST = 'UNSAVE_POST_REQUEST';
 export const UNSAVE_POST_SUCCESS = 'UNSAVE_POST_SUCCESS';
 export const UNSAVE_POST_FAILURE = 'UNSAVE_POST_FAILURE';
+
+export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
+export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
+export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 
 const dummyUser = (data) => ({
   ...data,
@@ -141,6 +148,24 @@ const reducer = (state = initialState, action) => {
       case UNSAVE_POST_FAILURE:
         draft.unSavePostDone = false;
         draft.unSavePostError = action.error;
+        break;
+
+      // 닉네임 수정하기
+      case CHANGE_NICKNAME_REQUEST:
+        draft.changeNicknameLoading = true;
+        draft.changeNicknameDone = false;
+        draft.changeNicknameError = null;
+        break;
+      case CHANGE_NICKNAME_SUCCESS: {
+        draft.changeNicknameLoading = false;
+        draft.changeNicknameDone = true;
+        draft.changeNicknameError = null;
+        draft.me.nickname = action.data.nickname;
+        break;
+      }
+      case CHANGE_NICKNAME_FAILURE:
+        draft.changeNicknameDone = false;
+        draft.changeNicknameError = action.error;
         break;
 
       default:
