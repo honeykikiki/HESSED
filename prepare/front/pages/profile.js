@@ -10,11 +10,9 @@ import useInput from '../hooks/useInput';
 import { CHANGE_NICKNAME_REQUEST } from '../reducers/user';
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
-import { compose } from 'redux';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.menu);
   const { me, changeNicknameDone } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
