@@ -1,5 +1,5 @@
 //post/[id]/comment.js
-import React, { useEffect, useCallback, useRef } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';

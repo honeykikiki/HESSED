@@ -37,9 +37,7 @@ const Post = () => {
         <section>
           <div className={style.head}>
             <div onClick={onClickBack}>뒤로가기</div>
-            <div
-              style={{ fontSize: '1.6rem' }}
-            >{`${post?.User.nickname}님의 게시글`}</div>
+            <div>{`${post?.User.nickname} 게시글`}</div>
           </div>
           <PostCard post={post} />
         </section>
