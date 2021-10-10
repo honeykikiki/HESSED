@@ -72,7 +72,7 @@ const MobileComment = ({ post }) => {
     <div className={style.mComment}>
       <div className={style.head}>
         <div onClick={onClickBack}>뒤로가기</div>
-        <div style={{ fontSize: '1.6rem' }}>댓글</div>
+        <div>댓글</div>
       </div>
 
       <div>

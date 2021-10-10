@@ -10,11 +10,9 @@ import useInput from '../hooks/useInput';
 import { CHANGE_NICKNAME_REQUEST } from '../reducers/user';
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
-import { compose } from 'redux';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.menu);
   const { me, changeNicknameDone } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
@@ -41,10 +39,6 @@ const Profile = () => {
   const onSave = useCallback(() => {
     setpostToSave(false);
   }, [postToSave]);
-  const onClickRouter = useCallback((e) => {
-    e.preventDefault();
-    setFollowPage((prev) => !prev);
-  }, []);
 
   const profileSet = useCallback((e) => {
     setNicknameSet((prev) => !prev);
@@ -89,13 +83,21 @@ const Profile = () => {
                 <p>{myPost.length ?? 0}</p>
               </li>
 
-              <li onClick={onClickRouter}>
-                팔로워
-                <p>{me?.Followers.length ?? 0}</p>
+              <li>
+                <Link href={`/user/${me?.id}/followers`}>
+                  <a>
+                    팔로워
+                    <p>{me?.Followers.length ?? 0}</p>
+                  </a>
+                </Link>
               </li>
-              <li onClick={onClickRouter}>
-                팔로잉
-                <p>{me?.Followings.length ?? 0}</p>
+              <li>
+                <Link href={`/user/${me?.id}/followings`}>
+                  <a>
+                    팔로잉
+                    <p>{me?.Followings.length ?? 0}</p>
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
