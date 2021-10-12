@@ -81,6 +81,17 @@ const Home = () => {
     [photoToAddList, imageCuurrentNo],
   );
 
+  const time = setTimeout(() => {
+    console.log('start');
+    if (addPostDone) {
+      console.log('end');
+      Router.push('/');
+      dispatch({
+        type: POST_CARD,
+      });
+    }
+  }, 1000);
+
   const upLoadFormClick = useCallback(
     (e) => {
       e.preventDefault();
@@ -107,14 +118,8 @@ const Home = () => {
           Comments: [],
         },
       });
-      if (addPostDone) {
-        Router.push('/');
-        dispatch({
-          type: POST_CARD,
-        });
-      }
     },
-    [photoToAddList, mainPosts, content],
+    [photoToAddList, mainPosts, content, addPostDone],
   );
 
   return (

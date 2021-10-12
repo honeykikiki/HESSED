@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { all, fork, put, call, delay, takeLatest } from 'redux-saga/effects';
+import {
+  all,
+  fork,
+  put,
+  call,
+  delay,
+  takeLatest,
+  throttle,
+} from 'redux-saga/effects';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
@@ -25,11 +33,14 @@ import {
   ADD_POST_SUCCESS,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
+  LOAD_POSTS_REQUEST,
+  LOAD_POSTS_SUCCESS,
+  LOAD_POSTS_FAILURE,
 } from '../reducers/post';
 
-// 게시물 등록하시
+// 게시물 등록하기
 function addPostAPI(data) {
-  return axios.delete(`/post/${data.postId}`);
+  return axios.delete(`/post`, data);
 }
 
 function* addPost(action) {
@@ -72,7 +83,7 @@ function* removePost(action) {
 
 //댓글달기
 function addPostCommentAPI(data) {
-  return axios.post(`/post/${data.postId}`, data);
+  return axios.post(`/post/${data.postId}/Comment`, data);
 }
 
 function* addPostComment(action) {
@@ -199,6 +210,28 @@ function* unLikePost(action) {
   }
 }
 
+// 게시물 가져오기
+function loadPostsAPI(lastId) {
+  return axios.get(`/posts?lastId=${lastId || 0}`);
+}
+
+function* loadPosts(action) {
+  try {
+    // const result = yield call(loadPostsAPI, action.lastId);
+    yield delay(1000);
+    yield put({
+      type: LOAD_POSTS_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_POSTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
@@ -230,6 +263,10 @@ function* watchUnLikePost() {
   yield takeLatest(UNLIKE_POST_REQUEST, unLikePost);
 }
 
+function* watchLoadPosts() {
+  yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchAddPost),
@@ -240,5 +277,6 @@ export default function* userSaga() {
     fork(watchAddRemoveCommentReply),
     fork(watchLikePost),
     fork(watchUnLikePost),
+    fork(watchLoadPosts),
   ]);
 }
