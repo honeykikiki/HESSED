@@ -6,7 +6,7 @@ export const generateDummyPost = (number) =>
   Array(number)
     .fill()
     .map((v, i) => ({
-      id: 3 - i,
+      id: i,
       User: {
         id: 20,
         nickname: faker.name.findName(),
@@ -35,8 +35,10 @@ export const generateDummyPost = (number) =>
     }));
 
 export const initialState = {
-  mainPosts: generateDummyPost(4),
+  mainPosts: [],
   imagePaths: [],
+  hasMorePosts: true,
+
   addPostLoading: false, // 게시물 등록
   addPostDone: false,
   addPostError: null,
@@ -61,6 +63,9 @@ export const initialState = {
   unLikePostLoading: false, // 좋아요 취소
   unLikePostDone: false,
   unLikePostError: null,
+  loadPostsLoading: false, // 게시물 가져오기
+  loadPostsDone: false,
+  loadPostsError: null,
 };
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -94,6 +99,10 @@ export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
 export const UNLIKE_POST_REQUEST = 'UNLIKE_POST_REQUEST';
 export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
 export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
+
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCES';
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -268,6 +277,23 @@ const reducer = (state = initialState, action) => {
         draft.unLikePostError = action.error;
         break;
 
+      // 게시물 가져오기
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      case LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        // draft.mainPosts = draft.mainPosts.concat(action.data);
+        draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
+        // draft.hasMorePosts = action.data.length === 10;
+        break;
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;
+        break;
       default:
         break;
     }

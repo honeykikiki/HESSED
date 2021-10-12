@@ -90,7 +90,7 @@ function* signUp(action) {
 
 // 게시물 저장
 function savePostAPI(data) {
-  return axios.post(`/user`, data);
+  return axios.post(`/user/saved`, data);
 }
 
 function* savePost(action) {
@@ -111,7 +111,7 @@ function* savePost(action) {
 }
 // 게시물 저장 취소
 function unSavePostAPI(data) {
-  return axios.post(`/user`, data);
+  return axios.delete(`/user/saved`, data);
 }
 
 function* unSavePost(action) {

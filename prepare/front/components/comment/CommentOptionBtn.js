@@ -37,8 +37,8 @@ const CommentOptionBtn = ({
     dispatch({
       type: REMOVE_COMMENT_REQUEST,
       data: {
-        commentId,
         postId: +postId,
+        commentId,
         userId: me.id,
       },
     });
@@ -48,9 +48,9 @@ const CommentOptionBtn = ({
     dispatch({
       type: REMOVE_COMMENT_REPLY_REQUEST,
       data: {
+        postId: +postId,
         commentId,
         commentReplyId: commentReplyCheckdId,
-        postId: +postId,
         userId: me.id,
       },
     });

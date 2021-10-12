@@ -3,7 +3,6 @@ import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 
-// import style from '../../../styles/css/profile.module.css';
 import style from '../../../styles/css/dynamicFollowers.module.css';
 
 const followers = () => {

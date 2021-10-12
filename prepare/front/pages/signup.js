@@ -14,9 +14,10 @@ const Login = () => {
   const [id, onChangeId, setId] = useInput('');
   const [password, onChangePassword, setPassword] = useInput('');
   const [nickname, onChangeNickname, setNickname] = useInput('');
+  const [myName, onChangeMyName, setMyName] = useInput('');
   const [phone, onChangePhone, setPhone] = useInput('');
   const [area, onChangeArea, setArea] = useInput('');
-  const [agree, onChangeAgree, setAgree] = useInput();
+  const [agree, onChangeAgree, setAgree] = useInput(false);
 
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -31,9 +32,14 @@ const Login = () => {
 
   useEffect(() => {
     if (signUpDone) {
+      alert(`${myName}님 회원가입이 완료되었습니다`);
       Router.replace('/');
     }
   }, [signUpDone]);
+
+  const checkboxClick = useCallback(() => {
+    setAgree((prev) => !prev);
+  }, []);
 
   const onSubmit = useCallback(
     (e) => {
@@ -50,12 +56,13 @@ const Login = () => {
       }
       dispatch({
         type: SIGN_UP_REQUEST,
-        data: { id, password, nickname, phone, area },
+        data: { myName, id, password, nickname, phone, agree },
       });
     },
     [id, password, nickname, phone, area],
   );
 
+  console.log(agree);
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
@@ -97,6 +104,15 @@ const Login = () => {
           style={{ marginTop: -10 }}
           placeholder="이름을 입력해주세요"
           type="text"
+          value={myName}
+          onChange={onChangeMyName}
+          required
+        />
+        <br />
+
+        <input
+          placeholder="별명을 입력해주세요"
+          type="text"
           value={nickname}
           onChange={onChangeNickname}
           required
@@ -105,7 +121,7 @@ const Login = () => {
 
         <input
           placeholder="ex) 01012345678"
-          type="text"
+          type="number"
           value={phone}
           onChange={onChangePhone}
           maxLength="11"
@@ -113,20 +129,20 @@ const Login = () => {
         />
         <br />
 
-        <input
+        {/* <input
           placeholder="ex) 둔산동"
           type="text"
           value={area}
           onChange={onChangeArea}
           required
         />
-        <br />
+        <br /> */}
 
         <div className={style.checkBox}>
           <input
             type="checkbox"
             value={agree}
-            onChange={onChangeNickname}
+            onClick={checkboxClick}
             required
           />
           <span>개인정보 활용 동의 (보기)</span>
