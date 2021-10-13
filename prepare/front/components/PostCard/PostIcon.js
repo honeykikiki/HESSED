@@ -41,6 +41,7 @@ const PostIcon = ({ post }) => {
       },
     });
   }, []);
+
   const onUnSave = useCallback(() => {
     dispatch({
       type: UNSAVE_POST_REQUEST,
@@ -50,6 +51,8 @@ const PostIcon = ({ post }) => {
       },
     });
   }, []);
+
+  const onShare = useCallback(() => {}, []);
   return (
     <article className={style.postIcon}>
       <div>
@@ -76,7 +79,7 @@ const PostIcon = ({ post }) => {
       </div>
       <div>
         {/* 공유 */}
-        <img src="/icon/share.svg" />
+        <img src="/icon/share.svg" onClick={onShare} />
       </div>
       <div>
         {/* 저장 */}

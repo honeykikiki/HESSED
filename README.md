@@ -319,3 +319,27 @@
         [photoToAddList],
         );
     ```
+
+## 팝업창이 나올떄 스크롤 금지
+
+> 문제 / 해결:
+
+    문제 : 팝업창이 뜰떄 스크롤이 움직이느 현상
+    해결 :
+        1.body 태그의 css를 변경합니다. position을 fixed로 하고, top의 위치를 현재 스크롤   위치로 설정한 뒤 overflow-y: scroll; width: 100%; 을 추가 지정하면 스크롤바로 인해 배경의 위치가 움직이지 않고도 스크롤 방지를 할 수 있습니다.
+
+        2. useEffect를 사용해 css를 변경하며, 모달이 사라질 때에는 useEffect의 return을 사용해 body의 cssText를 리셋시킨 다음 window,scroll을 이용해 현재 스크롤 위치로 강제 이동시킵니다. 참고로 useEffect의 return 절은 컴포넌트가 unmount 될 때 호출됩니다.
+
+    ```js
+
+    useEffect(() => {
+        if (!qrCode) {
+            document.body.style.cssText = ` position: fixed; top: -${window.    scrollY}    px;     overflow-y: scroll; width: 100%;`;
+                return () => {
+                    const scrollY = document.body.style.top;
+                    document.body.style.cssText = '';
+                    window.scrollTo(0, parseInt(scrollY || '0', 10) \* -1);
+                };
+        }
+    );
+    ```

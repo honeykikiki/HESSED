@@ -11,7 +11,9 @@ import Router from 'next/router';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
-  const { postCard, upLoad, qrCode } = useSelector((state) => state.menu);
+  const { postCard, upLoad, qrCode, profile } = useSelector(
+    (state) => state.menu,
+  );
 
   const [profileToggle, setProfileToggle] = useState(false);
 
@@ -67,9 +69,9 @@ const MainLayout = ({ children }) => {
                       {/* Postcard */}
                       <a>
                         {postCard ? (
-                          <img src="/icon/home-w.svg" />
+                          <img src="/icon/home-B.svg" />
                         ) : (
-                          <img src="/icon/home-b.svg" />
+                          <img src="/icon/home-W.svg" />
                         )}
                       </a>
                     </Link>
@@ -80,9 +82,9 @@ const MainLayout = ({ children }) => {
                       {/* UpLoad */}
                       <a>
                         {upLoad ? (
-                          <img src="/icon/upLoad-w.svg" />
+                          <img src="/icon/upLoad-B.svg" />
                         ) : (
-                          <img src="/icon/upLoad-b.svg" />
+                          <img src="/icon/upLoad-W.svg" />
                         )}
                       </a>
                     </Link>
@@ -92,20 +94,15 @@ const MainLayout = ({ children }) => {
                     {/* QrCode */}
                     <a>
                       {qrCode ? (
-                        <img src="/icon/QR-b.svg" />
+                        <img src="/icon/QR-W.svg" />
                       ) : (
-                        <img src="/icon/QR-w.svg" />
+                        <img src="/icon/QR-B.svg" />
                       )}
                     </a>
                   </li>
 
                   <li>
-                    {/* profile */}
-                    {/* <Link href="/profile"> */}
                     <a>
-                      {/* {profile ? (
-                        <div className={style.profileCircle}></div>
-                      ) : null} */}
                       <div
                         style={{
                           borderRadius: '50%',
@@ -115,6 +112,7 @@ const MainLayout = ({ children }) => {
                         }}
                         onClick={profileClickToggle}
                       >
+                        {profile ? <img src="/icon/profile.svg" /> : null}
                         {profileToggle ? (
                           <div className={style.profileBox}>
                             <div>

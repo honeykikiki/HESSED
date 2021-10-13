@@ -1,3 +1,13 @@
+.wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
 .qr {
   position: fixed;
   left: 0;
@@ -6,9 +16,9 @@
           transform: translateY(-50%);
   z-index: 100;
   width: 100%;
-  height: 70%;
+  height: 70vh;
   border-radius: 20px;
-  background-color: gray;
+  background-color: #dbdbdb;
 }
 
 .qr h1 {
@@ -79,5 +89,21 @@
   height: 300px;
   margin: auto;
   margin-top: 40px;
-  background-color: blanchedalmond;
+}
+
+.QrCode img {
+  width: 100%;
+}
+
+.close {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background-color: #409857;
+  padding: 10px 50px;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.4rem;
 }

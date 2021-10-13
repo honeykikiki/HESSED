@@ -35,7 +35,7 @@ export const generateDummyPost = (number) =>
     }));
 
 export const initialState = {
-  mainPosts: [],
+  mainPosts: generateDummyPost(2),
   imagePaths: [],
   hasMorePosts: true,
 
