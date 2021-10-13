@@ -17,23 +17,6 @@
   text-align: center;
   padding-top: 20px;
   font-size: 1.4rem;
-}
-
-.profileImg > div {
-  width: 30%;
-}
-
-.profileImg > div > div img {
-  width: 80%;
-  height: auto;
-  border-radius: 50%;
-}
-
-.profileImg ul {
-  width: 70%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   -webkit-box-align: center;
@@ -41,12 +24,14 @@
           align-items: center;
 }
 
-.profileImg ul li:nth-child(2) {
-  cursor: pointer;
+.profileImg > div {
+  width: 40%;
 }
 
-.profileImg ul li:nth-child(3) {
-  cursor: pointer;
+.profileImg > div > div img {
+  width: 80%;
+  height: auto;
+  border-radius: 50%;
 }
 
 .profileNameReSet {
@@ -56,7 +41,7 @@
   border: 1px solid black;
   padding: 2.5px 0;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .changeNickname {
@@ -93,6 +78,8 @@
 
 .postBox {
   width: 100%;
+  border-top: 1px solid #dfdfdf;
+  padding-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -77,33 +77,36 @@ const Profile = () => {
               <p>{me?.nickname}</p>
             </div>
 
-            <ul>
-              <li>
-                게시글
-                <p>{myPost.length ?? 0}</p>
-              </li>
+            <div>
+              <div>
+                <div>
+                  게시글
+                  <p>{myPost.length ?? 0}</p>
+                </div>
 
-              <li>
-                <Link href={`/user/${me?.id}/followers`}>
-                  <a>
-                    팔로워
-                    <p>{me?.Followers.length ?? 0}</p>
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href={`/user/${me?.id}/followings`}>
-                  <a>
-                    팔로잉
-                    <p>{me?.Followings.length ?? 0}</p>
-                  </a>
-                </Link>
-              </li>
-            </ul>
+                {/* <li>
+                  <Link href={`/user/${me?.id}/followers`}>
+                    <a>
+                      팔로워
+                      <p>{me?.Followers.length ?? 0}</p>
+                    </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href={`/user/${me?.id}/followings`}>
+                    <a>
+                      팔로잉
+                      <p>{me?.Followings.length ?? 0}</p>
+                    </a>
+                  </Link>
+                </li> */}
+              </div>
+              <div className={style.profileNameReSet} onClick={profileSet}>
+                프로필수정
+              </div>
+            </div>
           </div>
-          <div className={style.profileNameReSet} onClick={profileSet}>
-            프로필수정
-          </div>
+
           {!me?.id ? null : nicknameSet ? null : (
             <form className={style.changeNickname}>
               <input

@@ -16,7 +16,6 @@ const Home = () => {
 
   const imageInput = useRef();
   const [photoToAddList, setPhotoToAddList] = useState([]);
-  const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
   const [content, onChangeContent, setContetn] = useInput();
 
   const ref = useRef();
@@ -32,26 +31,10 @@ const Home = () => {
     if (!me) {
       Router.push('/');
     }
-    if (imageCuurrentNo < 0) {
-      setImageCuurrentNo(0);
-    }
-  }, [me, imageCuurrentNo]);
-
-  const onClickLeft = useCallback(() => {
-    if (imageCuurrentNo > 0) {
-      setImageCuurrentNo((prev) => prev - 1);
-    }
-  }, [imageCuurrentNo, photoToAddList]);
-
-  const onClickRight = useCallback(() => {
-    if (imageCuurrentNo < photoToAddList.length - 1) {
-      setImageCuurrentNo((prev) => prev + 1);
-    }
-  }, [imageCuurrentNo, photoToAddList]);
+  }, [me]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
-    setImageCuurrentNo(0);
   }, [imageInput.current]);
 
   const handleImage = useCallback(
@@ -65,6 +48,16 @@ const Home = () => {
           url: URL.createObjectURL(photoToAdd[i]),
         });
       }
+      if (temp.length > 10) {
+        return alert('최대개수 10개가 넘어갔습니다');
+      }
+      if (temp.length + photoToAddList.length > 10) {
+        return alert('최대개수 10개가 넘어갔습니다');
+      }
+      if (photoToAddList.length > 10) {
+        return alert('최대개수 10개가 넘어갔습니다');
+      }
+
       setPhotoToAddList(temp.concat(photoToAddList));
     },
     [photoToAddList],
@@ -73,24 +66,9 @@ const Home = () => {
   const onRemove = useCallback(
     (deleteUrl) => {
       setPhotoToAddList(photoToAddList.filter((v) => v.url !== deleteUrl));
-      setImageCuurrentNo((prev) => prev - 1);
-      if (imageCuurrentNo < 0) {
-        setImageCuurrentNo(0);
-      }
     },
-    [photoToAddList, imageCuurrentNo],
+    [photoToAddList],
   );
-
-  const time = setTimeout(() => {
-    console.log('start');
-    if (addPostDone) {
-      console.log('end');
-      Router.push('/');
-      dispatch({
-        type: POST_CARD,
-      });
-    }
-  }, 1000);
 
   const upLoadFormClick = useCallback(
     (e) => {
@@ -118,8 +96,18 @@ const Home = () => {
           Comments: [],
         },
       });
+
+      setTimeout(() => {
+        if (addPostDone) {
+          console.log('end');
+          Router.push('/');
+          dispatch({
+            type: POST_CARD,
+          });
+        }
+      }, 1000);
     },
-    [photoToAddList, mainPosts, content, addPostDone],
+    [photoToAddList, mainPosts, content, addPostDone, Router],
   );
 
   return (
@@ -135,20 +123,12 @@ const Home = () => {
                   {photoToAddList
                     ? photoToAddList.map((v) => {
                         return (
-                          <li
-                            style={{
-                              transform: `translate3d(-${
-                                imageCuurrentNo * 100
-                              }%, 0px, 0px)`,
-                              transition: 'all .6s',
-                            }}
-                            key={v.url}
-                          >
+                          <li key={v.url}>
                             <div
                               className={style.remove}
                               onClick={() => onRemove(v.url)}
                             >
-                              X
+                              x
                             </div>
                             <img
                               src={v.url}
@@ -160,39 +140,23 @@ const Home = () => {
                         );
                       })
                     : null}
+                  <li onClick={onClickImageUpload}>
+                    <div className={style.imageInput}>
+                      <img src="/icon/addphoto.svg" className={style.addImg} />
+                    </div>
+                  </li>
                 </ul>
-                {imageCuurrentNo >= 1 && (
-                  <div className={style.left}>
-                    <img src="/icon/left.png" onClick={onClickLeft} />
-                  </div>
-                )}
-
-                {imageCuurrentNo < photoToAddList.length - 1 && (
-                  <div className={style.right} onClick={onClickRight}>
-                    <img src="/icon/right.png" />
-                  </div>
-                )}
-                <span>
-                  {`${imageCuurrentNo + 1} / ${photoToAddList.length}`}
-                </span>
-                {/*  */}
               </div>
 
-              <div className={style.imageInput}>
-                <div onClick={onClickImageUpload}>
-                  <input
-                    type="file"
-                    accept="image/jpg, image/jpeg, image/png"
-                    ref={imageInput}
-                    onChange={handleImage}
-                    hidden
-                    multiple
-                    required
-                  />
-                  <img src="/icon/addphoto.svg" />
-                  <p>등록할 사진을 가지고와주세요.</p>
-                </div>
-              </div>
+              <input
+                type="file"
+                accept="image/jpg, image/jpeg, image/png"
+                ref={imageInput}
+                onChange={handleImage}
+                hidden
+                multiple
+                required
+              />
 
               <div className={style.textInput}>
                 <textarea

@@ -1,14 +1,1 @@
-<svg id="QR-B" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <rect id="사각형_18" data-name="사각형 18" width="24" height="24" fill="none"/>
-  <path id="패스_17" data-name="패스 17" d="M3,11h8V3H3ZM5,5H9V9H5Z"/>
-  <path id="패스_18" data-name="패스 18" d="M3,21h8V13H3Zm2-6H9v4H5Z"/>
-  <path id="패스_19" data-name="패스 19" d="M13,3v8h8V3Zm6,6H15V5h4Z"/>
-  <rect id="사각형_19" data-name="사각형 19" width="2" height="2" transform="translate(19 19)"/>
-  <rect id="사각형_20" data-name="사각형 20" width="2" height="2" transform="translate(13 13)"/>
-  <rect id="사각형_21" data-name="사각형 21" width="2" height="2" transform="translate(15 15)"/>
-  <rect id="사각형_22" data-name="사각형 22" width="2" height="2" transform="translate(13 17)"/>
-  <rect id="사각형_23" data-name="사각형 23" width="2" height="2" transform="translate(15 19)"/>
-  <rect id="사각형_24" data-name="사각형 24" width="2" height="2" transform="translate(17 17)"/>
-  <rect id="사각형_25" data-name="사각형 25" width="2" height="2" transform="translate(17 13)"/>
-  <rect id="사각형_26" data-name="사각형 26" width="2" height="2" transform="translate(19 15)"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><g transform="translate(-1182 -563)"><path d="M3,11h8V3H3ZM5,5H9V9H5Z" transform="translate(1179 560)" fill="#181818"/><path d="M3,21h8V13H3Zm2-6H9v4H5Z" transform="translate(1179 560)" fill="#181818"/><path d="M13,3v8h8V3Zm6,6H15V5h4Z" transform="translate(1179 560)" fill="#181818"/><rect width="2" height="2" transform="translate(1198 579)" fill="#181818"/><rect width="2" height="2" transform="translate(1192 573)" fill="#181818"/><rect width="2" height="2" transform="translate(1194 575)" fill="#181818"/><rect width="2" height="2" transform="translate(1192 577)" fill="#181818"/><rect width="2" height="2" transform="translate(1194 579)" fill="#181818"/><rect width="2" height="2" transform="translate(1196 577)" fill="#181818"/><rect width="2" height="2" transform="translate(1196 573)" fill="#181818"/><rect width="2" height="2" transform="translate(1198 575)" fill="#181818"/></g></svg>

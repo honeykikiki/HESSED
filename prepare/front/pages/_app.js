@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import '../styles/css/style.css';
 import wrapper from '../store/configureStore';
+import { END } from 'redux-saga';
+import { LOAD_POSTS_REQUEST } from '../reducers/post';
 
 const Hessed = ({ Component }) => {
   const [loading, setLoading] = useState(true);
@@ -13,15 +15,18 @@ const Hessed = ({ Component }) => {
       setTimeout(() => {
         const loadingPage = document.querySelector('.loadingPage');
         loadingPage.style.display = 'none';
-      }, 100);
+      }, 1000);
     }
   }, [loading]);
   return (
     <>
       <Head>
-        <meta charSet="utf8" />
         <title>HESSED</title>
+        <meta charSet="utf8" />
+        <meta property="og:image" content="/icon/HESSED_LOGO-W.png" />
+        {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
+
       <div className="loadingPage">
         <div>
           <img src="/icon/HESSED_LOGO-W.png" width="180" />
@@ -31,6 +36,24 @@ const Hessed = ({ Component }) => {
     </>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ req }) => {
+      // 로그인이 풀리는 현상, 서버에서 공유하지 않는 쿠ㄱ
+      // const cookie = req ? req.headers.cookie : '';
+      // axios.defaults.headers.Cookie = '';
+      // if (req && cookie) {
+      //   axios.defaults.headers.Cookie = cookie;
+      // }
+      console.log('start');
+      store.dispatch({
+        type: LOAD_POSTS_REQUEST,
+      });
+      store.dispatch(END);
+      await store.sagaTask.toPromise();
+    },
+);
 
 Hessed.propTypes = {
   Component: PropTypes.elementType.isRequired,

@@ -11,6 +11,21 @@ const PostCardSetButton = ({ post }) => {
   const { me } = useSelector((state) => state.user);
   const [optionButton, setOptionButton] = useState(true);
 
+  useEffect(() => {
+    if (!optionButton) {
+      document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+      return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      };
+    }
+  }, [optionButton]);
+
   const onClickOptionOpen = useCallback(() => {
     if (optionButton) {
       setOptionButton(false);
@@ -38,27 +53,31 @@ const PostCardSetButton = ({ post }) => {
 
         {optionButton ? null : me.id === post.User.id ? (
           // post.User.id == me.id
-          <div
-            className={style.optionButton}
-            style={{ border: '1px solid black' }}
-          >
-            <div onClick={onClickPostCardRemove}>
-              <p>삭제</p>
-            </div>
-            <div onClick={onClickOptionClose}>
-              <p>취소</p>
+          <div className={style.buttonWrap} onClick={onClickOptionClose}>
+            <div
+              className={style.optionButton}
+              style={{ border: '1px solid black' }}
+            >
+              <div onClick={onClickPostCardRemove}>
+                <p>삭제</p>
+              </div>
+              <div onClick={onClickOptionClose}>
+                <p>취소</p>
+              </div>
             </div>
           </div>
         ) : (
-          <div
-            className={style.optionButton}
-            style={{ border: '1px solid black' }}
-          >
-            <div style={{ color: 'red' }}>
-              <p>신고</p>
-            </div>
-            <div onClick={onClickOptionClose}>
-              <p>취소</p>
+          <div className={style.buttonWrap} onClick={onClickOptionClose}>
+            <div
+              className={style.optionButton}
+              style={{ border: '1px solid black' }}
+            >
+              <div style={{ color: 'red' }}>
+                <p>신고</p>
+              </div>
+              <div onClick={onClickOptionClose}>
+                <p>취소</p>
+              </div>
             </div>
           </div>
         )}
