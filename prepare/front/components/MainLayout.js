@@ -47,7 +47,7 @@ const MainLayout = ({ children }) => {
     });
   }, []);
   const onProfile = useCallback(() => {
-    Router.push('profile');
+    Router.push('/profile');
   }, []);
   return (
     <>

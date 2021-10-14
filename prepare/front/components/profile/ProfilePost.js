@@ -19,7 +19,7 @@ const ProfilePost = ({ myPost }) => {
                     <a>
                       {myPost[i].Images.length > 1 ? (
                         <span>
-                          <img src="icon/more.png" />
+                          <img src="/icon/more.png" />
                         </span>
                       ) : null}
                       {<img src={`${myPost[i].Images[0].url}`} />}
@@ -32,7 +32,7 @@ const ProfilePost = ({ myPost }) => {
                       <a>
                         {myPost[i + 1].Images.length > 1 ? (
                           <span>
-                            <img src="icon/more.png" />
+                            <img src="/icon/more.png" />
                           </span>
                         ) : null}
                         {<img src={`${myPost[i + 1].Images[0].url}`} />}
@@ -46,7 +46,7 @@ const ProfilePost = ({ myPost }) => {
                       <a>
                         {myPost[i + 2].Images.length > 1 ? (
                           <span>
-                            <img src="icon/more.png" />
+                            <img src="/icon/more.png" />
                           </span>
                         ) : null}
                         {<img src={`${myPost[i + 2].Images[0].url}`} />}

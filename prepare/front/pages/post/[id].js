@@ -36,7 +36,9 @@ const Post = () => {
       {post && (
         <section>
           <div className={style.head}>
-            <div onClick={onClickBack}>뒤로가기</div>
+            <div onClick={onClickBack}>
+              <img src="/icon/back.svg" width="12px" />
+            </div>
             <div>{`${post?.User.nickname} 게시글`}</div>
           </div>
           <PostCard post={post} />
