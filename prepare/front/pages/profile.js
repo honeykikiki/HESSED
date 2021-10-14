@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
 
@@ -7,7 +7,10 @@ import MainLayout from '../components/MainLayout';
 import style from '../styles/css/profile.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../hooks/useInput';
-import { CHANGE_NICKNAME_REQUEST } from '../reducers/user';
+import {
+  CHANGE_NICKNAME_REQUEST,
+  CHANGE_PROFILEIMG_REQUEST,
+} from '../reducers/user';
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
 
@@ -21,15 +24,36 @@ const Profile = () => {
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [changeNickname, onChangeNickname, setNickname] = useInput();
+  const [photoToAddList, setPhotoToAddList] = useState(false);
+
+  const imageInput = useRef();
 
   useEffect(() => {
     if (!me) {
       Router.push('/');
     }
-    if (changeNicknameDone) {
+
+    if (nicknameSet) {
+      setPhotoToAddList();
       setNickname('');
     }
-  }, [me, changeNickname]);
+  }, [me, changeNickname, nicknameSet]);
+
+  const onClickImageUpload = useCallback(() => {
+    imageInput.current.click();
+  }, [imageInput.current]);
+
+  const handleImage = useCallback(
+    (e) => {
+      const temp = {};
+      const photoToAdd = e.target.files;
+      temp.id = photoToAdd[0].name;
+      temp.file = photoToAdd[0];
+      temp.url = URL.createObjectURL(photoToAdd[0]);
+      setPhotoToAddList(temp);
+    },
+    [photoToAddList],
+  );
 
   const onPost = useCallback(() => {
     setpostToSave(true);
@@ -46,6 +70,12 @@ const Profile = () => {
   const clickChangeNickname = useCallback(
     (e) => {
       e.preventDefault();
+      if (!changeNickname) {
+        return alert('변경할 닉네임을 작성해주세요');
+      }
+      // if (!photoToAddList) {
+      //   return alert('변경할 프로필을 가져와주세요');
+      // }
       dispatch({
         type: CHANGE_NICKNAME_REQUEST,
         data: {
@@ -53,6 +83,11 @@ const Profile = () => {
           nickname: changeNickname,
         },
       });
+      dispatch({
+        type: CHANGE_PROFILEIMG_REQUEST,
+        data: photoToAddList,
+      });
+      setNicknameSet(true);
     },
     [changeNickname],
   );
@@ -62,7 +97,7 @@ const Profile = () => {
     savedArray.push(v.id);
   });
   const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
-
+  console.log(Boolean(me?.profileImg?.url));
   return (
     <MainLayout>
       <div style={{ paddingTop: '10px' }}></div>
@@ -71,7 +106,24 @@ const Profile = () => {
           <div className={style.profileImg}>
             <div>
               <div>
-                <img src="icon/profle_img.png" />
+                {nicknameSet ? (
+                  me?.profileImg?.url ? (
+                    <img src={`${me?.profileImg?.url}`} />
+                  ) : (
+                    <img
+                      src="/icon/profileBasic.svg"
+                      className={style.profileBasic}
+                    />
+                  ) // 코드 바꾸기
+                ) : photoToAddList?.url ? (
+                  <img src={`${photoToAddList.url}`} />
+                ) : (
+                  <img
+                    src="/icon/addphoto.svg"
+                    className={style.addImg}
+                    onClick={onClickImageUpload}
+                  />
+                )}
               </div>
               <p>{me?.nickname}</p>
             </div>
@@ -98,6 +150,15 @@ const Profile = () => {
                 onChange={onChangeNickname}
                 required
               />
+              <input
+                type="file"
+                accept="image/jpg, image/jpeg, image/png"
+                ref={imageInput}
+                onChange={handleImage}
+                hidden
+                required
+              />
+
               <button onClick={clickChangeNickname}>바꾸기</button>
             </form>
           )}

@@ -70,7 +70,6 @@ const Profile = () => {
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
-  console.log(myPost);
 
   return (
     <MainLayout>
@@ -107,7 +106,7 @@ const Profile = () => {
               <div>
                 <img src="/icon/profle_img.png" />
               </div>
-              <p>{myPost[0].User.nickname}</p>
+              <p>{myPost[0]?.User.nickname}</p>
             </div>
 
             <div>

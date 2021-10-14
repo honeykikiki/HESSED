@@ -19,6 +19,9 @@ export const initialState = {
   changeNicknameLoading: false, // 닉네임 수정
   changeNicknameDone: false,
   changeNicknameError: null,
+  changeProfileImgLoading: false, // 프로필 이미지 수정
+  changeProfileImgDone: false,
+  changeProfileImgError: null,
   me: null,
 };
 
@@ -46,10 +49,15 @@ export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
 export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 
+export const CHANGE_PROFILEIMG_REQUEST = 'CHANGE_PROFILEIMG_REQUEST';
+export const CHANGE_PROFILEIMG_SUCCESS = 'CHANGE_PROFILEIMG_SUCCESS';
+export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
+
 const dummyUser = (data) => ({
   ...data,
   nickname: 'kikiki',
   id: 20,
+  profileImg: null,
   Posts: [{ id: 1 }],
   Liked: [],
   Saved: [],
@@ -166,6 +174,24 @@ const reducer = (state = initialState, action) => {
       case CHANGE_NICKNAME_FAILURE:
         draft.changeNicknameDone = false;
         draft.changeNicknameError = action.error;
+        break;
+
+      // 프로필 이미지 수정하기
+      case CHANGE_PROFILEIMG_REQUEST:
+        draft.changeProfileImgLoading = true;
+        draft.changeProfileImgDone = false;
+        draft.changeProfileImgError = null;
+        break;
+      case CHANGE_PROFILEIMG_SUCCESS: {
+        draft.changeProfileImgLoading = false;
+        draft.changeProfileImgDone = true;
+        draft.changeProfileImgError = null;
+        draft.me.profileImg = action.data;
+        break;
+      }
+      case CHANGE_PROFILEIMG_FAILURE:
+        draft.changeProfileImgDone = false;
+        draft.changeProfileImgError = action.error;
         break;
 
       default:

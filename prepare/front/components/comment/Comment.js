@@ -18,8 +18,6 @@ const Comment = ({ post }) => {
   const [nickname, setNickname] = useState();
   const [commentId, setCommentId] = useState();
 
-  console.log(userId, nickname, commentId);
-
   useEffect(() => {
     if (!me) {
       Router.push('/');

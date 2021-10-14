@@ -19,6 +19,9 @@ import {
   CHANGE_NICKNAME_REQUEST,
   CHANGE_NICKNAME_SUCCESS,
   CHANGE_NICKNAME_FAILURE,
+  CHANGE_PROFILEIMG_REQUEST,
+  CHANGE_PROFILEIMG_SUCCESS,
+  CHANGE_PROFILEIMG_FAILURE,
 } from '../reducers/user';
 
 // 로그인
@@ -153,6 +156,28 @@ function* changeNickname(action) {
   }
 }
 
+// 프로필 이미지 수정
+function changeProfileImgAPI(data) {
+  return axios.post(`/user/profileImg`, data);
+}
+
+function* changeProfileImg(action) {
+  try {
+    // const result = yield call(changeProfileImgAPI);
+    yield delay(1000);
+    yield put({
+      type: CHANGE_PROFILEIMG_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: CHANGE_PROFILEIMG_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
@@ -171,6 +196,9 @@ function* watchUnSavePost() {
 function* watchChangeNickname() {
   yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
 }
+function* watchChangeProfileImg() {
+  yield takeLatest(CHANGE_PROFILEIMG_REQUEST, changeProfileImg);
+}
 
 export default function* userSaga() {
   yield all([
@@ -180,5 +208,6 @@ export default function* userSaga() {
     fork(watchSavePost),
     fork(watchUnSavePost),
     fork(watchChangeNickname),
+    fork(watchChangeProfileImg),
   ]);
 }
