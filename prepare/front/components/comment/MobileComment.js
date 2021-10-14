@@ -71,7 +71,9 @@ const MobileComment = ({ post }) => {
   return (
     <div className={style.mComment}>
       <div className={style.head}>
-        <div onClick={onClickBack}>뒤로가기</div>
+        <div onClick={onClickBack}>
+          <img src="/icon/back.svg" width="12px" />
+        </div>
         <div>댓글</div>
       </div>
 
@@ -82,6 +84,7 @@ const MobileComment = ({ post }) => {
             <p>{post?.User.nickname}</p>
           </div>
           <div className={style.postContent}>{post?.content}</div>
+          <div className={style.time}>시간</div>
         </div>
         <div className={style.postComment}>
           <Comment post={post} />

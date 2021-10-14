@@ -1,6 +1,6 @@
 #header {
   width: 100%;
-  background-color: #409857;
+  background-color: whiter;
   z-index: 20;
 }
 
@@ -148,6 +148,7 @@
     -ms-flex-pack: distribute;
         justify-content: space-around;
     position: fixed;
+    border-bottom: 1px solid #dbdbdb;
   }
   #header .maxWidth {
     display: -webkit-box;

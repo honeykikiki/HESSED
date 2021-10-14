@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Router } from 'next/router';
+import Link from 'next/link';
 
 import style from '../../styles/css/postCard.module.css';
 
@@ -27,9 +28,18 @@ const PostCard = ({ post }) => {
         <div className={style.postCard}>
           <div className={style.postHead}>
             <header>
-              <div>{<img src="/icon/profle_img.png" />}</div>
-              <div>{`${post.User.nickname}`}</div>
-              <div>{id ? null : true ? '팔로우' : '언팔로우'}</div>
+              <div>
+                <Link href={`/user/${post.User.id}`}>
+                  <a>{<img src="/icon/profle_img.png" />}</a>
+                </Link>
+              </div>
+              <div>
+                <Link href={`/user/${post.User.id}`}>
+                  <a>{`${post.User.nickname}`}</a>
+                </Link>
+              </div>
+
+              {/* <div>{id ? null : true ? '팔로우' : '언팔로우'}</div> */}
             </header>
             <PostCardSetButton post={post} />
             {/* {true ?  : null} */}

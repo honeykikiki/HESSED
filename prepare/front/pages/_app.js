@@ -9,13 +9,14 @@ import { LOAD_POSTS_REQUEST } from '../reducers/post';
 
 const Hessed = ({ Component }) => {
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (loading) {
       setLoading(false);
       setTimeout(() => {
         const loadingPage = document.querySelector('.loadingPage');
         loadingPage.style.display = 'none';
-      }, 1000);
+      }, 850);
     }
   }, [loading]);
   return (

@@ -18,7 +18,6 @@ const Profile = () => {
 
   const myPost = mainPosts.filter((v) => v.User.id === me?.id);
 
-  const [followPage, setFollowPage] = useState(true);
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [changeNickname, onChangeNickname, setNickname] = useInput();
@@ -83,23 +82,6 @@ const Profile = () => {
                   게시글
                   <p>{myPost.length ?? 0}</p>
                 </div>
-
-                {/* <li>
-                  <Link href={`/user/${me?.id}/followers`}>
-                    <a>
-                      팔로워
-                      <p>{me?.Followers.length ?? 0}</p>
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href={`/user/${me?.id}/followings`}>
-                    <a>
-                      팔로잉
-                      <p>{me?.Followings.length ?? 0}</p>
-                    </a>
-                  </Link>
-                </li> */}
               </div>
               <div className={style.profileNameReSet} onClick={profileSet}>
                 프로필수정
@@ -133,42 +115,6 @@ const Profile = () => {
               <ProfilePost myPost={savePost} />
             )}
           </div>
-          {/* 
-            <div>
-              <div className={style.follow}>
-                <h2>팔로워</h2>
-                <ul>
-                  {me?.Followers.map((v, i) => {
-                    return (
-                      <li>
-                        <div className={style.imageBox}>
-                          {<img src={v.image} />}
-                        </div>
-                        <p>{v.nickname}</p>
-                        <div className={style.cancle}>취소</div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className={style.follow}>
-                <h2>팔로잉</h2>
-                <ul>
-                  {me?.Followings.map((v, i) => {
-                    return (
-                      <li>
-                        <div className={style.imageBox}>
-                          {<img src={v.image} />}
-                        </div>
-                        <p>{v.nickname}</p>
-                        <div className={style.cancle}>팔로잉</div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-          )} */}
         </article>
       </section>
       <div style={{ paddingBottom: '54px' }}></div>
