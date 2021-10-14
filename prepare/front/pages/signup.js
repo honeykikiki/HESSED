@@ -62,7 +62,6 @@ const Login = () => {
     [id, password, nickname, phone, area],
   );
 
-  console.log(agree);
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>

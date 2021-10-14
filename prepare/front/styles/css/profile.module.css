@@ -29,9 +29,22 @@
 }
 
 .profileImg > div > div img {
-  width: 80%;
-  height: auto;
+  width: 77px;
+  height: 77px;
   border-radius: 50%;
+}
+
+.profileImg > div > div .addImg {
+  width: 77px;
+  height: 77px;
+  border-radius: 0%;
+}
+
+.profileImg > div > div .profileBasic {
+  width: 57px;
+  height: 57px;
+  background-color: #dbdbdb;
+  padding: 10px;
 }
 
 .profileNameReSet {

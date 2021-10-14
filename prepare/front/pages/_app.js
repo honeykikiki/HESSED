@@ -47,7 +47,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       // if (req && cookie) {
       //   axios.defaults.headers.Cookie = cookie;
       // }
-      console.log('start');
       store.dispatch({
         type: LOAD_POSTS_REQUEST,
       });
