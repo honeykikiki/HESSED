@@ -91,7 +91,6 @@ const Profile = () => {
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
 
-      <div style={{ marginTop: '44px' }}></div>
       <div className={styles.head}>
         <div onClick={onClickBack}>
           <img src="/icon/back.svg" width="12px" />

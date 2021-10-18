@@ -11,12 +11,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const { signUpDone } = useSelector((state) => state.user);
 
-  const [id, onChangeId, setId] = useInput('');
-  const [password, onChangePassword, setPassword] = useInput('');
-  const [nickname, onChangeNickname, setNickname] = useInput('');
-  const [myName, onChangeMyName, setMyName] = useInput('');
-  const [phone, onChangePhone, setPhone] = useInput('');
-  const [area, onChangeArea, setArea] = useInput('');
+  const [MEM_ID, onChangeMEM_ID, setMEM_ID] = useInput('');
+  const [MEM_PW, onChangePassword, setPassword] = useInput('');
+  const [MEM_NAME, onChangeName, setName] = useInput('');
+  const [MEM_NICKNAME, onChangeNickname, setNickname] = useInput('');
   const [agree, onChangeAgree, setAgree] = useInput(false);
 
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -27,12 +25,12 @@ const Login = () => {
       setPasswordCheck(e.target.value);
       setPasswordError(e.target.value !== password);
     },
-    [password],
+    [MEM_PW],
   );
 
   useEffect(() => {
     if (signUpDone) {
-      alert(`${myName}님 회원가입이 완료되었습니다`);
+      alert(`${MEM_ID}님 회원가입이 완료되었습니다`);
       Router.replace('/');
     }
   }, [signUpDone]);
@@ -44,32 +42,28 @@ const Login = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-
       if (password !== passwordCheck) {
         return setPasswordError(true);
       }
       if (agree) {
         return setTermError(true);
       }
-      if (phone.length !== 11) {
-        return alert('올바른 전화번호를 입력해주세요');
-      }
       dispatch({
         type: SIGN_UP_REQUEST,
-        data: { myName, id, password, nickname, phone, agree },
+        data: { MEM_NAME, MEM_ID, MEM_PW, MEM_NICKNAME, agree },
       });
     },
-    [id, password, nickname, phone, area],
+    [MEM_ID, MEM_PW, MEM_NAME, MEM_NICKNAME],
   );
 
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
         <input
-          placeholder="아이디를 입력해주세요"
-          value={id}
-          onChange={onChangeId}
-          type="text"
+          placeholder="이메일를 입력해주세요"
+          value={MEM_ID}
+          onChange={onChangeMEM_ID}
+          type="email"
           required
         />
 
@@ -78,7 +72,7 @@ const Login = () => {
         <input
           placeholder="비밀번호를 입력해주세요"
           type="password"
-          value={password}
+          value={MEM_PW}
           onChange={onChangePassword}
           required
         />
@@ -103,8 +97,8 @@ const Login = () => {
           style={{ marginTop: -10 }}
           placeholder="이름을 입력해주세요"
           type="text"
-          value={myName}
-          onChange={onChangeMyName}
+          value={MEM_NAME}
+          onChange={onChangeName}
           required
         />
         <br />
@@ -112,13 +106,13 @@ const Login = () => {
         <input
           placeholder="별명을 입력해주세요"
           type="text"
-          value={nickname}
+          value={MEM_NICKNAME}
           onChange={onChangeNickname}
           required
         />
         <br />
 
-        <input
+        {/* <input
           placeholder="ex) 01012345678"
           type="number"
           value={phone}
@@ -126,7 +120,7 @@ const Login = () => {
           maxLength="11"
           required
         />
-        <br />
+        <br /> */}
 
         {/* <input
           placeholder="ex) 둔산동"

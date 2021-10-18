@@ -68,6 +68,7 @@ function* logOut(action) {
     });
   }
 }
+
 // 회원가입
 function signUpAPI(data) {
   return axios.post(`/user`, data);
@@ -75,7 +76,6 @@ function signUpAPI(data) {
 
 function* signUp(action) {
   try {
-    console.log('saga signUp');
     // const result = yield call(signUpAPI);
     yield delay(1000);
     yield put({
