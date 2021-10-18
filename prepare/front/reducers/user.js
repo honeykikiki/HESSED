@@ -106,6 +106,7 @@ const reducer = (state = initialState, action) => {
         draft.logOutLoading = false;
         draft.logOutError = action.error;
         break;
+
       //회원가입
       case SIGN_UP_REQUEST:
         draft.signUpLoading = true;

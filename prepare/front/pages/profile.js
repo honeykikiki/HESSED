@@ -100,7 +100,7 @@ const Profile = () => {
   console.log(Boolean(me?.profileImg?.url));
   return (
     <MainLayout>
-      <div style={{ paddingTop: '10px' }}></div>
+      <div style={{ paddingTop: '44px' }}></div>
       <section className={style.a}>
         <article className={style.maxWidth}>
           <div className={style.profileImg}>

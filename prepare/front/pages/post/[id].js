@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import style from '../../styles/css/dynamicPost.module.css';
 import PostCard from '../../components/PostCard/PostCard';
+import MainLayout from '../../components/MainLayout';
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -27,7 +28,7 @@ const Post = () => {
   }, []);
 
   return (
-    <>
+    <MainLayout>
       {post && (
         <Head>
           <title>{`HESSED ${post?.User.nickname} 님의 게시글`}</title>
@@ -44,7 +45,7 @@ const Post = () => {
           <PostCard post={post} />
         </section>
       )}
-    </>
+    </MainLayout>
   );
 };
 
