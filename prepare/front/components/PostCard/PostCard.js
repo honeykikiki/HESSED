@@ -20,7 +20,7 @@ const PostCard = ({ post }) => {
     if (!me) {
       Router.push('/');
     }
-  }, []);
+  }, [me]);
 
   return (
     <section className={style.a}>
@@ -30,12 +30,15 @@ const PostCard = ({ post }) => {
             <header>
               <div>
                 <Link href={`/user/${post.User.id}`}>
+                  {/* <Link href={`/user/${post.MEN_ID}`}> */}
                   <a>{<img src="/icon/profle_img.png" />}</a>
                 </Link>
               </div>
               <div>
                 <Link href={`/user/${post.User.id}`}>
+                  {/* <Link href={`/user/${post.MEN_ID}`}> */}
                   <a>{`${post.User.nickname}`}</a>
+                  {/* <a>{`${post.MEN_NICKNAME}`}</a> */}
                 </Link>
               </div>
 
@@ -48,8 +51,9 @@ const PostCard = ({ post }) => {
           <div className={style.postImage}>
             <div>
               {post?.Images.length > 0 && <PostImages images={post.Images} />}
+              {/* 다시한번 확인하기 */}
+              {/* {post?.BO_IMG > 0 && <PostImages images={post.BO_IMG} />} */}
               {/* <PostImages images={post.Images} /> */}
-              {/* 이미지 사이즈 조절하는법 찾기 */}
             </div>
           </div>
 

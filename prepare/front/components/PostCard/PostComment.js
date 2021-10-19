@@ -37,7 +37,10 @@ const PostContent = ({ post }) => {
             nickname: me.nickname,
           },
           content: comment,
-          Comments: [],
+          // BO_NO : post.id
+          // MEN_ID: me.id,
+          // CMT_CONTENT: comment,
+          // Comments: [],
         },
       });
     },

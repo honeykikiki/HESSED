@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import MainLayout from '../components/MainLayout';
@@ -15,8 +15,19 @@ const Home = () => {
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
     (state) => state.post,
   );
+  const [loadPosts, setLoadPosts] = useState(true);
 
   useEffect(() => {
+    if (loadPosts) {
+      setLoadPosts(false);
+      const lastId = mainPosts[mainPosts.length - 1]?.id;
+      // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
+      dispatch({
+        type: LOAD_POSTS_REQUEST,
+        lastId,
+      });
+    }
+
     function onScroll() {
       if (
         window.scrollY + document.documentElement.clientHeight >
@@ -24,6 +35,7 @@ const Home = () => {
       ) {
         if (hasMorePosts && !loadPostsLoading) {
           const lastId = mainPosts[mainPosts.length - 1]?.id;
+          // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
           dispatch({
             type: LOAD_POSTS_REQUEST,
             lastId,
@@ -36,7 +48,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [mainPosts]);
+  }, [mainPosts, loadPosts]);
 
   return (
     <>
@@ -44,8 +56,8 @@ const Home = () => {
         <MainLayout>
           <div style={{ paddingTop: '30px' }}></div>
 
-          {mainPosts.map((v) => {
-            return <PostCard key={v.id} post={v} />;
+          {mainPosts.map((post) => {
+            return <PostCard key={post.id} post={post} />;
           })}
 
           <div style={{ paddingBottom: '54px' }}></div>

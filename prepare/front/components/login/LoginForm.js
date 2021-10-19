@@ -18,7 +18,7 @@ const Login = () => {
       e.preventDefault();
       dispatch({
         type: LOG_IN_REQUEST,
-        data: { id, password },
+        data: { MEM_ID: id, MEN_PW: password },
       });
     },
     [id, password],

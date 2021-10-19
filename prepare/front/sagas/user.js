@@ -31,7 +31,6 @@ function loginAPI(data) {
 
 function* logIn(action) {
   try {
-    console.log('saga logIn');
     // const result = yield call(logInAPI);
     yield delay(1000);
     yield put({
@@ -53,7 +52,6 @@ function logOutAPI(data) {
 
 function* logOut(action) {
   try {
-    console.log('saga logOut');
     // const result = yield call(logOutAPI);
     yield delay(1000);
     yield put({
@@ -136,7 +134,7 @@ function* unSavePost(action) {
 
 // 닉네임 수정
 function changeNicknameAPI(data) {
-  return axios.post(`/user/nickname`, data);
+  return axios.patch(`/user/nickname`, data);
 }
 
 function* changeNickname(action) {
@@ -158,7 +156,7 @@ function* changeNickname(action) {
 
 // 프로필 이미지 수정
 function changeProfileImgAPI(data) {
-  return axios.post(`/user/profileImg`, data);
+  return axios.patch(`/user/profileImg`, data);
 }
 
 function* changeProfileImg(action) {

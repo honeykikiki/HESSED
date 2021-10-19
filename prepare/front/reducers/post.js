@@ -35,7 +35,9 @@ export const generateDummyPost = (number) =>
     }));
 
 export const initialState = {
-  mainPosts: generateDummyPost(2),
+  mainPosts: [],
+  myPosts: [],
+  savePosts: [],
   imagePaths: [],
   hasMorePosts: true,
 
@@ -103,6 +105,7 @@ export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCES';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
+// [게시글아이디, 게시글작성자{아이디, 닉네임}, 게시글컨텐츠, 게시글알림, 게시글작성시간, 게시글좋아요한사람, 댓글]
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
