@@ -28,6 +28,7 @@ export const initialState = {
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
+// 로그인 한사람의 정보 : {이름, 닉네임, 프로필이미지, 작성한게시글, 좋아요한게시글, 저장한게시글}
 
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
@@ -55,22 +56,12 @@ export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
 
 const dummyUser = (data) => ({
   ...data,
-  nickname: 'kikiki',
-  id: 20,
+  MEN_ID: 20,
+  MEN_NICKNAME: 'kikiki',
   profileImg: null,
   Posts: [{ id: 1 }],
   Liked: [],
   Saved: [],
-  Followings: [
-    { nickname: '부기초' },
-    { nickname: 'chanho lee' },
-    { nickname: 'nenu zeal' },
-  ],
-  Followers: [
-    { nickname: '부기초' },
-    { nickname: 'chanho lee' },
-    { nickname: 'nenu zeal' },
-  ],
 });
 
 const reducer = (state = initialState, action) => {

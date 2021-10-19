@@ -14,6 +14,7 @@ const IdSearch = () => {
     setNickname(nickname);
     setPhone(phone);
   }, []);
+
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmitIdSearch}>
@@ -44,7 +45,6 @@ const IdSearch = () => {
           </a>
         </Link>
       </div>
-      {false ? <div>하이</div> : null}
     </LoginLayout>
   );
 };

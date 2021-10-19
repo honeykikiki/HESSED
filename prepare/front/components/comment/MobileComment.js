@@ -58,6 +58,10 @@ const MobileComment = ({ post }) => {
           },
           content: comment,
           Comments: [],
+          // BO_NO : post.id
+          // MEN_ID: me.id,
+          // CMT_CONTENT: comment,
+          // BO_NO : post.id
         },
       });
     },

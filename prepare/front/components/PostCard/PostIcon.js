@@ -20,6 +20,10 @@ const PostIcon = ({ post }) => {
         postId: post.id,
         userId: me.id,
       },
+      // data: {
+      //   BO_NO: post.BO_NO,
+      //   MEN_ID: me.MEN_ID,
+      // },
     });
   }, [post.id, me.id]);
   const onUnLike = useCallback(() => {

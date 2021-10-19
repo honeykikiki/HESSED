@@ -85,6 +85,11 @@ const CommentsToReply = ({
             nickname: me.nickname,
           },
           content: commentReply,
+          // BO_NO : postId
+          // MEN_NO : me.id
+          // CMT_NO : commentId
+          // CMT_CONTENT : commentReply
+          // CMT_PARENT : ??
         },
       });
     },

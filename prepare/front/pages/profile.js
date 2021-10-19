@@ -20,6 +20,9 @@ const Profile = () => {
   const { mainPosts } = useSelector((state) => state.post);
 
   const myPost = mainPosts.filter((v) => v.User.id === me?.id);
+  // 자기게시글만 가져오기
+  const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
+  // 저장한 게시글만 가져오기
 
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
@@ -96,8 +99,6 @@ const Profile = () => {
   const meSa = me?.Saved.forEach((v) => {
     savedArray.push(v.id);
   });
-  const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
-  console.log(Boolean(me?.profileImg?.url));
   return (
     <MainLayout>
       <div style={{ paddingTop: '44px' }}></div>

@@ -40,9 +40,12 @@ const CommentOptionBtn = ({
         postId: +postId,
         commentId,
         userId: me.id,
+        // BO_NO : postId
+        // MEN_NO : me.id
+        // CMT_NO : commentId
       },
     });
-  }, [commentId]);
+  }, [postId, commentId]);
 
   const onClickCommentReplyRemove = useCallback(() => {
     dispatch({
@@ -52,6 +55,10 @@ const CommentOptionBtn = ({
         commentId,
         commentReplyId: commentReplyCheckdId,
         userId: me.id,
+        // BO_NO : postId
+        // MEN_NO : me.id
+        // CMT_NO : commentId
+        // CMT_PARENT : ??
       },
     });
   }, [commentId, commentReplyCheckdId, postId]);
