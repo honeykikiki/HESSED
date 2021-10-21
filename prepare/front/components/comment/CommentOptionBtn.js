@@ -40,9 +40,9 @@ const CommentOptionBtn = ({
         postId: +postId,
         commentId,
         userId: me.id,
-        // BO_NO : postId
-        // MEN_NO : me.id
-        // CMT_NO : commentId
+        // bo_no : postId
+        // mem_no : me.id
+        // cmt_no : commentId
       },
     });
   }, [postId, commentId]);
@@ -55,10 +55,10 @@ const CommentOptionBtn = ({
         commentId,
         commentReplyId: commentReplyCheckdId,
         userId: me.id,
-        // BO_NO : postId
-        // MEN_NO : me.id
-        // CMT_NO : commentId
-        // CMT_PARENT : ??
+        // bo_no : postId
+        // mem-no : me.id
+        // cmt_no : commentId
+        // cmt_parent : ??
       },
     });
   }, [commentId, commentReplyCheckdId, postId]);

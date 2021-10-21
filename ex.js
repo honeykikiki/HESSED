@@ -39,8 +39,8 @@ const result =
 
 // 로그인할떄 보내는 데이터
 const data = {
-  MEN_ID,
-  MEN_PW,
+  men_id,
+  men_pw,
 };
 // 로그인할떄 받는 데이터
 const result = {
@@ -56,30 +56,30 @@ const result = {
 
 // 아이디찾기 보내는 데이터
 const data = {
-  MEN_NAME: String,
+  men_name: String,
 };
 // 아이디찾기 받는 데이터
 const result = {
-  MEN_ID : String
+  men_id : String
 };
 
 // 비밀번호 보내는 데이터
 const data = {
-  MEN_NAME : String,
-  MEN_ID : String,
+  men_name : String,
+  men_id : String,
 };
 // 비밀번호 받는 데이터
 const result = {
-  MEN_ID : String,
-  MEN_PW : String,
+  men_id : String,
+  men_pw : String,
 };
 
 // 회원가입할떄 보내는 데이터
 const data = {
-  MEM_ID : String,
-  MEM_PW : String,
-  MEM_NAME: String,
-  MEM_NICKNAME: String,
+  men_id : String,
+  men_pw : String,
+  men_name: String,
+  men_nickname: String,
   agree : Boolean,
 };
 // 회원가입할떄 받는 데이터

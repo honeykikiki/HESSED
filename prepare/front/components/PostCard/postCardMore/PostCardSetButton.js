@@ -43,7 +43,7 @@ const PostCardSetButton = ({ post }) => {
     dispatch({
       type: REMOVE_POST_REQUEST,
       data: { postId: post.id },
-      // data: { BO_NO: post.BO_NO },
+      // data: { bo_no: post.bo_no },
     });
   }, []);
 

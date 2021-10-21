@@ -21,8 +21,8 @@ const PostIcon = ({ post }) => {
         userId: me.id,
       },
       // data: {
-      //   BO_NO: post.BO_NO,
-      //   MEN_ID: me.MEN_ID,
+      //   bo_no: post.BO_NO,
+      //   mem_id: me.MEN_ID,
       // },
     });
   }, [post.id, me.id]);
@@ -33,6 +33,10 @@ const PostIcon = ({ post }) => {
         postId: post.id,
         userId: me.id,
       },
+      // data: {
+      //   bo_no: post.BO_NO,
+      //   mem_id: me.MEN_ID,
+      // },
     });
   }, []);
 
@@ -43,6 +47,10 @@ const PostIcon = ({ post }) => {
         postId: post.id,
         userId: me.id,
       },
+      // data: {
+      //   bo_no: post.BO_NO,
+      //   mem_id: me.MEN_ID,
+      // },
     });
   }, []);
 
@@ -53,6 +61,10 @@ const PostIcon = ({ post }) => {
         postId: post.id,
         userId: me.id,
       },
+      // data: {
+      //   bo_no: post.BO_NO,
+      //   mem_id: me.MEN_ID,
+      // },
     });
   }, []);
 
