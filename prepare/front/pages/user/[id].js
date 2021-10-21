@@ -43,29 +43,12 @@ const Profile = () => {
     setpostToSave(false);
   }, [postToSave]);
 
-  const profileSet = useCallback((e) => {
-    setNicknameSet((prev) => !prev);
-  }, []);
-
-  const clickChangeNickname = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch({
-        type: CHANGE_NICKNAME_REQUEST,
-        data: {
-          userId: me.id,
-          nickname: changeNickname,
-        },
-      });
-    },
-    [changeNickname],
-  );
-
   const savedArray = [];
-  const meSa = me?.Saved.forEach((v) => {
-    savedArray.push(v.id);
-  });
-  const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
+
+  // const meSa = me?.Saved.forEach((v) => {
+  //   savedArray.push(v.id);
+  // });
+  // const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
 
   const onClickBack = useCallback(() => {
     Router.back();

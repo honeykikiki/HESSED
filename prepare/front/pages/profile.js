@@ -50,8 +50,8 @@ const Profile = () => {
     (e) => {
       const temp = {};
       const photoToAdd = e.target.files;
-      temp.id = photoToAdd[0].name;
-      temp.file = photoToAdd[0];
+      // temp.id = photoToAdd[0].name;
+      // temp.file = photoToAdd[0];
       temp.url = URL.createObjectURL(photoToAdd[0]);
       setPhotoToAddList(temp);
     },
@@ -84,6 +84,8 @@ const Profile = () => {
         data: {
           userId: me.id,
           nickname: changeNickname,
+          // mem_id : me.id
+          // mem_nickname: me.nickname
         },
       });
       dispatch({
@@ -95,10 +97,12 @@ const Profile = () => {
     [changeNickname],
   );
 
-  const savedArray = [];
-  const meSa = me?.Saved.forEach((v) => {
-    savedArray.push(v.id);
-  });
+  // const savedArray = [];
+
+  // const meSa = me?.Saved.forEach((v) => {
+  //   savedArray.push(v.id);
+  // });
+
   return (
     <MainLayout>
       <div style={{ paddingTop: '44px' }}></div>

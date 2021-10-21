@@ -94,6 +94,10 @@ const Home = () => {
           Images: photoToAddList,
           Likers: [],
           Comments: [],
+          // mem_no : me.id
+          // mem_nicname : me.nickname
+          // bo_content : content
+          // bo_img : photoToAddList
         },
       });
 

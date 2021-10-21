@@ -11,10 +11,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const { signUpDone } = useSelector((state) => state.user);
 
-  const [MEM_ID, onChangeMEM_ID, setMEM_ID] = useInput('');
-  const [MEM_PW, onChangePassword, setPassword] = useInput('');
-  const [MEM_NAME, onChangeName, setName] = useInput('');
-  const [MEM_NICKNAME, onChangeNickname, setNickname] = useInput('');
+  const [mem_id, onChangemem_id, setMEM_ID] = useInput('');
+  const [mem_pw, onChangePassword, setPassword] = useInput('');
+  const [mem_name, onChangeName, setName] = useInput('');
+  const [mem_nickname, onChangeNickname, setNickname] = useInput('');
   const [agree, onChangeAgree, setAgree] = useInput(false);
 
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -25,12 +25,12 @@ const Login = () => {
       setPasswordCheck(e.target.value);
       setPasswordError(e.target.value !== password);
     },
-    [MEM_PW],
+    [mem_pw],
   );
 
   useEffect(() => {
     if (signUpDone) {
-      alert(`${MEM_ID}님 회원가입이 완료되었습니다`);
+      alert(`${mem_id}님 회원가입이 완료되었습니다`);
       Router.replace('/');
     }
   }, [signUpDone]);
@@ -50,10 +50,10 @@ const Login = () => {
       }
       dispatch({
         type: SIGN_UP_REQUEST,
-        data: { MEM_NAME, MEM_ID, MEM_PW, MEM_NICKNAME, agree },
+        data: { mem_name, mem_id, mem_pw, mem_nickname, agree },
       });
     },
-    [MEM_ID, MEM_PW, MEM_NAME, MEM_NICKNAME],
+    [mem_id, mem_pw, mem_name, mem_nickname],
   );
 
   return (
@@ -61,8 +61,8 @@ const Login = () => {
       <form className={style.form} onSubmit={onSubmit}>
         <input
           placeholder="이메일를 입력해주세요"
-          value={MEM_ID}
-          onChange={onChangeMEM_ID}
+          value={mem_id}
+          onChange={onChangemem_id}
           type="email"
           required
         />
@@ -72,7 +72,7 @@ const Login = () => {
         <input
           placeholder="비밀번호를 입력해주세요"
           type="password"
-          value={MEM_PW}
+          value={mem_pw}
           onChange={onChangePassword}
           required
         />
@@ -97,7 +97,7 @@ const Login = () => {
           style={{ marginTop: -10 }}
           placeholder="이름을 입력해주세요"
           type="text"
-          value={MEM_NAME}
+          value={mem_name}
           onChange={onChangeName}
           required
         />
@@ -106,7 +106,7 @@ const Login = () => {
         <input
           placeholder="별명을 입력해주세요"
           type="text"
-          value={MEM_NICKNAME}
+          value={mem_nickname}
           onChange={onChangeNickname}
           required
         />

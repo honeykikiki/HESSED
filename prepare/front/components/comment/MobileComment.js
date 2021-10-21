@@ -58,10 +58,9 @@ const MobileComment = ({ post }) => {
           },
           content: comment,
           Comments: [],
-          // BO_NO : post.id
-          // MEN_ID: me.id,
-          // CMT_CONTENT: comment,
-          // BO_NO : post.id
+          // bo_no : post.id
+          // mem_no: me.id,
+          // cmt_content: comment,
         },
       });
     },
