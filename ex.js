@@ -133,3 +133,50 @@ const me = {
   Followers: [],
   Followings: [],
 };
+
+// --------------------------------------------------------------------------------
+const me1 = {
+  "result":"success",
+  "member":{
+    "mem_no":0,
+    "mem_id":"tjdwls@naver.com",
+    "mem_pw":null,
+    "mem_name":"성진",
+    "mem_nickname":"성진2",
+    "mem_grade":"user",
+    "mem_profileimg":null,
+    "mem_flag":false,
+    "mem_date":"21-10-26 20:57:30",
+    "mem_out_date":"21-10-26 20:57:30"}
+  }
+
+const me2 = {
+  "result":"success",
+  "member":
+  [
+  {
+    "mem_no":0,
+    "mem_id":"tjdwls@naver.com",
+    "mem_pw":null,
+    "mem_name":"성진",
+    "mem_nickname":"성진2",
+    "mem_grade":"user",
+    "mem_profileimg":null,
+    "mem_flag":false,
+    "mem_date":"21-10-26 20:57:30",
+    "mem_out_date":"21-10-26 20:57:30"
+  },
+  {
+    "mem_no":1,
+    "mem_id":"tjdwls@naver.com",
+    "mem_pw":null,
+    "mem_name":"성진",
+    "mem_nickname":"성진2",
+    "mem_grade":"user",
+    "mem_profileimg":null,
+    "mem_flag":false,
+    "mem_date":"21-10-26 20:57:30",
+    "mem_out_date":"21-10-26 20:57:30"
+  }
+  ],
+  }

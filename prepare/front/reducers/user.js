@@ -56,8 +56,8 @@ export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
 
 const dummyUser = (data) => ({
   ...data,
-  MEN_ID: 20,
-  MEN_NICKNAME: 'kikiki',
+  id: 20,
+  nickname: 'kikiki',
   profileImg: null,
   Posts: [{ id: 1 }],
   Liked: [],

@@ -25,17 +25,20 @@ import {
 } from '../reducers/user';
 
 // 로그인
-function loginAPI(data) {
-  return axios.post(`/user/login`, data);
+function logInAPI(data) {
+  return axios.post(
+    `/login.do?mem_id=${data.mem_id}&mem_pw=${data.mem_pw}`,
+    data,
+  );
 }
 
 function* logIn(action) {
   try {
-    // const result = yield call(logInAPI);
-    yield delay(1000);
+    const result = yield call(logInAPI, action.data);
+    console.log(result.member);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data,
+      data: result.member,
     });
   } catch (err) {
     console.error(err);
@@ -69,16 +72,21 @@ function* logOut(action) {
 
 // 회원가입
 function signUpAPI(data) {
-  return axios.post(`/user`, data);
+  return axios.get(
+    `/register.do?mem_id=${data.mem_id}&mem_pw=${data.mem_pw}&mem_name=${data.mem_name}&mem_nickname=${data.mem_nickname}&mem_flag=${data.mem_flag}`,
+    data,
+  );
 }
+
+// => data:  JSON.stringify(data), header: Content-Type": `application/json
 
 function* signUp(action) {
   try {
-    // const result = yield call(signUpAPI);
-    yield delay(1000);
+    const result = yield call(signUpAPI, action.data);
+    console.log(result);
     yield put({
       type: SIGN_UP_SUCCESS,
-      data: action.data,
+      data: result,
     });
   } catch (err) {
     console.error(err);

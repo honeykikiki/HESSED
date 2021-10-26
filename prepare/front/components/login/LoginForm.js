@@ -16,6 +16,7 @@ const Login = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
+
       dispatch({
         type: LOG_IN_REQUEST,
         data: { mem_id: id, mem_pw: password },
