@@ -23,7 +23,7 @@ const Login = () => {
   const onChangePasswordCheck = useCallback(
     (e) => {
       setPasswordCheck(e.target.value);
-      setPasswordError(e.target.value !== password);
+      setPasswordError(e.target.value !== mem_pw);
     },
     [mem_pw],
   );
@@ -42,24 +42,32 @@ const Login = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      if (password !== passwordCheck) {
+      if (mem_pw !== passwordCheck) {
         return setPasswordError(true);
       }
-      if (agree) {
-        return setTermError(true);
+      if (!agree) {
+        return setAgree(true);
       }
+
       dispatch({
         type: SIGN_UP_REQUEST,
-        data: { mem_name, mem_id, mem_pw, mem_nickname, agree },
+        data: {
+          mem_name,
+          mem_id,
+          mem_pw,
+          mem_nickname,
+          mem_flag: agree,
+        },
       });
     },
-    [mem_id, mem_pw, mem_name, mem_nickname],
+    [mem_id, mem_pw, mem_name, mem_nickname, agree],
   );
 
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
         <input
+          name="mem_id"
           placeholder="이메일를 입력해주세요"
           value={mem_id}
           onChange={onChangemem_id}
@@ -70,6 +78,7 @@ const Login = () => {
         <br />
 
         <input
+          name="mem_pw"
           placeholder="비밀번호를 입력해주세요"
           type="password"
           value={mem_pw}
@@ -94,6 +103,7 @@ const Login = () => {
         <br />
 
         <input
+          name="mem_name"
           style={{ marginTop: -10 }}
           placeholder="이름을 입력해주세요"
           type="text"
@@ -104,6 +114,7 @@ const Login = () => {
         <br />
 
         <input
+          name="mem_nickname"
           placeholder="별명을 입력해주세요"
           type="text"
           value={mem_nickname}
@@ -133,6 +144,7 @@ const Login = () => {
 
         <div className={style.checkBox}>
           <input
+            name="mem_flag"
             type="checkbox"
             value={agree}
             onClick={checkboxClick}

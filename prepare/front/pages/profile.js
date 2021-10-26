@@ -19,6 +19,11 @@ const Profile = () => {
   const { me, changeNicknameDone } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
+  const savedArray = [];
+  me?.Saved.forEach((v) => {
+    savedArray.push(v.id);
+  });
+
   const myPost = mainPosts.filter((v) => v.User.id === me?.id);
   // 자기게시글만 가져오기
   const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
@@ -96,12 +101,6 @@ const Profile = () => {
     },
     [changeNickname],
   );
-
-  // const savedArray = [];
-
-  // const meSa = me?.Saved.forEach((v) => {
-  //   savedArray.push(v.id);
-  // });
 
   return (
     <MainLayout>

@@ -40,7 +40,7 @@ import {
 
 // 게시물 등록하기
 function addPostAPI(data) {
-  return axios.delete(`/post`, data);
+  return axios.post(`/post`, data);
 }
 
 function* addPost(action) {
