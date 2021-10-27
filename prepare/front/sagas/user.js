@@ -34,11 +34,26 @@ function logInAPI(data) {
 
 function* logIn(action) {
   try {
-    const result = yield call(logInAPI, action.data);
-    console.log(result.member);
+    // const result = yield call(logInAPI, action.data);
+    delay(1000);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: result.member,
+      // data: result,
+      data: {
+        result: 'success',
+        member: {
+          mem_no: 0,
+          mem_id: 'tjdwls@naver.com',
+          mem_pw: null,
+          mem_name: '성진',
+          mem_nickname: '성진2',
+          mem_grade: 'user',
+          mem_profileimg: null,
+          mem_flag: false,
+          mem_date: '21-10-26 20:57:30',
+          mem_out_date: '21-10-26 20:57:30',
+        },
+      },
     });
   } catch (err) {
     console.error(err);
@@ -77,8 +92,6 @@ function signUpAPI(data) {
     data,
   );
 }
-
-// => data:  JSON.stringify(data), header: Content-Type": `application/json
 
 function* signUp(action) {
   try {

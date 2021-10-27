@@ -31,7 +31,13 @@ const PostCard = ({ post }) => {
               <div>
                 <Link href={`/user/${post.User.id}`}>
                   {/* <Link href={`/user/${post.MEN_ID}`}> */}
-                  <a>{<img src="/icon/profle_img.png" />}</a>
+                  <a>
+                    {post.User.profileImg ? (
+                      <img src={post.User.profileImg.url} />
+                    ) : (
+                      <img src="/icon/profileBasic.svg" />
+                    )}
+                  </a>
                 </Link>
               </div>
               <div>

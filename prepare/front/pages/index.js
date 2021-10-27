@@ -28,26 +28,26 @@ const Home = () => {
       });
     }
 
-    function onScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (hasMorePosts && !loadPostsLoading) {
-          const lastId = mainPosts[mainPosts.length - 1]?.id;
-          // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
-          dispatch({
-            type: LOAD_POSTS_REQUEST,
-            lastId,
-          });
-        }
-      }
-    }
+    // function onScroll() {
+    //   if (
+    //     window.scrollY + document.documentElement.clientHeight >
+    //     document.documentElement.scrollHeight - 300
+    //   ) {
+    //     if (hasMorePosts && !loadPostsLoading) {
+    //       const lastId = mainPosts[mainPosts.length - 1]?.id;
+    //       // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
+    //       dispatch({
+    //         type: LOAD_POSTS_REQUEST,
+    //         lastId,
+    //       });
+    //     }
+    //   }
+    // }
 
-    window.addEventListener('scroll', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
+    // window.addEventListener('scroll', onScroll);
+    // return () => {
+    //   window.removeEventListener('scroll', onScroll);
+    // };
   }, [mainPosts, loadPosts]);
 
   return (
