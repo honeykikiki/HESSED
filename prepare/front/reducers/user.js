@@ -28,7 +28,6 @@ export const initialState = {
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
-// 로그인 한사람의 정보 : {이름, 닉네임, 프로필이미지, 작성한게시글, 좋아요한게시글, 저장한게시글}
 
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
@@ -55,11 +54,13 @@ export const CHANGE_PROFILEIMG_SUCCESS = 'CHANGE_PROFILEIMG_SUCCESS';
 export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
 
 const dummyUser = (data) => ({
-  ...data,
-  id: 20,
-  nickname: 'kikiki',
-  profileImg: null,
-  Posts: [{ id: 1 }],
+  // ...data,
+  no: data.mem_no,
+  id: data.mem_id,
+  name: data.mem_name,
+  nickname: data.mem_nickname,
+  profileImg: data.mem_profileimg,
+  Posts: [],
   Liked: [],
   Saved: [],
 });
@@ -76,7 +77,10 @@ const reducer = (state = initialState, action) => {
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
         draft.logInDone = true;
-        draft.me = dummyUser(action.data); //action.data;
+        if (action.data.result === 'success') {
+          draft.me = dummyUser(action.data.member); //action.data;
+        }
+        // draft.me = action.data);
         break;
       case LOG_IN_FAILURE:
         draft.logInLoading = false;

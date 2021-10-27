@@ -78,28 +78,28 @@ const Profile = () => {
   const clickChangeNickname = useCallback(
     (e) => {
       e.preventDefault();
-      if (!changeNickname) {
-        return alert('변경할 닉네임을 작성해주세요');
+
+      if (changeNickname) {
+        dispatch({
+          type: CHANGE_NICKNAME_REQUEST,
+          data: {
+            userId: me.id,
+            nickname: changeNickname,
+            // mem_id : me.id
+            // mem_nickname: me.nickname
+          },
+        });
       }
-      // if (!photoToAddList) {
-      //   return alert('변경할 프로필을 가져와주세요');
-      // }
-      dispatch({
-        type: CHANGE_NICKNAME_REQUEST,
-        data: {
-          userId: me.id,
-          nickname: changeNickname,
-          // mem_id : me.id
-          // mem_nickname: me.nickname
-        },
-      });
-      dispatch({
-        type: CHANGE_PROFILEIMG_REQUEST,
-        data: photoToAddList,
-      });
+      if (photoToAddList) {
+        dispatch({
+          type: CHANGE_PROFILEIMG_REQUEST,
+          data: photoToAddList,
+        });
+      }
+
       setNicknameSet(true);
     },
-    [changeNickname],
+    [changeNickname, photoToAddList],
   );
 
   return (

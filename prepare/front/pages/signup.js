@@ -42,13 +42,33 @@ const Login = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      if (mem_id === '') {
+        alert('이메일을 입력해주세요');
+        return;
+      }
+      if (mem_pw === '') {
+        alert('비밀번호를 입력해주세요');
+        return;
+      }
+      if (mem_name === '') {
+        alert('이름을 입력해주세요');
+        return;
+      }
+      if (mem_nickname === '') {
+        alert('닉네임을 입력해주세요');
+        return;
+      }
+      if (agree === false) {
+        alert('개인정보 활용을 동의해주세요');
+        return;
+      }
+
       if (mem_pw !== passwordCheck) {
         return setPasswordError(true);
       }
       if (!agree) {
-        return setAgree(true);
+        return setAgree(false);
       }
-
       dispatch({
         type: SIGN_UP_REQUEST,
         data: {
@@ -72,7 +92,7 @@ const Login = () => {
           value={mem_id}
           onChange={onChangemem_id}
           type="email"
-          required
+          // required
         />
 
         <br />
@@ -83,7 +103,7 @@ const Login = () => {
           type="password"
           value={mem_pw}
           onChange={onChangePassword}
-          required
+          // required
         />
         <br />
 
@@ -92,7 +112,7 @@ const Login = () => {
           placeholder="비밀번호를 다시한번 입력해주세요"
           type="password"
           value={passwordCheck}
-          required
+          // required
           onChange={onChangePasswordCheck}
         />
         {passwordError ? (
@@ -109,7 +129,7 @@ const Login = () => {
           type="text"
           value={mem_name}
           onChange={onChangeName}
-          required
+          // required
         />
         <br />
 
@@ -119,28 +139,9 @@ const Login = () => {
           type="text"
           value={mem_nickname}
           onChange={onChangeNickname}
-          required
+          // required
         />
         <br />
-
-        {/* <input
-          placeholder="ex) 01012345678"
-          type="number"
-          value={phone}
-          onChange={onChangePhone}
-          maxLength="11"
-          required
-        />
-        <br /> */}
-
-        {/* <input
-          placeholder="ex) 둔산동"
-          type="text"
-          value={area}
-          onChange={onChangeArea}
-          required
-        />
-        <br /> */}
 
         <div className={style.checkBox}>
           <input
@@ -148,7 +149,7 @@ const Login = () => {
             type="checkbox"
             value={agree}
             onClick={checkboxClick}
-            required
+            // required
           />
           <span>개인정보 활용 동의 (보기)</span>
         </div>

@@ -14,6 +14,7 @@ const MainLayout = ({ children }) => {
   const { postCard, upLoad, qrCode, profile } = useSelector(
     (state) => state.menu,
   );
+  const { me } = useSelector((state) => state.user);
 
   const [profileToggle, setProfileToggle] = useState(false);
 
@@ -104,15 +105,28 @@ const MainLayout = ({ children }) => {
                   <li>
                     <a>
                       <div
-                        style={{
-                          borderRadius: '50%',
-                          background: `url(/icon/profle_img.png) center`,
-                          backgroundSize: `contain`,
-                          height: '100%',
-                        }}
+                        className={style.profileimg}
+                        // style={{
+                        //   background: `${
+                        //     me.profileImg
+                        //       ? `url(${me.profileImg?.url}) `
+                        //       : `url(/icon/profileBasic.svg) `
+                        //   } center`,
+                        // }}
                         onClick={profileClickToggle}
                       >
-                        {profile ? <img src="/icon/profile.svg" /> : null}
+                        {me?.profileImg ? (
+                          <img src={me?.profileImg?.url} />
+                        ) : (
+                          <img src="/icon/profileBasic.svg" />
+                        )}
+
+                        {profile ? (
+                          <img
+                            src="/icon/profile.svg"
+                            className={style.circle}
+                          />
+                        ) : null}
                         {profileToggle ? (
                           <div className={style.profileBox}>
                             <div>
