@@ -23,8 +23,8 @@ const Hessed = ({ Component }) => {
     <>
       <Head>
         <title>HESSED</title>
-        <meta charSet="utf8" />
-        <meta property="og:image" content="/icon/HESSED_LOGO-W.png" />
+        <meta charSet="utf-8" />
+        <link rel="icon" href="/public/favicon.ico" />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
 
@@ -37,23 +37,6 @@ const Hessed = ({ Component }) => {
     </>
   );
 };
-
-// export const getServerSideProps = wrapper.rverSideProps(
-//   (store) =>
-//     async ({ req }) => {
-//       // 로그인이 풀리는 현상, 서버에서 공유하지 않는 쿠ㄱ
-//       // const cookie = req ? req.headers.cookie : '';
-//       // axios.defaults.headers.Cookie = '';
-//       // if (req && cookie) {
-//       //   axios.defaults.headers.Cookie = cookie;
-//       // }
-//       store.dispatch({
-//         type: LOAD_POSTS_REQUEST,
-//       });
-//       store.dispatch(END);
-//       await store.sagaTask.toPromise();
-//     },
-// );
 
 Hessed.propTypes = {
   Component: PropTypes.elementType.isRequired,

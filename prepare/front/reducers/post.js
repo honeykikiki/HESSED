@@ -38,7 +38,7 @@ export const initialState = {
   loadPostsError: null,
 };
 
-export const generateDummyPost = (list) =>
+export const generateDummyPost = (list, listImg) =>
   list.map((v, i) => ({
     id: v.bo_id,
     User: {
@@ -47,12 +47,24 @@ export const generateDummyPost = (list) =>
     },
     content: v.bo_content,
     Likers: [],
-    Images: v.boardImgList.map((v, i) => {
-      return { id: v.bo_img_no, url: v.bo_img_location };
+    // Images: v.boardImgList.map((v, i) => {
+    //   return { id: v.bo_img_no, url: v.bo_img_location };
+    // }),
+    Images: listImg.map((v) => {
+      if (list.bo_id === v.bo_id) {
+        return { id: v.bo_img_no, url: v.bo_img_location };
+      }
     }),
-
     Comments: [],
   }));
+
+// for (let i = 0; i < list.length; i++) {
+//   for (let j = 0; j < listImg.length; j++) {
+//     if (list[i].bo_id === listImg[j].bo_id) {
+//       list[i].Image.push(listImg[j]);
+//     }
+//   }
+// }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -277,9 +289,9 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
         console.log(action.data.list);
-
+        console.log(action.data.imgList);
         draft.mainPosts = draft.mainPosts.concat(
-          generateDummyPost(action.data.list),
+          generateDummyPost(action.data.list, action.data.imgList),
         );
         // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
         // draft.hasMorePosts = action.data.length === 10;
@@ -298,7 +310,7 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
         draft.mainPosts = draft.mainPosts.concat(
-          generateDummyPost(action.data.list),
+          generateDummyPost(action.data.list, action.data.imgList),
         );
         // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
         draft.hasMorePosts = action.data.result;

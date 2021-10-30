@@ -15,11 +15,9 @@ const Home = () => {
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
     (state) => state.post,
   );
-  const [loadPosts, setLoadPosts] = useState(true);
 
   useEffect(() => {
-    if (mainPosts.length === 0) {
-      setLoadPosts(false);
+    if (me && mainPosts.length === 0) {
       const lastId = mainPosts[mainPosts.length - 1]?.id;
       // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
       dispatch({
@@ -51,7 +49,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [mainPosts, loadPosts]);
+  }, [mainPosts, me]);
 
   return (
     <>
@@ -75,22 +73,22 @@ const Home = () => {
 
 //  다시 포스트로 넘어갈떄 리랜더링 되는현상
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ req }) => {
-      // 로그인이 풀리는 현상, 서버에서 공유하지 않는 쿠ㄱ
-      // const cookie = req ? req.headers.cookie : '';
-      // axios.defaults.headers.Cookie = '';
-      // if (req && cookie) {
-      //   axios.defaults.headers.Cookie = cookie;
-      // }
-      console.log(req);
-      store.dispatch({
-        type: LOAD_POSTS_REQUEST,
-      });
-      store.dispatch(END);
-      await store.sagaTask.toPromise();
-    },
-);
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) =>
+//     async ({ req }) => {
+//       // 로그인이 풀리는 현상, 서버에서 공유하지 않는 쿠ㄱ
+//       // const cookie = req ? req.headers.cookie : '';
+//       // axios.defaults.headers.Cookie = '';
+//       // if (req && cookie) {
+//       //   axios.defaults.headers.Cookie = cookie;
+//       // }
+//       console.log(req);
+//       store.dispatch({
+//         type: LOAD_POSTS_REQUEST,
+//       });
+//       store.dispatch(END);
+//       await store.sagaTask.toPromise();
+//     },
+// );
 
 export default Home;
