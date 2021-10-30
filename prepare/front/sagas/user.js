@@ -34,26 +34,12 @@ function logInAPI(data) {
 
 function* logIn(action) {
   try {
-    // const result = yield call(logInAPI, action.data);
-    delay(1000);
+    const result = yield call(logInAPI, action.data);
+    // delay(1000);
+
     yield put({
       type: LOG_IN_SUCCESS,
-      // data: result,
-      data: {
-        result: 'success',
-        member: {
-          mem_no: 0,
-          mem_id: 'tjdwls@naver.com',
-          mem_pw: null,
-          mem_name: '성진',
-          mem_nickname: '성진2',
-          mem_grade: 'user',
-          mem_profileimg: null,
-          mem_flag: false,
-          mem_date: '21-10-26 20:57:30',
-          mem_out_date: '21-10-26 20:57:30',
-        },
-      },
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
