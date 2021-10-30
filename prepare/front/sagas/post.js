@@ -36,6 +36,8 @@ import {
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
   LOAD_POSTS_FAILURE,
+  LOAD_MORE_POSTS_REQUEST,
+  LOAD_MORE_POSTS_SUCCESS,
 } from '../reducers/post';
 
 // 게시물 등록하기
@@ -211,22 +213,42 @@ function* unLikePost(action) {
 }
 
 // 게시물 가져오기
-function loadPostsAPI(lastId) {
-  return axios.get(`/posts?lastId=${lastId || 0}`);
+function loadPostsAPI(data) {
+  // return axios.get(`/posts?lastId=${lastId || 0}`);
+  return axios.get(`/board/list.do?mem_id=${data.mem_id}`);
 }
 
 function* loadPosts(action) {
   try {
-    // const result = yield call(loadPostsAPI, action.lastId);
-    yield delay(1000);
+    const result = yield call(loadPostsAPI, action.data);
     yield put({
       type: LOAD_POSTS_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
     yield put({
       type: LOAD_POSTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+// 게시물 더 가져오기
+function loadMorePostsAPI(data) {
+  return axios.get(`/board/list.do?mem_id=${data.mem_id}`);
+}
+
+function* loadMorePosts(action) {
+  try {
+    const result = yield call(loadMorePostsAPI, action.data);
+    yield put({
+      type: LOAD_MORE_POSTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_MORE_POSTS_FAILURE,
       error: err.response.data,
     });
   }
@@ -266,6 +288,9 @@ function* watchUnLikePost() {
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
+function* watchLoadMorePosts() {
+  yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
+}
 
 export default function* userSaga() {
   yield all([
@@ -278,5 +303,6 @@ export default function* userSaga() {
     fork(watchLikePost),
     fork(watchUnLikePost),
     fork(watchLoadPosts),
+    fork(watchLoadMorePosts),
   ]);
 }

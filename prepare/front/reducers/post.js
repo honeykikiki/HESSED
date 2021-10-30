@@ -2,38 +2,6 @@ import produce from 'immer';
 import faker from 'faker';
 import shortId from 'shortid';
 
-export const generateDummyPost = (number) =>
-  Array(number)
-    .fill()
-    .map((v, i) => ({
-      id: i,
-      User: {
-        id: 20,
-        nickname: faker.name.findName(),
-      },
-      content: faker.lorem.paragraph(),
-      Likers: [],
-      Images: [
-        {
-          id: shortId.generate(),
-          url: faker.image.image(),
-        },
-        {
-          id: shortId.generate(),
-          url: faker.image.image(),
-        },
-        {
-          id: shortId.generate(),
-          url: faker.image.image(),
-        },
-        {
-          id: shortId.generate(),
-          url: faker.image.image(),
-        },
-      ],
-      Comments: [],
-    }));
-
 export const initialState = {
   mainPosts: [],
   myPosts: [],
@@ -69,6 +37,22 @@ export const initialState = {
   loadPostsDone: false,
   loadPostsError: null,
 };
+
+export const generateDummyPost = (list) =>
+  list.map((v, i) => ({
+    id: v.bo_id,
+    User: {
+      id: v.bo_writer,
+      nickname: v.mem_nickname,
+    },
+    content: v.bo_content,
+    Likers: [],
+    Images: v.boardImgList.map((v, i) => {
+      return { id: v.bo_img_no, url: v.bo_img_location };
+    }),
+
+    Comments: [],
+  }));
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -106,6 +90,9 @@ export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCES';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 // [게시글아이디, 게시글작성자{아이디, 닉네임}, 게시글컨텐츠, 게시글알림, 게시글작성시간, 게시글좋아요한사람, 댓글]
+export const LOAD_MORE_POSTS_REQUEST = 'LOAD_MORE_POSTS_REQUEST';
+export const LOAD_MORE_POSTS_SUCCESS = 'LOAD_MORE_POSTS_SUCCES';
+export const LOAD_MORE_POSTS_FAILURE = 'LOAD_MORE_POSTS_FAILURE';
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -289,11 +276,34 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        // draft.mainPosts = draft.mainPosts.concat(action.data);
-        draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
+        console.log(action.data.list);
+
+        draft.mainPosts = draft.mainPosts.concat(
+          generateDummyPost(action.data.list),
+        );
+        // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
         // draft.hasMorePosts = action.data.length === 10;
         break;
       case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;
+        break;
+      // 게시물 더 가져오기
+      case LOAD_MORE_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      case LOAD_MORE_POSTS_SUCCESS:
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        draft.mainPosts = draft.mainPosts.concat(
+          generateDummyPost(action.data.list),
+        );
+        // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
+        draft.hasMorePosts = action.data.result;
+        break;
+      case LOAD_MORE_POSTS_FAILURE:
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;
         break;
