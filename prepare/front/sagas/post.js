@@ -221,6 +221,7 @@ function loadPostsAPI(data) {
 function* loadPosts(action) {
   try {
     const result = yield call(loadPostsAPI, action.data);
+    console.log(result);
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: result.data,
@@ -288,6 +289,7 @@ function* watchUnLikePost() {
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
+
 function* watchLoadMorePosts() {
   yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
 }
