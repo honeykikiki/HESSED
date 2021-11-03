@@ -56,6 +56,7 @@ export const generateDummyPost = (list, listImg) =>
       }
     }),
     Comments: [],
+    data: v.bo_date,
   }));
 
 // for (let i = 0; i < list.length; i++) {
@@ -119,6 +120,7 @@ const reducer = (state = initialState, action) => {
         draft.addPostLoading = false;
         draft.addPostDone = true;
         draft.addPostError = null;
+        console.log(action.data);
         draft.mainPosts.unshift(action.data);
         break;
       }
@@ -288,8 +290,7 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        console.log(action.data.list);
-        console.log(action.data.imgList);
+        console.log(action.data);
         draft.mainPosts = draft.mainPosts.concat(
           generateDummyPost(action.data.list, action.data.imgList),
         );

@@ -60,6 +60,7 @@ const dummyUser = (data) => ({
   name: data.mem_name,
   nickname: data.mem_nickname,
   profileImg: data.mem_profileimg,
+  grade: data.mem_grade,
   Posts: [],
   Liked: [],
   Saved: [],
@@ -79,6 +80,8 @@ const reducer = (state = initialState, action) => {
         draft.logInDone = true;
         if (action.data.result === 'success') {
           draft.me = dummyUser(action.data.member); //action.data;
+        } else {
+          alert('존재하지 않는 계정입니다');
         }
         // draft.me = action.data);
         break;

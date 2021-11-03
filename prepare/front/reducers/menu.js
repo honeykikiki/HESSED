@@ -6,7 +6,9 @@ export const initialState = {
   qrCode: true,
   profile: false,
   commentToReply: true,
+  loading: true,
 };
+export const LOADING = 'LOADING';
 
 export const POST_CARD = 'POST_CARD';
 export const UP_LOAD = 'UP_LOAD';
@@ -19,6 +21,9 @@ export const COMMENT_TO_REPLY_CLOSE = 'COMMENT_TO_REPLY_CLOSE';
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case LOADING:
+        draft.loading = false;
+        break;
       case POST_CARD:
         draft.postCard = true;
         draft.upLoad = false;
