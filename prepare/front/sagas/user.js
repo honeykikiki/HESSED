@@ -35,8 +35,6 @@ function logInAPI(data) {
 function* logIn(action) {
   try {
     const result = yield call(logInAPI, action.data);
-    // delay(1000);
-
     yield put({
       type: LOG_IN_SUCCESS,
       data: result.data,
@@ -49,6 +47,7 @@ function* logIn(action) {
     });
   }
 }
+
 // 로그아웃
 function logOutAPI(data) {
   return axios.post(`/user/logOut`, data);

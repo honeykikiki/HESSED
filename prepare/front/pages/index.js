@@ -17,7 +17,7 @@ const Home = () => {
   );
 
   useEffect(() => {
-    if (me && mainPosts.length === 0) {
+    if (me && mainPosts.length <= 0) {
       const lastId = mainPosts[mainPosts.length - 1]?.id;
       // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
       dispatch({

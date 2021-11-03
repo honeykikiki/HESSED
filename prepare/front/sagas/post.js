@@ -42,16 +42,21 @@ import {
 
 // 게시물 등록하기
 function addPostAPI(data) {
-  return axios.post(`/post`, data);
+  console.log(data);
+  return axios.get(
+    `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
+    data,
+  );
 }
 
 function* addPost(action) {
+  console.log(action.data);
   try {
-    // const result = yield call(addPostAPI, action.data)
-    yield delay(1000);
+    const result = yield call(addPostAPI, action.data);
+    console.log(result);
     yield put({
       type: ADD_POST_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
@@ -221,7 +226,6 @@ function loadPostsAPI(data) {
 function* loadPosts(action) {
   try {
     const result = yield call(loadPostsAPI, action.data);
-    console.log(result);
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: result.data,

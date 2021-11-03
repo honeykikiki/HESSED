@@ -18,6 +18,12 @@ const PostContent = ({ post }) => {
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
 
+  const date = post.data.split(' ').slice(0, 1);
+  const data = date[0].split('-');
+  const year = data[0];
+  const mount = data[1];
+  const lee = data[2];
+
   return (
     <article className={style.art}>
       <div>
@@ -25,40 +31,19 @@ const PostContent = ({ post }) => {
       </div>
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
-        {/* <p>{`${post.MEN_NICKNAME}`}</p> */}
         <span>{`${post.content?.slice(0, more)} `}</span>
-        {/* <span>{`${post.BO_CONTENT?.slice(0, more)} `}</span> */}
-        {/* <span>
-          {post.content.split(/(#[^\s#]+)/g).map((v, i) => {
-            if (v.match(/(#[^\s#]+)/g)) {
-              return (
-                <Link href={`/hashtag/${v.slice(1)}`} key={i}>
-                  <a style={{ color: '#00376b' }}>{v}</a>
-                </Link>
-              );
-            }
-            return v.slice(0, more);
-          })}
-        </span> */}
+
         {post.content.length < 20 ? null : moreButtonOnClick ? (
           <button onClick={contentMore}>... 더보기</button>
         ) : (
           <button onClick={contentbrief}>간략하게보기</button>
         )}
-        {/* {post.BO_CONTENT.length < 20 ? null : moreButtonOnClick ? (
-          <button onClick={contentMore}>... 더보기</button>
-        ) : (
-          <button onClick={contentbrief}>간략하게보기</button>
-        )} */}
       </div>
       {post?.Comments?.length > 2 && (
-        // {post?.BO_COMMENTS?.length > 2 && (
         <Link href={`/${post.id}/comment`}>
-          {/* <Link href={`/${post.BO_ID}/comment`}> */}
           <a>
             <p className={style.commentMore}>
               {post.Comments.length}개의 댓글 모두보기
-              {/* {post?.BO_COMMENTS?.length}개의 댓글 모두보기 */}
             </p>
           </a>
         </Link>
@@ -70,8 +55,6 @@ const PostContent = ({ post }) => {
               <div>
                 <span>{`${post.Comments[0]?.User?.nickname ?? ''}`}</span>
                 <span>{`${post.Comments[0]?.content ?? ''}`}</span>
-                {/* <span>{`${post.BO_COMMENTS[0]?.MEN_NICKNAME ?? ''}`}</span>
-                <span>{`${post.BO_COMMENTS[0]?.content ?? ''}`}</span> */}
               </div>
               <div>
                 <span>{`${post?.Comments[1]?.User?.nickname ?? ''}  `}</span>
@@ -82,8 +65,7 @@ const PostContent = ({ post }) => {
         </div>
       </div>
       <div>
-        <p>{`2020년 07월 08일`}</p>
-        {/* <p>{`${BO_DATE}`}</p> */}
+        <p>{`${year}년 ${mount}월 ${lee}일`}</p>
       </div>
     </article>
   );

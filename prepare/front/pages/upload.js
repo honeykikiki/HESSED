@@ -6,7 +6,7 @@ import MainLayout from '../components/MainLayout';
 import style from '../styles/css/upload.module.css';
 import useInput from '../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_POST_REQUEST } from '../reducers/post';
+import { ADD_POST_REQUEST, LOAD_POSTS_REQUEST } from '../reducers/post';
 import { POST_CARD } from '../reducers/menu';
 
 const Home = () => {
@@ -16,7 +16,9 @@ const Home = () => {
 
   const imageInput = useRef();
   const [photoToAddList, setPhotoToAddList] = useState([]);
+  const [photo, setPhoto] = useState([]);
   const [content, onChangeContent, setContetn] = useInput();
+  const [notice, onChangeNotice, setNotice] = useInput(false);
 
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {
@@ -32,6 +34,10 @@ const Home = () => {
       Router.push('/');
     }
   }, [me]);
+
+  const checkboxClick = useCallback(() => {
+    setNotice((prev) => !prev);
+  }, [notice]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -59,6 +65,7 @@ const Home = () => {
       }
 
       setPhotoToAddList(temp.concat(photoToAddList));
+      setPhoto(photoToAdd);
     },
     [photoToAddList],
   );
@@ -85,25 +92,20 @@ const Home = () => {
       dispatch({
         type: ADD_POST_REQUEST,
         data: {
-          id: mainPosts[0]?.id + 1 || 0,
-          User: {
-            id: me.id,
-            nickname: me.nickname,
-          },
-          content,
-          Images: photoToAddList,
-          Likers: [],
-          Comments: [],
-          // mem_no : me.id
-          // mem_nicname : me.nickname
-          // bo_content : content
-          // bo_img : photoToAddList
+          bo_writer: me.id,
+          bo_content: content,
+          bo_image: photo,
+          // bo_notice: notice,
         },
       });
-
+      dispatch({
+        type: LOAD_POSTS_REQUEST,
+        data: {
+          mem_id: me?.id,
+        },
+      });
       setTimeout(() => {
         if (addPostDone) {
-          console.log('end');
           Router.push('/');
           dispatch({
             type: POST_CARD,
@@ -111,7 +113,7 @@ const Home = () => {
         }
       }, 1000);
     },
-    [photoToAddList, mainPosts, content, addPostDone, Router],
+    [photoToAddList, content, addPostDone],
   );
 
   return (
@@ -121,6 +123,18 @@ const Home = () => {
         <section className={style.a}>
           <article className={style.maxWidth}>
             <form className={style.upLoadForm}>
+              {me?.grade === 'admin' && (
+                <div>
+                  <span>공지</span>
+                  <input
+                    name="mem_flag"
+                    type="checkbox"
+                    value={notice}
+                    onClick={checkboxClick}
+                    // required
+                  />
+                </div>
+              )}
               <div className={style.imageBox}>
                 {/* /분리 */}
                 <ul>
