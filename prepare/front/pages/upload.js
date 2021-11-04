@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Router from 'next/router';
-import faker from 'faker';
 
 import MainLayout from '../components/MainLayout';
 import style from '../styles/css/upload.module.css';
@@ -14,9 +13,7 @@ const Home = () => {
   const { me } = useSelector((state) => state.user);
   const { mainPosts, addPostDone } = useSelector((state) => state.post);
 
-  const imageInput = useRef();
   const [photoToAddList, setPhotoToAddList] = useState([]);
-  const [photo, setPhoto] = useState([]);
   const [content, onChangeContent, setContetn] = useInput();
   const [notice, onChangeNotice, setNotice] = useInput(false);
 
@@ -39,15 +36,29 @@ const Home = () => {
     setNotice((prev) => !prev);
   }, [notice]);
 
+  const imageInput = useRef();
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
+
+  // const onChanfeImages = useCallback((e) => {
+  //   console.log('images', e.target.files);
+  //   const imageFormData = new FormData();
+  //   [].forEach.call(e.target.files, (f) => {
+  //     imageFormData.append('image', f);
+  //   });
+  //   dispatch({
+  //     type: UPLOAD_IMAGES_REQUEST,
+  //     data: imageFormData,
+  //   });
+  // }, []);
 
   const handleImage = useCallback(
     (e) => {
       const temp = [];
       const photoToAdd = e.target.files;
       for (let i = 0; i < photoToAdd.length; i++) {
+        console.log(photoToAdd);
         temp.push({
           id: photoToAdd[i].name,
           file: photoToAdd[i],
@@ -65,7 +76,6 @@ const Home = () => {
       }
 
       setPhotoToAddList(temp.concat(photoToAddList));
-      setPhoto(photoToAdd);
     },
     [photoToAddList],
   );
@@ -77,6 +87,34 @@ const Home = () => {
     [photoToAddList],
   );
 
+  // const onSubmit = useCallback(
+  //   (e) => {
+  //     e.preventDefault();
+
+  //     // if (!photoToAddList.length > 0) {
+  //     //   alert('이미지를 등록해주세요');
+  //     //   return;
+  //     // }
+  //     if (!content) {
+  //       alert('내용을 등록해주세요');
+  //       return;
+  //     }
+
+  //     // const formData = new FormData();
+  //     // imagePaths.forEach((p) => {
+  //     //   formData.append('image', p);
+  //     // });
+  //     // formData.append('content', content);
+  //     // formData.append('bo_writer', me.id);
+  //     // console.log(...formData, 'formData');
+  //     // return dispatch({
+  //     //   type: ADD_POST_REQUEST,
+  //     //   data: formData,
+  //     // });
+  //   },
+  //   [me, imagePaths, content],
+  // );
+
   const upLoadFormClick = useCallback(
     (e) => {
       e.preventDefault();
@@ -85,7 +123,7 @@ const Home = () => {
         return;
       }
       if (!content) {
-        alert('이미지를 등록해주세요');
+        alert('내용을 등록해주세요');
         return;
       }
 
@@ -94,8 +132,7 @@ const Home = () => {
         data: {
           bo_writer: me.id,
           bo_content: content,
-          bo_image: photo,
-          // bo_notice: notice,
+          bo_image: photoToAddList,
         },
       });
       dispatch({
@@ -122,7 +159,11 @@ const Home = () => {
         <div style={{ paddingTop: '24px' }}></div>
         <section className={style.a}>
           <article className={style.maxWidth}>
-            <form className={style.upLoadForm}>
+            <form
+              encType="multipart/form-data"
+              onSubmit={upLoadFormClick}
+              className={style.upLoadForm}
+            >
               {me?.grade === 'admin' && (
                 <div>
                   <span>공지</span>
@@ -167,6 +208,7 @@ const Home = () => {
               </div>
 
               <input
+                name="bo_image"
                 type="file"
                 accept="image/jpg, image/jpeg, image/png"
                 ref={imageInput}
@@ -178,6 +220,7 @@ const Home = () => {
 
               <div className={style.textInput}>
                 <textarea
+                  name="bo_content"
                   type="text"
                   placeholder="문구를 입력해주세요"
                   ref={ref}
@@ -186,7 +229,7 @@ const Home = () => {
                   maxLength={140}
                   required
                 />
-                <button onClick={upLoadFormClick}>게시</button>
+                <button>게시</button>
               </div>
             </form>
           </article>

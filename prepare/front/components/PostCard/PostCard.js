@@ -30,7 +30,6 @@ const PostCard = ({ post }) => {
             <header>
               <div>
                 <Link href={`/user/${post.User.id}`}>
-                  {/* <Link href={`/user/${post.MEN_ID}`}> */}
                   <a>
                     {post.User.profileImg ? (
                       <img src={post.User.profileImg.url} />
@@ -42,13 +41,9 @@ const PostCard = ({ post }) => {
               </div>
               <div>
                 <Link href={`/user/${post.User.id}`}>
-                  {/* <Link href={`/user/${post.MEN_ID}`}> */}
                   <a>{`${post.User.nickname}`}</a>
-                  {/* <a>{`${post.MEN_NICKNAME}`}</a> */}
                 </Link>
               </div>
-
-              {/* <div>{id ? null : true ? '팔로우' : '언팔로우'}</div> */}
             </header>
             <PostCardSetButton post={post} />
             {/* {true ?  : null} */}
@@ -57,9 +52,6 @@ const PostCard = ({ post }) => {
           <div className={style.postImage}>
             <div>
               {post?.Images.length > 0 && <PostImages images={post.Images} />}
-              {/* 다시한번 확인하기 */}
-              {/* {post?.BO_IMG > 0 && <PostImages images={post.BO_IMG} />} */}
-              {/* <PostImages images={post.Images} /> */}
             </div>
           </div>
 

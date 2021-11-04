@@ -42,15 +42,14 @@ import {
 
 // 게시물 등록하기
 function addPostAPI(data) {
-  console.log(data);
-  return axios.get(
+  console.log(data, 'data');
+  return axios.post(
     `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
     data,
   );
 }
 
 function* addPost(action) {
-  console.log(action.data);
   try {
     const result = yield call(addPostAPI, action.data);
     console.log(result);
@@ -66,6 +65,7 @@ function* addPost(action) {
     });
   }
 }
+
 // 게시물 삭제하기
 function removePostAPI(data) {
   return axios.delete(`/post/${data.postId}`);
