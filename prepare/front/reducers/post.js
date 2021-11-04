@@ -40,16 +40,13 @@ export const initialState = {
 
 export const generateDummyPost = (list, listImg) =>
   list.map((v, i) => ({
-    id: v.bo_id,
+    id: v.bo_no,
     User: {
       id: v.bo_writer,
       nickname: v.mem_nickname,
     },
     content: v.bo_content,
     Likers: [],
-    // Images: v.boardImgList.map((v, i) => {
-    //   return { id: v.bo_img_no, url: v.bo_img_location };
-    // }),
     Images: listImg.map((v) => {
       if (list.bo_id === v.bo_id) {
         return { id: v.bo_img_no, url: v.bo_img_location };
@@ -120,7 +117,6 @@ const reducer = (state = initialState, action) => {
         draft.addPostLoading = false;
         draft.addPostDone = true;
         draft.addPostError = null;
-        console.log(action.data);
         draft.mainPosts.unshift(action.data);
         break;
       }
@@ -290,7 +286,6 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        console.log(action.data);
         draft.mainPosts = draft.mainPosts.concat(
           generateDummyPost(action.data.list, action.data.imgList),
         );

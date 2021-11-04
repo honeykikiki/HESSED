@@ -20,9 +20,9 @@ const PostContent = ({ post }) => {
 
   const date = post.data.split(' ').slice(0, 1);
   const data = date[0].split('-');
-  const year = data[0];
-  const mount = data[1];
-  const lee = data[2];
+  const Year = data[0];
+  const Month = data[1];
+  const Day = data[2];
 
   return (
     <article className={style.art}>
@@ -65,7 +65,7 @@ const PostContent = ({ post }) => {
         </div>
       </div>
       <div>
-        <p>{`${year}년 ${mount}월 ${lee}일`}</p>
+        <p>{`${Year}년 ${Month}월 ${Day}일`}</p>
       </div>
     </article>
   );
