@@ -41,24 +41,11 @@ const Home = () => {
     imageInput.current.click();
   }, [imageInput.current]);
 
-  // const onChanfeImages = useCallback((e) => {
-  //   console.log('images', e.target.files);
-  //   const imageFormData = new FormData();
-  //   [].forEach.call(e.target.files, (f) => {
-  //     imageFormData.append('image', f);
-  //   });
-  //   dispatch({
-  //     type: UPLOAD_IMAGES_REQUEST,
-  //     data: imageFormData,
-  //   });
-  // }, []);
-
   const handleImage = useCallback(
     (e) => {
       const temp = [];
       const photoToAdd = e.target.files;
       for (let i = 0; i < photoToAdd.length; i++) {
-        console.log(photoToAdd);
         temp.push({
           id: photoToAdd[i].name,
           file: photoToAdd[i],
@@ -87,34 +74,6 @@ const Home = () => {
     [photoToAddList],
   );
 
-  // const onSubmit = useCallback(
-  //   (e) => {
-  //     e.preventDefault();
-
-  //     // if (!photoToAddList.length > 0) {
-  //     //   alert('이미지를 등록해주세요');
-  //     //   return;
-  //     // }
-  //     if (!content) {
-  //       alert('내용을 등록해주세요');
-  //       return;
-  //     }
-
-  //     // const formData = new FormData();
-  //     // imagePaths.forEach((p) => {
-  //     //   formData.append('image', p);
-  //     // });
-  //     // formData.append('content', content);
-  //     // formData.append('bo_writer', me.id);
-  //     // console.log(...formData, 'formData');
-  //     // return dispatch({
-  //     //   type: ADD_POST_REQUEST,
-  //     //   data: formData,
-  //     // });
-  //   },
-  //   [me, imagePaths, content],
-  // );
-
   const upLoadFormClick = useCallback(
     (e) => {
       e.preventDefault();
@@ -127,12 +86,31 @@ const Home = () => {
         return;
       }
 
+      // const formData = new FormData();
+      // photoToAddList.forEach((p) => {
+      //   formData.append('bo_image', p.file);
+      // });
+      // formData.append('bo_writer', me.id);
+      // formData.append('bo_content', content);
+
+      // console.log(formData, 'formData');
+      // console.log(formData.entries, 'formData.values');
+
+      // dispatch({
+      //   type: ADD_POST_REQUEST,
+      //   data: formData,
+      // });
+      let file = [];
+      photoToAddList.forEach((p) => {
+        file.push(p.file);
+      });
+      console.log(file);
       dispatch({
         type: ADD_POST_REQUEST,
         data: {
           bo_writer: me.id,
           bo_content: content,
-          bo_image: photoToAddList,
+          bo_image: file,
         },
       });
       dispatch({
@@ -150,7 +128,7 @@ const Home = () => {
         }
       }, 1000);
     },
-    [photoToAddList, content, addPostDone],
+    [photoToAddList, content, addPostDone, me],
   );
 
   return (

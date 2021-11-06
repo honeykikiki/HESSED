@@ -32,12 +32,29 @@ function logInAPI(data) {
   );
 }
 
+// function* logIn(action) {
+//   try {
+//     const result = yield call(logInAPI, action.data);
+//     yield put({
+//       type: LOG_IN_SUCCESS,
+//       data: result.data,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     yield put({
+//       type: LOG_IN_FAILURE,
+//       error: err.response.data,
+//     });
+//   }
+// }
+
+// 혼자할떄
 function* logIn(action) {
   try {
-    const result = yield call(logInAPI, action.data);
+    delay(1000);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: result.data,
+      data: action.data,
     });
   } catch (err) {
     console.error(err);
