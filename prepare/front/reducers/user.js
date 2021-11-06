@@ -53,14 +53,28 @@ export const CHANGE_PROFILEIMG_REQUEST = 'CHANGE_PROFILEIMG_REQUEST';
 export const CHANGE_PROFILEIMG_SUCCESS = 'CHANGE_PROFILEIMG_SUCCESS';
 export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
 
+// const dummyUser = (data) => ({
+//   // ...data,
+//   no: data.mem_no,
+//   id: data.mem_id,
+//   name: data.mem_name,
+//   nickname: data.mem_nickname,
+//   profileImg: data.mem_profileimg,
+//   grade: data.mem_grade,
+//   Posts: [],
+//   Liked: [],
+//   Saved: [],
+// });
+
+// 혼자할떄
 const dummyUser = (data) => ({
-  // ...data,
-  no: data.mem_no,
-  id: data.mem_id,
-  name: data.mem_name,
-  nickname: data.mem_nickname,
-  profileImg: data.mem_profileimg,
-  grade: data.mem_grade,
+  ...data,
+  no: 1,
+  id: 'data.mem_id',
+  name: 'data.mem_name',
+  nickname: 'data.mem_nickname',
+  profileImg: null,
+  grade: 'data.mem_grade',
   Posts: [],
   Liked: [],
   Saved: [],
@@ -78,12 +92,12 @@ const reducer = (state = initialState, action) => {
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
         draft.logInDone = true;
-        if (action.data.result === 'success') {
-          draft.me = dummyUser(action.data.member); //action.data;
-        } else {
-          alert('존재하지 않는 계정입니다');
-        }
-        // draft.me = action.data);
+        draft.me = dummyUser();
+        // if (action.data.result === 'success') {
+        //   draft.me = dummyUser(action.data.member); //action.data;
+        // } else {
+        //   alert('존재하지 않는 계정입니다');
+        // }
         break;
       case LOG_IN_FAILURE:
         draft.logInLoading = false;

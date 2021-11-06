@@ -50,6 +50,7 @@ function addPostAPI(data) {
 }
 
 function* addPost(action) {
+  console.log(action.data);
   try {
     const result = yield call(addPostAPI, action.data);
     console.log(result);
