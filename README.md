@@ -1,5 +1,7 @@
 # HESSED-APP (20210906~)
 
+<!-- 이미지넣기 -->
+
 ## 기술스택
 
 > HTML
@@ -28,7 +30,6 @@
     eslint
     npm i -D eslint
     npm i -D babel-eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-react-hooks eslint-config-prettier eslint-plugin-prettier
-    접근성
     npm i -D eslint-plugin-jsx-a11y
 
 > redux
@@ -330,6 +331,27 @@
 
         2. useEffect를 사용해 css를 변경하며, 모달이 사라질 때에는 useEffect의 return을 사용해 body의 cssText를 리셋시킨 다음 window,scroll을 이용해 현재 스크롤 위치로 강제 이동시킵니다. 참고로 useEffect의 return 절은 컴포넌트가 unmount 될 때 호출됩니다.
         3.http://yoonbumtae.com/?p=3776
+
+    ```js
+    useEffect(() => {
+        if (!qrCode) {
+            document.body.style.cssText = ` position: fixed; top: -${window.    scrollY}    px;     overflow-y: scroll; width: 100%;`;
+                return () => {
+                    const scrollY = document.body.style.top;
+                    document.body.style.cssText = '';
+                    window.scrollTo(0, parseInt(scrollY || '0', 10) \* -1);
+                };
+        }
+    );
+    ```
+
+## 백엔드 서버로 file데어터 보내기 오류
+
+> 문제 / 해결:
+
+    문제 : 백엔드서버로 file데이터를 보내는데 데이터가 들어가지앟는다
+    해결 :
+
 
     ```js
     useEffect(() => {

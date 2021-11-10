@@ -47,9 +47,10 @@ export const generateDummyPost = (list, listImg) =>
     },
     content: v.bo_content,
     Likers: [],
-    Images: listImg.map((v) => {
-      if (list.bo_id === v.bo_id) {
-        return { id: v.bo_img_no, url: v.bo_img_location };
+
+    Images: listImg.filter((listImg) => {
+      if (v.bo_no === listImg.bo_no) {
+        return { id: listImg.bo_img_no, url: listImg.bo_img_location };
       }
     }),
     Comments: [],
@@ -99,7 +100,7 @@ export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCES';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
-// [게시글아이디, 게시글작성자{아이디, 닉네임}, 게시글컨텐츠, 게시글알림, 게시글작성시간, 게시글좋아요한사람, 댓글]
+
 export const LOAD_MORE_POSTS_REQUEST = 'LOAD_MORE_POSTS_REQUEST';
 export const LOAD_MORE_POSTS_SUCCESS = 'LOAD_MORE_POSTS_SUCCES';
 export const LOAD_MORE_POSTS_FAILURE = 'LOAD_MORE_POSTS_FAILURE';
@@ -117,7 +118,7 @@ const reducer = (state = initialState, action) => {
         draft.addPostLoading = false;
         draft.addPostDone = true;
         draft.addPostError = null;
-        draft.mainPosts.unshift(action.data);
+        // draft.mainPosts.unshift(action.data);
         break;
       }
       case ADD_POST_FAILURE:

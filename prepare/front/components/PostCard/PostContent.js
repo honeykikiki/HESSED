@@ -13,6 +13,7 @@ const PostContent = ({ post }) => {
     setMore(post.content.length);
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
+
   const contentbrief = useCallback(() => {
     setMore(20);
     setMoreButtonOnClick((prev) => !prev);

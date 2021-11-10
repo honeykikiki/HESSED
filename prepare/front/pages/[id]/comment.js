@@ -21,9 +21,7 @@ const Post = () => {
 
   const dispatch = useDispatch();
   const { mainPosts } = useSelector((state) => state.post);
-
   const post = mainPosts.find((v) => v.id === +id);
-  console.log(id);
   return (
     // <MainLayout>
     <>

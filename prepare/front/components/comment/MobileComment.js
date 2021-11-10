@@ -71,6 +71,12 @@ const MobileComment = ({ post }) => {
     Router.back();
   }, []);
 
+  const date = post.data.split(' ').slice(0, 1);
+  const data = date[0].split('-');
+  const Year = data[0];
+  const Month = data[1];
+  const Day = data[2];
+
   return (
     <div className={style.mComment}>
       <div className={style.head}>
@@ -83,11 +89,20 @@ const MobileComment = ({ post }) => {
       <div>
         <div className={style.mContent}>
           <div className={style.userNickname}>
-            <div className={style.userIcon}>{post?.User.nickname[0]}</div>
+            <div className={style.userIcon}>
+              {post.User.profileImg ? (
+                <img src={post.User.profileImg.url} />
+              ) : (
+                <img src="/icon/profileBasic.svg" />
+              )}
+            </div>
+
             <p>{post?.User.nickname}</p>
           </div>
+
           <div className={style.postContent}>{post?.content}</div>
-          <div className={style.time}>시간</div>
+
+          <div className={style.time}>{`${Year}년 ${Month}월 ${Day}일`}</div>
         </div>
         <div className={style.postComment}>
           <Comment post={post} />

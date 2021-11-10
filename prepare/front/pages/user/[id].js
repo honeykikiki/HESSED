@@ -20,7 +20,7 @@ const Profile = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const myPost = mainPosts.filter((v) => v.User.id === +id);
+  const myPost = mainPosts.filter((v) => v.User.id === id);
 
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);

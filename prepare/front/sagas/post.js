@@ -42,7 +42,6 @@ import {
 
 // 게시물 등록하기
 function addPostAPI(data) {
-  console.log(data, 'data');
   return axios.post(
     `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
     data,
@@ -50,10 +49,8 @@ function addPostAPI(data) {
 }
 
 function* addPost(action) {
-  console.log(action.data);
   try {
     const result = yield call(addPostAPI, action.data);
-    console.log(result);
     yield put({
       type: ADD_POST_SUCCESS,
       data: result.data,
@@ -221,7 +218,7 @@ function* unLikePost(action) {
 // 게시물 가져오기
 function loadPostsAPI(data) {
   // return axios.get(`/posts?lastId=${lastId || 0}`);
-  return axios.get(`/board/list.do?mem_id=${data.mem_id}`);
+  return axios.get(`/board/list.do`);
 }
 
 function* loadPosts(action) {
@@ -241,7 +238,7 @@ function* loadPosts(action) {
 }
 // 게시물 더 가져오기
 function loadMorePostsAPI(data) {
-  return axios.get(`/board/list.do?mem_id=${data.mem_id}`);
+  return axios.get(`/board/list.do`);
 }
 
 function* loadMorePosts(action) {
