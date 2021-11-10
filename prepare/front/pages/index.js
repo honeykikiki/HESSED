@@ -22,10 +22,6 @@ const Home = () => {
       // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
       dispatch({
         type: LOAD_POSTS_REQUEST,
-        data: {
-          lastId,
-          mem_id: me?.id,
-        },
       });
     }
 
@@ -39,7 +35,6 @@ const Home = () => {
           // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
           dispatch({
             type: LOAD_MORE_POSTS_REQUEST,
-            lastId,
           });
         }
       }
@@ -82,7 +77,6 @@ const Home = () => {
 //       // if (req && cookie) {
 //       //   axios.defaults.headers.Cookie = cookie;
 //       // }
-//       console.log(req);
 //       store.dispatch({
 //         type: LOAD_POSTS_REQUEST,
 //       });

@@ -8,8 +8,6 @@ const ProfilePost = ({ myPost }) => {
     <>
       <div className={style.upLoadImageBox}>
         {myPost.map((v, i) => {
-          // console.log(v);
-          // console.log(v[i + 1]);
           if (i % 3 === 0) {
             // i = 0 3 6 9
             return (
@@ -22,7 +20,11 @@ const ProfilePost = ({ myPost }) => {
                           <img src="/icon/more.png" />
                         </span>
                       ) : null}
-                      {<img src={`${myPost[i].Images[0].url}`} />}
+                      {
+                        <img
+                          src={`http://211.244.21.147:8081/${myPost[i].Images[0].bo_img_location}`}
+                        />
+                      }
                     </a>
                   </Link>
                 </li>
@@ -35,7 +37,13 @@ const ProfilePost = ({ myPost }) => {
                             <img src="/icon/more.png" />
                           </span>
                         ) : null}
-                        {<img src={`${myPost[i + 1].Images[0].url}`} />}
+                        {
+                          <img
+                            src={`http://211.244.21.147:8081/${
+                              myPost[i + 1].Images[0].bo_img_location
+                            }`}
+                          />
+                        }
                       </a>
                     </Link>
                   </li>
@@ -49,7 +57,13 @@ const ProfilePost = ({ myPost }) => {
                             <img src="/icon/more.png" />
                           </span>
                         ) : null}
-                        {<img src={`${myPost[i + 2].Images[0].url}`} />}
+                        {
+                          <img
+                            src={`http://211.244.21.147:8081/${
+                              myPost[i + 2].Images[0].bo_img_location
+                            }`}
+                          />
+                        }
                       </a>
                     </Link>
                   </li>

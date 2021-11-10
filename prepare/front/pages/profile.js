@@ -24,10 +24,10 @@ const Profile = () => {
     savedArray.push(v.id);
   });
 
-  const myPost = mainPosts.filter((v) => v.User.id === me?.id);
   // 자기게시글만 가져오기
-  const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
+  const myPost = mainPosts.filter((v) => v.User.id === me?.id);
   // 저장한 게시글만 가져오기
+  const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
 
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);

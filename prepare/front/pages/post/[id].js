@@ -18,9 +18,9 @@ const Post = () => {
     if (!me) {
       Router.push('/');
     }
-    if (!post) {
-      Router.push('/profile');
-    }
+    // if (!post) {
+    //   Router.push('/profile');
+    // }
   }, [me, post]);
 
   const onClickBack = useCallback(() => {
@@ -40,7 +40,7 @@ const Post = () => {
             <div onClick={onClickBack}>
               <img src="/icon/back.svg" width="12px" />
             </div>
-            <div>{`${post?.User.nickname} 게시글`}</div>
+            <div>{`${post?.User.nickname}님의 게시글`}</div>
           </div>
           <PostCard post={post} />
         </section>

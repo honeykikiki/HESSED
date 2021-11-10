@@ -86,47 +86,32 @@ const Home = () => {
         return;
       }
 
-      // const formData = new FormData();
-      // photoToAddList.forEach((p) => {
-      //   formData.append('bo_image', p.file);
-      // });
-      // formData.append('bo_writer', me.id);
-      // formData.append('bo_content', content);
-
-      // console.log(formData, 'formData');
-      // console.log(formData.entries, 'formData.values');
-
-      // dispatch({
-      //   type: ADD_POST_REQUEST,
-      //   data: formData,
-      // });
-      let file = [];
+      const formData = new FormData();
       photoToAddList.forEach((p) => {
-        file.push(p.file);
+        formData.append('bo_image', p.file);
       });
-      console.log(file);
+      formData.append('bo_writer', me.id);
+      formData.append('bo_content', content);
+
+      console.log(...formData, 'formData');
+      console.log(formData.entries, 'formData.values');
+
       dispatch({
         type: ADD_POST_REQUEST,
-        data: {
-          bo_writer: me.id,
-          bo_content: content,
-          bo_image: file,
-        },
+        data: formData,
       });
+
+      Router.push('/');
+      dispatch({
+        type: POST_CARD,
+      });
+
       dispatch({
         type: LOAD_POSTS_REQUEST,
-        data: {
-          mem_id: me?.id,
-        },
       });
-      setTimeout(() => {
-        if (addPostDone) {
-          Router.push('/');
-          dispatch({
-            type: POST_CARD,
-          });
-        }
-      }, 1000);
+
+      if (addPostDone) {
+      }
     },
     [photoToAddList, content, addPostDone, me],
   );

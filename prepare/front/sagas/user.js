@@ -32,29 +32,12 @@ function logInAPI(data) {
   );
 }
 
-// function* logIn(action) {
-//   try {
-//     const result = yield call(logInAPI, action.data);
-//     yield put({
-//       type: LOG_IN_SUCCESS,
-//       data: result.data,
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     yield put({
-//       type: LOG_IN_FAILURE,
-//       error: err.response.data,
-//     });
-//   }
-// }
-
-// 혼자할떄
 function* logIn(action) {
   try {
-    delay(1000);
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -64,6 +47,23 @@ function* logIn(action) {
     });
   }
 }
+
+// 혼자할떄
+// function* logIn(action) {
+//   try {
+//     delay(1000);
+//     yield put({
+//       type: LOG_IN_SUCCESS,
+//       data: action.data,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     yield put({
+//       type: LOG_IN_FAILURE,
+//       error: err.response.data,
+//     });
+//   }
+// }
 
 // 로그아웃
 function logOutAPI(data) {
