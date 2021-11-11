@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -13,62 +13,70 @@ const PostIcon = ({ post }) => {
   const liked = post.Likers?.find((v) => v.id === me.id);
   const saved = me?.Saved.find((v) => v.id === post.id);
 
+  const inputRef = useRef();
+
+  const [url, setUrl] = useState();
+
   const onLike = useCallback(() => {
     dispatch({
       type: LIKE_POST_REQUEST,
       data: {
-        postId: post.id,
-        userId: me.id,
+        bo_no: post.id,
+        mem_id: me?.id,
       },
-      // data: {
-      //   bo_no: post.BO_NO,
-      //   mem_id: me.MEN_ID,
-      // },
     });
-  }, [post.id, me.id]);
+  }, [post.id, me?.id]);
   const onUnLike = useCallback(() => {
     dispatch({
       type: UNLIKE_POST_REQUEST,
       data: {
-        postId: post.id,
-        userId: me.id,
+        bo_no: post.id,
+        mem_id: me?.id,
       },
-      // data: {
-      //   bo_no: post.BO_NO,
-      //   mem_id: me.MEN_ID,
-      // },
     });
-  }, []);
+  }, [post.id, me?.id]);
 
   const onSave = useCallback(() => {
     dispatch({
       type: SAVE_POST_REQUEST,
       data: {
-        postId: post.id,
-        userId: me.id,
+        bo_no: post.id,
+        mem_id: me?.id,
       },
-      // data: {
-      //   bo_no: post.BO_NO,
-      //   mem_id: me.MEN_ID,
-      // },
     });
-  }, []);
-
+  }, [post.id, me?.id]);
   const onUnSave = useCallback(() => {
     dispatch({
       type: UNSAVE_POST_REQUEST,
       data: {
-        postId: post.id,
-        userId: me.id,
+        bo_no: post.id,
+        mem_id: me?.id,
       },
-      // data: {
-      //   bo_no: post.BO_NO,
-      //   mem_id: me.MEN_ID,
-      // },
     });
-  }, []);
+  }, [post.id, me?.id]);
 
-  const onShare = useCallback(() => {}, []);
+  const handleCopyClipBoard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+
+      alert('복사 성공!');
+    } catch (error) {
+      alert('복사 실패!');
+    }
+  };
+
+  const onShare = useCallback(async () => {
+    setUrl(`http://localhost:3030/post/${post.id}`);
+    // navigator.clipboard.writeText(`${window.location.href}${post.id}`);
+
+    try {
+      await navigator.clipboard.writeText(`${window.location.href}${post.id}`);
+      alert('복사 성공!');
+    } catch (error) {
+      alert('복사 실패!');
+    }
+  }, [url]);
+
   return (
     <article className={style.postIcon}>
       <div>
@@ -83,6 +91,7 @@ const PostIcon = ({ post }) => {
           </div>
         )}
       </div>
+
       <div>
         {/* 댓글 */}
         <Link href={`/${post.id}/comment`}>
@@ -93,10 +102,13 @@ const PostIcon = ({ post }) => {
           </a>
         </Link>
       </div>
+
       <div>
         {/* 공유 */}
+
         <img src="/icon/share.svg" onClick={onShare} />
       </div>
+
       <div>
         {/* 저장 */}
         {saved ? (

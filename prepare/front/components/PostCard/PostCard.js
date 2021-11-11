@@ -16,12 +16,6 @@ const PostCard = ({ post }) => {
   const { me } = useSelector((state) => state.user);
   const id = useSelector((state) => state.user.me && state.user.me.id);
 
-  useEffect(() => {
-    if (!me) {
-      Router.push('/');
-    }
-  }, [me]);
-
   return (
     <section className={style.a}>
       <article className={style.maxWidth}>
