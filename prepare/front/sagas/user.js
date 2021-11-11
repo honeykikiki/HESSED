@@ -114,16 +114,18 @@ function* signUp(action) {
 
 // 게시물 저장
 function savePostAPI(data) {
-  return axios.post(`/user/saved`, data);
+  return axios.post(
+    `/board/save.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
+    data,
+  );
 }
 
 function* savePost(action) {
   try {
-    // const result = yield call(savePostAPI);
-    yield delay(1000);
+    const result = yield call(savePostAPI, action.data);
     yield put({
       type: SAVE_POST_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -135,16 +137,18 @@ function* savePost(action) {
 }
 // 게시물 저장 취소
 function unSavePostAPI(data) {
-  return axios.delete(`/user/saved`, data);
+  return axios.post(
+    `/board/cancel.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
+    data,
+  );
 }
 
 function* unSavePost(action) {
   try {
-    // const result = yield call(unSavePostAPI);
-    yield delay(1000);
+    const result = yield call(unSavePostAPI, action.data);
     yield put({
       type: UNSAVE_POST_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);

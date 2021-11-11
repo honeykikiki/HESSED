@@ -144,7 +144,7 @@ const reducer = (state = initialState, action) => {
         draft.savePostLoading = false;
         draft.savePostDone = true;
         draft.savePostError = null;
-        draft.me.Saved.push({ id: action.data.postId });
+        draft.me.Saved.push({ id: action.data.boardVO.bo_no });
         break;
       }
       case SAVE_POST_FAILURE:
@@ -159,7 +159,7 @@ const reducer = (state = initialState, action) => {
         break;
       case UNSAVE_POST_SUCCESS: {
         draft.me.Saved = draft.me.Saved.filter(
-          (v) => v.id !== action.data.postId,
+          (v) => v.id !== action.data.boardVO.bo_no,
         );
         draft.unSavePostLoading = false;
         draft.unSavePostDone = true;

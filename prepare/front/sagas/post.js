@@ -42,8 +42,10 @@ import {
 
 // 게시물 등록하기
 function addPostAPI(data) {
+  console.log(data);
   return axios.post(
-    `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
+    // `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
+    `/board/insert.do`,
     data,
   );
 }
@@ -174,16 +176,18 @@ function* removeCommentReply(action) {
 
 // 좋아요
 function likePostAPI(data) {
-  return axios.delete(`/post/${data}/like`);
+  return axios.post(
+    `/good/check.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
+    data,
+  );
 }
 
 function* likePost(action) {
   try {
-    // const result = yield call(likePostAPI, action.data)
-    yield delay(1000);
+    const result = yield call(likePostAPI, action.data);
     yield put({
       type: LIKE_POST_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
@@ -195,16 +199,18 @@ function* likePost(action) {
 }
 // 좋아요 취소
 function unLikePostAPI(data) {
-  return axios.delete(`/post/${data}/like`);
+  return axios.post(
+    `/good/checkOut.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
+    data,
+  );
 }
 
 function* unLikePost(action) {
   try {
-    // const result = yield call(unLikePostAPI, action.data)
-    yield delay(1000);
+    const result = yield call(unLikePostAPI, action.data);
     yield put({
       type: UNLIKE_POST_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
