@@ -22,6 +22,12 @@ import {
   CHANGE_PROFILEIMG_REQUEST,
   CHANGE_PROFILEIMG_SUCCESS,
   CHANGE_PROFILEIMG_FAILURE,
+  SEARCH_ID_REQUEST,
+  SEARCH_ID_SUCCESS,
+  SEARCH_ID_FAILURE,
+  SEARCH_PW_REQUEST,
+  SEARCH_PW_SUCCESS,
+  SEARCH_PW_FAILURE,
 } from '../reducers/user';
 
 // 로그인
@@ -203,6 +209,49 @@ function* changeProfileImg(action) {
   }
 }
 
+// 아이디찾기
+function searchIdAPI(data) {
+  return axios.post(`/user/profileImg`, data);
+}
+
+function* searchId(action) {
+  try {
+    // const result = yield call(searchIdAPI, action.data);
+    yield delay(1000);
+    yield put({
+      type: SEARCH_ID_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SEARCH_ID_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+// 비밀번호찾기
+function searchPwAPI(data) {
+  return axios.post(`/user/profileImg`, data);
+}
+
+function* searchPw(action) {
+  try {
+    // const result = yield call(searchPwAPI, action.data);
+    yield delay(1000);
+    yield put({
+      type: SEARCH_PW_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SEARCH_PW_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
@@ -224,6 +273,12 @@ function* watchChangeNickname() {
 function* watchChangeProfileImg() {
   yield takeLatest(CHANGE_PROFILEIMG_REQUEST, changeProfileImg);
 }
+function* watchSearchId() {
+  yield takeLatest(SEARCH_ID_REQUEST, searchId);
+}
+function* watchSearchPw() {
+  yield takeLatest(SEARCH_PW_REQUEST, changeProfileImg);
+}
 
 export default function* userSaga() {
   yield all([
@@ -234,5 +289,7 @@ export default function* userSaga() {
     fork(watchUnSavePost),
     fork(watchChangeNickname),
     fork(watchChangeProfileImg),
+    fork(watchSearchId),
+    fork(watchSearchPw),
   ]);
 }
