@@ -4,35 +4,43 @@ import Link from 'next/link';
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
 import useInput from '../../hooks/useInput';
+import { useDispatch } from 'react-redux';
+import { SEARCH_ID_REQUEST } from '../../reducers/user';
 
 const IdSearch = () => {
-  const [nickname, onChangeNickname, setNickname] = useInput('');
-  const [phone, onChangePhone, setPhone] = useInput('');
+  const dispatch = useDispatch();
+
+  const [name, onChangeName, setName] = useInput('');
+  const [id, onChangeId, setId] = useInput('');
 
   const onSubmitIdSearch = useCallback((e) => {
     e.preventDefault();
-    setNickname(nickname);
-    setPhone(phone);
+    dispatch({
+      type: SEARCH_ID_REQUEST,
+      data: { mem_id: id, mem_name: name },
+    });
   }, []);
 
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmitIdSearch}>
         <input
+          name="mem_name"
           placeholder="이름을 입력해주세요"
-          value={nickname}
-          onChange={onChangeNickname}
+          value={name}
+          onChange={onChangeName}
           required
         />
 
         <br />
 
         <input
-          placeholder="ex) 01012345678"
-          value={phone}
-          onChange={onChangePhone}
-          type="number"
-          maxLength="11"
+          name="mem_id"
+          placeholder="아이디를 입력해주세요"
+          value={id}
+          onChange={onChangeId}
+          type="email"
+          required
         />
         <br />
 

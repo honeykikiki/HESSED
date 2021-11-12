@@ -29,6 +29,7 @@ const Login = () => {
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
         <input
+          name="mem_id"
           type="text"
           placeholder="아이디를 입력해주세요"
           value={id}
@@ -37,6 +38,7 @@ const Login = () => {
         />
 
         <input
+          name="mem_pw"
           placeholder="비밀번호를 입력해주세요"
           value={password}
           onChange={onchangePassword}

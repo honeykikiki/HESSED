@@ -6,7 +6,13 @@ export const initialState = {
   logInError: null, //
   logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
-  logOutError: null, //
+  logOutError: null,
+  searchIdLoading: false, // 아이디찾기 시도중
+  searchIdDone: false,
+  searchIdError: null,
+  searchPwLoading: false, // 비밀번호찾기 시도중
+  searchPwDone: false,
+  searchPwError: null,
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
@@ -52,6 +58,14 @@ export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 export const CHANGE_PROFILEIMG_REQUEST = 'CHANGE_PROFILEIMG_REQUEST';
 export const CHANGE_PROFILEIMG_SUCCESS = 'CHANGE_PROFILEIMG_SUCCESS';
 export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
+
+export const SEARCH_ID_REQUEST = 'SEARCH_ID_REQUEST';
+export const SEARCH_ID_SUCCESS = 'SEARCH_ID_SUCCESS';
+export const SEARCH_ID_FAILURE = 'SEARCH_ID_FAILURE';
+
+export const SEARCH_PW_REQUEST = 'SEARCH_PW_REQUEST';
+export const SEARCH_PW_SUCCESS = 'SEARCH_PW_SUCCESS';
+export const SEARCH_PW_FAILURE = 'SEARCH_PW_FAILURE';
 
 const dummyUser = (data) => ({
   // ...data,
@@ -117,6 +131,35 @@ const reducer = (state = initialState, action) => {
       case LOG_OUT_FAILURE:
         draft.logOutLoading = false;
         draft.logOutError = action.error;
+        break;
+
+      // 아이디 찾기
+      case SEARCH_ID_REQUEST:
+        draft.searchIdLoading = true;
+        draft.searchIdDone = false;
+        draft.searchIdError = null;
+        break;
+      case SEARCH_ID_SUCCESS:
+        draft.searchIdLoading = false;
+        draft.searchIdDone = true;
+        break;
+      case SEARCH_ID_FAILURE:
+        draft.searchIdLoading = false;
+        draft.searchIdError = action.error;
+        break;
+      // 비밀번호 찾기
+      case SEARCH_PW_REQUEST:
+        draft.searchPwLoading = true;
+        draft.searchPwDone = false;
+        draft.searchPwError = null;
+        break;
+      case SEARCH_PW_SUCCESS:
+        draft.searchPwLoading = false;
+        draft.searchPwDone = true;
+        break;
+      case SEARCH_PW_FAILURE:
+        draft.searchPwLoading = false;
+        draft.searchPwError = action.error;
         break;
 
       //회원가입
