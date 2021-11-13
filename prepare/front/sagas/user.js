@@ -31,6 +31,12 @@ import {
   DUPLICATE_CHECK_REQUEST,
   DUPLICATE_CHECK_SUCCESS,
   DUPLICATE_CHECK_FAILURE,
+  CERIFIED_REQUEST,
+  CERIFIED_SUCCESS,
+  CERIFIED_FAILURE,
+  PASSWORD_CHANGE_REQUEST,
+  PASSWORD_CHANGE_SUCCESS,
+  PASSWORD_CHANGE_FAILURE,
 } from '../reducers/user';
 
 // 로그인
@@ -163,7 +169,7 @@ function* unSavePost(action) {
 
 // 닉네임 수정
 function changeNicknameAPI(data) {
-  return axios.patch(`/user/nickname`, data);
+  return axios.patch(``, data);
 }
 
 function* changeNickname(action) {
@@ -185,7 +191,7 @@ function* changeNickname(action) {
 
 // 프로필 이미지 수정
 function changeProfileImgAPI(data) {
-  return axios.patch(`/user/profileImg`, data);
+  return axios.patch(``, data);
 }
 
 function* changeProfileImg(action) {
@@ -207,7 +213,7 @@ function* changeProfileImg(action) {
 
 // 아이디찾기
 function searchIdAPI(data) {
-  return axios.post(`/user/profileImg`, data);
+  return axios.post(``, data);
 }
 
 function* searchId(action) {
@@ -228,7 +234,7 @@ function* searchId(action) {
 
 // 비밀번호찾기
 function searchPwAPI(data) {
-  return axios.post(`/user/profileImg`, data);
+  return axios.post(``, data);
 }
 
 function* searchPw(action) {
@@ -242,6 +248,48 @@ function* searchPw(action) {
     console.error(err);
     yield put({
       type: SEARCH_PW_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+// 인증번호
+function certifiedAPI(data) {
+  return axios.post(``, data);
+}
+
+function* certified(action) {
+  try {
+    const result = yield call(certifiedAPI, action.data);
+    yield put({
+      type: CERIFIED_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: CERIFIED_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+// 비밀번호 바꾸기
+function pwChangeAPI(data) {
+  return axios.post(``, data);
+}
+
+function* pwChange(action) {
+  try {
+    const result = yield call(pwChangeAPI, action.data);
+    yield put({
+      type: PASSWORD_CHANGE_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: PASSWORD_CHANGE_FAILURE,
       error: err.response.data,
     });
   }
@@ -295,6 +343,12 @@ function* watchSearchId() {
 function* watchSearchPw() {
   yield takeLatest(SEARCH_PW_REQUEST, searchPw);
 }
+function* watchCertified() {
+  yield takeLatest(CERIFIED_REQUEST, certified);
+}
+function* watchPwChange() {
+  yield takeLatest(PASSWORD_CHANGE_REQUEST, pwChange);
+}
 function* watchDuplicateCheck() {
   yield takeLatest(DUPLICATE_CHECK_REQUEST, duplicateCheck);
 }
@@ -310,6 +364,8 @@ export default function* userSaga() {
     fork(watchChangeProfileImg),
     fork(watchSearchId),
     fork(watchSearchPw),
+    fork(watchCertified),
+    fork(watchPwChange),
     fork(watchDuplicateCheck),
   ]);
 }

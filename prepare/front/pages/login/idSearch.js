@@ -10,33 +10,26 @@ import { SEARCH_ID_REQUEST } from '../../reducers/user';
 const IdSearch = () => {
   const dispatch = useDispatch();
 
-  const [name, onChangeName, setName] = useInput('');
   const [id, onChangeId, setId] = useInput('');
+  const [phone, onChangePhone, set] = useInput('');
 
   const onSubmitIdSearch = useCallback(
     (e) => {
       e.preventDefault();
+      const formData = new FormData();
+      formData.append('mem_id', id);
+      formData.append('mem_phone', phone);
       dispatch({
         type: SEARCH_ID_REQUEST,
-        data: { mem_id: id, mem_name: name },
+        data: formData,
       });
     },
-    [id, name],
+    [id, phone],
   );
 
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmitIdSearch}>
-        <input
-          name="mem_name"
-          placeholder="이름을 입력해주세요"
-          value={name}
-          onChange={onChangeName}
-          required
-        />
-
-        <br />
-
         <input
           name="mem_id"
           placeholder="아이디를 입력해주세요"
@@ -47,8 +40,19 @@ const IdSearch = () => {
         />
         <br />
 
+        <input
+          name="mem_phone"
+          placeholder="전화번호를 입력해주세요"
+          value={phone}
+          onChange={onChangePhone}
+          type="number"
+          required
+        />
+        <br />
+
         <button>아이디 찾기</button>
       </form>
+
       <div className={style.div}>
         <Link href="/login/pwSearch">
           <a>

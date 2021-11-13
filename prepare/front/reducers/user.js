@@ -13,6 +13,12 @@ export const initialState = {
   searchPwLoading: false, // 비밀번호찾기 시도중
   searchPwDone: false,
   searchPwError: null,
+  cerifiedLoading: false, // 인증번호 시도중
+  cerifiedDone: false,
+  cerifiedError: null,
+  passwordChangeLoading: false, // 비민번호 바꾸기 시도중
+  passwordChangeDone: false,
+  passwordChangeError: null,
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
@@ -74,6 +80,14 @@ export const SEARCH_ID_FAILURE = 'SEARCH_ID_FAILURE';
 export const SEARCH_PW_REQUEST = 'SEARCH_PW_REQUEST';
 export const SEARCH_PW_SUCCESS = 'SEARCH_PW_SUCCESS';
 export const SEARCH_PW_FAILURE = 'SEARCH_PW_FAILURE';
+
+export const CERIFIED_REQUEST = 'CERIFIED_REQUEST';
+export const CERIFIED_SUCCESS = 'CERIFIED_SUCCESS';
+export const CERIFIED_FAILURE = 'CERIFIED_FAILURE';
+
+export const PASSWORD_CHANGE_REQUEST = 'PASSWORD_CHANGE_REQUEST';
+export const PASSWORD_CHANGE_SUCCESS = 'PASSWORD_CHANGE_SUCCESS';
+export const PASSWORD_CHANGE_FAILURE = 'PASSWORD_CHANGE_FAILURE';
 
 const dummyUser = (data) => ({
   // ...data,
@@ -173,6 +187,34 @@ const reducer = (state = initialState, action) => {
       case SEARCH_PW_FAILURE:
         draft.searchPwLoading = false;
         draft.searchPwError = action.error;
+        break;
+      // 인증번호 확인
+      case CERIFIED_REQUEST:
+        draft.cerifiedLoading = true;
+        draft.cerifiedDone = false;
+        draft.cerifiedError = null;
+        break;
+      case CERIFIED_SUCCESS:
+        draft.cerifiedLoading = false;
+        draft.cerifiedDone = true;
+        break;
+      case CERIFIED_FAILURE:
+        draft.cerifiedDone = false;
+        draft.cerifiedError = action.error;
+        break;
+      // 비밀번호 바꾸기
+      case PASSWORD_CHANGE_REQUEST:
+        draft.passwordChangeLoading = true;
+        draft.passwordChangeDone = false;
+        draft.passwordChangeError = null;
+        break;
+      case PASSWORD_CHANGE_SUCCESS:
+        draft.passwordChangeLoading = false;
+        draft.passwordChangeDone = true;
+        break;
+      case PASSWORD_CHANGE_FAILURE:
+        draft.passwordChangeLoading = false;
+        draft.passwordChangeError = action.error;
         break;
 
       //회원가입
