@@ -13,13 +13,16 @@ const IdSearch = () => {
   const [name, onChangeName, setName] = useInput('');
   const [id, onChangeId, setId] = useInput('');
 
-  const onSubmitIdSearch = useCallback((e) => {
-    e.preventDefault();
-    dispatch({
-      type: SEARCH_ID_REQUEST,
-      data: { mem_id: id, mem_name: name },
-    });
-  }, []);
+  const onSubmitIdSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch({
+        type: SEARCH_ID_REQUEST,
+        data: { mem_id: id, mem_name: name },
+      });
+    },
+    [id, name],
+  );
 
   return (
     <LoginLayout>

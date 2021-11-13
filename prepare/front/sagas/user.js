@@ -28,14 +28,14 @@ import {
   SEARCH_PW_REQUEST,
   SEARCH_PW_SUCCESS,
   SEARCH_PW_FAILURE,
+  DUPLICATE_CHECK_REQUEST,
+  DUPLICATE_CHECK_SUCCESS,
+  DUPLICATE_CHECK_FAILURE,
 } from '../reducers/user';
 
 // 로그인
 function logInAPI(data) {
-  return axios.post(
-    `/login.do?mem_id=${data.mem_id}&mem_pw=${data.mem_pw}`,
-    data,
-  );
+  return axios.post(`/login.do`, data);
 }
 
 function* logIn(action) {
@@ -73,16 +73,15 @@ function* logIn(action) {
 
 // 로그아웃
 function logOutAPI(data) {
-  return axios.post(`/user/logOut`, data);
+  return axios.post(`/logout.do`, data);
 }
 
 function* logOut(action) {
   try {
-    // const result = yield call(logOutAPI);
-    yield delay(1000);
+    const result = yield call(logOutAPI, action.data);
     yield put({
       type: LOG_OUT_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -95,19 +94,16 @@ function* logOut(action) {
 
 // 회원가입
 function signUpAPI(data) {
-  return axios.get(
-    `/register.do?mem_id=${data.mem_id}&mem_pw=${data.mem_pw}&mem_name=${data.mem_name}&mem_nickname=${data.mem_nickname}&mem_flag=${data.mem_flag}`,
-    data,
-  );
+  console.log(data);
+  return axios.post(`/register.do`, data);
 }
 
 function* signUp(action) {
   try {
     const result = yield call(signUpAPI, action.data);
-    console.log(result);
     yield put({
       type: SIGN_UP_SUCCESS,
-      data: result,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -216,8 +212,7 @@ function searchIdAPI(data) {
 
 function* searchId(action) {
   try {
-    // const result = yield call(searchIdAPI, action.data);
-    yield delay(1000);
+    const result = yield call(searchIdAPI, action.data);
     yield put({
       type: SEARCH_ID_SUCCESS,
       data: result.data,
@@ -230,6 +225,7 @@ function* searchId(action) {
     });
   }
 }
+
 // 비밀번호찾기
 function searchPwAPI(data) {
   return axios.post(`/user/profileImg`, data);
@@ -237,16 +233,36 @@ function searchPwAPI(data) {
 
 function* searchPw(action) {
   try {
-    // const result = yield call(searchPwAPI, action.data);
-    yield delay(1000);
+    const result = yield call(searchPwAPI, action.data);
     yield put({
       type: SEARCH_PW_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
     yield put({
       type: SEARCH_PW_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+// 아이디 중복체크
+function duplicateCheckAPI(data) {
+  return axios.post(`/idCheck.do`, data);
+}
+
+function* duplicateCheck(action) {
+  try {
+    const result = yield call(duplicateCheckAPI, action.data);
+    yield put({
+      type: DUPLICATE_CHECK_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: DUPLICATE_CHECK_FAILURE,
       error: err.response.data,
     });
   }
@@ -277,7 +293,10 @@ function* watchSearchId() {
   yield takeLatest(SEARCH_ID_REQUEST, searchId);
 }
 function* watchSearchPw() {
-  yield takeLatest(SEARCH_PW_REQUEST, changeProfileImg);
+  yield takeLatest(SEARCH_PW_REQUEST, searchPw);
+}
+function* watchDuplicateCheck() {
+  yield takeLatest(DUPLICATE_CHECK_REQUEST, duplicateCheck);
 }
 
 export default function* userSaga() {
@@ -291,5 +310,6 @@ export default function* userSaga() {
     fork(watchChangeProfileImg),
     fork(watchSearchId),
     fork(watchSearchPw),
+    fork(watchDuplicateCheck),
   ]);
 }

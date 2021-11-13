@@ -4,12 +4,14 @@ import Router from 'next/router';
 
 import LoginLayout from '../components/LoginLayout';
 import useInput from '../hooks/useInput';
-import { SIGN_UP_REQUEST } from '../reducers/user';
+import { DUPLICATE_CHECK_REQUEST, SIGN_UP_REQUEST } from '../reducers/user';
 import style from '../styles/css/loginForm.module.css';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { signUpDone } = useSelector((state) => state.user);
+  const { signUpDone, duplicateCheckDone, duplicateCheckDisplay } = useSelector(
+    (state) => state.user,
+  );
 
   const [mem_id, onChangemem_id, setMEM_ID] = useInput('');
   const [mem_pw, onChangePassword, setPassword] = useInput('');
@@ -39,48 +41,78 @@ const Login = () => {
     setAgree((prev) => !prev);
   }, []);
 
+  const duplicateCheck = useCallback(
+    (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('mem_id', mem_id);
+      dispatch({
+        type: DUPLICATE_CHECK_REQUEST,
+        data: formData,
+      });
+    },
+    [mem_id],
+  );
+
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
       if (mem_id === '') {
-        alert('이메일을 입력해주세요');
+        alert('이메일을 입력해주세요.');
         return;
       }
+      const formIdData = new FormData();
+      formIdData.append('mem_id', mem_id);
+      if (!duplicateCheckDisplay) {
+        dispatch({
+          type: DUPLICATE_CHECK_REQUEST,
+          data: formIdData,
+        });
+      }
+
       if (mem_pw === '') {
-        alert('비밀번호를 입력해주세요');
+        alert('비밀번호를 입력해주세요.');
+        return;
+      }
+      if (passwordError) {
+        alert('비밀번호가 일치하지 않습니다.');
         return;
       }
       if (mem_name === '') {
-        alert('이름을 입력해주세요');
+        alert('이름을 입력해주세요.');
         return;
       }
       if (mem_nickname === '') {
-        alert('닉네임을 입력해주세요');
+        alert('닉네임을 입력해주세요.');
         return;
       }
       if (agree === false) {
-        alert('개인정보 활용을 동의해주세요');
+        alert('개인정보 활용을 동의해주세요.');
         return;
       }
-
+      if (duplicateCheckDisplay) {
+        alert('중복체크 해주세요!');
+        return;
+      }
       if (mem_pw !== passwordCheck) {
         return setPasswordError(true);
       }
       if (!agree) {
         return setAgree(false);
       }
+      const formData = new FormData();
+      formData.append('mem_name', mem_name);
+      formData.append('mem_id', mem_id);
+      formData.append('mem_pw', mem_pw);
+      formData.append('mem_nickname', mem_nickname);
+      formData.append('mem_flag', agree);
+      console.log(...formData);
       dispatch({
         type: SIGN_UP_REQUEST,
-        data: {
-          mem_name,
-          mem_id,
-          mem_pw,
-          mem_nickname,
-          mem_flag: agree,
-        },
+        data: formData,
       });
     },
-    [mem_id, mem_pw, mem_name, mem_nickname, agree],
+    [mem_id, mem_pw, mem_name, mem_nickname, agree, duplicateCheckDisplay],
   );
 
   return (
@@ -94,6 +126,16 @@ const Login = () => {
           type="email"
           // required
         />
+
+        {duplicateCheckDone ? (
+          <div style={{ color: '#409857' }}>{`*아이디 사용가능합니다`}</div>
+        ) : duplicateCheckDisplay ? null : (
+          <div style={{ color: '#409857' }}>{`*아이디가 중복됩니다`}</div>
+        )}
+
+        <button type="button" onClick={duplicateCheck}>
+          중복체크
+        </button>
 
         <br />
 
@@ -118,7 +160,7 @@ const Login = () => {
         {passwordError ? (
           <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
         ) : (
-          <div>{`*보안100%`}</div>
+          <div style={{ color: '#409857' }}>{`*보안100%`}</div>
         )}
         <br />
 
