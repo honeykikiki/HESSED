@@ -16,6 +16,7 @@ const Login = () => {
   const [mem_id, onChangemem_id, setMEM_ID] = useInput('');
   const [mem_pw, onChangePassword, setPassword] = useInput('');
   const [mem_name, onChangeName, setName] = useInput('');
+  const [mem_phone, onChangePhone, setPhone] = useInput('');
   const [mem_nickname, onChangeNickname, setNickname] = useInput('');
   const [agree, onChangeAgree, setAgree] = useInput(false);
 
@@ -82,6 +83,10 @@ const Login = () => {
         alert('이름을 입력해주세요.');
         return;
       }
+      if (mem_phone === '') {
+        alert('전화번호를 입력해주세요.');
+        return;
+      }
       if (mem_nickname === '') {
         alert('닉네임을 입력해주세요.');
         return;
@@ -100,19 +105,29 @@ const Login = () => {
       if (!agree) {
         return setAgree(false);
       }
+
       const formData = new FormData();
-      formData.append('mem_name', mem_name);
       formData.append('mem_id', mem_id);
       formData.append('mem_pw', mem_pw);
+      formData.append('mem_name', mem_name);
+      formData.append('mem_phone', mem_phone);
       formData.append('mem_nickname', mem_nickname);
       formData.append('mem_flag', agree);
-      console.log(...formData);
+
       dispatch({
         type: SIGN_UP_REQUEST,
         data: formData,
       });
     },
-    [mem_id, mem_pw, mem_name, mem_nickname, agree, duplicateCheckDisplay],
+    [
+      mem_id,
+      mem_pw,
+      mem_name,
+      mem_phone,
+      mem_nickname,
+      agree,
+      duplicateCheckDisplay,
+    ],
   );
 
   return (
@@ -154,14 +169,16 @@ const Login = () => {
           placeholder="비밀번호를 다시한번 입력해주세요"
           type="password"
           value={passwordCheck}
-          // required
           onChange={onChangePasswordCheck}
+          // required
         />
+
         {passwordError ? (
           <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
         ) : (
           <div style={{ color: '#409857' }}>{`*보안100%`}</div>
         )}
+
         <br />
 
         <input
@@ -176,12 +193,23 @@ const Login = () => {
         <br />
 
         <input
+          name="mem_phone"
+          placeholder="전화번호를 입력해주세요"
+          type="number"
+          maxLength="11"
+          value={mem_phone}
+          onChange={onChangePhone}
+          required
+        />
+        <br />
+
+        <input
           name="mem_nickname"
           placeholder="별명을 입력해주세요"
           type="text"
           value={mem_nickname}
           onChange={onChangeNickname}
-          // required
+          required
         />
         <br />
 

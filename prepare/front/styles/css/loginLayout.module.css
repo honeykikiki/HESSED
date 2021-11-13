@@ -26,6 +26,11 @@
   color: white;
 }
 
+.back button:active {
+  -webkit-transform: scale(0.94);
+          transform: scale(0.94);
+}
+
 .logoBox {
   text-align: center;
 }
