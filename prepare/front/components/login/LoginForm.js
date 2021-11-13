@@ -16,10 +16,13 @@ const Login = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      const formData = new FormData();
+      formData.append('mem_id', id);
+      formData.append('mem_pw', password);
 
       dispatch({
         type: LOG_IN_REQUEST,
-        data: { mem_id: id, mem_pw: password },
+        data: formData,
       });
     },
     [id, password],

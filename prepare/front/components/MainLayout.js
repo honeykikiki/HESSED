@@ -41,10 +41,10 @@ const MainLayout = ({ children }) => {
     });
   }, [qrCode]);
 
-  const onLogOut = useCallback((data) => {
+  const onLogOut = useCallback((e) => {
+    e.preventDefault();
     dispatch({
       type: LOG_OUT_REQUEST,
-      data,
     });
   }, []);
   const onProfile = useCallback(() => {

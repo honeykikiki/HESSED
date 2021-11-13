@@ -16,6 +16,10 @@ export const initialState = {
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
+  duplicateCheckLoading: false, // 아이디 중복체크 시도중
+  duplicateCheckDone: false,
+  duplicateCheckError: null,
+  duplicateCheckDisplay: true,
   savePostLoading: false, // 게시물 저장
   savePostDone: false,
   savePostError: null,
@@ -42,6 +46,10 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const SIGN_UP_REQUEST = 'SING_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SING_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SING_UP_FAILURE';
+
+export const DUPLICATE_CHECK_REQUEST = 'DUPLICATE_CHECK_REQUEST';
+export const DUPLICATE_CHECK_SUCCESS = 'DUPLICATE_CHECK_SUCCESS';
+export const DUPLICATE_CHECK_FAILURE = 'DUPLICATE_CHECK_FAILURE';
 
 export const SAVE_POST_REQUEST = 'SAVE_POST_REQUEST';
 export const SAVE_POST_SUCCESS = 'SAVE_POST_SUCCESS';
@@ -104,13 +112,15 @@ const reducer = (state = initialState, action) => {
         draft.logInError = null;
         break;
       case LOG_IN_SUCCESS:
-        draft.logInLoading = false;
-        draft.logInDone = true;
         // draft.me = dummyUser();
-        if (action.data.result === 'success') {
+        if (action.data.result === 'SUCCESS') {
           draft.me = dummyUser(action.data.member); //action.data;
+          draft.logInLoading = false;
+          draft.logInDone = true;
         } else {
           alert('존재하지 않는 계정입니다');
+          draft.logInLoading = false;
+          draft.logInDone = false;
         }
         break;
       case LOG_IN_FAILURE:
@@ -124,9 +134,11 @@ const reducer = (state = initialState, action) => {
         draft.logOutError = null;
         break;
       case LOG_OUT_SUCCESS:
-        draft.logOutLoading = false;
-        draft.logOutDone = true;
-        draft.me = null;
+        if (action.data.result === 'LOGOUT') {
+          draft.logOutLoading = false;
+          draft.logOutDone = true;
+          draft.me = null;
+        }
         break;
       case LOG_OUT_FAILURE:
         draft.logOutLoading = false;
@@ -147,6 +159,7 @@ const reducer = (state = initialState, action) => {
         draft.searchIdLoading = false;
         draft.searchIdError = action.error;
         break;
+
       // 비밀번호 찾기
       case SEARCH_PW_REQUEST:
         draft.searchPwLoading = true;
@@ -169,12 +182,45 @@ const reducer = (state = initialState, action) => {
         draft.signUpError = null;
         break;
       case SIGN_UP_SUCCESS:
-        draft.signUpLoading = false;
-        draft.signUpDone = true;
+        if (action.data.result === 'SUCCESS') {
+          draft.signUpLoading = false;
+          draft.signUpDone = true;
+        } else if (action.data.result === 'EXIST') {
+          alert('아이디가 중복입니다.');
+          draft.signUpLoading = false;
+          draft.signUpDone = false;
+        } else {
+          alert('회원가입이 실패했습니다');
+          draft.signUpLoading = false;
+          draft.signUpDone = false;
+        }
         break;
       case SIGN_UP_FAILURE:
         draft.signUpLoading = false;
         draft.signUpError = action.error;
+        break;
+
+      // 아이디 중복체크
+      case DUPLICATE_CHECK_REQUEST:
+        draft.duplicateCheckLoading = true;
+        draft.duplicateCheckDone = false;
+        draft.duplicateCheckError = null;
+        break;
+      case DUPLICATE_CHECK_SUCCESS:
+        if (action.data.result === 'EXIST') {
+          draft.duplicateCheckLoading = false;
+          draft.duplicateCheckDone = false;
+          draft.duplicateCheckDisplay = false;
+        } else {
+          draft.duplicateCheckLoading = false;
+          draft.duplicateCheckDone = true;
+          draft.duplicateCheckDisplay = true;
+        }
+
+        break;
+      case DUPLICATE_CHECK_FAILURE:
+        draft.duplicateCheckLoading = false;
+        draft.duplicateCheckError = action.error;
         break;
 
       // 게시물 저장하기
