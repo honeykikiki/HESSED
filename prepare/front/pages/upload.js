@@ -11,7 +11,9 @@ import { POST_CARD } from '../reducers/menu';
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { mainPosts, addPostDone } = useSelector((state) => state.post);
+  const { mainPosts, addPostDone, postCompleat } = useSelector(
+    (state) => state.post,
+  );
 
   const [photoToAddList, setPhotoToAddList] = useState([]);
   const [content, onChangeContent, setContetn] = useInput();
@@ -30,7 +32,15 @@ const Home = () => {
     if (!me) {
       Router.push('/');
     }
-  }, [me]);
+    if (postCompleat) {
+      dispatch({
+        type: POST_CARD,
+      });
+      if (addPostDone) {
+        Router.push('/');
+      }
+    }
+  }, [me, addPostDone, postCompleat]);
 
   const checkboxClick = useCallback(() => {
     setNotice((prev) => !prev);
@@ -100,18 +110,6 @@ const Home = () => {
         type: ADD_POST_REQUEST,
         data: formData,
       });
-
-      Router.push('/');
-      dispatch({
-        type: POST_CARD,
-      });
-
-      dispatch({
-        type: LOAD_POSTS_REQUEST,
-      });
-
-      if (addPostDone) {
-      }
     },
     [photoToAddList, content, addPostDone, me],
   );

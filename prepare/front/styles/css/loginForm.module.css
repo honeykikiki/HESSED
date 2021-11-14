@@ -52,3 +52,23 @@
   font-size: 0.4rem;
   color: white;
 }
+
+.searchId div {
+  width: calc(100% - 20%);
+  margin: auto;
+  background-color: #dbdbdb;
+  border-radius: 20px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.searchId div p {
+  font-size: 1.4rem;
+  color: #3b3733;
+}
+
+.searchId div p span {
+  font-size: 1.6rem;
+  color: #181818;
+}

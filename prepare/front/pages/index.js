@@ -12,9 +12,8 @@ import wrapper from '../store/configureStore';
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
-    (state) => state.post,
-  );
+  const { mainPosts, hasMorePosts, loadPostsLoading, postCompleat } =
+    useSelector((state) => state.post);
 
   useEffect(() => {
     if (me && mainPosts.length <= 0) {
@@ -38,6 +37,14 @@ const Home = () => {
           });
         }
       }
+    }
+    if (postCompleat) {
+      dispatch({
+        type: LOAD_POSTS_REQUEST,
+      });
+      dispatch({
+        type: PAGE_CHANGE,
+      });
     }
 
     window.addEventListener('scroll', onScroll);

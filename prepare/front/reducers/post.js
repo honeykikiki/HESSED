@@ -8,6 +8,7 @@ export const initialState = {
   savePosts: [],
   imagePaths: [],
   hasMorePosts: true,
+  postCompleat: false,
 
   addPostLoading: false, // 게시물 등록
   addPostDone: false,
@@ -105,6 +106,8 @@ export const LOAD_MORE_POSTS_REQUEST = 'LOAD_MORE_POSTS_REQUEST';
 export const LOAD_MORE_POSTS_SUCCESS = 'LOAD_MORE_POSTS_SUCCES';
 export const LOAD_MORE_POSTS_FAILURE = 'LOAD_MORE_POSTS_FAILURE';
 
+export const PAGE_CHANGE = 'PAGE_CHANGE';
+
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
@@ -118,6 +121,7 @@ const reducer = (state = initialState, action) => {
         draft.addPostLoading = false;
         draft.addPostDone = true;
         draft.addPostError = null;
+        draft.postCompleat = true;
         // draft.mainPosts.unshift(action.data);
         break;
       }
@@ -321,6 +325,9 @@ const reducer = (state = initialState, action) => {
       case LOAD_MORE_POSTS_FAILURE:
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;
+        break;
+      case PAGE_CHANGE:
+        draft.postCompleat = false;
         break;
       default:
         break;

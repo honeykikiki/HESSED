@@ -213,7 +213,7 @@ function* changeProfileImg(action) {
 
 // 아이디찾기
 function searchIdAPI(data) {
-  return axios.post(``, data);
+  return axios.post(`/findID.do`, data);
 }
 
 function* searchId(action) {
@@ -234,7 +234,7 @@ function* searchId(action) {
 
 // 비밀번호찾기
 function searchPwAPI(data) {
-  return axios.post(``, data);
+  return axios.post(`/findPW.do`, data);
 }
 
 function* searchPw(action) {
@@ -255,7 +255,7 @@ function* searchPw(action) {
 
 // 인증번호
 function certifiedAPI(data) {
-  return axios.post(``, data);
+  return axios.post(`/pwAccount.do`, data);
 }
 
 function* certified(action) {
@@ -276,7 +276,8 @@ function* certified(action) {
 
 // 비밀번호 바꾸기
 function pwChangeAPI(data) {
-  return axios.post(``, data);
+  console.log(data);
+  return axios.post(`/pwUpdate.do`, data);
 }
 
 function* pwChange(action) {

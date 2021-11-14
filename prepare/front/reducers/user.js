@@ -39,6 +39,8 @@ export const initialState = {
   changeProfileImgDone: false,
   changeProfileImgError: null,
   me: null,
+  SearchID: null,
+  SearchPW: null,
 };
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
@@ -88,6 +90,8 @@ export const CERIFIED_FAILURE = 'CERIFIED_FAILURE';
 export const PASSWORD_CHANGE_REQUEST = 'PASSWORD_CHANGE_REQUEST';
 export const PASSWORD_CHANGE_SUCCESS = 'PASSWORD_CHANGE_SUCCESS';
 export const PASSWORD_CHANGE_FAILURE = 'PASSWORD_CHANGE_FAILURE';
+
+export const SEARCHID_DELITE = 'SEARCHID_DELITE';
 
 const dummyUser = (data) => ({
   // ...data,
@@ -152,6 +156,9 @@ const reducer = (state = initialState, action) => {
           draft.logOutLoading = false;
           draft.logOutDone = true;
           draft.me = null;
+        } else {
+          draft.logOutLoading = false;
+          draft.logOutDone = false;
         }
         break;
       case LOG_OUT_FAILURE:
@@ -166,8 +173,14 @@ const reducer = (state = initialState, action) => {
         draft.searchIdError = null;
         break;
       case SEARCH_ID_SUCCESS:
-        draft.searchIdLoading = false;
-        draft.searchIdDone = true;
+        if (action.data.result === 'EXIST') {
+          draft.searchIdLoading = false;
+          draft.searchIdDone = true;
+          draft.SearchID = action.data.id;
+        } else {
+          draft.searchIdLoading = false;
+          draft.searchIdDone = false;
+        }
         break;
       case SEARCH_ID_FAILURE:
         draft.searchIdLoading = false;
@@ -181,8 +194,15 @@ const reducer = (state = initialState, action) => {
         draft.searchPwError = null;
         break;
       case SEARCH_PW_SUCCESS:
-        draft.searchPwLoading = false;
-        draft.searchPwDone = true;
+        if (action.data.result === 'EXIST') {
+          draft.searchPwLoading = false;
+          draft.searchPwDone = true;
+          draft.SearchPW = dummyUser(action.data.memberVO);
+        } else if (action.data.result === 'NOTEXIST') {
+          draft.searchPwLoading = false;
+          draft.searchPwDone = false;
+          alert('유저정보가 잘못되었습니다.');
+        }
         break;
       case SEARCH_PW_FAILURE:
         draft.searchPwLoading = false;
@@ -195,8 +215,14 @@ const reducer = (state = initialState, action) => {
         draft.cerifiedError = null;
         break;
       case CERIFIED_SUCCESS:
-        draft.cerifiedLoading = false;
-        draft.cerifiedDone = true;
+        if (action.data.result === 'OK') {
+          draft.cerifiedLoading = false;
+          draft.cerifiedDone = true;
+        } else {
+          draft.cerifiedLoading = false;
+          draft.cerifiedDone = false;
+          alert('안증번호가 틀렸습니다');
+        }
         break;
       case CERIFIED_FAILURE:
         draft.cerifiedDone = false;
@@ -209,8 +235,15 @@ const reducer = (state = initialState, action) => {
         draft.passwordChangeError = null;
         break;
       case PASSWORD_CHANGE_SUCCESS:
-        draft.passwordChangeLoading = false;
-        draft.passwordChangeDone = true;
+        if (action.data.result === 'OK') {
+          draft.passwordChangeLoading = false;
+          draft.passwordChangeDone = true;
+          draft.SearchPW = null;
+          alert('비밀번호 변경이 완료되었습니다');
+        } else {
+          draft.passwordChangeLoading = false;
+          draft.passwordChangeDone = false;
+        }
         break;
       case PASSWORD_CHANGE_FAILURE:
         draft.passwordChangeLoading = false;
@@ -338,6 +371,8 @@ const reducer = (state = initialState, action) => {
         draft.changeProfileImgError = action.error;
         break;
 
+      case SEARCHID_DELITE:
+        draft.SearchID = null;
       default:
         break;
     }
