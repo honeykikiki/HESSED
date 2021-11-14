@@ -1,14 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
 import useInput from '../../hooks/useInput';
-import { useDispatch } from 'react-redux';
-import { SEARCH_ID_REQUEST } from '../../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { SEARCHID_DELITE, SEARCH_ID_REQUEST } from '../../reducers/user';
+import Router from 'next/router';
 
 const IdSearch = () => {
   const dispatch = useDispatch();
+  const { searchIdDone, SearchID } = useSelector((state) => state.user);
 
   const [id, onChangeId, setId] = useInput('');
   const [phone, onChangePhone, set] = useInput('');
@@ -17,7 +19,7 @@ const IdSearch = () => {
     (e) => {
       e.preventDefault();
       const formData = new FormData();
-      formData.append('mem_id', id);
+      formData.append('mem_name', id);
       formData.append('mem_phone', phone);
       dispatch({
         type: SEARCH_ID_REQUEST,
@@ -27,15 +29,22 @@ const IdSearch = () => {
     [id, phone],
   );
 
+  const idConfirm = useCallback(() => {
+    dispatch({
+      type: SEARCHID_DELITE,
+    });
+    Router.push('/');
+  }, []);
+
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmitIdSearch}>
         <input
           name="mem_id"
-          placeholder="아이디를 입력해주세요"
+          placeholder="이름을 입력해주세요"
           value={id}
           onChange={onChangeId}
-          type="email"
+          type="text"
           required
         />
         <br />
@@ -60,6 +69,17 @@ const IdSearch = () => {
           </a>
         </Link>
       </div>
+
+      {SearchID ? (
+        <div className={style.searchId}>
+          <div>
+            <p>
+              아이디는 <span>"{SearchID}"</span> 입니다
+            </p>
+            <button onClick={idConfirm}>확인</button>
+          </div>
+        </div>
+      ) : null}
     </LoginLayout>
   );
 };

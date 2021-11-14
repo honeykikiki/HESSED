@@ -9,34 +9,39 @@ import { CERIFIED_REQUEST } from '../../../reducers/user';
 
 const Certified = () => {
   const dispatch = useDispatch();
-  const { searchPwDone } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (!searchPwDone) {
-      Router.push('/login/passwordProcedure/pwChange');
-    }
-  }, [searchPwDone]);
+  const { cerifiedDone, SearchPW } = useSelector((state) => state.user);
 
   const [certified, onChangeCertified, setCertified] = useInput('');
+
+  useEffect(() => {
+    if (cerifiedDone) {
+      Router.push('/login/passwordProcedure/pwChange');
+    }
+    if (!SearchPW) {
+      Router.push('/');
+    }
+  }, [cerifiedDone, SearchPW]);
 
   const certifiedSubmit = useCallback(
     (e) => {
       e.preventDefault();
       const formData = new FormData();
-      formData.append('인증', certified);
+      formData.append('pa_number', certified);
+      formData.append('mem_id', SearchPW.id);
+
       dispatch({
         type: CERIFIED_REQUEST,
-        dsta: formData,
+        data: formData,
       });
     },
-    [certified],
+    [certified, SearchPW],
   );
 
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={certifiedSubmit}>
         <input
-          name="certified"
+          name="pa_number"
           placeholder="인증번호를 입력해주세요"
           value={certified}
           onChange={onChangeCertified}

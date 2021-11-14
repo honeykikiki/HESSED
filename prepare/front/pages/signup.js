@@ -95,7 +95,7 @@ const Login = () => {
         alert('개인정보 활용을 동의해주세요.');
         return;
       }
-      if (duplicateCheckDisplay) {
+      if (duplicateCheckDone) {
         alert('중복체크 해주세요!');
         return;
       }
@@ -110,8 +110,8 @@ const Login = () => {
       formData.append('mem_id', mem_id);
       formData.append('mem_pw', mem_pw);
       formData.append('mem_name', mem_name);
-      formData.append('mem_phone', mem_phone);
       formData.append('mem_nickname', mem_nickname);
+      formData.append('mem_phone', mem_phone);
       formData.append('mem_flag', agree);
 
       dispatch({
@@ -127,6 +127,7 @@ const Login = () => {
       mem_nickname,
       agree,
       duplicateCheckDisplay,
+      duplicateCheckDone,
     ],
   );
 
@@ -193,22 +194,22 @@ const Login = () => {
         <br />
 
         <input
+          name="mem_nickname"
+          placeholder="별명을 입력해주세요"
+          type="text"
+          value={mem_nickname}
+          onChange={onChangeNickname}
+          required
+        />
+        <br />
+
+        <input
           name="mem_phone"
           placeholder="전화번호를 입력해주세요"
           type="number"
           maxLength="11"
           value={mem_phone}
           onChange={onChangePhone}
-          required
-        />
-        <br />
-
-        <input
-          name="mem_nickname"
-          placeholder="별명을 입력해주세요"
-          type="text"
-          value={mem_nickname}
-          onChange={onChangeNickname}
           required
         />
         <br />

@@ -8,7 +8,7 @@ import useInput from '../../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { SEARCH_PW_REQUEST } from '../../reducers/user';
 
-const IdSearch = () => {
+const PwSearch = () => {
   const dispatch = useDispatch();
   const { searchPwDone } = useSelector((state) => state.user);
 
@@ -85,4 +85,4 @@ const IdSearch = () => {
   );
 };
 
-export default IdSearch;
+export default PwSearch;

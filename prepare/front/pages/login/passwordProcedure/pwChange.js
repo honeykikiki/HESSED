@@ -9,7 +9,7 @@ import { PASSWORD_CHANGE_REQUEST } from '../../../reducers/user';
 
 const PwChange = () => {
   const dispatch = useDispatch();
-  const { passwordChangeDone } = useSelector((state) => state.user);
+  const { passwordChangeDone, SearchPW } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (passwordChangeDone) {
@@ -29,15 +29,20 @@ const PwChange = () => {
     [mem_pw],
   );
 
-  const passwordChangeSubmit = useCallback((e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('mem_pw', mem_pw);
-    dispatch({
-      type: PASSWORD_CHANGE_REQUEST,
-      data: formData,
-    });
-  }, []);
+  const passwordChangeSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('mem_pw', mem_pw);
+      formData.append('mem_id', SearchPW.id);
+
+      dispatch({
+        type: PASSWORD_CHANGE_REQUEST,
+        data: formData,
+      });
+    },
+    [mem_pw, SearchPW],
+  );
 
   return (
     <LoginLayout>
