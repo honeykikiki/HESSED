@@ -103,9 +103,6 @@ const Home = () => {
       formData.append('bo_writer', me.id);
       formData.append('bo_content', content);
 
-      console.log(...formData, 'formData');
-      console.log(formData.entries, 'formData.values');
-
       dispatch({
         type: ADD_POST_REQUEST,
         data: formData,

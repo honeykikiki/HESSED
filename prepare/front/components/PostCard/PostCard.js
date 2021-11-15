@@ -70,11 +70,10 @@ PostCard.propTypes = {
     id: PropTypes.number,
     user: PropTypes.object,
     content: PropTypes.string,
-    createdAt: PropTypes.string,
+    data: PropTypes.string,
     comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
-    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
 

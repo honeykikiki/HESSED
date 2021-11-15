@@ -18,15 +18,6 @@ const Post = () => {
   const { mainPosts } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
   const post = mainPosts.find((v) => v.id === +id);
-  console.log(id);
-  // useEffect(() => {
-  //   if (!me) {
-  //     Router.push('/');
-  //   }
-  //   // if (!post) {
-  //   //   Router.push('/profile');
-  //   // }
-  // }, [me, post]);
 
   const onClickBack = useCallback(() => {
     Router.back();

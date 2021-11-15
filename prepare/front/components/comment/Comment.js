@@ -24,7 +24,7 @@ const Comment = ({ post }) => {
     }
   }, [me]);
 
-  const onClick = useCallback(
+  const onClickPostUserInfo = useCallback(
     (v) => () => {
       setUserId(v.User.id);
       setNickname(v.User.nickname);
@@ -87,7 +87,10 @@ const Comment = ({ post }) => {
                 <p>시간</p>
               </div>
               <div>
-                <button style={{ marginTop: -20 }} onClick={onClick(v)}>
+                <button
+                  style={{ marginTop: -20 }}
+                  onClick={onClickPostUserInfo(v)}
+                >
                   답글 달기
                 </button>
               </div>

@@ -23,6 +23,13 @@ const Login = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
 
+  useEffect(() => {
+    if (signUpDone) {
+      alert(`${mem_id}님 회원가입이 완료되었습니다`);
+      Router.replace('/');
+    }
+  }, [signUpDone]);
+
   const onChangePasswordCheck = useCallback(
     (e) => {
       setPasswordCheck(e.target.value);
@@ -31,29 +38,54 @@ const Login = () => {
     [mem_pw],
   );
 
-  useEffect(() => {
-    if (signUpDone) {
-      alert(`${mem_id}님 회원가입이 완료되었습니다`);
-      Router.replace('/');
-    }
-  }, [signUpDone]);
-
   const checkboxClick = useCallback(() => {
     setAgree((prev) => !prev);
   }, []);
 
-  const duplicateCheck = useCallback(
-    (e) => {
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append('mem_id', mem_id);
-      dispatch({
-        type: DUPLICATE_CHECK_REQUEST,
-        data: formData,
-      });
-    },
-    [mem_id],
-  );
+  const signupCheck = useCallback(() => {
+    if (mem_pw === '') {
+      alert('비밀번호를 입력해주세요.');
+      return;
+    }
+    if (passwordError) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    if (mem_name === '') {
+      alert('이름을 입력해주세요.');
+      return;
+    }
+    if (mem_phone === '') {
+      alert('전화번호를 입력해주세요.');
+      return;
+    }
+    if (mem_nickname === '') {
+      alert('닉네임을 입력해주세요.');
+      return;
+    }
+    if (agree === false) {
+      alert('개인정보 활용을 동의해주세요.');
+      return;
+    }
+    if (!agree) {
+      return setAgree(false);
+    }
+    if (duplicateCheckDone) {
+      alert('중복체크 해주세요!');
+      return;
+    }
+    if (mem_pw !== passwordCheck) {
+      return setPasswordError(true);
+    }
+  }, [
+    mem_pw,
+    passwordError,
+    mem_name,
+    mem_phone,
+    mem_nickname,
+    agree,
+    duplicateCheckDone,
+  ]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -71,40 +103,7 @@ const Login = () => {
         });
       }
 
-      if (mem_pw === '') {
-        alert('비밀번호를 입력해주세요.');
-        return;
-      }
-      if (passwordError) {
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
-      }
-      if (mem_name === '') {
-        alert('이름을 입력해주세요.');
-        return;
-      }
-      if (mem_phone === '') {
-        alert('전화번호를 입력해주세요.');
-        return;
-      }
-      if (mem_nickname === '') {
-        alert('닉네임을 입력해주세요.');
-        return;
-      }
-      if (agree === false) {
-        alert('개인정보 활용을 동의해주세요.');
-        return;
-      }
-      if (duplicateCheckDone) {
-        alert('중복체크 해주세요!');
-        return;
-      }
-      if (mem_pw !== passwordCheck) {
-        return setPasswordError(true);
-      }
-      if (!agree) {
-        return setAgree(false);
-      }
+      signupCheck();
 
       const formData = new FormData();
       formData.append('mem_id', mem_id);
@@ -127,9 +126,10 @@ const Login = () => {
       mem_nickname,
       agree,
       duplicateCheckDisplay,
-      duplicateCheckDone,
     ],
   );
+
+  // const InputComponent
 
   return (
     <LoginLayout>
@@ -149,9 +149,7 @@ const Login = () => {
           <div style={{ color: '#409857' }}>{`*아이디가 중복됩니다`}</div>
         )}
 
-        <button type="button" onClick={duplicateCheck}>
-          중복체크
-        </button>
+        <button type="button">중복체크</button>
 
         <br />
 
@@ -199,7 +197,6 @@ const Login = () => {
           type="text"
           value={mem_nickname}
           onChange={onChangeNickname}
-          required
         />
         <br />
 
@@ -210,7 +207,6 @@ const Login = () => {
           maxLength="11"
           value={mem_phone}
           onChange={onChangePhone}
-          required
         />
         <br />
 
@@ -220,7 +216,6 @@ const Login = () => {
             type="checkbox"
             value={agree}
             onClick={checkboxClick}
-            // required
           />
           <span>개인정보 활용 동의 (보기)</span>
         </div>
