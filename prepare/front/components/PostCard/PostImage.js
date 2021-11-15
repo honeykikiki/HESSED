@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postImage.module.css';
-import { baseURL } from '../config../config/config';
+import { baseURL } from '../../config/config';
 
 const PostImages = ({ images }) => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
@@ -12,6 +12,7 @@ const PostImages = ({ images }) => {
       setImageCuurrentNo((prev) => prev - 1);
     }
   }, [imageCuurrentNo]);
+
   const onClickRight = useCallback(() => {
     if (imageCuurrentNo < images.length - 1) {
       setImageCuurrentNo((prev) => prev + 1);

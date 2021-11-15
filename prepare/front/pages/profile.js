@@ -29,9 +29,9 @@ const Profile = () => {
   // 저장한 게시글만 가져오기
   const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
 
+  const [changeNickname, onChangeNickname, setNickname] = useInput();
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
-  const [changeNickname, onChangeNickname, setNickname] = useInput();
   const [photoToAddList, setPhotoToAddList] = useState(false);
 
   const imageInput = useRef();

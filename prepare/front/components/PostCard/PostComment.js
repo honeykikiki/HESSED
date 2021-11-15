@@ -14,12 +14,6 @@ const PostContent = ({ post }) => {
   const id = useSelector((state) => state.user.me?.id);
   const [comment, onChangeInput, setComment] = useInput('');
 
-  useEffect(() => {
-    if (addCommentDone) {
-      setComment('');
-    }
-  }, [addCommentDone]);
-
   const commentPost = useCallback(
     (e) => {
       e.preventDefault();
@@ -43,6 +37,7 @@ const PostContent = ({ post }) => {
           // comments: [],
         },
       });
+      setComment('');
     },
     [comment, id],
   );
@@ -69,11 +64,10 @@ PostContent.propTypes = {
     id: PropTypes.number,
     user: PropTypes.object,
     content: PropTypes.string,
-    createdAt: PropTypes.string,
+    data: PropTypes.string,
     comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
-    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
 

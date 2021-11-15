@@ -25,7 +25,6 @@ const Hessed = ({ Component }) => {
         <title>HESSED</title>
         <meta charSet="utf-8" />
         <link rel="shortcut" href="/favicon.ico" />
-        {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
 
       <div className="loadingPage">

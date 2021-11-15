@@ -128,13 +128,12 @@ const PostIcon = ({ post }) => {
 PostIcon.propTypes = {
   post: PropTypes.shape({
     id: PropTypes.number,
-    User: PropTypes.object,
+    user: PropTypes.object,
     content: PropTypes.string,
-    createdAt: PropTypes.string,
-    Comments: PropTypes.arrayOf(PropTypes.object),
+    data: PropTypes.string,
+    comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
-    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
 

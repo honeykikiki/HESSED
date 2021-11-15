@@ -198,6 +198,7 @@ const reducer = (state = initialState, action) => {
           draft.searchPwLoading = false;
           draft.searchPwDone = true;
           draft.SearchPW = dummyUser(action.data.memberVO);
+          alert('입력하신 이메일을 확인해주세요');
         } else if (action.data.result === 'NOTEXIST') {
           draft.searchPwLoading = false;
           draft.searchPwDone = false;

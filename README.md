@@ -350,18 +350,4 @@
 > 문제 / 해결:
 
     문제 : 백엔드서버로 file데이터를 보내는데 데이터가 들어가지앟는다
-    해결 :
-
-
-    ```js
-    useEffect(() => {
-        if (!qrCode) {
-            document.body.style.cssText = ` position: fixed; top: -${window.    scrollY}    px;     overflow-y: scroll; width: 100%;`;
-                return () => {
-                    const scrollY = document.body.style.top;
-                    document.body.style.cssText = '';
-                    window.scrollTo(0, parseInt(scrollY || '0', 10) \* -1);
-                };
-        }
-    );
-    ```
+    해결 : 데이터를 폼데이터에 담아서 보내지 않아 데이터가 전송되지않았다.
