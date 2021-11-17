@@ -47,7 +47,6 @@ const IdSearch = () => {
           type="text"
           required
         />
-        <br />
 
         <input
           name="mem_phone"
@@ -57,7 +56,6 @@ const IdSearch = () => {
           type="number"
           required
         />
-        <br />
 
         <button>아이디 찾기</button>
       </form>

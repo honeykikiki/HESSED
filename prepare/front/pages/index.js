@@ -15,7 +15,6 @@ import wrapper from '../store/configureStore';
 
 const Home = () => {
   const dispatch = useDispatch();
-
   const { me } = useSelector((state) => state.user);
   const { mainPosts, hasMorePosts, loadPostsLoading, postCompleat } =
     useSelector((state) => state.post);
@@ -34,15 +33,15 @@ const Home = () => {
         window.scrollY + document.documentElement.clientHeight >
         document.documentElement.scrollHeight - 300
       ) {
-        if (hasMorePosts && !loadPostsLoading) {
+        if (!loadPostsLoading) {
           const lastId = mainPosts[mainPosts.length - 1]?.id;
-          // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
           dispatch({
             type: LOAD_MORE_POSTS_REQUEST,
           });
         }
       }
     }
+
     if (postCompleat) {
       dispatch({
         type: LOAD_POSTS_REQUEST,
