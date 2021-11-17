@@ -2,8 +2,26 @@ import produce from 'immer';
 import faker from 'faker';
 import shortId from 'shortid';
 
+//  더미데이터
+export const generateDummyPost = (number) =>
+  Array(number)
+    .fill()
+    .map((v, i) => ({
+      id: 'v.bo_no',
+      User: {
+        id: 'v.bo_writer',
+        nickname: 'v.mem_nickname',
+      },
+      content: 'v.bo_content',
+      Likers: [],
+
+      Images: [],
+      Comments: [],
+      data: 'v.bo_date',
+    }));
+
 export const initialState = {
-  mainPosts: [],
+  mainPosts: generateDummyPost(10),
   myPosts: [],
   savePosts: [],
   imagePaths: [],
@@ -39,32 +57,24 @@ export const initialState = {
   loadPostsError: null,
 };
 
-export const generateDummyPost = (list, listImg) =>
-  list.map((v, i) => ({
-    id: v.bo_no,
-    User: {
-      id: v.bo_writer,
-      nickname: v.mem_nickname,
-    },
-    content: v.bo_content,
-    Likers: [],
+// export const generateDummyPost = (list, listImg) =>
+//   list.map((v, i) => ({
+//     id: v.bo_no,
+//     User: {
+//       id: v.bo_writer,
+//       nickname: v.mem_nickname,
+//     },
+//     content: v.bo_content,
+//     Likers: [],
 
-    Images: listImg.filter((listImg) => {
-      if (v.bo_no === listImg.bo_no) {
-        return { id: listImg.bo_img_no, url: listImg.bo_img_location };
-      }
-    }),
-    Comments: [],
-    data: v.bo_date,
-  }));
-
-// for (let i = 0; i < list.length; i++) {
-//   for (let j = 0; j < listImg.length; j++) {
-//     if (list[i].bo_id === listImg[j].bo_id) {
-//       list[i].Image.push(listImg[j]);
-//     }
-//   }
-// }
+//     Images: listImg.filter((listImg) => {
+//       if (v.bo_no === listImg.bo_no) {
+//         return { id: listImg.bo_img_no, url: listImg.bo_img_location };
+//       }
+//     }),
+//     Comments: [],
+//     data: v.bo_date,
+//   }));
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -297,8 +307,9 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        draft.mainPosts = draft.mainPosts.concat(
-          generateDummyPost(action.data.list, action.data.imgList),
+        draft.mainPosts = draft.mainPosts.generateDummyPost(
+          action.data.list,
+          action.data.imgList,
         );
         // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
         // draft.hasMorePosts = action.data.length === 10;

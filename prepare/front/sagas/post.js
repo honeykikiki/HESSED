@@ -298,8 +298,12 @@ function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
 
+// function* watchLoadMorePosts() {
+//   yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
+// }
+
 function* watchLoadMorePosts() {
-  yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
+  yield takeLatest(LOAD_MORE_POSTS_REQUEST, loadMorePosts);
 }
 
 export default function* userSaga() {
