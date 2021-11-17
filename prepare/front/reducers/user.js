@@ -3,7 +3,7 @@ import produce from 'immer';
 export const initialState = {
   logInLoading: false, // 로그인 시도중
   logInDone: false,
-  logInError: null, //
+  logInError: null,
   logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
   logOutError: null,
@@ -22,6 +22,7 @@ export const initialState = {
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
+  signUpFaild: true,
   duplicateCheckLoading: false, // 아이디 중복체크 시도중
   duplicateCheckDone: false,
   duplicateCheckError: null,
@@ -93,32 +94,32 @@ export const PASSWORD_CHANGE_FAILURE = 'PASSWORD_CHANGE_FAILURE';
 
 export const SEARCHID_DELITE = 'SEARCHID_DELITE';
 
-const dummyUser = (data) => ({
-  // ...data,
-  no: data.mem_no,
-  id: data.mem_id,
-  name: data.mem_name,
-  nickname: data.mem_nickname,
-  profileImg: data.mem_profileimg,
-  grade: data.mem_grade,
-  Posts: [],
-  Liked: [],
-  Saved: [],
-});
-
-// // 혼자할떄
 // const dummyUser = (data) => ({
-//   ...data,
-//   no: 1,
-//   id: 'data.mem_id',
-//   name: 'data.mem_name',
-//   nickname: 'data.mem_nickname',
-//   profileImg: null,
-//   grade: 'data.mem_grade',
+//   // ...data,
+//   no: data.mem_no,
+//   id: data.mem_id,
+//   name: data.mem_name,
+//   nickname: data.mem_nickname,
+//   profileImg: data.mem_profileimg,
+//   grade: data.mem_grade,
 //   Posts: [],
 //   Liked: [],
 //   Saved: [],
 // });
+
+// 혼자할떄
+const dummyUser = (data) => ({
+  ...data,
+  no: 1,
+  id: 'data.mem_id',
+  name: 'data.mem_name',
+  nickname: 'data.mem_nickname',
+  profileImg: null,
+  grade: 'data.mem_grade',
+  Posts: [],
+  Liked: [],
+  Saved: [],
+});
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -130,16 +131,16 @@ const reducer = (state = initialState, action) => {
         draft.logInError = null;
         break;
       case LOG_IN_SUCCESS:
-        // draft.me = dummyUser();
-        if (action.data.result === 'SUCCESS') {
-          draft.me = dummyUser(action.data.member); //action.data;
-          draft.logInLoading = false;
-          draft.logInDone = true;
-        } else {
-          alert('존재하지 않는 계정입니다');
-          draft.logInLoading = false;
-          draft.logInDone = false;
-        }
+        draft.me = dummyUser();
+        // if (action.data.result === 'SUCCESS') {
+        //   draft.me = dummyUser(action.data.member); //action.data;
+        //   draft.logInLoading = false;
+        //   draft.logInDone = true;
+        // } else {
+        //   alert('계정을 잘못 입력했습니다.');
+        //   draft.logInLoading = false;
+        //   draft.logInDone = false;
+        // }
         break;
       case LOG_IN_FAILURE:
         draft.logInLoading = false;
@@ -261,14 +262,17 @@ const reducer = (state = initialState, action) => {
         if (action.data.result === 'SUCCESS') {
           draft.signUpLoading = false;
           draft.signUpDone = true;
+          draft.duplicateCheckDisplay = true;
         } else if (action.data.result === 'EXIST') {
           alert('아이디가 중복입니다.');
           draft.signUpLoading = false;
           draft.signUpDone = false;
+          draft.signUpFaild = true;
         } else {
           alert('회원가입이 실패했습니다');
           draft.signUpLoading = false;
           draft.signUpDone = false;
+          draft.signUpFaild = false;
         }
         break;
       case SIGN_UP_FAILURE:

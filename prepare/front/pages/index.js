@@ -4,13 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
 import LoginForm from '../components/login/LoginForm';
 import PostCard from '../components/PostCard/PostCard';
-import { LOAD_MORE_POSTS_REQUEST, LOAD_POSTS_REQUEST } from '../reducers/post';
+import {
+  LOAD_MORE_POSTS_REQUEST,
+  LOAD_POSTS_REQUEST,
+  PAGE_CHANGE,
+} from '../reducers/post';
 
 import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
 
 const Home = () => {
   const dispatch = useDispatch();
+
   const { me } = useSelector((state) => state.user);
   const { mainPosts, hasMorePosts, loadPostsLoading, postCompleat } =
     useSelector((state) => state.post);

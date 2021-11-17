@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
@@ -9,9 +9,8 @@ import style from '../styles/css/loginForm.module.css';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { signUpDone, duplicateCheckDone, duplicateCheckDisplay } = useSelector(
-    (state) => state.user,
-  );
+  const { signUpDone, duplicateCheckDone, duplicateCheckDisplay, signUpFaild } =
+    useSelector((state) => state.user);
 
   const [mem_id, onChangemem_id, setMEM_ID] = useInput('');
   const [mem_pw, onChangePassword, setPassword] = useInput('');
@@ -22,6 +21,8 @@ const Login = () => {
 
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
+
+  const checkInput = useRef();
 
   useEffect(() => {
     if (signUpDone) {
@@ -38,9 +39,19 @@ const Login = () => {
     [mem_pw],
   );
 
-  const checkboxClick = useCallback(() => {
-    setAgree((prev) => !prev);
-  }, []);
+  const checkboxClick = useCallback(
+    (e) => {
+      setAgree((prev) => !prev);
+      console.log(checkInput.current.checked);
+      if (checkInput.current.checked === true) {
+        checkInput.current.checked = false;
+      } else {
+        checkInput.current.checked = true;
+      }
+    },
+
+    [agree],
+  );
 
   const signupCheck = useCallback(() => {
     if (mem_pw === '') {
@@ -86,21 +97,23 @@ const Login = () => {
     agree,
     duplicateCheckDone,
   ]);
-
-  const onSubmit = useCallback(
+  const onSubmitSignUp = useCallback(
     (e) => {
       e.preventDefault();
       if (mem_id === '') {
         alert('이메일을 입력해주세요.');
-        return;
+        return `<div>hi</div>`;
       }
+
       const formIdData = new FormData();
       formIdData.append('mem_id', mem_id);
-      if (!duplicateCheckDisplay) {
+
+      if (duplicateCheckDisplay) {
         dispatch({
           type: DUPLICATE_CHECK_REQUEST,
           data: formIdData,
         });
+        return;
       }
 
       signupCheck();
@@ -129,11 +142,9 @@ const Login = () => {
     ],
   );
 
-  // const InputComponent
-
   return (
     <LoginLayout>
-      <form className={style.form} onSubmit={onSubmit}>
+      <form className={style.form} onSubmit={onSubmitSignUp}>
         <input
           name="mem_id"
           placeholder="이메일를 입력해주세요"
@@ -142,14 +153,13 @@ const Login = () => {
           type="email"
           // required
         />
-
         {duplicateCheckDone ? (
           <div style={{ color: '#409857' }}>{`*아이디 사용가능합니다`}</div>
         ) : duplicateCheckDisplay ? null : (
           <div style={{ color: '#409857' }}>{`*아이디가 중복됩니다`}</div>
         )}
 
-        <button type="button">중복체크</button>
+        <button>중복체크</button>
 
         <br />
 
@@ -161,6 +171,9 @@ const Login = () => {
           onChange={onChangePassword}
           // required
         />
+        {signUpFaild ? null : mem_pw ? null : (
+          <div style={{ color: 'red' }}>{`필수 정보입니다.`}</div>
+        )}
         <br />
 
         <input
@@ -174,9 +187,9 @@ const Login = () => {
 
         {passwordError ? (
           <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
-        ) : (
+        ) : passwordCheck ? (
           <div style={{ color: '#409857' }}>{`*보안100%`}</div>
-        )}
+        ) : null}
 
         <br />
 
@@ -210,16 +223,19 @@ const Login = () => {
         />
         <br />
 
-        <div className={style.checkBox}>
+        <div className={style.checkBox} onClick={checkboxClick}>
           <input
             name="mem_flag"
             type="checkbox"
+            ref={checkInput}
             value={agree}
-            onClick={checkboxClick}
           />
-          <span>개인정보 활용 동의 (보기)</span>
+          <label for="mem_flag">개인정보 활용 동의 (보기)</label>
         </div>
-        <button style={{ marginTop: 5 }}>가입하기</button>
+
+        <button style={{ marginTop: 5 }} type="submit">
+          가입하기
+        </button>
       </form>
     </LoginLayout>
   );

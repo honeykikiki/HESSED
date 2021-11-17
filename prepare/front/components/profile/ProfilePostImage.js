@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { baseURL } from '../../config/config';
+
 const ProfilePostImages = ({ myPost, number, index }) => {
   return (
     <>
@@ -11,7 +13,7 @@ const ProfilePostImages = ({ myPost, number, index }) => {
       ) : null}
       {
         <img
-          src={`${baseUrl}/${myPost[index + number].Images[0].bo_img_location}`}
+          src={`${baseURL}/${myPost[index + number].Images[0].bo_img_location}`}
         />
       }
     </>

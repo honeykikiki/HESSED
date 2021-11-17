@@ -7,6 +7,7 @@ import useInput from '../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_POST_REQUEST, LOAD_POSTS_REQUEST } from '../reducers/post';
 import { POST_CARD } from '../reducers/menu';
+import UploadImages from '../components/postUpload/UploadImages';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Home = () => {
   const [content, onChangeContent, setContetn] = useInput();
   const [notice, onChangeNotice, setNotice] = useInput(false);
 
+  const imageInput = useRef();
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {
     if (ref === null || ref.current === null) {
@@ -46,11 +48,6 @@ const Home = () => {
     setNotice((prev) => !prev);
   }, [notice]);
 
-  const imageInput = useRef();
-  const onClickImageUpload = useCallback(() => {
-    imageInput.current.click();
-  }, [imageInput.current]);
-
   const handleImage = useCallback(
     (e) => {
       const temp = [];
@@ -73,13 +70,6 @@ const Home = () => {
       }
 
       setPhotoToAddList(temp.concat(photoToAddList));
-    },
-    [photoToAddList],
-  );
-
-  const onRemove = useCallback(
-    (deleteUrl) => {
-      setPhotoToAddList(photoToAddList.filter((v) => v.url !== deleteUrl));
     },
     [photoToAddList],
   );
@@ -123,45 +113,32 @@ const Home = () => {
               className={style.upLoadForm}
             >
               {me?.grade === 'admin' && (
-                <div>
-                  <span>공지</span>
-                  <input
-                    name="mem_flag"
-                    type="checkbox"
-                    value={notice}
-                    onClick={checkboxClick}
-                    // required
-                  />
+                <div className={style.notice}>
+                  <div>
+                    <p>공지</p>
+                  </div>
+                  <div className={style.switch}>
+                    <input
+                      name="mem_flag"
+                      id="switch-1"
+                      className={style.switchInput}
+                      type="checkbox"
+                      value={notice}
+                      onClick={checkboxClick}
+                    />
+                    <label for="switch-1" className={style.switchLlabel}>
+                      Switch
+                    </label>
+                  </div>
                 </div>
               )}
               <div className={style.imageBox}>
-                {/* /분리 */}
                 <ul>
-                  {photoToAddList
-                    ? photoToAddList.map((v) => {
-                        return (
-                          <li key={v.url}>
-                            <div
-                              className={style.remove}
-                              onClick={() => onRemove(v.url)}
-                            >
-                              x
-                            </div>
-                            <img
-                              src={v.url}
-                              style={{
-                                backgroundImage: `url(${v.url})`,
-                              }}
-                            />
-                          </li>
-                        );
-                      })
-                    : null}
-                  <li onClick={onClickImageUpload}>
-                    <div className={style.imageInput}>
-                      <img src="/icon/addphoto.svg" className={style.addImg} />
-                    </div>
-                  </li>
+                  <UploadImages
+                    photoToAddList={photoToAddList}
+                    imageInput={imageInput}
+                    setPhotoToAddList={setPhotoToAddList}
+                  />
                 </ul>
               </div>
 
@@ -184,7 +161,6 @@ const Home = () => {
                   ref={ref}
                   onInput={handleResizeHeight}
                   onChange={onChangeContent}
-                  maxLength={140}
                   required
                 />
                 <button>게시</button>

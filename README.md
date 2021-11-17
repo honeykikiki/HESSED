@@ -345,6 +345,20 @@
     );
     ```
 
+## checkBox 박스 클릭시 체크박스 클릭되기
+
+    문제 : 체크박스 주변 클릭시에도 클릭박스 반응하기
+    해결 : ref러 dom 직접적으로 가져와 값주기
+
+```js
+const checkInput = useRef();
+if (checkInput.current.checked === true) {
+  checkInput.current.checked = false;
+} else {
+  checkInput.current.checked = true;
+}
+```
+
 ## 백엔드 서버로 file데어터 보내기 오류
 
 > 문제 / 해결:
