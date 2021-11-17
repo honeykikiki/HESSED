@@ -24,13 +24,13 @@ const PostImages = ({ images }) => {
       <div className={style.imageBox}>
         {imageCuurrentNo >= 1 && (
           <div className={style.left} onClick={onClickLeft}>
-            <img src="/icon/left.png" />
+            <img src="/icon/left.png" alt="LeftIcon" />
           </div>
         )}
 
         {imageCuurrentNo < images.length - 1 && (
           <div className={style.right} onClick={onClickRight}>
-            <img src="/icon/right.png" />
+            <img src="/icon/right.png" alt="RightIcon" />
           </div>
         )}
         {images.map((v, i) => {
@@ -42,6 +42,7 @@ const PostImages = ({ images }) => {
                 transform: `translate3d(-${imageCuurrentNo * 100}%, 0px, 0px)`,
                 transition: 'all .4s',
               }}
+              alt="PostImg"
             />
           );
         })}

@@ -83,11 +83,11 @@ const PostIcon = ({ post }) => {
         {/* 좋아요 */}
         {liked ? (
           <div onClick={onUnLike}>
-            <img src="/icon/heartOn.svg" />
+            <img src="/icon/heartOn.svg" alt="Hearticon" />
           </div>
         ) : (
           <div onClick={onLike}>
-            <img src="/icon/heartOff.svg" />
+            <img src="/icon/heartOff.svg" alt="Hearticon" />
           </div>
         )}
       </div>
@@ -97,7 +97,7 @@ const PostIcon = ({ post }) => {
         <Link href={`/${post.id}/comment`}>
           <a>
             <div>
-              <img src="/icon/comment.svg" />
+              <img src="/icon/comment.svg" alt="Commenticon" />
             </div>
           </a>
         </Link>
@@ -106,18 +106,18 @@ const PostIcon = ({ post }) => {
       <div>
         {/* 공유 */}
 
-        <img src="/icon/share.svg" onClick={onShare} />
+        <img src="/icon/share.svg" onClick={onShare} alt="Shareicon" />
       </div>
 
       <div>
         {/* 저장 */}
         {saved ? (
           <div onClick={onUnSave}>
-            <img src="/icon/saveOn.svg" />
+            <img src="/icon/saveOn.svg" alt="saveicon" />
           </div>
         ) : (
           <div onClick={onSave}>
-            <img src="/icon/saveOff.svg" />
+            <img src="/icon/saveOff.svg" alt="saveicon" />
           </div>
         )}
       </div>

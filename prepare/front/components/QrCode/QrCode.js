@@ -40,7 +40,7 @@ const QrCode = () => {
         <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED-logo-G.svg" />
+              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>
@@ -53,7 +53,7 @@ const QrCode = () => {
             </div>
             <div className={style.QrCode}>
               <div>
-                <img src="/icon/QR-B.svg" />
+                <img src="/icon/QR-B.svg" alt="qrIcon" />
               </div>
             </div>
             <div className={style.close} onClick={onClose}>
@@ -65,7 +65,7 @@ const QrCode = () => {
         <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED-logo-G.svg" />
+              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>

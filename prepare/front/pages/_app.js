@@ -29,7 +29,7 @@ const Hessed = ({ Component }) => {
 
       <div className="loadingPage">
         <div>
-          <img src="/icon/HESSED_LOGO-W.png" width="180" />
+          <img src="/icon/HESSED_LOGO-W.png" width="180" alt="LogoImg" />
         </div>
       </div>
       <Component />
