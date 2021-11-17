@@ -3,25 +3,25 @@ import faker from 'faker';
 import shortId from 'shortid';
 
 //  더미데이터
-export const generateDummyPost = (number) =>
-  Array(number)
-    .fill()
-    .map((v, i) => ({
-      id: 'v.bo_no',
-      User: {
-        id: 'v.bo_writer',
-        nickname: 'v.mem_nickname',
-      },
-      content: 'v.bo_content',
-      Likers: [],
+// export const generateDummyPost = (number) =>
+//   Array(number)
+//     .fill()
+//     .map((v, i) => ({
+//       id: 'v.bo_no',
+//       User: {
+//         id: 'v.bo_writer',
+//         nickname: 'v.mem_nickname',
+//       },
+//       content: 'v.bo_content',
+//       Likers: [],
 
-      Images: [],
-      Comments: [],
-      data: 'v.bo_date',
-    }));
+//       Images: [],
+//       Comments: [],
+//       data: 'v.bo_date',
+//     }));
 
 export const initialState = {
-  mainPosts: generateDummyPost(10),
+  mainPosts: [],
   myPosts: [],
   savePosts: [],
   imagePaths: [],
@@ -57,24 +57,24 @@ export const initialState = {
   loadPostsError: null,
 };
 
-// export const generateDummyPost = (list, listImg) =>
-//   list.map((v, i) => ({
-//     id: v.bo_no,
-//     User: {
-//       id: v.bo_writer,
-//       nickname: v.mem_nickname,
-//     },
-//     content: v.bo_content,
-//     Likers: [],
+export const generateDummyPost = (list, listImg) =>
+  list.map((v, i) => ({
+    id: v.bo_no,
+    User: {
+      id: v.bo_writer,
+      nickname: v.mem_nickname,
+    },
+    content: v.bo_content,
+    Likers: [],
 
-//     Images: listImg.filter((listImg) => {
-//       if (v.bo_no === listImg.bo_no) {
-//         return { id: listImg.bo_img_no, url: listImg.bo_img_location };
-//       }
-//     }),
-//     Comments: [],
-//     data: v.bo_date,
-//   }));
+    Images: listImg.filter((listImg) => {
+      if (v.bo_no === listImg.bo_no) {
+        return { id: listImg.bo_img_no, url: listImg.bo_img_location };
+      }
+    }),
+    Comments: [],
+    data: v.bo_date,
+  }));
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';

@@ -4,6 +4,7 @@ export const initialState = {
   logInLoading: false, // 로그인 시도중
   logInDone: false,
   logInError: null,
+  logInFaild: true,
   logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
   logOutError: null,
@@ -94,32 +95,32 @@ export const PASSWORD_CHANGE_FAILURE = 'PASSWORD_CHANGE_FAILURE';
 
 export const SEARCHID_DELITE = 'SEARCHID_DELITE';
 
-// const dummyUser = (data) => ({
-//   // ...data,
-//   no: data.mem_no,
-//   id: data.mem_id,
-//   name: data.mem_name,
-//   nickname: data.mem_nickname,
-//   profileImg: data.mem_profileimg,
-//   grade: data.mem_grade,
-//   Posts: [],
-//   Liked: [],
-//   Saved: [],
-// });
-
-// 혼자할떄
 const dummyUser = (data) => ({
-  ...data,
-  no: 1,
-  id: 'data.mem_id',
-  name: 'data.mem_name',
-  nickname: 'data.mem_nickname',
-  profileImg: null,
-  grade: 'data.mem_grade',
+  // ...data,
+  no: data.mem_no,
+  id: data.mem_id,
+  name: data.mem_name,
+  nickname: data.mem_nickname,
+  profileImg: data.mem_profileimg,
+  grade: data.mem_grade,
   Posts: [],
   Liked: [],
   Saved: [],
 });
+
+// 혼자할떄
+// const dummyUser = (data) => ({
+//   ...data,
+//   no: 1,
+//   id: 'data.mem_id',
+//   name: 'data.mem_name',
+//   nickname: 'data.mem_nickname',
+//   profileImg: null,
+//   grade: 'data.mem_grade',
+//   Posts: [],
+//   Liked: [],
+//   Saved: [],
+// });
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -131,16 +132,17 @@ const reducer = (state = initialState, action) => {
         draft.logInError = null;
         break;
       case LOG_IN_SUCCESS:
-        draft.me = dummyUser();
-        // if (action.data.result === 'SUCCESS') {
-        //   draft.me = dummyUser(action.data.member); //action.data;
-        //   draft.logInLoading = false;
-        //   draft.logInDone = true;
-        // } else {
-        //   alert('계정을 잘못 입력했습니다.');
-        //   draft.logInLoading = false;
-        //   draft.logInDone = false;
-        // }
+        // draft.me = dummyUser();
+        if (action.data.result === 'SUCCESS') {
+          draft.me = dummyUser(action.data.member); //action.data;
+          draft.logInLoading = false;
+          draft.logInDone = true;
+          draft.logInFaild = true;
+        } else {
+          draft.logInLoading = false;
+          draft.logInDone = false;
+          draft.logInFaild = false;
+        }
         break;
       case LOG_IN_FAILURE:
         draft.logInLoading = false;

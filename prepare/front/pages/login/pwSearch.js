@@ -47,7 +47,6 @@ const PwSearch = () => {
           type="email"
           required
         />
-        <br />
 
         <input
           name="mem_name"
@@ -57,7 +56,6 @@ const PwSearch = () => {
           type="text"
           required
         />
-        <br />
 
         <input
           name="mem_phone"
@@ -67,7 +65,6 @@ const PwSearch = () => {
           type="number"
           required
         />
-        <br />
 
         <button type="submit">비밀번호 찾기</button>
       </form>

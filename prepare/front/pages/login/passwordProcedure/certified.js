@@ -47,7 +47,6 @@ const Certified = () => {
           onChange={onChangeCertified}
           required
         />
-        <br />
 
         <button>인증번호 확인</button>
       </form>

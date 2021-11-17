@@ -4,11 +4,12 @@ import Link from 'next/link';
 import LoginLayout from '../LoginLayout';
 import useInput from '../../hooks/useInput';
 import style from '../../styles/css/loginForm.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { logInFaild } = useSelector((state) => state.user);
 
   const [id, onchangeId, setId] = useInput('');
   const [password, onchangePassword, setPassword] = useInput('');
@@ -27,7 +28,6 @@ const Login = () => {
     },
     [id, password],
   );
-
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
@@ -48,6 +48,10 @@ const Login = () => {
           type="password"
           required
         />
+
+        {logInFaild ? null : (
+          <div className={style.signupCheck}>{`계정을 다시 입력해주세요.`}</div>
+        )}
 
         <button type="submit">로그인</button>
       </form>

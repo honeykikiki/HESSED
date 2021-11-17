@@ -42,7 +42,6 @@ const Login = () => {
   const checkboxClick = useCallback(
     (e) => {
       setAgree((prev) => !prev);
-      console.log(checkInput.current.checked);
       if (checkInput.current.checked === true) {
         checkInput.current.checked = false;
       } else {
@@ -55,34 +54,27 @@ const Login = () => {
 
   const signupCheck = useCallback(() => {
     if (mem_pw === '') {
-      alert('비밀번호를 입력해주세요.');
       return;
     }
     if (passwordError) {
-      alert('비밀번호가 일치하지 않습니다.');
       return;
     }
     if (mem_name === '') {
-      alert('이름을 입력해주세요.');
       return;
     }
     if (mem_phone === '') {
-      alert('전화번호를 입력해주세요.');
       return;
     }
     if (mem_nickname === '') {
-      alert('닉네임을 입력해주세요.');
       return;
     }
     if (agree === false) {
-      alert('개인정보 활용을 동의해주세요.');
       return;
     }
     if (!agree) {
       return setAgree(false);
     }
     if (duplicateCheckDone) {
-      alert('중복체크 해주세요!');
       return;
     }
     if (mem_pw !== passwordCheck) {
@@ -102,7 +94,6 @@ const Login = () => {
       e.preventDefault();
       if (mem_id === '') {
         alert('이메일을 입력해주세요.');
-        return `<div>hi</div>`;
       }
 
       const formIdData = new FormData();
@@ -151,7 +142,6 @@ const Login = () => {
           value={mem_id}
           onChange={onChangemem_id}
           type="email"
-          // required
         />
         {duplicateCheckDone ? (
           <div style={{ color: '#409857' }}>{`*아이디 사용가능합니다`}</div>
@@ -169,21 +159,20 @@ const Login = () => {
           type="password"
           value={mem_pw}
           onChange={onChangePassword}
-          // required
         />
         {signUpFaild ? null : mem_pw ? null : (
-          <div style={{ color: 'red' }}>{`필수 정보입니다.`}</div>
+          <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
-        <br />
 
         <input
-          style={{ marginTop: -5 }}
           placeholder="비밀번호를 다시한번 입력해주세요"
           type="password"
           value={passwordCheck}
           onChange={onChangePasswordCheck}
-          // required
         />
+        {signUpFaild ? null : passwordCheck ? null : (
+          <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
+        )}
 
         {passwordError ? (
           <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
@@ -195,13 +184,15 @@ const Login = () => {
 
         <input
           name="mem_name"
-          style={{ marginTop: -10 }}
+          style={{ marginTop: -5 }}
           placeholder="이름을 입력해주세요"
           type="text"
           value={mem_name}
           onChange={onChangeName}
-          // required
         />
+        {signUpFaild ? null : mem_name ? null : (
+          <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
+        )}
         <br />
 
         <input
@@ -211,6 +202,9 @@ const Login = () => {
           value={mem_nickname}
           onChange={onChangeNickname}
         />
+        {signUpFaild ? null : mem_nickname ? null : (
+          <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
+        )}
         <br />
 
         <input
@@ -221,6 +215,9 @@ const Login = () => {
           value={mem_phone}
           onChange={onChangePhone}
         />
+        {signUpFaild ? null : mem_phone ? null : (
+          <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
+        )}
         <br />
 
         <div className={style.checkBox} onClick={checkboxClick}>
@@ -231,6 +228,9 @@ const Login = () => {
             value={agree}
           />
           <label for="mem_flag">개인정보 활용 동의 (보기)</label>
+          {signUpFaild ? null : agree ? null : (
+            <div className={style.signupCheck}>{`*개인정보 동의 `}</div>
+          )}
         </div>
 
         <button style={{ marginTop: 5 }} type="submit">
