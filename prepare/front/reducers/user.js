@@ -94,6 +94,7 @@ export const PASSWORD_CHANGE_SUCCESS = 'PASSWORD_CHANGE_SUCCESS';
 export const PASSWORD_CHANGE_FAILURE = 'PASSWORD_CHANGE_FAILURE';
 
 export const SEARCHID_DELITE = 'SEARCHID_DELITE';
+export const LOGIN_FAILD = 'LOGIN_FAILD';
 
 const dummyUser = (data) => ({
   // ...data,
@@ -265,11 +266,12 @@ const reducer = (state = initialState, action) => {
           draft.signUpLoading = false;
           draft.signUpDone = true;
           draft.duplicateCheckDisplay = true;
+          draft.signUpFaild = true;
         } else if (action.data.result === 'EXIST') {
           alert('아이디가 중복입니다.');
           draft.signUpLoading = false;
           draft.signUpDone = false;
-          draft.signUpFaild = true;
+          draft.signUpFaild = false;
         } else {
           alert('회원가입이 실패했습니다');
           draft.signUpLoading = false;
@@ -280,6 +282,10 @@ const reducer = (state = initialState, action) => {
       case SIGN_UP_FAILURE:
         draft.signUpLoading = false;
         draft.signUpError = action.error;
+        break;
+
+      case LOGIN_FAILD:
+        draft.signUpFaild = false;
         break;
 
       // 아이디 중복체크
@@ -293,6 +299,7 @@ const reducer = (state = initialState, action) => {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = false;
           draft.duplicateCheckDisplay = false;
+          draft.signUpFaild = false;
         } else {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = true;

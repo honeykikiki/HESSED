@@ -4,7 +4,11 @@ import Router from 'next/router';
 
 import LoginLayout from '../components/LoginLayout';
 import useInput from '../hooks/useInput';
-import { DUPLICATE_CHECK_REQUEST, SIGN_UP_REQUEST } from '../reducers/user';
+import {
+  DUPLICATE_CHECK_REQUEST,
+  SIGN_UP_REQUEST,
+  LOGIN_FAILD,
+} from '../reducers/user';
 import style from '../styles/css/loginForm.module.css';
 
 const Login = () => {
@@ -52,62 +56,42 @@ const Login = () => {
     [agree],
   );
 
-  const signupCheck = useCallback(() => {
-    if (mem_pw === '') {
-      return;
-    }
-    if (passwordError) {
-      return;
-    }
-    if (mem_name === '') {
-      return;
-    }
-    if (mem_phone === '') {
-      return;
-    }
-    if (mem_nickname === '') {
-      return;
-    }
-    if (agree === false) {
-      return;
-    }
-    if (!agree) {
-      return setAgree(false);
-    }
-    if (duplicateCheckDone) {
-      return;
-    }
-    if (mem_pw !== passwordCheck) {
-      return setPasswordError(true);
-    }
-  }, [
-    mem_pw,
-    passwordError,
-    mem_name,
-    mem_phone,
-    mem_nickname,
-    agree,
-    duplicateCheckDone,
-  ]);
   const onSubmitSignUp = useCallback(
     (e) => {
       e.preventDefault();
       if (mem_id === '') {
-        alert('이메일을 입력해주세요.');
+        dispatch({
+          type: LOGIN_FAILD,
+        });
+        return;
       }
 
       const formIdData = new FormData();
       formIdData.append('mem_id', mem_id);
 
-      if (duplicateCheckDisplay) {
+      // if (duplicateCheckDisplay) {
+      //   dispatch({
+      //     type: DUPLICATE_CHECK_REQUEST,
+      //     data: formIdData,
+      //   });
+      //   return;
+      // }
+
+      if (
+        mem_pw === '' ||
+        mem_pw !== passwordCheck ||
+        passwordError ||
+        mem_name === '' ||
+        mem_phone === '' ||
+        mem_nickname === '' ||
+        agree === false ||
+        duplicateCheckDone === false
+      ) {
         dispatch({
-          type: DUPLICATE_CHECK_REQUEST,
-          data: formIdData,
+          type: LOGIN_FAILD,
         });
         return;
       }
-
-      signupCheck();
 
       const formData = new FormData();
       formData.append('mem_id', mem_id);
@@ -148,8 +132,11 @@ const Login = () => {
         ) : duplicateCheckDisplay ? null : (
           <div style={{ color: '#409857' }}>{`*아이디가 중복됩니다`}</div>
         )}
+        {signUpFaild ? null : mem_id ? null : (
+          <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
+        )}
 
-        <button>중복체크</button>
+        <button className={style.formButton}>중복체크</button>
 
         <br />
 
@@ -184,7 +171,6 @@ const Login = () => {
 
         <input
           name="mem_name"
-          style={{ marginTop: -5 }}
           placeholder="이름을 입력해주세요"
           type="text"
           value={mem_name}
@@ -193,7 +179,6 @@ const Login = () => {
         {signUpFaild ? null : mem_name ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
-        <br />
 
         <input
           name="mem_nickname"
@@ -205,7 +190,6 @@ const Login = () => {
         {signUpFaild ? null : mem_nickname ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
-        <br />
 
         <input
           name="mem_phone"
@@ -227,7 +211,7 @@ const Login = () => {
             ref={checkInput}
             value={agree}
           />
-          <label for="mem_flag">개인정보 활용 동의 (보기)</label>
+          <label htmlFor="mem_flag">개인정보 활용 동의 (보기)</label>
           {signUpFaild ? null : agree ? null : (
             <div className={style.signupCheck}>{`*개인정보 동의 `}</div>
           )}
