@@ -8,12 +8,13 @@ const ProfilePostImages = ({ myPost, number, index }) => {
     <>
       {myPost[index].Images.length > 1 ? (
         <span>
-          <img src="/icon/more.png" />
+          <img src="/icon/more.png" alt="moreIcon" />
         </span>
       ) : null}
       {
         <img
           src={`${baseURL}/${myPost[index + number].Images[0].bo_img_location}`}
+          alt="PostImg"
         />
       }
     </>

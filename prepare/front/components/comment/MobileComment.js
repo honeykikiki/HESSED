@@ -81,7 +81,7 @@ const MobileComment = ({ post }) => {
     <div className={style.mComment}>
       <div className={style.head}>
         <div onClick={onClickBack}>
-          <img src="/icon/back.svg" width="12px" />
+          <img src="/icon/back.svg" width="12px" alt="backIcon" />
         </div>
         <div>댓글</div>
       </div>
@@ -91,9 +91,9 @@ const MobileComment = ({ post }) => {
           <div className={style.userNickname}>
             <div className={style.userIcon}>
               {post.User.profileImg ? (
-                <img src={post.User.profileImg.url} />
+                <img src={post.User.profileImg.url} alt="profileImg" />
               ) : (
-                <img src="/icon/profileBasic.svg" />
+                <img src="/icon/profileBasic.svg" alt="profileImg" />
               )}
             </div>
 

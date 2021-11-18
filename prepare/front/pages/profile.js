@@ -112,20 +112,22 @@ const Profile = () => {
               <div>
                 {nicknameSet ? (
                   me?.profileImg?.url ? (
-                    <img src={`${me?.profileImg?.url}`} />
+                    <img src={`${me?.profileImg?.url}`} alt="ProfiltImg" />
                   ) : (
                     <img
                       src="/icon/profileBasic.svg"
                       className={style.profileBasic}
+                      alt="ProfiltImg"
                     />
                   ) // 코드 바꾸기
                 ) : photoToAddList?.url ? (
-                  <img src={`${photoToAddList.url}`} />
+                  <img src={`${photoToAddList.url}`} alt="ProfiltImg" />
                 ) : (
                   <img
                     src="/icon/addphoto.svg"
                     className={style.addImg}
                     onClick={onClickImageUpload}
+                    alt="addPostIcon"
                   />
                 )}
               </div>

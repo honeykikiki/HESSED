@@ -28,6 +28,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
                   style={{
                     backgroundImage: `url(${v.url})`,
                   }}
+                  alt="uploadImg"
                 />
               </li>
             );
@@ -35,7 +36,11 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
         : null}
       <li onClick={onClickImageUpload}>
         <div className={style.imageInput}>
-          <img src="/icon/addphoto.svg" className={style.addImg} />
+          <img
+            src="/icon/addphoto.svg"
+            className={style.addImg}
+            alt="addPhotoIcon"
+          />
         </div>
       </li>
     </>

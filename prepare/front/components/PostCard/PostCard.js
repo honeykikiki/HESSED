@@ -26,9 +26,9 @@ const PostCard = ({ post }) => {
                 <Link href={`/user/${post.User.id}`}>
                   <a>
                     {post.User.profileImg ? (
-                      <img src={post.User.profileImg.url} />
+                      <img src={post.User.profileImg.url} alt="profileImg" />
                     ) : (
-                      <img src="/icon/profileBasic.svg" />
+                      <img src="/icon/profileBasic.svg" alt="profileImg" />
                     )}
                   </a>
                 </Link>

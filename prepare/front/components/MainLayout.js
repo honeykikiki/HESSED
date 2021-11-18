@@ -70,9 +70,9 @@ const MainLayout = ({ children }) => {
                       {/* Postcard */}
                       <a>
                         {postCard ? (
-                          <img src="/icon/home-B.svg" />
+                          <img src="/icon/home-B.svg" alt="Posticon" />
                         ) : (
-                          <img src="/icon/home-W.svg" />
+                          <img src="/icon/home-W.svg" alt="Posticon" />
                         )}
                       </a>
                     </Link>
@@ -83,9 +83,9 @@ const MainLayout = ({ children }) => {
                       {/* UpLoad */}
                       <a>
                         {upLoad ? (
-                          <img src="/icon/upLoad-B.svg" />
+                          <img src="/icon/upLoad-B.svg" alt="upLoadicon" />
                         ) : (
-                          <img src="/icon/upLoad-W.svg" />
+                          <img src="/icon/upLoad-W.svg" alt="upLoadicon" />
                         )}
                       </a>
                     </Link>
@@ -95,9 +95,9 @@ const MainLayout = ({ children }) => {
                     {/* QrCode */}
                     <a>
                       {qrCode ? (
-                        <img src="/icon/QR-W.svg" />
+                        <img src="/icon/QR-W.svg" alt="qrCodeicon" />
                       ) : (
-                        <img src="/icon/QR-B.svg" />
+                        <img src="/icon/QR-B.svg" alt="qrCodeicon" />
                       )}
                     </a>
                   </li>
@@ -116,15 +116,16 @@ const MainLayout = ({ children }) => {
                         onClick={profileClickToggle}
                       >
                         {me?.profileImg ? (
-                          <img src={me?.profileImg?.url} />
+                          <img src={me?.profileImg?.url} alt="profileImg" />
                         ) : (
-                          <img src="/icon/profileBasic.svg" />
+                          <img src="/icon/profileBasic.svg" alt="profileImg" />
                         )}
 
                         {profile ? (
                           <img
                             src="/icon/profile.svg"
                             className={style.circle}
+                            alt="profileImg"
                           />
                         ) : null}
                         {profileToggle ? (
