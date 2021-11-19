@@ -19,11 +19,11 @@ const PostContent = ({ post }) => {
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
 
-  const date = post.data.split(' ').slice(0, 1);
-  const data = date[0].split('-');
-  const Year = data[0];
-  const Month = data[1];
-  const Day = data[2];
+  const createAt = post.date.split(' ').slice(0, 1);
+  const date = createAt[0].split('-');
+  const Year = date[0];
+  const Month = date[1];
+  const Day = date[2];
 
   return (
     <article className={style.art}>

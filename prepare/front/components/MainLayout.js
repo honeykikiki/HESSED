@@ -106,13 +106,6 @@ const MainLayout = ({ children }) => {
                     <a>
                       <div
                         className={style.profileimg}
-                        // style={{
-                        //   background: `${
-                        //     me.profileImg
-                        //       ? `url(${me.profileImg?.url}) `
-                        //       : `url(/icon/profileBasic.svg) `
-                        //   } center`,
-                        // }}
                         onClick={profileClickToggle}
                       >
                         {me?.profileImg ? (

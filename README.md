@@ -167,20 +167,22 @@
     문제 : react에서 데이터 가져와 2차원 배열 만들기 for문 사용 안됨
     해결 :
 
-    ```js
-    {a.map((v, i) => {
-      if (i % 3 === 0) {
-        // i = 0 3 6 9
-        return (
-          <ul className={style.upLoadImage}>
-            <li>{<img src={`${a[i + 0]}`} />}</li>
-            {a[i + 1] && <li>{<img src={`${a[i + 1]}`} />}</li>}
-            {a[i + 2] && <li>{<img src={`${a[i + 2]}`} />}</li>}
-          </ul>
-        );
-      }
-    })}
-    ```
+```js
+{
+  a.map((v, i) => {
+    if (i % 3 === 0) {
+      // i = 0 3 6 9
+      return (
+        <ul className={style.upLoadImage}>
+          <li>{<img src={`${a[i + 0]}`} />}</li>
+          {a[i + 1] && <li>{<img src={`${a[i + 1]}`} />}</li>}
+          {a[i + 2] && <li>{<img src={`${a[i + 2]}`} />}</li>}
+        </ul>
+      );
+    }
+  });
+}
+```
 
 # postCard 부분
 
@@ -205,16 +207,16 @@
     문제 : 댓글을 작성할떄 크기를 자동조절하기
     해결 :
 
-    ```js
-    const ref = useRef();
-    const handleResizeHeight = useCallback(() => {
-      if (ref === null || ref.current === null) {
-        return;
-      }
-      ref.current.style.height = '20px';
-      ref.current.style.height = ref.current.scrollHeight + 'px';
-    }, []);
-    ```
+```js
+const ref = useRef();
+const handleResizeHeight = useCallback(() => {
+  if (ref === null || ref.current === null) {
+    return;
+  }
+  ref.current.style.height = "20px";
+  ref.current.style.height = ref.current.scrollHeight + "px";
+}, []);
+```
 
 ## 댓글에 답글달기
 
@@ -226,12 +228,10 @@
         2. 게시물에 댓글찾기
         3. 찾은 댓글 안에 답글 넣기
 
-    ```js
-    const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-    post.Comments.find(
-        (v) => v.User.id === action.data.userId,
-    ).Comments.push(action.data);
-    ```
+```js
+const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+post.Comments.find((v) => v.User.id === action.data.userId).Comments.push(action.data);
+```
 
 ## 답글보기 기능 클릭시 모든댓글의 답글이 다같이 보여진다
 
@@ -271,11 +271,11 @@
     해결 :
         1. useRef를 이용해 input에 접근하고 input에는 hidden값을 넣어준다
 
-    ```js
-    const onClickImageUpload = useCallback(() => {
-       imageInput.current.click();
-    }, [imageInput.current]);
-    ```
+```js
+const onClickImageUpload = useCallback(() => {
+  imageInput.current.click();
+}, [imageInput.current]);
+```
 
         2. input에 대채할 이미지에 클릭값을 넣어준다
         3. 이제 파일 선택창이 뜨고 이미지를 넣어주면 된다
@@ -292,23 +292,23 @@
         참고
         src =https://velog.io/@chloeelog/React-%EC%82%AC%EC%A7%84-%EC%97%85%EB%A1%9C%EB%8D%94-%EB%A7%8C%EB%93%A4%EA%B8%B0-1#4-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0-%EB%B2%84%ED%8A%BC-%EA%B5%AC%ED%98%84
 
-    ```js
-    const handleImage = useCallback(
-      (e) => {
-        const temp = [];
-        const photoToAdd = e.target.files;
-        for (let i = 0; i < photoToAdd.length; i++) {
-          temp.push({
-            id: photoToAdd[i].name,
-            file: photoToAdd[i],
-            url: URL.createObjectURL(photoToAdd[i]),
-          });
-        }
-        setPhotoToAddList(temp.concat(photoToAddList));
-      },
-    [photoToAddList],
-    );
-    ```
+```js
+const handleImage = useCallback(
+  (e) => {
+    const temp = [];
+    const photoToAdd = e.target.files;
+    for (let i = 0; i < photoToAdd.length; i++) {
+      temp.push({
+        id: photoToAdd[i].name,
+        file: photoToAdd[i],
+        url: URL.createObjectURL(photoToAdd[i]),
+      });
+    }
+    setPhotoToAddList(temp.concat(photoToAddList));
+  },
+  [photoToAddList]
+);
+```
 
 ## 팝업창이 나올떄 스크롤 금지
 
@@ -321,18 +321,18 @@
         2. useEffect를 사용해 css를 변경하며, 모달이 사라질 때에는 useEffect의 return을 사용해 body의 cssText를 리셋시킨 다음 window,scroll을 이용해 현재 스크롤 위치로 강제 이동시킵니다. 참고로 useEffect의 return 절은 컴포넌트가 unmount 될 때 호출됩니다.
         3.http://yoonbumtae.com/?p=3776
 
-    ```js
-    useEffect(() => {
-        if (!qrCode) {
-            document.body.style.cssText = ` position: fixed; top: -${window.    scrollY}    px;     overflow-y: scroll; width: 100%;`;
-                return () => {
-                    const scrollY = document.body.style.top;
-                    document.body.style.cssText = '';
-                    window.scrollTo(0, parseInt(scrollY || '0', 10) \* -1);
-                };
-        }
-    );
-    ```
+```js
+useEffect(() => {
+    if (!qrCode) {
+        document.body.style.cssText = ` position: fixed; top: -${window.    scrollY}    px;     overflow-y: scroll; width: 100%;`;
+            return () => {
+                const scrollY = document.body.style.top;
+                document.body.style.cssText = '';
+                window.scrollTo(0, parseInt(scrollY || '0', 10) \* -1);
+            };
+    }
+);
+```
 
 ## checkBox 박스 클릭시 체크박스 클릭되기
 

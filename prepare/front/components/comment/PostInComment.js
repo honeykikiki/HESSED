@@ -1,21 +1,27 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 
 import { ADD_COMMENT_REQUEST } from '../../reducers/post';
 
 import style from '../../styles/css/dynamicComment.module.css';
 import useInput from '../../hooks/useInput';
-import Router from 'next/router';
 import Comment from './Comment';
 
-const MobileComment = ({ post }) => {
+const PostInComment = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
   const { addCommentDone } = useSelector((state) => state.post);
   const { commentToReply } = useSelector((state) => state.menu);
 
   const [comment, onChangeInput, setComment] = useInput('');
+
+  const createAt = post.date.split(' ').slice(0, 1);
+  const date = createAt[0].split('-');
+  const Year = date[0];
+  const Month = date[1];
+  const Day = date[2];
 
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {
@@ -50,17 +56,11 @@ const MobileComment = ({ post }) => {
         type: ADD_COMMENT_REQUEST,
         data: {
           postId: post.id,
-          commentId:
-            post.Comments[post.Comments.length - 1]?.commentId + 1 || 1,
           User: {
             id: me.id,
             nickname: me.nickname,
           },
           content: comment,
-          Comments: [],
-          // bo_no : post.id
-          // mem_no: me.id,
-          // cmt_content: comment,
         },
       });
     },
@@ -70,12 +70,6 @@ const MobileComment = ({ post }) => {
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
-
-  const date = post.data.split(' ').slice(0, 1);
-  const data = date[0].split('-');
-  const Year = data[0];
-  const Month = data[1];
-  const Day = data[2];
 
   return (
     <div className={style.mComment}>
@@ -116,11 +110,9 @@ const MobileComment = ({ post }) => {
               className={style.text}
               ref={ref}
               onInput={handleResizeHeight}
-              // placeholder="댓글달기..."
               placeholder={`댓글달기..`}
               autoComplete="off"
               autoCorrect="off"
-              maxLength="140"
               value={comment}
               onChange={onChangeInput}
               required
@@ -134,17 +126,16 @@ const MobileComment = ({ post }) => {
   );
 };
 
-MobileComment.propTypes = {
+PostInComment.propTypes = {
   post: PropTypes.shape({
     id: PropTypes.number,
     user: PropTypes.object,
     content: PropTypes.string,
-    createdAt: PropTypes.string,
+    data: PropTypes.string,
     comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
-    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
 
-export default MobileComment;
+export default PostInComment;
