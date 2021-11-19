@@ -56,15 +56,4 @@ UploadImages.propTypes = {
   imageInput: PropTypes.object,
 };
 
-// PostCard.propTypes = {
-//   post: PropTypes.shape({
-//     id: PropTypes.number,
-//     user: PropTypes.object,
-//     content: PropTypes.string,
-//     data: PropTypes.string,
-//     comments: PropTypes.arrayOf(PropTypes.object),
-//     Images: PropTypes.arrayOf(PropTypes.object),
-//     Likers: PropTypes.arrayOf(PropTypes.object),
-//   }).isRequired,
-// };
 export default UploadImages;

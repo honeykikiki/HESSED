@@ -170,7 +170,6 @@ const CommentsToReply = ({
                 placeholder={`답글달기..`}
                 autoComplete="off"
                 autoCorrect="off"
-                maxLength="140"
                 value={commentReply}
                 onChange={onChangeInput}
                 required

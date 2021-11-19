@@ -2,12 +2,12 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-import style from '../../styles/css/dynamicComment.module.css';
-import CommentsToReply from './CommentsToReply';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { COMMENT_TO_REPLY_OPEN } from '../../reducers/menu';
+import { baseURL } from '../../config/config';
 
+import style from '../../styles/css/dynamicComment.module.css';
+import CommentsToReply from './CommentsToReply';
 import CommentOptionBtn from './CommentOptionBtn';
 
 const Comment = ({ post }) => {
@@ -52,7 +52,7 @@ const Comment = ({ post }) => {
                 <div
                   className={style.userIcon}
                   // style={{
-                  //   background: 'url(/icon/profle_img.png) ',
+                  //   background: `${baseURL}/${post.User.profileImg.url}`,
                   //   backgroundSize: 'contain',
                   // }}
                 >
