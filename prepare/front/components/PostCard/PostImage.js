@@ -36,7 +36,7 @@ const PostImages = ({ images }) => {
         {images.map((v, i) => {
           return (
             <img
-              key={v?.bo_img_no}
+              key={v?.bo_img_location}
               src={`${baseURL}/${v?.bo_img_location}`}
               style={{
                 transform: `translate3d(-${imageCuurrentNo * 100}%, 0px, 0px)`,

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../styles/css/dynamicPost.module.css';
 import PostCard from '../../components/PostCard/PostCard';
@@ -9,11 +9,13 @@ import MainLayout from '../../components/MainLayout';
 
 import { END } from 'redux-saga';
 import wrapper from '../../store/configureStore';
-import { LOAD_POSTS_REQUEST } from '../../reducers/post';
+import { GET_ID_POST_REQUEST, LOAD_POSTS_REQUEST } from '../../reducers/post';
 
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
+
+  const dispatch = useDispatch();
 
   const { mainPosts } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
@@ -22,6 +24,16 @@ const Post = () => {
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
+
+  useEffect(() => {
+    // const formData = new FormData();
+    // formData.append('bo_number', +id);
+    console.log(id);
+    dispatch({
+      type: GET_ID_POST_REQUEST,
+      data: { bo_no: +id },
+    });
+  }, [id]);
 
   return (
     <MainLayout>

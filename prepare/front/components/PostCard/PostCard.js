@@ -11,6 +11,7 @@ import PostIcon from '../PostCard/PostIcon';
 import PostContent from '../PostCard/PostContent';
 import PostComment from '../PostCard/PostComment';
 import PostCardSetButton from './postCardMore/PostCardSetButton';
+import { baseURL } from '../../config/config';
 
 const PostCard = ({ post }) => {
   const { me } = useSelector((state) => state.user);
@@ -26,7 +27,10 @@ const PostCard = ({ post }) => {
                 <Link href={`/user/${post.User.id}`}>
                   <a>
                     {post.User.profileImg ? (
-                      <img src={post.User.profileImg.url} alt="profileImg" />
+                      <img
+                        src={`${baseURL}/${post.User.profileImg}`}
+                        alt="profileImg"
+                      />
                     ) : (
                       <img src="/icon/profileBasic.svg" alt="profileImg" />
                     )}

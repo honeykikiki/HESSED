@@ -48,15 +48,16 @@ const Login = () => {
       setAgree((prev) => !prev);
       if (checkInput.current.checked === true) {
         checkInput.current.checked = false;
+        setAgree(false);
       } else {
         checkInput.current.checked = true;
+        setAgree(true);
       }
     },
-
     [agree],
   );
 
-  const onSubmitSignUp = useCallback(
+  const duplicateOnClick = useCallback(
     (e) => {
       e.preventDefault();
       if (mem_id === '') {
@@ -69,13 +70,20 @@ const Login = () => {
       const formIdData = new FormData();
       formIdData.append('mem_id', mem_id);
 
-      // if (duplicateCheckDisplay) {
-      //   dispatch({
-      //     type: DUPLICATE_CHECK_REQUEST,
-      //     data: formIdData,
-      //   });
-      //   return;
-      // }
+      if (duplicateCheckDisplay) {
+        dispatch({
+          type: DUPLICATE_CHECK_REQUEST,
+          data: formIdData,
+        });
+        return;
+      }
+    },
+    [mem_id, duplicateCheckDisplay],
+  );
+
+  const onSubmitSignUp = useCallback(
+    (e) => {
+      e.preventDefault();
 
       if (
         mem_pw === '' ||
@@ -101,6 +109,8 @@ const Login = () => {
       formData.append('mem_phone', mem_phone);
       formData.append('mem_flag', agree);
 
+      console.log(...formData);
+
       dispatch({
         type: SIGN_UP_REQUEST,
         data: formData,
@@ -113,13 +123,13 @@ const Login = () => {
       mem_phone,
       mem_nickname,
       agree,
-      duplicateCheckDisplay,
+      duplicateCheckDone,
     ],
   );
 
   return (
     <LoginLayout>
-      <form className={style.form} onSubmit={onSubmitSignUp}>
+      <form className={style.form}>
         <input
           name="mem_id"
           placeholder="이메일를 입력해주세요"
@@ -136,7 +146,9 @@ const Login = () => {
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
 
-        <button className={style.formButton}>중복체크</button>
+        <button className={style.formButton} onClick={duplicateOnClick}>
+          중복체크
+        </button>
 
         <br />
 
@@ -217,7 +229,7 @@ const Login = () => {
           )}
         </div>
 
-        <button style={{ marginTop: 5 }} type="submit">
+        <button style={{ marginTop: 5 }} type="submit" onClick={onSubmitSignUp}>
           가입하기
         </button>
       </form>

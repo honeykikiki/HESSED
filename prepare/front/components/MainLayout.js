@@ -8,6 +8,8 @@ import QrCode from './QrCode/QrCode';
 import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import Router from 'next/router';
+import { LOAD_POSTS_REQUEST } from '../reducers/post';
+import { baseURL } from '../config/config';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -28,6 +30,9 @@ const MainLayout = ({ children }) => {
   const postCardClick = useCallback(() => {
     dispatch({
       type: POST_CARD,
+    });
+    dispatch({
+      type: LOAD_POSTS_REQUEST,
     });
   }, [postCard]);
   const upLoadClick = useCallback(() => {
@@ -109,18 +114,21 @@ const MainLayout = ({ children }) => {
                         onClick={profileClickToggle}
                       >
                         {me?.profileImg ? (
-                          <img src={me?.profileImg?.url} alt="profileImg" />
+                          <img
+                            src={`${baseURL}/${me.profileImg}`}
+                            alt="profileImg"
+                          />
                         ) : (
                           <img src="/icon/profileBasic.svg" alt="profileImg" />
                         )}
 
-                        {profile ? (
+                        {/* {me.profileImg ? (
                           <img
-                            src="/icon/profile.svg"
+                            src={`${baseURL}/${me.profileImg}`}
                             className={style.circle}
                             alt="profileImg"
                           />
-                        ) : null}
+                        ) : null} */}
                         {profileToggle ? (
                           <div className={style.profileBox}>
                             <div>

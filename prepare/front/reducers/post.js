@@ -1,6 +1,4 @@
 import produce from 'immer';
-import faker from 'faker';
-import shortId from 'shortid';
 
 //  더미데이터
 // export const generateDummyPost = (number) =>
@@ -31,6 +29,7 @@ export const initialState = {
   addPostLoading: false, // 게시물 등록
   addPostDone: false,
   addPostError: null,
+  addPostFalid: true,
   removePostLoading: false, // 게시물 삭제
   removePostDone: false,
   removePostError: null,
@@ -55,6 +54,10 @@ export const initialState = {
   loadPostsLoading: false, // 게시물 가져오기
   loadPostsDone: false,
   loadPostsError: null,
+  pageMore: false, // 게시글 넘버
+  getIdPostLoading: false, // 특정 게시물 가져오기
+  getIdPostDone: false,
+  getIdPostError: null,
 };
 
 export const generateDummyPost = (list, listImg) =>
@@ -63,6 +66,7 @@ export const generateDummyPost = (list, listImg) =>
     User: {
       id: v.bo_writer,
       nickname: v.mem_nickname,
+      profileImg: v.mem_profileimg,
     },
     content: v.bo_content,
     Likers: [],
@@ -73,7 +77,7 @@ export const generateDummyPost = (list, listImg) =>
       }
     }),
     Comments: [],
-    data: v.bo_date,
+    date: v.bo_date,
   }));
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -116,6 +120,10 @@ export const LOAD_MORE_POSTS_REQUEST = 'LOAD_MORE_POSTS_REQUEST';
 export const LOAD_MORE_POSTS_SUCCESS = 'LOAD_MORE_POSTS_SUCCES';
 export const LOAD_MORE_POSTS_FAILURE = 'LOAD_MORE_POSTS_FAILURE';
 
+export const GET_ID_POST_REQUEST = 'GET_ID_POST_REQUEST';
+export const GET_ID_POST_SUCCESS = 'GET_ID_POST_SUCCES';
+export const GET_ID_POST_FAILURE = 'GET_ID_POST_FAILURE';
+
 export const PAGE_CHANGE = 'PAGE_CHANGE';
 
 const reducer = (state = initialState, action) => {
@@ -128,17 +136,23 @@ const reducer = (state = initialState, action) => {
         draft.addPostError = null;
         break;
       case ADD_POST_SUCCESS: {
-        draft.addPostLoading = false;
-        draft.addPostDone = true;
-        draft.addPostError = null;
-        draft.postCompleat = true;
-        // draft.mainPosts.unshift(action.data);
+        if (action.data.result === 'OK') {
+          draft.addPostLoading = false;
+          draft.addPostDone = true;
+          draft.postCompleat = true;
+        } else {
+          draft.addPostLoading = false;
+          draft.addPostDone = false;
+          draft.postCompleat = false;
+        }
+
         break;
       }
       case ADD_POST_FAILURE:
         draft.addPostDone = false;
         draft.addPostError = action.error;
         break;
+
       // 게시물 삭제
       case REMOVE_POST_REQUEST:
         draft.removePostLoading = true;
@@ -305,12 +319,23 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsError = null;
         break;
       case LOAD_POSTS_SUCCESS:
-        draft.loadPostsLoading = false;
-        draft.loadPostsDone = true;
-        draft.mainPosts = draft.mainPosts.generateDummyPost(
-          action.data.list,
-          action.data.imgList,
-        );
+        if (action.data.result === 'SUCCESS') {
+          draft.loadPostsLoading = false;
+          draft.loadPostsDone = true;
+          draft.addPostFalid = true;
+          draft.mainPosts = generateDummyPost(
+            action.data.list,
+            action.data.imgList,
+          );
+        } else if (action.data.result === 'NOTEXIST') {
+          draft.loadPostsLoading = false;
+          draft.loadPostsDone = false;
+          draft.addPostFalid = false;
+        } else {
+          draft.loadPostsLoading = false;
+          draft.loadPostsDone = false;
+          draft.addPostFalid = false;
+        }
         // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
         // draft.hasMorePosts = action.data.length === 10;
         break;
@@ -318,6 +343,7 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;
         break;
+
       // 게시물 더 가져오기
       case LOAD_MORE_POSTS_REQUEST:
         draft.loadPostsLoading = true;
@@ -325,21 +351,61 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsError = null;
         break;
       case LOAD_MORE_POSTS_SUCCESS:
-        draft.loadPostsLoading = false;
-        draft.loadPostsDone = true;
-        draft.mainPosts = draft.mainPosts.concat(
-          generateDummyPost(action.data.list, action.data.imgList),
-        );
-        // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
-        draft.hasMorePosts = action.data.result;
+        if (action.data.result === 'SUCCESS') {
+          draft.loadPostsLoading = false;
+          draft.loadPostsDone = true;
+          draft.addPostFalid = true;
+          draft.pageMore = true;
+          draft.mainPosts = draft.mainPosts.concat(
+            generateDummyPost(action.data.list, action.data.imgList),
+          );
+        } else if (action.data.result === 'NOTEXIST') {
+          draft.loadPostsLoading = false;
+          draft.loadPostsDone = false;
+          draft.addPostFalid = false;
+          draft.pageMore = false;
+        } else {
+          draft.loadPostsLoading = false;
+          draft.loadPostsDone = false;
+          draft.addPostFalid = false;
+        }
         break;
       case LOAD_MORE_POSTS_FAILURE:
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;
         break;
+
+      // 특정 게시물 가져오기
+      case GET_ID_POST_REQUEST:
+        draft.getIdPostLoading = true;
+        draft.getIdPostDone = false;
+        draft.getIdPostError = null;
+        break;
+      case GET_ID_POST_SUCCESS:
+        console.log(action.data, 'data');
+        if (action.data.result === 'SUCCESS') {
+          draft.getIdPostLoading = false;
+          draft.getIdPostDone = true;
+          draft.mainPosts = draft.mainPosts.concat(
+            generateDummyPost(action.data.list, action.data.imgList),
+          );
+        } else if (action.data.result === 'NOTEXIST') {
+          draft.getIdPostLoading = false;
+          draft.getIdPostDone = false;
+        } else {
+          draft.getIdPostLoading = false;
+          draft.getIdPostDone = false;
+        }
+        break;
+      case GET_ID_POST_FAILURE:
+        draft.getIdPostLoading = false;
+        draft.getIdPostError = action.error;
+        break;
+
       case PAGE_CHANGE:
         draft.postCompleat = false;
         break;
+
       default:
         break;
     }

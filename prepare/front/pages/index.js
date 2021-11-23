@@ -16,30 +16,18 @@ import wrapper from '../store/configureStore';
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { mainPosts, hasMorePosts, loadPostsLoading, postCompleat } =
+  const { mainPosts, loadPostsLoading, postCompleat, addPostFalid, pageMore } =
     useSelector((state) => state.post);
 
+  const [pageNumber, setPageNumber] = useState(2);
+
+  let number = 0;
+
   useEffect(() => {
-    if (me && mainPosts.length <= 0) {
-      const lastId = mainPosts[mainPosts.length - 1]?.id;
-      // const lastId = mainPosts[mainPosts.length - 1]?.MEN_ID;
+    if (me && mainPosts.length <= 0 && addPostFalid) {
       dispatch({
         type: LOAD_POSTS_REQUEST,
       });
-    }
-
-    function onScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (!loadPostsLoading) {
-          const lastId = mainPosts[mainPosts.length - 1]?.id;
-          dispatch({
-            type: LOAD_MORE_POSTS_REQUEST,
-          });
-        }
-      }
     }
 
     if (postCompleat) {
@@ -51,11 +39,32 @@ const Home = () => {
       });
     }
 
+    function onScroll() {
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 300
+      ) {
+        if (!loadPostsLoading && number === 0) {
+          const formData = new FormData();
+          formData.append('page', pageNumber);
+          dispatch({
+            type: LOAD_MORE_POSTS_REQUEST,
+            data: formData,
+          });
+          number = 1;
+        }
+      }
+    }
+    if (pageMore) {
+      number = 0;
+      setPageNumber((prev) => prev + 1);
+    }
+
     window.addEventListener('scroll', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [mainPosts, me]);
+  }, [mainPosts, me, postCompleat, number, pageMore]);
 
   return (
     <>
@@ -67,7 +76,7 @@ const Home = () => {
             return <PostCard key={post.id} post={post} />;
           })}
 
-          {hasMorePosts ? null : <div>@HESSED</div>}
+          {addPostFalid ? null : <div>@HESSED</div>}
           <div style={{ paddingBottom: '54px' }}></div>
         </MainLayout>
       ) : (

@@ -55,6 +55,7 @@ const PwChange = () => {
           onChange={onChangePassword}
           // required
         />
+        <br />
 
         <input
           style={{ marginTop: -5 }}
