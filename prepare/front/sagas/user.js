@@ -276,7 +276,6 @@ function* certified(action) {
 
 // 비밀번호 바꾸기
 function pwChangeAPI(data) {
-  console.log(data);
   return axios.post(`/pwUpdate.do`, data);
 }
 

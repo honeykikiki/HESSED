@@ -59,13 +59,13 @@ const CommentsToReply = ({
     });
   }, [commentToReply]);
 
-  const CommentsNum = post?.Comments?.findIndex(
-    (v) => v.commentId === commentId,
-  );
-  const commentReplyIdNum =
-    post.Comments[CommentsNum]?.Comments[
-      post.Comments[CommentsNum]?.Comments.length - 1
-    ]?.commentReplyId + 1 || 1;
+  // const CommentsNum = post?.Comments?.findIndex(
+  //   (v) => v.commentId === commentId,
+  // );
+  // const commentReplyIdNum =
+  //   post.Comments[CommentsNum]?.Comments[
+  //     post.Comments[CommentsNum]?.Comments.length - 1
+  //   ]?.commentReplyId + 1 || 1;
 
   const onClickAddReply = useCallback(
     (e) => {
@@ -78,7 +78,7 @@ const CommentsToReply = ({
         data: {
           postId: post.id,
           commentId,
-          commentReplyId: commentReplyIdNum,
+          // commentReplyId: commentReplyIdNum,
           userId,
           User: {
             id: me.id,

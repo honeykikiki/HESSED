@@ -38,6 +38,9 @@ import {
   LOAD_POSTS_FAILURE,
   LOAD_MORE_POSTS_REQUEST,
   LOAD_MORE_POSTS_SUCCESS,
+  GET_ID_POST_REQUEST,
+  GET_ID_POST_SUCCESS,
+  GET_ID_POST_FAILURE,
 } from '../reducers/post';
 
 // 게시물 등록하기
@@ -244,7 +247,9 @@ function* loadPosts(action) {
 }
 // 게시물 더 가져오기
 function loadMorePostsAPI(data) {
-  return axios.get(`/board/list.do`);
+  console.log(data, 'data');
+  // return axios.get(`/board/list.do?page=${data.page}`, data);
+  return axios.post(`/board/list.do`, data);
 }
 
 function* loadMorePosts(action) {
@@ -258,6 +263,28 @@ function* loadMorePosts(action) {
     console.error(err);
     yield put({
       type: LOAD_MORE_POSTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+// 특정 게시물  가져오기
+function getIdPostAPI(data) {
+  // return axios.get(`/board/list.do?page=${data.page}`, data);
+  return axios.get(`/board/view/${data.bo_no}`, data);
+}
+
+function* getIdPost(action) {
+  try {
+    const result = yield call(getIdPostAPI, action.data);
+    yield put({
+      type: GET_ID_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: GET_ID_POST_FAILURE,
       error: err.response.data,
     });
   }
@@ -298,13 +325,17 @@ function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
 
-// function* watchLoadMorePosts() {
-//   yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
-// }
-
 function* watchLoadMorePosts() {
-  yield takeLatest(LOAD_MORE_POSTS_REQUEST, loadMorePosts);
+  yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
 }
+
+function* watchGetIdPost() {
+  yield takeLatest(GET_ID_POST_REQUEST, getIdPost);
+}
+
+// function* watchLoadMorePosts() {
+//   yield takeLatest(LOAD_MORE_POSTS_REQUEST, loadMorePosts);
+// }
 
 export default function* userSaga() {
   yield all([
@@ -318,5 +349,6 @@ export default function* userSaga() {
     fork(watchUnLikePost),
     fork(watchLoadPosts),
     fork(watchLoadMorePosts),
+    fork(watchGetIdPost),
   ]);
 }
