@@ -30,15 +30,21 @@
     npm i react-redux
     npm i redux
 
-    middle wear 미들웨어
+> > middle wear 미들웨어
+
     npm i redux-devtools-extension
 
-    불변성 지키기
+> > 불변성 지키기
+
     npm i immer
 
 > redux-saga
 
     npm i redux-saga
+    npm i axios
+
+> axios
+
     npm i axios
 
 ---
@@ -47,8 +53,11 @@
 
 1.  로그인 페이지 코딩
 
-    > > 로딩페이지
-    > > 로그인, 회원가입, ID / PW 찾기
+    > > 로딩페이지 [o]
+    > > 로그인 [o]
+    > > 회원가입 [o]
+    > > ID찾기 [o]
+    > > PW 찾기 [o]
 
 2.  메인 화면
 

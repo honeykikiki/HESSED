@@ -4,16 +4,21 @@ export const initialState = {
   logInLoading: false, // 로그인 시도중
   logInDone: false,
   logInError: null,
-  logInFaild: true,
+  logInFailed: true, // 로그인 실패
+
   logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
   logOutError: null,
   searchIdLoading: false, // 아이디찾기 시도중
   searchIdDone: false,
   searchIdError: null,
+  searchIdFailed: true, // 아이디 찾기 실패
+
   searchPwLoading: false, // 비밀번호찾기 시도중
   searchPwDone: false,
   searchPwError: null,
+  searchPwFailed: true, // 비밀번호찾기 실패
+
   cerifiedLoading: false, // 인증번호 시도중
   cerifiedDone: false,
   cerifiedError: null,
@@ -23,7 +28,8 @@ export const initialState = {
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
-  signUpFaild: true,
+  signUpFailed: true, // 회원가입 실패
+  signUpDisplayChange: false, // 회원가입 완료
   duplicateCheckLoading: false, // 아이디 중복체크 시도중
   duplicateCheckDone: false,
   duplicateCheckError: null,
@@ -40,6 +46,7 @@ export const initialState = {
   changeProfileImgLoading: false, // 프로필 이미지 수정
   changeProfileImgDone: false,
   changeProfileImgError: null,
+
   me: null,
   SearchID: null,
   SearchPW: null,
@@ -94,7 +101,11 @@ export const PASSWORD_CHANGE_SUCCESS = 'PASSWORD_CHANGE_SUCCESS';
 export const PASSWORD_CHANGE_FAILURE = 'PASSWORD_CHANGE_FAILURE';
 
 export const SEARCHID_DELITE = 'SEARCHID_DELITE';
-export const LOGIN_FAILD = 'LOGIN_FAILD';
+
+export const SIGNUP_CHANGE_DISPLAY = 'SIGNUP_CHANGE_DISPLAY';
+
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const SIGNUP_FAILED = 'SIGNUP_FAILED';
 
 const dummyUser = (data) => ({
   // ...data,
@@ -138,11 +149,11 @@ const reducer = (state = initialState, action) => {
           draft.me = dummyUser(action.data.member); //action.data;
           draft.logInLoading = false;
           draft.logInDone = true;
-          draft.logInFaild = true;
+          draft.logInFailed = true;
         } else {
           draft.logInLoading = false;
           draft.logInDone = false;
-          draft.logInFaild = false;
+          draft.logInFailed = false;
         }
         break;
       case LOG_IN_FAILURE:
@@ -180,10 +191,12 @@ const reducer = (state = initialState, action) => {
         if (action.data.result === 'EXIST') {
           draft.searchIdLoading = false;
           draft.searchIdDone = true;
+          draft.searchIdFailed = true;
           draft.SearchID = action.data.id;
         } else {
           draft.searchIdLoading = false;
           draft.searchIdDone = false;
+          draft.searchIdFailed = false;
         }
         break;
       case SEARCH_ID_FAILURE:
@@ -266,17 +279,18 @@ const reducer = (state = initialState, action) => {
           draft.signUpLoading = false;
           draft.signUpDone = true;
           draft.duplicateCheckDisplay = true;
-          draft.signUpFaild = true;
+          draft.signUpFailed = true;
+          draft.signUpDisplayChange = true;
         } else if (action.data.result === 'EXIST') {
           alert('아이디가 중복입니다.');
           draft.signUpLoading = false;
           draft.signUpDone = false;
-          draft.signUpFaild = false;
+          draft.signUpFailed = false;
         } else {
           alert('회원가입이 실패했습니다');
           draft.signUpLoading = false;
           draft.signUpDone = false;
-          draft.signUpFaild = false;
+          draft.signUpFailed = false;
         }
         break;
       case SIGN_UP_FAILURE:
@@ -284,8 +298,8 @@ const reducer = (state = initialState, action) => {
         draft.signUpError = action.error;
         break;
 
-      case LOGIN_FAILD:
-        draft.signUpFaild = false;
+      case SIGNUP_FAILED:
+        draft.signUpFailed = false;
         break;
 
       // 아이디 중복체크
@@ -299,7 +313,7 @@ const reducer = (state = initialState, action) => {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = false;
           draft.duplicateCheckDisplay = false;
-          draft.signUpFaild = false;
+          draft.signUpFailed = false;
         } else {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = true;
@@ -385,8 +399,13 @@ const reducer = (state = initialState, action) => {
         draft.changeProfileImgError = action.error;
         break;
 
+      // 찾은 아이디 삭제
       case SEARCHID_DELITE:
         draft.SearchID = null;
+
+      // 회원 가입 완료후 로그인창 전환
+      case SIGNUP_CHANGE_DISPLAY:
+        draft.signUpDisplayChange = false;
       default:
         break;
     }

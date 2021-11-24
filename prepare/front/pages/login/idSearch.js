@@ -10,7 +10,9 @@ import Router from 'next/router';
 
 const IdSearch = () => {
   const dispatch = useDispatch();
-  const { searchIdDone, SearchID } = useSelector((state) => state.user);
+  const { searchIdDone, SearchID, searchIdFailed } = useSelector(
+    (state) => state.user,
+  );
 
   const [id, onChangeId, setId] = useInput('');
   const [phone, onChangePhone, set] = useInput('');
@@ -48,6 +50,10 @@ const IdSearch = () => {
           required
         />
 
+        {searchIdFailed ? null : id ? null : (
+          <div className={style.signupCheck}>{`이름을 입력해주세요.`}</div>
+        )}
+
         <input
           name="mem_phone"
           placeholder="전화번호를 입력해주세요"
@@ -56,6 +62,9 @@ const IdSearch = () => {
           type="number"
           required
         />
+        {searchIdFailed ? null : phone ? null : (
+          <div className={style.signupCheck}>{`전화번호를 입력해주세요.`}</div>
+        )}
 
         <button>아이디 찾기</button>
       </form>
