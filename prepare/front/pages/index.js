@@ -9,6 +9,7 @@ import {
   LOAD_POSTS_REQUEST,
   PAGE_CHANGE,
 } from '../reducers/post';
+import style from '../styles/css/postCard.module.css';
 
 import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
@@ -22,6 +23,16 @@ const Home = () => {
   const [pageNumber, setPageNumber] = useState(2);
 
   let number = 0;
+
+  // useEffect(() => {
+  //   if (inView && hasMorePosts && !loadPostsLoading) {
+  //     const lastId = mainPosts[mainPosts.length - 1]?.id;
+  //     dispatch({
+  //       type: LOAD_POSTS_REQUEST,
+  //       lastId,
+  //     });
+  //   }
+  // }, [inView, hasMorePosts, loadPostsLoading, mainPosts, id]);
 
   useEffect(() => {
     if (me && mainPosts.length <= 0 && addPostFalid) {
@@ -55,6 +66,7 @@ const Home = () => {
         }
       }
     }
+
     if (pageMore) {
       number = 0;
       setPageNumber((prev) => prev + 1);
@@ -75,8 +87,12 @@ const Home = () => {
           {mainPosts.map((post, i) => {
             return <PostCard key={post.id} post={post} />;
           })}
+          {/* <div ref={!loadPostsLoading ? ref : undefined} /> */}
 
-          {addPostFalid ? null : <div>@HESSED</div>}
+          {addPostFalid ? null : (
+            <div className={style.bottomLogo}>@HESSED</div>
+          )}
+
           <div style={{ paddingBottom: '54px' }}></div>
         </MainLayout>
       ) : (

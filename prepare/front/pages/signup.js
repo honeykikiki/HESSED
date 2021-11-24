@@ -7,14 +7,18 @@ import useInput from '../hooks/useInput';
 import {
   DUPLICATE_CHECK_REQUEST,
   SIGN_UP_REQUEST,
-  LOGIN_FAILD,
+  SIGNUP_FAILED,
 } from '../reducers/user';
 import style from '../styles/css/loginForm.module.css';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { signUpDone, duplicateCheckDone, duplicateCheckDisplay, signUpFaild } =
-    useSelector((state) => state.user);
+  const {
+    duplicateCheckDone,
+    duplicateCheckDisplay,
+    signUpFailed,
+    signUpDisplayChange,
+  } = useSelector((state) => state.user);
 
   const [mem_id, onChangemem_id, setMEM_ID] = useInput('');
   const [mem_pw, onChangePassword, setPassword] = useInput('');
@@ -29,11 +33,11 @@ const Login = () => {
   const checkInput = useRef();
 
   useEffect(() => {
-    if (signUpDone) {
+    if (signUpDisplayChange) {
       alert(`${mem_id}님 회원가입이 완료되었습니다`);
       Router.replace('/');
     }
-  }, [signUpDone]);
+  }, [signUpDisplayChange]);
 
   const onChangePasswordCheck = useCallback(
     (e) => {
@@ -62,7 +66,7 @@ const Login = () => {
       e.preventDefault();
       if (mem_id === '') {
         dispatch({
-          type: LOGIN_FAILD,
+          type: SIGNUP_FAILED,
         });
         return;
       }
@@ -96,7 +100,7 @@ const Login = () => {
         duplicateCheckDone === false
       ) {
         dispatch({
-          type: LOGIN_FAILD,
+          type: SIGNUP_FAILED,
         });
         return;
       }
@@ -142,7 +146,7 @@ const Login = () => {
         ) : duplicateCheckDisplay ? null : (
           <div style={{ color: '#409857' }}>{`*아이디가 중복됩니다`}</div>
         )}
-        {signUpFaild ? null : mem_id ? null : (
+        {signUpFailed ? null : mem_id ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
 
@@ -159,7 +163,7 @@ const Login = () => {
           value={mem_pw}
           onChange={onChangePassword}
         />
-        {signUpFaild ? null : mem_pw ? null : (
+        {signUpFailed ? null : mem_pw ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
 
@@ -169,7 +173,7 @@ const Login = () => {
           value={passwordCheck}
           onChange={onChangePasswordCheck}
         />
-        {signUpFaild ? null : passwordCheck ? null : (
+        {signUpFailed ? null : passwordCheck ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
 
@@ -188,7 +192,7 @@ const Login = () => {
           value={mem_name}
           onChange={onChangeName}
         />
-        {signUpFaild ? null : mem_name ? null : (
+        {signUpFailed ? null : mem_name ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
 
@@ -199,7 +203,7 @@ const Login = () => {
           value={mem_nickname}
           onChange={onChangeNickname}
         />
-        {signUpFaild ? null : mem_nickname ? null : (
+        {signUpFailed ? null : mem_nickname ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
 
@@ -211,7 +215,7 @@ const Login = () => {
           value={mem_phone}
           onChange={onChangePhone}
         />
-        {signUpFaild ? null : mem_phone ? null : (
+        {signUpFailed ? null : mem_phone ? null : (
           <div className={style.signupCheck}>{`*필수 정보입니다.`}</div>
         )}
         <br />
@@ -222,9 +226,10 @@ const Login = () => {
             type="checkbox"
             ref={checkInput}
             value={agree}
+            onChange={checkboxClick}
           />
           <label htmlFor="mem_flag">개인정보 활용 동의 (보기)</label>
-          {signUpFaild ? null : agree ? null : (
+          {signUpFailed ? null : agree ? null : (
             <div className={style.signupCheck}>{`*개인정보 동의 `}</div>
           )}
         </div>

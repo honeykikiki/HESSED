@@ -13,14 +13,14 @@ const Certified = () => {
 
   const [certified, onChangeCertified, setCertified] = useInput('');
 
-  useEffect(() => {
-    if (cerifiedDone) {
-      Router.push('/login/passwordProcedure/pwChange');
-    }
-    if (!SearchPW) {
-      Router.push('/');
-    }
-  }, [cerifiedDone, SearchPW]);
+  // useEffect(() => {
+  //   if (cerifiedDone) {
+  //     Router.push('/login/passwordProcedure/pwChange');
+  //   }
+  //   if (!SearchPW) {
+  //     Router.push('/');
+  //   }
+  // }, [cerifiedDone, SearchPW]);
 
   const certifiedSubmit = useCallback(
     (e) => {
@@ -47,6 +47,9 @@ const Certified = () => {
           onChange={onChangeCertified}
           required
         />
+        <div
+          className={style.signupCheck}
+        >{`아이디로 보내드린 인증번호를 입력해 주세요.`}</div>
 
         <button>인증번호 확인</button>
       </form>
