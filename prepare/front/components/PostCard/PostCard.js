@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Router } from 'next/router';
+// import { useSelector } from 'react-redux';
+// import { Router } from 'next/router';
 import Link from 'next/link';
 
 import style from '../../styles/css/postCard.module.css';
@@ -14,8 +14,8 @@ import PostCardSetButton from './postCardMore/PostCardSetButton';
 import { baseURL } from '../../config/config';
 
 const PostCard = ({ post }) => {
-  const { me } = useSelector((state) => state.user);
-  const id = useSelector((state) => state.user.me && state.user.me.id);
+  // const { me } = useSelector((state) => state.user);
+  // const id = useSelector((state) => state.user.me && state.user.me.id);
 
   return (
     <section className={style.a}>

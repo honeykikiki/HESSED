@@ -19,15 +19,10 @@ const Profile = () => {
   const { me, changeNicknameDone } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
-  const savedArray = [];
-  me?.Saved.forEach((v) => {
-    savedArray.push(v.id);
-  });
-
   // 자기게시글만 가져오기
   const myPost = mainPosts.filter((v) => v.User.id === me?.id);
   // 저장한 게시글만 가져오기
-  const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
+  const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
 
   const [changeNickname, onChangeNickname, setNickname] = useInput();
   const [nicknameSet, setNicknameSet] = useState(true);
@@ -142,7 +137,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className={style.profileNameReSet} onClick={profileSet}>
-                프로필수정
+                {nicknameSet ? '프로필수정' : '나가기'}
               </div>
             </div>
           </div>

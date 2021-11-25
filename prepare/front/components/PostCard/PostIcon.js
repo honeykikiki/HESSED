@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postIcon.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { LIKE_POST_REQUEST, UNLIKE_POST_REQUEST } from '../../reducers/post';
-import { SAVE_POST_REQUEST, UNSAVE_POST_REQUEST } from '../../reducers/user';
+import {
+  LIKE_POST_REQUEST,
+  UNLIKE_POST_REQUEST,
+  SAVE_POST_REQUEST,
+  UNSAVE_POST_REQUEST,
+} from '../../reducers/post';
 
 const PostIcon = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const liked = post.Likers?.find((v) => v.id === me.id);
-  const saved = me?.Saved.find((v) => v.id === post.id);
-
-  const inputRef = useRef();
 
   const [url, setUrl] = useState();
 
@@ -55,15 +55,15 @@ const PostIcon = ({ post }) => {
     });
   }, [post.id, me?.id]);
 
-  const handleCopyClipBoard = async (text) => {
-    try {
-      await navigator.clipboard.writeText(text);
+  // const handleCopyClipBoard = async (text) => {
+  //   try {
+  //     await navigator.clipboard.writeText(text);
 
-      alert('복사 성공!');
-    } catch (error) {
-      alert('복사 실패!');
-    }
-  };
+  //     alert('복사 성공!');
+  //   } catch (error) {
+  //     alert('복사 실패!');
+  //   }
+  // };
 
   const onShare = useCallback(async () => {
     setUrl(`http://localhost:3030/post/${post.id}`);
@@ -83,7 +83,7 @@ const PostIcon = ({ post }) => {
     <article className={style.postIcon}>
       <div>
         {/* 좋아요 */}
-        {liked ? (
+        {post.liked?.id ? (
           <div onClick={onUnLike}>
             <img src="/icon/heartOn.svg" alt="Hearticon" />
           </div>
@@ -107,13 +107,12 @@ const PostIcon = ({ post }) => {
 
       <div>
         {/* 공유 */}
-
         <img src="/icon/share.svg" onClick={onShare} alt="Shareicon" />
       </div>
 
       <div>
         {/* 저장 */}
-        {saved ? (
+        {post.saved?.id ? (
           <div onClick={onUnSave}>
             <img src="/icon/saveOn.svg" alt="saveicon" />
           </div>

@@ -34,12 +34,7 @@ export const initialState = {
   duplicateCheckDone: false,
   duplicateCheckError: null,
   duplicateCheckDisplay: true,
-  savePostLoading: false, // 게시물 저장
-  savePostDone: false,
-  savePostError: null,
-  unSavePostLoading: false, // 게시물 저장취소
-  unSavePostDone: false,
-  unSavePostError: null,
+
   changeNicknameLoading: false, // 닉네임 수정
   changeNicknameDone: false,
   changeNicknameError: null,
@@ -50,6 +45,7 @@ export const initialState = {
   me: null,
   SearchID: null,
   SearchPW: null,
+  notLoginConnected: false,
 };
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
@@ -67,14 +63,6 @@ export const SIGN_UP_FAILURE = 'SING_UP_FAILURE';
 export const DUPLICATE_CHECK_REQUEST = 'DUPLICATE_CHECK_REQUEST';
 export const DUPLICATE_CHECK_SUCCESS = 'DUPLICATE_CHECK_SUCCESS';
 export const DUPLICATE_CHECK_FAILURE = 'DUPLICATE_CHECK_FAILURE';
-
-export const SAVE_POST_REQUEST = 'SAVE_POST_REQUEST';
-export const SAVE_POST_SUCCESS = 'SAVE_POST_SUCCESS';
-export const SAVE_POST_FAILURE = 'SAVE_POST_FAILURE';
-
-export const UNSAVE_POST_REQUEST = 'UNSAVE_POST_REQUEST';
-export const UNSAVE_POST_SUCCESS = 'UNSAVE_POST_SUCCESS';
-export const UNSAVE_POST_FAILURE = 'UNSAVE_POST_FAILURE';
 
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
@@ -115,8 +103,8 @@ const dummyUser = (data) => ({
   nickname: data.mem_nickname,
   profileImg: data.mem_profileimg,
   grade: data.mem_grade,
-  Posts: [],
-  Liked: [],
+  // Posts: [],
+  // Liked: [],
   Saved: [],
 });
 
@@ -324,43 +312,6 @@ const reducer = (state = initialState, action) => {
       case DUPLICATE_CHECK_FAILURE:
         draft.duplicateCheckLoading = false;
         draft.duplicateCheckError = action.error;
-        break;
-
-      // 게시물 저장하기
-      case SAVE_POST_REQUEST:
-        draft.savePostLoading = true;
-        draft.savePostDone = false;
-        draft.savePostError = null;
-        break;
-      case SAVE_POST_SUCCESS: {
-        draft.savePostLoading = false;
-        draft.savePostDone = true;
-        draft.savePostError = null;
-        draft.me.Saved.push({ id: action.data.boardVO.bo_no });
-        break;
-      }
-      case SAVE_POST_FAILURE:
-        draft.savePostDone = false;
-        draft.savePostError = action.error;
-        break;
-      // 게시물 저장하기 취소
-      case UNSAVE_POST_REQUEST:
-        draft.unSavePostLoading = true;
-        draft.unSavePostDone = false;
-        draft.unSavePostError = null;
-        break;
-      case UNSAVE_POST_SUCCESS: {
-        draft.me.Saved = draft.me.Saved.filter(
-          (v) => v.id !== action.data.boardVO.bo_no,
-        );
-        draft.unSavePostLoading = false;
-        draft.unSavePostDone = true;
-        draft.unSavePostError = null;
-        break;
-      }
-      case UNSAVE_POST_FAILURE:
-        draft.unSavePostDone = false;
-        draft.unSavePostError = action.error;
         break;
 
       // 닉네임 수정하기

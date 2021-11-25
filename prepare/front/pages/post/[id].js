@@ -9,7 +9,7 @@ import MainLayout from '../../components/MainLayout';
 
 import { END } from 'redux-saga';
 import wrapper from '../../store/configureStore';
-import { GET_ID_POST_REQUEST, LOAD_POSTS_REQUEST } from '../../reducers/post';
+import { GET_ID_POST_REQUEST } from '../../reducers/post';
 
 const Post = () => {
   const router = useRouter();
@@ -17,41 +17,44 @@ const Post = () => {
 
   const dispatch = useDispatch();
 
-  const { mainPosts } = useSelector((state) => state.post);
-  const { me } = useSelector((state) => state.user);
-  const post = mainPosts.find((v) => v.id === +id);
+  const { boardOneViewPost, loginNotConnected } = useSelector(
+    (state) => state.post,
+  );
+  const { notLoginConnected } = useSelector((state) => state.user);
 
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
 
   useEffect(() => {
-    // const formData = new FormData();
-    // formData.append('bo_number', +id);
-    console.log(id);
-    dispatch({
-      type: GET_ID_POST_REQUEST,
-      data: { bo_no: +id },
-    });
-  }, [id]);
+    if (id) {
+      dispatch({
+        type: GET_ID_POST_REQUEST,
+        data: { bo_no: +id },
+      });
+    }
+    if (loginNotConnected || notLoginConnected) {
+      Router.push('/');
+    }
+  }, [id, loginNotConnected, notLoginConnected]);
 
   return (
     <MainLayout>
-      {post && (
+      {boardOneViewPost && (
         <Head>
-          <title>{`HESSED ${post?.User.nickname} 님의 게시글`}</title>
+          <title>{`HESSED ${boardOneViewPost?.User.nickname} 님의 게시글`}</title>
         </Head>
       )}
 
-      {post && (
+      {boardOneViewPost && (
         <section>
           <div className={style.head}>
             <div onClick={onClickBack}>
               <img src="/icon/back.svg" width="12px" alt="BackIcon" />
             </div>
-            <div>{`${post?.User.nickname}님의 게시글`}</div>
+            <div>{`${boardOneViewPost?.User.nickname}님의 게시글`}</div>
           </div>
-          <PostCard post={post} />
+          <PostCard post={boardOneViewPost} />
         </section>
       )}
     </MainLayout>

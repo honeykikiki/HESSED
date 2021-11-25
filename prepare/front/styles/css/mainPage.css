@@ -1,0 +1,226 @@
+#header {
+  width: 100%;
+  background-color: whiter;
+  z-index: 20;
+}
+
+#header .maxWidth {
+  max-width: 935px;
+  height: 100%;
+}
+
+#header .logo {
+  width: 100%;
+  height: 44px;
+  background-color: white;
+  border-bottom: 1px solid #dbdbdb;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+
+#header .logo h1 {
+  background: url(../../public/icon/HESSED-logo-G.svg) center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 93px;
+  height: 100%;
+  margin: auto;
+}
+
+#gnb {
+  width: 100%;
+  height: 44px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  border-top: 1px solid #dbdbdb;
+  z-index: 20;
+}
+
+#gnb > div {
+  max-width: 800px;
+  height: 100%;
+  margin: auto;
+}
+
+#gnb ul {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#gnb ul li {
+  padding: 10px;
+}
+
+#gnb ul li > a {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.profileimg {
+  position: relative;
+}
+
+.profileimg img:nth-child(1) {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+.profileimg .circle {
+  position: absolute;
+  left: -4px;
+  top: -4px;
+}
+
+.profileBox > div {
+  position: absolute;
+  top: -85px;
+  right: -25px;
+  text-align: center;
+  background-color: #3b3733;
+  display: block;
+  width: 120px;
+  height: 70px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.profileBox > div div {
+  padding-top: 10px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: white;
+}
+
+.profileBox > div div a {
+  color: white;
+}
+
+.profileBox > div span {
+  display: block;
+  position: absolute;
+  right: 28px;
+  bottom: -7px;
+  width: 20px;
+  height: 20px;
+  background-color: #3b3733;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+@media screen and (min-width: 768px) {
+  .profileBox > div {
+    position: absolute;
+    top: -75px;
+    right: 7%;
+    text-align: center;
+    background-color: #3b3733;
+    display: block;
+    width: 120px;
+    height: 70px;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  .profileBox > div p {
+    padding-top: 10px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: white;
+  }
+  .profileBox > div p a {
+    color: white;
+  }
+  .profileBox > div span {
+    display: block;
+    position: absolute;
+    right: 31px;
+    bottom: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #dbdbdb;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+}
+
+@media screen and (min-width: 935px) {
+  #header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    position: fixed;
+    border-bottom: 1px solid #dbdbdb;
+  }
+  #header .maxWidth {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 935px;
+    height: 100%;
+  }
+  #header .logo {
+    width: 50%;
+    background-color: none;
+    position: relative;
+  }
+  #header h1 {
+    float: left;
+  }
+  #gnb {
+    position: relative;
+  }
+  #gnb ul {
+    width: 50%;
+    float: right;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .profileBox > div {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    text-align: center;
+    background-color: #3b3733;
+    display: block;
+    width: 120px;
+    height: 70px;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  .profileBox > div p {
+    padding-top: 10px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: white;
+  }
+  .profileBox > div p a {
+    color: white;
+  }
+  .profileBox > div span {
+    display: block;
+    position: absolute;
+    right: 12px;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #3b3733;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+}

@@ -1,0 +1,28 @@
+.head {
+  padding: 25px 0px;
+  border-bottom: 1px solid #dbdbdb;
+  background-color: white;
+  position: relative;
+  top: 0px;
+  z-index: 101;
+}
+
+.head div:nth-child(1) {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+}
+
+.head div:nth-child(2) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-weight: 550;
+  font-size: 1.6rem;
+}
