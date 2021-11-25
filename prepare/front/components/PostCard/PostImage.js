@@ -37,7 +37,7 @@ const PostImages = ({ images }) => {
           return (
             <img
               key={v?.bo_img_location}
-              src={`${baseURL}/${v?.bo_img_location}`}
+              src={`${baseURL}/${v.bo_img_location}`}
               style={{
                 transform: `translate3d(-${imageCuurrentNo * 100}%, 0px, 0px)`,
                 transition: 'all .4s',

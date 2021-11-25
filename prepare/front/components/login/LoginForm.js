@@ -46,7 +46,6 @@ const Login = () => {
           placeholder="아이디를 입력해주세요"
           value={id}
           onChange={onchangeId}
-          required
         />
         {logInFailed ? null : id ? null : (
           <div className={style.signupCheck}>{`*아이디를 입력해주세요.`}</div>
@@ -58,7 +57,6 @@ const Login = () => {
           value={password}
           onChange={onchangePassword}
           type="password"
-          required
         />
         {logInFailed ? null : password ? null : (
           <div className={style.signupCheck}>{`*비밀번호를 입력해주세요.`}</div>

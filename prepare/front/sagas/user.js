@@ -10,12 +10,6 @@ import {
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE,
-  SAVE_POST_REQUEST,
-  SAVE_POST_SUCCESS,
-  SAVE_POST_FAILURE,
-  UNSAVE_POST_REQUEST,
-  UNSAVE_POST_SUCCESS,
-  UNSAVE_POST_FAILURE,
   CHANGE_NICKNAME_REQUEST,
   CHANGE_NICKNAME_SUCCESS,
   CHANGE_NICKNAME_FAILURE,
@@ -100,7 +94,6 @@ function* logOut(action) {
 
 // 회원가입
 function signUpAPI(data) {
-  console.log(data);
   return axios.post(`/register.do`, data);
 }
 
@@ -115,53 +108,6 @@ function* signUp(action) {
     console.error(err);
     yield put({
       type: SIGN_UP_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-// 게시물 저장
-function savePostAPI(data) {
-  return axios.post(
-    `/board/save.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
-    data,
-  );
-}
-
-function* savePost(action) {
-  try {
-    const result = yield call(savePostAPI, action.data);
-    yield put({
-      type: SAVE_POST_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: SAVE_POST_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-// 게시물 저장 취소
-function unSavePostAPI(data) {
-  return axios.post(
-    `/board/cancel.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
-    data,
-  );
-}
-
-function* unSavePost(action) {
-  try {
-    const result = yield call(unSavePostAPI, action.data);
-    yield put({
-      type: UNSAVE_POST_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: UNSAVE_POST_FAILURE,
       error: err.response.data,
     });
   }
@@ -325,12 +271,7 @@ function* watchLogOut() {
 function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
-function* watchSavePost() {
-  yield takeLatest(SAVE_POST_REQUEST, savePost);
-}
-function* watchUnSavePost() {
-  yield takeLatest(UNSAVE_POST_REQUEST, unSavePost);
-}
+
 function* watchChangeNickname() {
   yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
 }
@@ -358,8 +299,7 @@ export default function* userSaga() {
     fork(watchLogIn),
     fork(watchLogOut),
     fork(watchSignUp),
-    fork(watchSavePost),
-    fork(watchUnSavePost),
+
     fork(watchChangeNickname),
     fork(watchChangeProfileImg),
     fork(watchSearchId),

@@ -113,8 +113,6 @@ const Login = () => {
       formData.append('mem_phone', mem_phone);
       formData.append('mem_flag', agree);
 
-      console.log(...formData);
-
       dispatch({
         type: SIGN_UP_REQUEST,
         data: formData,

@@ -30,6 +30,12 @@ import {
   UNLIKE_POST_REQUEST,
   UNLIKE_POST_SUCCESS,
   UNLIKE_POST_FAILURE,
+  SAVE_POST_REQUEST,
+  SAVE_POST_SUCCESS,
+  SAVE_POST_FAILURE,
+  UNSAVE_POST_REQUEST,
+  UNSAVE_POST_SUCCESS,
+  UNSAVE_POST_FAILURE,
   ADD_POST_SUCCESS,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
@@ -45,7 +51,6 @@ import {
 
 // 게시물 등록하기
 function addPostAPI(data) {
-  console.log(data);
   return axios.post(
     // `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
     `/board/insert.do`,
@@ -224,6 +229,53 @@ function* unLikePost(action) {
   }
 }
 
+// 게시물 저장
+function savePostAPI(data) {
+  return axios.post(
+    `/board/save.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
+    data,
+  );
+}
+
+function* savePost(action) {
+  try {
+    const result = yield call(savePostAPI, action.data);
+    yield put({
+      type: SAVE_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SAVE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+// 게시물 저장 취소
+function unSavePostAPI(data) {
+  return axios.post(
+    `/board/cancel.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
+    data,
+  );
+}
+
+function* unSavePost(action) {
+  try {
+    const result = yield call(unSavePostAPI, action.data);
+    yield put({
+      type: UNSAVE_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UNSAVE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 // 게시물 가져오기
 function loadPostsAPI(data) {
   // return axios.get(`/posts?lastId=${lastId || 0}`);
@@ -247,7 +299,6 @@ function* loadPosts(action) {
 }
 // 게시물 더 가져오기
 function loadMorePostsAPI(data) {
-  console.log(data, 'data');
   // return axios.get(`/board/list.do?page=${data.page}`, data);
   return axios.post(`/board/list.do`, data);
 }
@@ -321,6 +372,14 @@ function* watchUnLikePost() {
   yield takeLatest(UNLIKE_POST_REQUEST, unLikePost);
 }
 
+function* watchSavePost() {
+  yield takeLatest(SAVE_POST_REQUEST, savePost);
+}
+
+function* watchUnSavePost() {
+  yield takeLatest(UNSAVE_POST_REQUEST, unSavePost);
+}
+
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
@@ -347,6 +406,8 @@ export default function* userSaga() {
     fork(watchAddRemoveCommentReply),
     fork(watchLikePost),
     fork(watchUnLikePost),
+    fork(watchSavePost),
+    fork(watchUnSavePost),
     fork(watchLoadPosts),
     fork(watchLoadMorePosts),
     fork(watchGetIdPost),

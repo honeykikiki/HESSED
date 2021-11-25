@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { baseURL } from '../config/config';
 
 //  더미데이터
 // export const generateDummyPost = (number) =>
@@ -20,6 +21,7 @@ import produce from 'immer';
 
 export const initialState = {
   mainPosts: [],
+  boardOneViewPost: null,
   myPosts: [],
   savePosts: [],
   imagePaths: [],
@@ -51,6 +53,12 @@ export const initialState = {
   unLikePostLoading: false, // 좋아요 취소
   unLikePostDone: false,
   unLikePostError: null,
+  savePostLoading: false, // 게시물 저장
+  savePostDone: false,
+  savePostError: null,
+  unSavePostLoading: false, // 게시물 저장취소
+  unSavePostDone: false,
+  unSavePostError: null,
   loadPostsLoading: false, // 게시물 가져오기
   loadPostsDone: false,
   loadPostsError: null,
@@ -58,6 +66,8 @@ export const initialState = {
   getIdPostLoading: false, // 특정 게시물 가져오기
   getIdPostDone: false,
   getIdPostError: null,
+
+  loginNotConnected: false,
 };
 
 export const generateDummyPost = (list, listImg) =>
@@ -73,12 +83,38 @@ export const generateDummyPost = (list, listImg) =>
 
     Images: listImg.filter((listImg) => {
       if (v.bo_no === listImg.bo_no) {
-        return { id: listImg.bo_img_no, url: listImg.bo_img_location };
+        return {
+          id: listImg.bo_img_no,
+          url: `${listImg.bo_img_location}`,
+        };
       }
     }),
+    liked: { id: v.goodChk },
+    saved: { id: v.saveChk },
+    likedNumber: v.goodCnt,
     Comments: [],
     date: v.bo_date,
   }));
+
+export const boardOneViewPost = (list) => {
+  return {
+    id: list.bo_no,
+    User: {
+      id: list.bo_writer,
+      nickname: list.mem_nickname,
+      profileImg: list.mem_profileimg,
+    },
+    content: list.bo_content,
+    Images: list.boardImgList.map((listImg) => {
+      return {
+        id: listImg.bo_img_no,
+        bo_img_location: `${listImg.bo_img_location}`,
+      };
+    }),
+    Comments: [],
+    date: list.bo_date,
+  };
+};
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -111,6 +147,14 @@ export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
 export const UNLIKE_POST_REQUEST = 'UNLIKE_POST_REQUEST';
 export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
 export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
+
+export const SAVE_POST_REQUEST = 'SAVE_POST_REQUEST';
+export const SAVE_POST_SUCCESS = 'SAVE_POST_SUCCESS';
+export const SAVE_POST_FAILURE = 'SAVE_POST_FAILURE';
+
+export const UNSAVE_POST_REQUEST = 'UNSAVE_POST_REQUEST';
+export const UNSAVE_POST_SUCCESS = 'UNSAVE_POST_SUCCESS';
+export const UNSAVE_POST_FAILURE = 'UNSAVE_POST_FAILURE';
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCES';
@@ -272,21 +316,29 @@ const reducer = (state = initialState, action) => {
         draft.likePostError = null;
         break;
       case LIKE_POST_SUCCESS: {
-        const post = draft.mainPosts.find(
-          (v) => v.id === action.data.goodVO.bo_no,
-        );
-        if (post) {
-          post.Likers.push({ id: action.data.goodVO.mem_id });
+        if (action.data.result === 'OK') {
+          const post = draft.mainPosts.find(
+            (v) => v.id === action.data.goodVO.bo_no,
+          );
+          if (post) {
+            post.liked.id = action.data.goodVO.mem_id;
+            post.likedNumber = post.likedNumber + 1;
+          }
+          draft.likePostLoading = false;
+          draft.likePostDone = true;
+        } else if (action.data.result === 'NOTCONNECTED') {
+          draft.likePostLoading = false;
+          draft.likePostDone = false;
+          alert('로그인후 이용해주세요.');
+          draft.loginNotConnected = true;
         }
-        draft.likePostLoading = false;
-        draft.likePostDone = true;
-        draft.likePostError = null;
         break;
       }
       case LIKE_POST_FAILURE:
         draft.likePostDone = false;
         draft.likePostError = action.error;
         break;
+
       // 좋아요 취소
       case UNLIKE_POST_REQUEST:
         draft.unLikePostLoading = true;
@@ -298,9 +350,8 @@ const reducer = (state = initialState, action) => {
           (v) => v.id === action.data.goodVO.bo_no,
         );
         if (post) {
-          post.Likers = post.Likers.filter(
-            (v) => v.id !== action.data.goodVO.mem_id,
-          );
+          post.liked.id = null;
+          post.likedNumber = post.likedNumber - 1;
         }
         draft.unLikePostLoading = false;
         draft.unLikePostDone = true;
@@ -310,6 +361,59 @@ const reducer = (state = initialState, action) => {
       case UNLIKE_POST_FAILURE:
         draft.unLikePostDone = false;
         draft.unLikePostError = action.error;
+        break;
+
+      // 게시물 저장하기
+      case SAVE_POST_REQUEST:
+        draft.savePostLoading = true;
+        draft.savePostDone = false;
+        draft.savePostError = null;
+        break;
+      case SAVE_POST_SUCCESS: {
+        if (action.data.result === 'OK') {
+          const post = draft.mainPosts.find(
+            (v) => v.id === action.data.boardVO.bo_no,
+          );
+          if (post) {
+            post.saved.id = action.data.boardVO.mem_id;
+          }
+          draft.savePostLoading = false;
+          draft.savePostDone = true;
+          // draft.me.Saved.push({ id: action.data.boardVO.bo_no });
+        } else if (action.data.result === 'NOTCONNECTED') {
+          draft.savePostLoading = false;
+          draft.savePostDone = false;
+          alert('로그인후 이용해주세요!');
+          draft.notLoginConnected = true;
+        }
+
+        break;
+      }
+      case SAVE_POST_FAILURE:
+        draft.savePostDone = false;
+        draft.savePostError = action.error;
+        break;
+      // 게시물 저장하기 취소
+      case UNSAVE_POST_REQUEST:
+        draft.unSavePostLoading = true;
+        draft.unSavePostDone = false;
+        draft.unSavePostError = null;
+        break;
+      case UNSAVE_POST_SUCCESS: {
+        const post = draft.mainPosts.find(
+          (v) => v.id === action.data.boardVO.bo_no,
+        );
+        if (post) {
+          post.saved.id = null;
+        }
+        draft.unSavePostLoading = false;
+        draft.unSavePostDone = true;
+        draft.unSavePostError = null;
+        break;
+      }
+      case UNSAVE_POST_FAILURE:
+        draft.unSavePostDone = false;
+        draft.unSavePostError = action.error;
         break;
 
       // 게시물 가져오기
@@ -382,13 +486,10 @@ const reducer = (state = initialState, action) => {
         draft.getIdPostError = null;
         break;
       case GET_ID_POST_SUCCESS:
-        console.log(action.data, 'data');
         if (action.data.result === 'SUCCESS') {
           draft.getIdPostLoading = false;
           draft.getIdPostDone = true;
-          draft.mainPosts = draft.mainPosts.concat(
-            generateDummyPost(action.data.list, action.data.imgList),
-          );
+          draft.boardOneViewPost = boardOneViewPost(action.data.boardVO);
         } else if (action.data.result === 'NOTEXIST') {
           draft.getIdPostLoading = false;
           draft.getIdPostDone = false;

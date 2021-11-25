@@ -18,17 +18,7 @@ const ProfilePost = ({ myPost }) => {
                 <li>
                   <Link href={`post/${myPost[i].id}`}>
                     <a>
-                      <ProfilePostImages myPost={myPost} index={i} number={0} />
-                      {/* {myPost[i].Images.length > 1 ? (
-                        <span>
-                          <img src="/icon/more.png" />
-                        </span>
-                      ) : null}
-                      {
-                        <img
-                          src={`${baseUrl}/${myPost[i].Images[0].bo_img_location}`}
-                        />
-                      } */}
+                      <ProfilePostImages myPost={myPost[i].Images} />
                     </a>
                   </Link>
                 </li>
@@ -36,23 +26,7 @@ const ProfilePost = ({ myPost }) => {
                   <li>
                     <Link href={`post/${myPost[i + 1].id}`}>
                       <a>
-                        <ProfilePostImages
-                          myPost={myPost}
-                          index={i}
-                          number={1}
-                        />
-                        {/* {myPost[i + 1].Images.length > 1 ? (
-                          <span>
-                            <img src="/icon/more.png" />
-                          </span>
-                        ) : null}
-                        {
-                          <img
-                            src={`${baseUrl}/${
-                              myPost[i + 1].Images[0].bo_img_location
-                            }`}
-                          />
-                        } */}
+                        <ProfilePostImages myPost={myPost[i + 1].Images} />
                       </a>
                     </Link>
                   </li>
@@ -61,23 +35,7 @@ const ProfilePost = ({ myPost }) => {
                   <li>
                     <Link href={`post/${myPost[i + 2].id}`}>
                       <a>
-                        <ProfilePostImages
-                          myPost={myPost}
-                          index={i}
-                          number={2}
-                        />
-                        {/* {myPost[i + 2].Images.length > 1 ? (
-                          <span>
-                            <img src="/icon/more.png" />
-                          </span>
-                        ) : null}
-                        {
-                          <img
-                            src={`${baseUrl}/${
-                              myPost[i + 2].Images[0].bo_img_location
-                            }`}
-                          />
-                        } */}
+                        <ProfilePostImages myPost={myPost[i + 2].Images} />
                       </a>
                     </Link>
                   </li>
