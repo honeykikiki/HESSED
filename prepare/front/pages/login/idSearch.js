@@ -47,7 +47,6 @@ const IdSearch = () => {
           value={id}
           onChange={onChangeId}
           type="text"
-          required
         />
 
         {searchIdFailed ? null : id ? null : (
@@ -60,7 +59,6 @@ const IdSearch = () => {
           value={phone}
           onChange={onChangePhone}
           type="number"
-          required
         />
         {searchIdFailed ? null : phone ? null : (
           <div className={style.signupCheck}>{`전화번호를 입력해주세요.`}</div>

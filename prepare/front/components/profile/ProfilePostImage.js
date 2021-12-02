@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 
 import { baseURL } from '../../config/config';
 
-const ProfilePostImages = ({ myPost, number, index }) => {
+const ProfilePostImages = ({ myPosts, number, index }) => {
   return (
     <>
-      {myPost.length > 1 ? (
+      {myPosts.length > 1 ? (
         <span>
           <img src="/icon/more.png" alt="moreIcon" />
         </span>
       ) : null}
-      {<img src={`${baseURL}/${myPost[0].bo_img_location}`} alt="PostImg" />}
+      {<img src={`${baseURL}${myPosts}`} alt="PostImg" />}
     </>
   );
 };
 
 ProfilePostImages.propTypes = {
-  mypost: PropTypes.arrayOf(PropTypes.object),
+  myPosts: PropTypes.string,
 };
 
 export default ProfilePostImages;

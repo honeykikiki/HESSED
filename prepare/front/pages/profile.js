@@ -11,16 +11,20 @@ import {
   CHANGE_NICKNAME_REQUEST,
   CHANGE_PROFILEIMG_REQUEST,
 } from '../reducers/user';
+import {
+  MY_POST_GET_REQUEST,
+  MY_POST_MORE_GET_REQUEST,
+} from '../reducers/post';
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { me, changeNicknameDone } = useSelector((state) => state.user);
-  const { mainPosts } = useSelector((state) => state.post);
+  const { mainPosts, myPosts, myPostsLength } = useSelector(
+    (state) => state.post,
+  );
 
-  // 자기게시글만 가져오기
-  const myPost = mainPosts.filter((v) => v.User.id === me?.id);
   // 저장한 게시글만 가져오기
   const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
 
@@ -40,6 +44,13 @@ const Profile = () => {
       setPhotoToAddList();
       setNickname('');
     }
+
+    if (myPosts.length === 0 && me) {
+      dispatch({
+        type: MY_POST_GET_REQUEST,
+        data: { mem_id: me.id },
+      });
+    }
   }, [me, changeNickname, nicknameSet]);
 
   const onClickImageUpload = useCallback(() => {
@@ -50,8 +61,6 @@ const Profile = () => {
     (e) => {
       const temp = {};
       const photoToAdd = e.target.files;
-      // temp.id = photoToAdd[0].name;
-      // temp.file = photoToAdd[0];
       temp.url = URL.createObjectURL(photoToAdd[0]);
       setPhotoToAddList(temp);
     },
@@ -66,9 +75,12 @@ const Profile = () => {
     setpostToSave(false);
   }, [postToSave]);
 
-  const profileSet = useCallback((e) => {
-    setNicknameSet((prev) => !prev);
-  }, []);
+  const profileSet = useCallback(
+    (e) => {
+      setNicknameSet((prev) => !prev);
+    },
+    [nicknameSet],
+  );
 
   const clickChangeNickname = useCallback(
     (e) => {
@@ -78,17 +90,17 @@ const Profile = () => {
         dispatch({
           type: CHANGE_NICKNAME_REQUEST,
           data: {
-            userId: me.id,
-            nickname: changeNickname,
-            // mem_id : me.id
-            // mem_nickname: me.nickname
+            mem_id: me.id,
+            mem_nickname: changeNickname,
           },
         });
       }
+      const formData = new FormData();
+      formData.append('mem_profileImg', photoToAddList);
       if (photoToAddList) {
         dispatch({
           type: CHANGE_PROFILEIMG_REQUEST,
-          data: photoToAddList,
+          data: formData,
         });
       }
 
@@ -96,6 +108,12 @@ const Profile = () => {
     },
     [changeNickname, photoToAddList],
   );
+
+  const myPostMoreGet = useCallback(() => {
+    dispatch({
+      type: MY_POST_MORE_GET_REQUEST,
+    });
+  }, []);
 
   return (
     <MainLayout>
@@ -132,8 +150,8 @@ const Profile = () => {
             <div>
               <div>
                 <div>
+                  <p>{myPostsLength}</p>
                   게시글
-                  <p>{myPost.length ?? 0}</p>
                 </div>
               </div>
               <div className={style.profileNameReSet} onClick={profileSet}>
@@ -172,9 +190,16 @@ const Profile = () => {
             />
 
             {postToSave ? (
-              <ProfilePost myPost={myPost} />
+              <ProfilePost myPosts={myPosts} />
             ) : (
               <ProfilePost myPost={savePost} />
+            )}
+            {true ? (
+              <div className={style.moerPostGet} onClick={myPostMoreGet}>
+                게시글 더보기 +
+              </div>
+            ) : (
+              <div className={style.moerPostGet}>@HESSED</div>
             )}
           </div>
         </article>
