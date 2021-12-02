@@ -23,6 +23,7 @@ export const initialState = {
   mainPosts: [],
   boardOneViewPost: null,
   myPosts: [],
+  myPostsLength: null,
   savePosts: [],
   imagePaths: [],
   hasMorePosts: true,
@@ -57,6 +58,7 @@ export const initialState = {
   savePostDone: false,
   savePostError: null,
   unSavePostLoading: false, // 게시물 저장취소
+
   unSavePostDone: false,
   unSavePostError: null,
   loadPostsLoading: false, // 게시물 가져오기
@@ -66,6 +68,13 @@ export const initialState = {
   getIdPostLoading: false, // 특정 게시물 가져오기
   getIdPostDone: false,
   getIdPostError: null,
+
+  myPostGetLoading: false, // 유저가 작성한 게시글 받아오기
+  myPostGetDone: false,
+  myPostGetError: null,
+  myPostMoreGetLoading: false, // 유저가 작성한 더 게시글 받아오기
+  myPostMoreGetDone: false,
+  myPostMoreGetError: null,
 
   loginNotConnected: false,
 };
@@ -80,7 +89,6 @@ export const generateDummyPost = (list, listImg) =>
     },
     content: v.bo_content,
     Likers: [],
-
     Images: listImg.filter((listImg) => {
       if (v.bo_no === listImg.bo_no) {
         return {
@@ -115,6 +123,13 @@ export const boardOneViewPost = (list) => {
     date: list.bo_date,
   };
 };
+
+export const myPost = (list) =>
+  list.map((v, id) => ({
+    id: v.bo_no,
+    Images: v.bo_img_location,
+    postCount: v.boardCount,
+  }));
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -167,6 +182,14 @@ export const LOAD_MORE_POSTS_FAILURE = 'LOAD_MORE_POSTS_FAILURE';
 export const GET_ID_POST_REQUEST = 'GET_ID_POST_REQUEST';
 export const GET_ID_POST_SUCCESS = 'GET_ID_POST_SUCCES';
 export const GET_ID_POST_FAILURE = 'GET_ID_POST_FAILURE';
+
+export const MY_POST_GET_REQUEST = 'MY_POST_GET_REQUEST';
+export const MY_POST_GET_SUCCESS = 'MY_POST_GET_SUCCESS';
+export const MY_POST_GET_FAILURE = 'MY_POST_GET_FAILURE';
+
+export const MY_POST_MORE_GET_REQUEST = 'MY_POST_MORE_GET_REQUEST';
+export const MY_POST_MORE_GET_SUCCESS = 'MY_POST_MORE_GET_SUCCESS';
+export const MY_POST_MORE_GET_FAILURE = 'MY_POST_MORE_GET_FAILURE';
 
 export const PAGE_CHANGE = 'PAGE_CHANGE';
 
@@ -501,6 +524,49 @@ const reducer = (state = initialState, action) => {
       case GET_ID_POST_FAILURE:
         draft.getIdPostLoading = false;
         draft.getIdPostError = action.error;
+        break;
+
+      // 유저가 작성한 게시글 받아오기
+      case MY_POST_GET_REQUEST:
+        draft.myPostGetLoading = true;
+        draft.myPostGetDone = false;
+        break;
+      case MY_POST_GET_SUCCESS: {
+        if (action.data.result === 'SUCCESS') {
+          draft.myPostGetLoading = false;
+          draft.myPostGetDone = true;
+          draft.myPosts = myPost(action.data.list);
+          draft.myPostsLength = action.data.memberVO.cnt;
+        } else {
+          draft.myPostGetLoading = false;
+          draft.myPostGetDone = false;
+        }
+        break;
+      }
+      case MY_POST_GET_FAILURE:
+        draft.myPostGetDone = false;
+        draft.myPostGetError = action.error;
+        break;
+
+      // 유저가 작성한 게시글 더 받아오기
+      case MY_POST_MORE_GET_REQUEST:
+        draft.myPostMoreGetLoading = true;
+        draft.myPostMoreGetDone = false;
+        break;
+      case MY_POST_MORE_GET_SUCCESS: {
+        if (action.data.result === 'SUCCESS') {
+          draft.myPostMoreGetLoading = false;
+          draft.myPostMoreGetDone = true;
+          draft.myPosts = draft.myPosts.concat(myPost(action.data.list));
+        } else {
+          draft.myPostMoreGetLoading = false;
+          draft.myPostMoreGetDone = false;
+        }
+        break;
+      }
+      case MY_POST_MORE_GET_FAILURE:
+        draft.myPostMoreGetDone = false;
+        draft.myPostMoreGetError = action.error;
         break;
 
       case PAGE_CHANGE:

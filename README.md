@@ -4,11 +4,12 @@
 
 ## 사용기술스택
 
-> SCSS
-> JAVASCRIPT
-> NEXT
-> REDUX
-> REDUX-SAGA
+<span><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/></span>
+<span><img src="https://img.shields.io/badge/Next.js-1F262C?style=flat&logo=Next.js&logoColor=white"/></span>
+<span><img src="https://img.shields.io/badge/Redux-7247B6?style=flat&logo=Redux&logoColor=white"/></span>
+<span><img src="https://img.shields.io/badge/Redux-saga-7247B6?style=flat&logo=Redux-saga&logoColor=white"/></span>
+
+<span><img src="https://img.shields.io/badge/Sass-cc6699?style=flat&logo=sass&logoColor=white"/></span><br/>
 
 ### 시작
 
@@ -118,6 +119,7 @@
     2-7 좋아요 (게시물 좋아요 클릭시 좋아요 수 늘어나기) (완료)
     2-8 게시물 저장히기 (완료)
     2-9 좋아요 갯수 클릭시 좋아요 한사람들 표시
+    2-10 공유하기 (완료)
 
 > upload 관련
 

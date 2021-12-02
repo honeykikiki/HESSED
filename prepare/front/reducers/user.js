@@ -43,6 +43,7 @@ export const initialState = {
   changeProfileImgError: null,
 
   me: null,
+
   SearchID: null,
   SearchPW: null,
   notLoginConnected: false,
@@ -324,7 +325,7 @@ const reducer = (state = initialState, action) => {
         draft.changeNicknameLoading = false;
         draft.changeNicknameDone = true;
         draft.changeNicknameError = null;
-        draft.me.nickname = action.data.nickname;
+        draft.myPost = action.data;
         break;
       }
       case CHANGE_NICKNAME_FAILURE:

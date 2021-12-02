@@ -113,50 +113,6 @@ function* signUp(action) {
   }
 }
 
-// 닉네임 수정
-function changeNicknameAPI(data) {
-  return axios.patch(``, data);
-}
-
-function* changeNickname(action) {
-  try {
-    // const result = yield call(changeNicknameAPI);
-    yield delay(1000);
-    yield put({
-      type: CHANGE_NICKNAME_SUCCESS,
-      data: action.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: CHANGE_NICKNAME_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-// 프로필 이미지 수정
-function changeProfileImgAPI(data) {
-  return axios.patch(``, data);
-}
-
-function* changeProfileImg(action) {
-  try {
-    // const result = yield call(changeProfileImgAPI);
-    yield delay(1000);
-    yield put({
-      type: CHANGE_PROFILEIMG_SUCCESS,
-      data: action.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: CHANGE_PROFILEIMG_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
 // 아이디찾기
 function searchIdAPI(data) {
   return axios.post(`/findID.do`, data);
@@ -262,6 +218,50 @@ function* duplicateCheck(action) {
   }
 }
 
+// 닉네임 수정
+function changeNicknameAPI(data) {
+  return axios.patch(``, data);
+}
+
+function* changeNickname(action) {
+  try {
+    // const result = yield call(changeNicknameAPI);
+    yield delay(1000);
+    yield put({
+      type: CHANGE_NICKNAME_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: CHANGE_NICKNAME_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+// 프로필 이미지 수정
+function changeProfileImgAPI(data) {
+  return axios.patch(``, data);
+}
+
+function* changeProfileImg(action) {
+  try {
+    // const result = yield call(changeProfileImgAPI);
+    yield delay(1000);
+    yield put({
+      type: CHANGE_PROFILEIMG_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: CHANGE_PROFILEIMG_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
@@ -287,6 +287,7 @@ function* watchSearchPw() {
 function* watchCertified() {
   yield takeLatest(CERIFIED_REQUEST, certified);
 }
+
 function* watchPwChange() {
   yield takeLatest(PASSWORD_CHANGE_REQUEST, pwChange);
 }
@@ -305,6 +306,7 @@ export default function* userSaga() {
     fork(watchSearchId),
     fork(watchSearchPw),
     fork(watchCertified),
+
     fork(watchPwChange),
     fork(watchDuplicateCheck),
   ]);
