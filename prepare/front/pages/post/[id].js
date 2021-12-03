@@ -52,8 +52,9 @@ const Post = () => {
             <div onClick={onClickBack}>
               <img src="/icon/back.svg" width="12px" alt="BackIcon" />
             </div>
-            <div>{`${boardOneViewPost?.User.nickname}님의 게시글`}</div>
+            <div>{`${boardOneViewPost.User.nickname}님의 게시글`}</div>
           </div>
+          <div style={{ paddingTop: '34px' }}></div>
           <PostCard post={boardOneViewPost} />
         </section>
       )}

@@ -32,7 +32,6 @@ export const initialState = {
   addPostLoading: false, // 게시물 등록
   addPostDone: false,
   addPostError: null,
-  addPostFalid: true,
   removePostLoading: false, // 게시물 삭제
   removePostDone: false,
   removePostError: null,
@@ -58,13 +57,17 @@ export const initialState = {
   savePostDone: false,
   savePostError: null,
   unSavePostLoading: false, // 게시물 저장취소
-
   unSavePostDone: false,
   unSavePostError: null,
+
   loadPostsLoading: false, // 게시물 가져오기
   loadPostsDone: false,
   loadPostsError: null,
-  pageMore: false, // 게시글 넘버
+  loadPostFalid: true,
+
+  loadPostMoreFalid: true,
+  pageNumber: 2, // 게시글 넘버 업데이트
+
   getIdPostLoading: false, // 특정 게시물 가져오기
   getIdPostDone: false,
   getIdPostError: null,
@@ -72,9 +75,14 @@ export const initialState = {
   myPostGetLoading: false, // 유저가 작성한 게시글 받아오기
   myPostGetDone: false,
   myPostGetError: null,
+
   myPostMoreGetLoading: false, // 유저가 작성한 더 게시글 받아오기
   myPostMoreGetDone: false,
   myPostMoreGetError: null,
+  myPostMoreGetFailed: true,
+  myPostPageNumber: 2,
+  myPostNickname: null,
+  myPostprofileImg: null,
 
   loginNotConnected: false,
 };
@@ -129,6 +137,9 @@ export const myPost = (list) =>
     id: v.bo_no,
     Images: v.bo_img_location,
     postCount: v.boardCount,
+    User: {
+      id: v.mem_id,
+    },
   }));
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -444,12 +455,17 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsLoading = true;
         draft.loadPostsDone = false;
         draft.loadPostsError = null;
+        draft.loadPostFalid = false;
+
         break;
       case LOAD_POSTS_SUCCESS:
         if (action.data.result === 'SUCCESS') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = true;
-          draft.addPostFalid = true;
+          draft.loadPostFalid = true;
+
+          draft.loadPostMoreFalid = true;
+          draft.pageNumber = 2;
           draft.mainPosts = generateDummyPost(
             action.data.list,
             action.data.imgList,
@@ -457,11 +473,11 @@ const reducer = (state = initialState, action) => {
         } else if (action.data.result === 'NOTEXIST') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;
-          draft.addPostFalid = false;
+          draft.loadPostFalid = false;
         } else {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;
-          draft.addPostFalid = false;
+          draft.loadPostFalid = false;
         }
         // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
         // draft.hasMorePosts = action.data.length === 10;
@@ -481,20 +497,20 @@ const reducer = (state = initialState, action) => {
         if (action.data.result === 'SUCCESS') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = true;
-          draft.addPostFalid = true;
-          draft.pageMore = true;
+          draft.loadPostMoreFalid = true;
+          draft.pageNumber = draft.pageNumber + 1;
           draft.mainPosts = draft.mainPosts.concat(
             generateDummyPost(action.data.list, action.data.imgList),
           );
         } else if (action.data.result === 'NOTEXIST') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;
-          draft.addPostFalid = false;
+          draft.loadPostMoreFalid = false;
           draft.pageMore = false;
         } else {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;
-          draft.addPostFalid = false;
+          draft.loadPostMoreFalid = false;
         }
         break;
       case LOAD_MORE_POSTS_FAILURE:
@@ -535,8 +551,11 @@ const reducer = (state = initialState, action) => {
         if (action.data.result === 'SUCCESS') {
           draft.myPostGetLoading = false;
           draft.myPostGetDone = true;
-          draft.myPosts = myPost(action.data.list);
+          draft.myPosts = myPost(action.data.list, action.data.memberVO);
           draft.myPostsLength = action.data.memberVO.cnt;
+          draft.myPostPageNumber = 2;
+          draft.myPostNickname = action.data.memberVO.mem_nickname;
+          draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
         } else {
           draft.myPostGetLoading = false;
           draft.myPostGetDone = false;
@@ -557,10 +576,13 @@ const reducer = (state = initialState, action) => {
         if (action.data.result === 'SUCCESS') {
           draft.myPostMoreGetLoading = false;
           draft.myPostMoreGetDone = true;
+          draft.myPostMoreGetFailed = true;
+          draft.myPostPageNumber = draft.myPostPageNumber + 1;
           draft.myPosts = draft.myPosts.concat(myPost(action.data.list));
-        } else {
+        } else if (action.data.result === 'FAILED') {
           draft.myPostMoreGetLoading = false;
           draft.myPostMoreGetDone = false;
+          draft.myPostMoreGetFailed = false;
         }
         break;
       }

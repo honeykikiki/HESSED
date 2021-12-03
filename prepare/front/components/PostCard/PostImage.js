@@ -46,7 +46,9 @@ const PostImages = ({ images }) => {
             />
           );
         })}
-        <span>{`${imageCuurrentNo + 1} / ${images.length}`}</span>
+        {images.length === 1 ? null : (
+          <span>{`${imageCuurrentNo + 1} / ${images.length}`}</span>
+        )}
       </div>
     </>
   );

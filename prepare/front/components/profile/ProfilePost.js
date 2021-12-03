@@ -25,8 +25,8 @@ const ProfilePost = ({ myPosts }) => {
                 </li>
                 {myPosts[i + 1] && (
                   <li>
-                    {/* <Link href={`post/${myPosts[i + 1].id}`}> */}
-                    <Link href={`user/post`}>
+                    <Link href={`post/${myPosts[i + 1].id}`}>
+                      {/* <Link href={`user/post`}> */}
                       <a>
                         <ProfilePostImages myPosts={myPosts[i + 1].Images} />
                       </a>
@@ -35,8 +35,8 @@ const ProfilePost = ({ myPosts }) => {
                 )}
                 {myPosts[i + 2] && (
                   <li>
-                    {/* <Link href={`post/${myPosts[i + 2].id}`}> */}
-                    <Link href={`user/post`}>
+                    <Link href={`post/${myPosts[i + 2].id}`}>
+                      {/* <Link href={`user/post`}> */}
                       <a>
                         <ProfilePostImages myPosts={myPosts[i + 2].Images} />
                       </a>
