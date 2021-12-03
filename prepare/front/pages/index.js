@@ -17,10 +17,15 @@ import wrapper from '../store/configureStore';
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { mainPosts, loadPostsLoading, postCompleat, addPostFalid, pageMore } =
-    useSelector((state) => state.post);
-
-  const [pageNumber, setPageNumber] = useState(2);
+  const {
+    mainPosts,
+    loadPostsLoading,
+    postCompleat,
+    loadPostFalid,
+    pageMore,
+    loadPostMoreFalid,
+    pageNumber,
+  } = useSelector((state) => state.post);
 
   let number = 0;
 
@@ -33,12 +38,12 @@ const Home = () => {
   //     });
   //   }
   // }, [inView, hasMorePosts, loadPostsLoading, mainPosts, id]);
-
   useEffect(() => {
-    if (me && mainPosts.length <= 0 && addPostFalid) {
+    if (me && mainPosts.length <= 0 && loadPostFalid) {
       dispatch({
         type: LOAD_POSTS_REQUEST,
       });
+      return;
     }
 
     if (postCompleat) {
@@ -48,6 +53,7 @@ const Home = () => {
       dispatch({
         type: PAGE_CHANGE,
       });
+      return;
     }
 
     function onScroll() {
@@ -55,28 +61,31 @@ const Home = () => {
         window.scrollY + document.documentElement.clientHeight >
         document.documentElement.scrollHeight - 300
       ) {
-        if (!loadPostsLoading && number === 0) {
+        if (!loadPostsLoading && number === 0 && loadPostMoreFalid) {
           const formData = new FormData();
           formData.append('page', pageNumber);
           dispatch({
             type: LOAD_MORE_POSTS_REQUEST,
             data: formData,
           });
-          number = 1;
+          number = 1; // 여러번 실행을 막아준다
         }
       }
-    }
-
-    if (pageMore) {
-      number = 0;
-      setPageNumber((prev) => prev + 1);
     }
 
     window.addEventListener('scroll', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [mainPosts, me, postCompleat, number, pageMore]);
+  }, [
+    mainPosts,
+    me,
+    postCompleat,
+    number,
+    pageMore,
+    pageNumber,
+    loadPostFalid,
+  ]);
 
   return (
     <>
@@ -89,7 +98,7 @@ const Home = () => {
           })}
           {/* <div ref={!loadPostsLoading ? ref : undefined} /> */}
 
-          {addPostFalid ? null : (
+          {loadPostMoreFalid ? null : (
             <div className={style.bottomLogo}>@HESSED</div>
           )}
 

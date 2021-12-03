@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Router from 'next/router';
-import Link from 'next/link';
 
 import MainLayout from '../components/MainLayout';
 
@@ -21,9 +20,17 @@ import ProfilePost from '../components/profile/ProfilePost';
 const Profile = () => {
   const dispatch = useDispatch();
   const { me, changeNicknameDone } = useSelector((state) => state.user);
-  const { mainPosts, myPosts, myPostsLength } = useSelector(
-    (state) => state.post,
-  );
+  const {
+    mainPosts,
+    myPosts,
+    myPostsLength,
+    myPostGetLoading,
+    myPostpageMore,
+    myPostMoreGetDone,
+    myPostMoreGetLoading,
+    myPostPageNumber,
+    myPostMoreGetFailed,
+  } = useSelector((state) => state.post);
 
   // 저장한 게시글만 가져오기
   const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
@@ -32,12 +39,14 @@ const Profile = () => {
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [photoToAddList, setPhotoToAddList] = useState(false);
+  let pageActionControl = 0;
 
   const imageInput = useRef();
 
   useEffect(() => {
     if (!me) {
       Router.push('/');
+      return;
     }
 
     if (nicknameSet) {
@@ -45,13 +54,53 @@ const Profile = () => {
       setNickname('');
     }
 
-    if (myPosts.length === 0 && me) {
+    if (myPosts.length === 0 && me && !myPostGetLoading) {
+      const formData = new FormData();
+      formData.append('mem_id', me.id);
+      // dispatch({
+      //   type: MY_POST_GET_REQUEST,
+      //   data: formData,
+      // });
       dispatch({
         type: MY_POST_GET_REQUEST,
         data: { mem_id: me.id },
       });
     }
-  }, [me, changeNickname, nicknameSet]);
+
+    function onScroll() {
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 300
+      ) {
+        if (
+          !myPostMoreGetLoading &&
+          pageActionControl === 0 &&
+          myPostMoreGetFailed
+        ) {
+          const formData = new FormData();
+          formData.append('page', myPostPageNumber);
+          formData.append('mem_id', me.id);
+          dispatch({
+            type: MY_POST_MORE_GET_REQUEST,
+            data: formData,
+          });
+          pageActionControl = 1;
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [
+    me,
+    changeNickname,
+    nicknameSet,
+    pageActionControl,
+    myPostGetLoading,
+    myPosts,
+  ]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -108,12 +157,6 @@ const Profile = () => {
     },
     [changeNickname, photoToAddList],
   );
-
-  const myPostMoreGet = useCallback(() => {
-    dispatch({
-      type: MY_POST_MORE_GET_REQUEST,
-    });
-  }, []);
 
   return (
     <MainLayout>
@@ -194,11 +237,7 @@ const Profile = () => {
             ) : (
               <ProfilePost myPost={savePost} />
             )}
-            {true ? (
-              <div className={style.moerPostGet} onClick={myPostMoreGet}>
-                게시글 더보기 +
-              </div>
-            ) : (
+            {myPostMoreGetDone ? null : (
               <div className={style.moerPostGet}>@HESSED</div>
             )}
           </div>

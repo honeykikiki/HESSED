@@ -370,7 +370,7 @@ function* myPostGet(action) {
 
 // 작성 게시물 더 받아오기
 function myPostMoreGetAPI(data) {
-  return axios.post(`/profile.do?mem_id=${data.mem_id}`, data);
+  return axios.post(`/profile/list.do?mem_id=${data.mem_id}`, data);
 }
 
 function* myPostMoreGet(action) {
@@ -432,8 +432,12 @@ function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
 
+// function* watchLoadMorePosts() {
+//   yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
+// }
+
 function* watchLoadMorePosts() {
-  yield throttle(5000, LOAD_MORE_POSTS_REQUEST, loadMorePosts);
+  yield takeLatest(LOAD_MORE_POSTS_REQUEST, loadMorePosts);
 }
 
 function* watchGetIdPost() {
@@ -447,10 +451,6 @@ function* watchMyPostGet() {
 function* watchMyPostMoreGet() {
   yield takeLatest(MY_POST_MORE_GET_REQUEST, myPostMoreGet);
 }
-
-// function* watchLoadMorePosts() {
-//   yield takeLatest(LOAD_MORE_POSTS_REQUEST, loadMorePosts);
-// }
 
 export default function* userSaga() {
   yield all([

@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { MY_POST_GET_REQUEST, MY_POST_GET_SUCCESS } from './post';
 
 export const initialState = {
   logInLoading: false, // 로그인 시도중
@@ -43,10 +44,10 @@ export const initialState = {
   changeProfileImgError: null,
 
   me: null,
-
   SearchID: null,
   SearchPW: null,
-  notLoginConnected: false,
+
+  // notLoginConnected: false,
 };
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
@@ -359,8 +360,8 @@ const reducer = (state = initialState, action) => {
       case SIGNUP_CHANGE_DISPLAY:
         draft.signUpDisplayChange = false;
       default:
-        break;
     }
   });
 };
+
 export default reducer;

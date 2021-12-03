@@ -8,7 +8,7 @@ import QrCode from './QrCode/QrCode';
 import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import Router from 'next/router';
-import { LOAD_POSTS_REQUEST } from '../reducers/post';
+import { LOAD_POSTS_REQUEST, MY_POST_GET_REQUEST } from '../reducers/post';
 import { baseURL } from '../config/config';
 
 const MainLayout = ({ children }) => {
@@ -54,7 +54,11 @@ const MainLayout = ({ children }) => {
   }, []);
   const onProfile = useCallback(() => {
     Router.push('/profile');
-  }, []);
+    dispatch({
+      type: MY_POST_GET_REQUEST,
+      data: { mem_id: me.id },
+    });
+  }, [me]);
   return (
     <>
       <div className={style.wrapper}>

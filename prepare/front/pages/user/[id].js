@@ -11,29 +11,86 @@ import useInput from '../../hooks/useInput';
 import { CHANGE_NICKNAME_REQUEST } from '../../reducers/user';
 import ProfileIcon from '../../components/profile/ProfileIcon';
 import ProfilePost from '../../components/profile/ProfilePost';
+import {
+  MY_POST_GET_REQUEST,
+  MY_POST_MORE_GET_REQUEST,
+} from '../../reducers/post';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { me, changeNicknameDone } = useSelector((state) => state.user);
-  const { mainPosts } = useSelector((state) => state.post);
-
-  const router = useRouter();
-  const { id } = router.query;
-
-  const myPost = mainPosts.filter((v) => v.User.id === id);
+  const {
+    myPosts,
+    myPostMoreGetLoading,
+    myPostMoreGetFailed,
+    myPostsLength,
+    myPostPageNumber,
+    myPostNickname,
+    myPostMoreGetDone,
+    myPostGetLoading,
+    myPostprofileImg,
+  } = useSelector((state) => state.post);
 
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [changeNickname, onChangeNickname, setNickname] = useInput();
 
+  const router = useRouter();
+  const { id } = router.query;
+  let actionControl = 0;
+
   useEffect(() => {
-    if (!me) {
-      Router.push('/');
-    }
+    // if (!me) {
+    //   Router.push('/');
+    // }
     if (changeNicknameDone) {
       setNickname('');
     }
-  }, [me, changeNickname]);
+
+    if (myPosts.length === 0 && !myPostGetLoading && id) {
+      dispatch({
+        type: MY_POST_GET_REQUEST,
+        data: { mem_id: id },
+      });
+    }
+
+    function onScroll() {
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 300
+      ) {
+        if (
+          !myPostMoreGetLoading &&
+          actionControl === 0 &&
+          myPostMoreGetFailed
+        ) {
+          const formData = new FormData();
+          formData.append('page', myPostPageNumber);
+          formData.append('mem_id', id);
+          dispatch({
+            type: MY_POST_MORE_GET_REQUEST,
+            data: formData,
+          });
+          actionControl = 0;
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [
+    me,
+    changeNickname,
+    id,
+    myPostPageNumber,
+    myPostMoreGetFailed,
+    myPostMoreGetLoading,
+    actionControl,
+    myPostGetLoading,
+    myPosts,
+  ]);
 
   const onPost = useCallback(() => {
     setpostToSave(true);
@@ -43,13 +100,6 @@ const Profile = () => {
     setpostToSave(false);
   }, [postToSave]);
 
-  const savedArray = [];
-
-  // const meSa = me?.Saved.forEach((v) => {
-  //   savedArray.push(v.id);
-  // });
-  // const savePost = mainPosts.filter((v) => savedArray?.includes(v.id));
-
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
@@ -57,18 +107,12 @@ const Profile = () => {
   return (
     <MainLayout>
       <Head>
-        <title>{`HESSED ${myPost[0]?.User.nickname} 님의 게사글`}</title>
-        <meta
-          name="description"
-          content={`${myPost[0]?.User.nickname}님의 게시글`}
-        />
-        <meta
-          property="og:title"
-          content={`${myPost[0]?.User.nickname}님의 게시글`}
-        />
+        <title>{`HESSED ${myPostNickname} 님의 게사글`}</title>
+        <meta name="description" content={`${myPostNickname}님의 게시글`} />
+        <meta property="og:title" content={`${myPostNickname}님의 게시글`} />
         <meta
           property="og:description"
-          content={`${myPost[0]?.User.nickname}님의 게시글`}
+          content={`${myPostNickname}님의 게시글`}
         />
         <meta property="og:image" content="/icon/HESSED_LOGO-W.png" />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
@@ -78,24 +122,34 @@ const Profile = () => {
         <div onClick={onClickBack}>
           <img src="/icon/back.svg" width="12px" alt="BackIcon" />
         </div>
-        <div>{`${myPost[0]?.User.nickname}님의 게시글`}</div>
+        <div>{`${myPostNickname}님의 게시글`}</div>
       </div>
 
+      <div style={{ paddingTop: '44px' }}></div>
       <section className={style.a}>
         <article className={style.maxWidth}>
           <div className={style.profileImg}>
             <div>
               <div>
-                <img src="/icon/profle_img.png" alt="ProfileIcon" />
+                {myPostprofileImg ? (
+                  <img src={`${myPostprofileImg}`} alt="ProfiltImg" />
+                ) : (
+                  <img
+                    src="/icon/profileBasic.svg"
+                    className={style.profileBasic}
+                    alt="ProfiltImg"
+                  />
+                )}
+                {/* <img src="/icon/profle_img.png" alt="ProfileIcon" /> */}
               </div>
-              <p>{myPost[0]?.User.nickname}</p>
+              <p>{myPostNickname}</p>
             </div>
 
             <div>
               <div>
                 <div>
+                  <p>{myPostsLength}</p>
                   게시글
-                  <p>{myPost.length ?? 0}</p>
                 </div>
               </div>
               {/* <div className={style.profileNameReSet} onClick={profileSet}>
@@ -123,15 +177,18 @@ const Profile = () => {
               onPost={onPost}
               postToSave={postToSave}
             />
-
             {postToSave ? (
-              <ProfilePost myPost={myPost} />
+              <ProfilePost myPosts={myPosts} />
             ) : (
               <ProfilePost myPost={savePost} />
             )}
           </div>
+          {myPostMoreGetDone ? null : (
+            <div className={style.moerPostGet}>@HESSED</div>
+          )}
         </article>
       </section>
+      <div style={{ paddingBottom: '54px' }}></div>
     </MainLayout>
   );
 };
