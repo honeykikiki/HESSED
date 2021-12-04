@@ -5,7 +5,7 @@ import style from '../../styles/css/dynamicComment.module.css';
 import useInput from '../../hooks/useInput';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_COMMENT_REPLY_REQUEST } from '../../reducers/post';
+import { ADD_COMMENT_REPLY_REQUEST } from '../../reducers/postMainAction';
 import { COMMENT_TO_REPLY_CLOSE } from '../../reducers/menu';
 
 import CommentOptionBtn from './CommentOptionBtn';
@@ -20,8 +20,8 @@ const CommentsToReply = ({
 }) => {
   const dispatch = useDispatch();
   const { commentToReply } = useSelector((state) => state.menu);
-  const { addCommentReplyDone } = useSelector((state) => state.post);
-  const { me } = useSelector((state) => state.user);
+  const { addCommentReplyDone } = useSelector((state) => state.postMainAction);
+  const { me } = useSelector((state) => state.userInfo);
 
   const [reply, onChangereply, setReply] = useInput(true);
   const [commentReply, onChangeInput, setCommentReply] = useInput('');

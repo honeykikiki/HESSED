@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,17 +6,19 @@ import style from '../styles/css/mainPage.module.css';
 
 import QrCode from './QrCode/QrCode';
 import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
-import { LOG_OUT_REQUEST } from '../reducers/user';
+import { LOG_OUT_REQUEST } from '../reducers/userSign';
 import Router from 'next/router';
-import { LOAD_POSTS_REQUEST, MY_POST_GET_REQUEST } from '../reducers/post';
+
 import { baseURL } from '../config/config';
+import { LOAD_MORE_POSTS_REQUEST } from '../reducers/postMainAction';
+import { MY_POST_GET_REQUEST } from '../reducers/userPost';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
   const { postCard, upLoad, qrCode, profile } = useSelector(
     (state) => state.menu,
   );
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
 
   const [profileToggle, setProfileToggle] = useState(false);
 
@@ -32,7 +34,7 @@ const MainLayout = ({ children }) => {
       type: POST_CARD,
     });
     dispatch({
-      type: LOAD_POSTS_REQUEST,
+      type: LOAD_MORE_POSTS_REQUEST,
     });
   }, [postCard]);
   const upLoadClick = useCallback(() => {

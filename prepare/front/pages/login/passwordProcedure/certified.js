@@ -5,11 +5,11 @@ import Router from 'next/router';
 import LoginLayout from '../../../components/LoginLayout';
 import useInput from '../../../hooks/useInput';
 import style from '../../../styles/css/loginForm.module.css';
-import { CERIFIED_REQUEST } from '../../../reducers/user';
+import { CERIFIED_REQUEST } from '../../../reducers/userSign';
 
 const Certified = () => {
   const dispatch = useDispatch();
-  const { cerifiedDone, SearchPW } = useSelector((state) => state.user);
+  const { cerifiedDone, SearchPW } = useSelector((state) => state.userSign);
 
   const [certified, onChangeCertified, setCertified] = useInput('');
 

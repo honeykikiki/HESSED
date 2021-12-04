@@ -5,16 +5,16 @@ import MainLayout from '../components/MainLayout';
 import style from '../styles/css/upload.module.css';
 import useInput from '../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_POST_REQUEST, LOAD_POSTS_REQUEST } from '../reducers/post';
+
 import { POST_CARD } from '../reducers/menu';
 import UploadImages from '../components/postUpload/UploadImages';
+import { ADD_POST_REQUEST } from '../reducers/postAdd';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
-  const { mainPosts, addPostDone, postCompleat } = useSelector(
-    (state) => state.post,
-  );
+  const { me } = useSelector((state) => state.userInfo);
+
+  const { addPostDone, postCompleat } = useSelector((state) => state.postAdd);
 
   const [photoToAddList, setPhotoToAddList] = useState([]);
   const [content, onChangeContent, setContetn] = useInput();

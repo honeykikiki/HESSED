@@ -5,11 +5,12 @@ import LoginLayout from '../LoginLayout';
 import useInput from '../../hooks/useInput';
 import style from '../../styles/css/loginForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOG_IN_REQUEST, SIGNUP_CHANGE_DISPLAY } from '../../reducers/user';
+import { LOG_IN_REQUEST, SIGNUP_CHANGE_DISPLAY } from '../../reducers/userSign';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { logInFailed, signUpDone } = useSelector((state) => state.user);
+  const { signUpDone } = useSelector((state) => state.userSign);
+  const { logInFailed } = useSelector((state) => state.userInfo);
 
   const [id, onchangeId, setId] = useInput('');
   const [password, onchangePassword, setPassword] = useInput('');

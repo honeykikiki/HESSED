@@ -5,11 +5,13 @@ import Router from 'next/router';
 import LoginLayout from '../../../components/LoginLayout';
 import useInput from '../../../hooks/useInput';
 import style from '../../../styles/css/loginForm.module.css';
-import { PASSWORD_CHANGE_REQUEST } from '../../../reducers/user';
+import { PASSWORD_CHANGE_REQUEST } from '../../../reducers/userSign';
 
 const PwChange = () => {
   const dispatch = useDispatch();
-  const { passwordChangeDone, SearchPW } = useSelector((state) => state.user);
+  const { passwordChangeDone, SearchPW } = useSelector(
+    (state) => state.userSign,
+  );
 
   useEffect(() => {
     if (passwordChangeDone) {

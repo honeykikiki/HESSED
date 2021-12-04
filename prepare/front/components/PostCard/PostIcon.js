@@ -6,14 +6,14 @@ import style from '../../styles/css/postIcon.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   LIKE_POST_REQUEST,
-  UNLIKE_POST_REQUEST,
   SAVE_POST_REQUEST,
+  UNLIKE_POST_REQUEST,
   UNSAVE_POST_REQUEST,
-} from '../../reducers/post';
+} from '../../reducers/postMainAction';
 
 const PostIcon = ({ post }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
 
   const [url, setUrl] = useState();
 

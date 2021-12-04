@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const UersPosts = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
 
   return (
     <>

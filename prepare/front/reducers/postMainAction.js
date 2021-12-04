@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { baseURL } from '../config/config';
+import { REMOVE_POST_SUCCESS } from './postAdd';
 
 //  더미데이터
 // export const generateDummyPost = (number) =>
@@ -21,20 +21,7 @@ import { baseURL } from '../config/config';
 
 export const initialState = {
   mainPosts: [],
-  boardOneViewPost: null,
-  myPosts: [],
-  myPostsLength: null,
-  savePosts: [],
-  imagePaths: [],
-  hasMorePosts: true,
-  postCompleat: false,
 
-  addPostLoading: false, // 게시물 등록
-  addPostDone: false,
-  addPostError: null,
-  removePostLoading: false, // 게시물 삭제
-  removePostDone: false,
-  removePostError: null,
   addCommentLoading: false, // 댓글달기
   addCommentDone: false,
   addCommentError: null,
@@ -68,22 +55,6 @@ export const initialState = {
   loadPostMoreFalid: true,
   pageNumber: 2, // 게시글 넘버 업데이트
 
-  getIdPostLoading: false, // 특정 게시물 가져오기
-  getIdPostDone: false,
-  getIdPostError: null,
-
-  myPostGetLoading: false, // 유저가 작성한 게시글 받아오기
-  myPostGetDone: false,
-  myPostGetError: null,
-
-  myPostMoreGetLoading: false, // 유저가 작성한 더 게시글 받아오기
-  myPostMoreGetDone: false,
-  myPostMoreGetError: null,
-  myPostMoreGetFailed: true,
-  myPostPageNumber: 2,
-  myPostNickname: null,
-  myPostprofileImg: null,
-
   loginNotConnected: false,
 };
 
@@ -111,44 +82,6 @@ export const generateDummyPost = (list, listImg) =>
     Comments: [],
     date: v.bo_date,
   }));
-
-export const boardOneViewPost = (list) => {
-  return {
-    id: list.bo_no,
-    User: {
-      id: list.bo_writer,
-      nickname: list.mem_nickname,
-      profileImg: list.mem_profileimg,
-    },
-    content: list.bo_content,
-    Images: list.boardImgList.map((listImg) => {
-      return {
-        id: listImg.bo_img_no,
-        bo_img_location: `${listImg.bo_img_location}`,
-      };
-    }),
-    Comments: [],
-    date: list.bo_date,
-  };
-};
-
-export const myPost = (list) =>
-  list.map((v, id) => ({
-    id: v.bo_no,
-    Images: v.bo_img_location,
-    postCount: v.boardCount,
-    User: {
-      id: v.mem_id,
-    },
-  }));
-
-export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
-export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
-export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
-
-export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
-export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
-export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
@@ -190,65 +123,14 @@ export const LOAD_MORE_POSTS_REQUEST = 'LOAD_MORE_POSTS_REQUEST';
 export const LOAD_MORE_POSTS_SUCCESS = 'LOAD_MORE_POSTS_SUCCES';
 export const LOAD_MORE_POSTS_FAILURE = 'LOAD_MORE_POSTS_FAILURE';
 
-export const GET_ID_POST_REQUEST = 'GET_ID_POST_REQUEST';
-export const GET_ID_POST_SUCCESS = 'GET_ID_POST_SUCCES';
-export const GET_ID_POST_FAILURE = 'GET_ID_POST_FAILURE';
-
-export const MY_POST_GET_REQUEST = 'MY_POST_GET_REQUEST';
-export const MY_POST_GET_SUCCESS = 'MY_POST_GET_SUCCESS';
-export const MY_POST_GET_FAILURE = 'MY_POST_GET_FAILURE';
-
-export const MY_POST_MORE_GET_REQUEST = 'MY_POST_MORE_GET_REQUEST';
-export const MY_POST_MORE_GET_SUCCESS = 'MY_POST_MORE_GET_SUCCESS';
-export const MY_POST_MORE_GET_FAILURE = 'MY_POST_MORE_GET_FAILURE';
-
-export const PAGE_CHANGE = 'PAGE_CHANGE';
-
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      // 게시물 등록
-      case ADD_POST_REQUEST:
-        draft.addPostLoading = true;
-        draft.addPostDone = false;
-        draft.addPostError = null;
-        break;
-      case ADD_POST_SUCCESS: {
-        if (action.data.result === 'OK') {
-          draft.addPostLoading = false;
-          draft.addPostDone = true;
-          draft.postCompleat = true;
-        } else {
-          draft.addPostLoading = false;
-          draft.addPostDone = false;
-          draft.postCompleat = false;
-        }
-
-        break;
-      }
-      case ADD_POST_FAILURE:
-        draft.addPostDone = false;
-        draft.addPostError = action.error;
-        break;
-
       // 게시물 삭제
-      case REMOVE_POST_REQUEST:
-        draft.removePostLoading = true;
-        draft.removePostDone = false;
-        draft.removePostError = null;
-        break;
-      case REMOVE_POST_SUCCESS: {
-        draft.removePostLoading = false;
-        draft.removePostDone = true;
-        draft.removePostError = null;
-        draft.mainPosts = draft.mainPosts.filter(
+      case REMOVE_POST_SUCCESS:
+        draft.mainPosts = draft.mainPosts = draft.mainPosts.filter(
           (v) => v.id !== action.data.postId,
         );
-        break;
-      }
-      case REMOVE_POST_FAILURE:
-        draft.removePostDone = false;
-        draft.removePostError = action.error;
         break;
 
       // 댓글달기
@@ -418,7 +300,6 @@ const reducer = (state = initialState, action) => {
           draft.savePostLoading = false;
           draft.savePostDone = false;
           alert('로그인후 이용해주세요!');
-          draft.notLoginConnected = true;
         }
 
         break;
@@ -479,8 +360,6 @@ const reducer = (state = initialState, action) => {
           draft.loadPostsDone = false;
           draft.loadPostFalid = false;
         }
-        // draft.mainPosts = draft.mainPosts.concat(generateDummyPost(10));
-        // draft.hasMorePosts = action.data.length === 10;
         break;
       case LOAD_POSTS_FAILURE:
         draft.loadPostsLoading = false;
@@ -506,7 +385,6 @@ const reducer = (state = initialState, action) => {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;
           draft.loadPostMoreFalid = false;
-          draft.pageMore = false;
         } else {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;
@@ -516,83 +394,6 @@ const reducer = (state = initialState, action) => {
       case LOAD_MORE_POSTS_FAILURE:
         draft.loadPostsLoading = false;
         draft.loadPostsError = action.error;
-        break;
-
-      // 특정 게시물 가져오기
-      case GET_ID_POST_REQUEST:
-        draft.getIdPostLoading = true;
-        draft.getIdPostDone = false;
-        draft.getIdPostError = null;
-        break;
-      case GET_ID_POST_SUCCESS:
-        if (action.data.result === 'SUCCESS') {
-          draft.getIdPostLoading = false;
-          draft.getIdPostDone = true;
-          draft.boardOneViewPost = boardOneViewPost(action.data.boardVO);
-        } else if (action.data.result === 'NOTEXIST') {
-          draft.getIdPostLoading = false;
-          draft.getIdPostDone = false;
-        } else {
-          draft.getIdPostLoading = false;
-          draft.getIdPostDone = false;
-        }
-        break;
-      case GET_ID_POST_FAILURE:
-        draft.getIdPostLoading = false;
-        draft.getIdPostError = action.error;
-        break;
-
-      // 유저가 작성한 게시글 받아오기
-      case MY_POST_GET_REQUEST:
-        draft.myPostGetLoading = true;
-        draft.myPostGetDone = false;
-        break;
-      case MY_POST_GET_SUCCESS: {
-        if (action.data.result === 'SUCCESS') {
-          draft.myPostGetLoading = false;
-          draft.myPostGetDone = true;
-          draft.myPosts = myPost(action.data.list, action.data.memberVO);
-          draft.myPostsLength = action.data.memberVO.cnt;
-          draft.myPostPageNumber = 2;
-          draft.myPostNickname = action.data.memberVO.mem_nickname;
-          draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
-        } else {
-          draft.myPostGetLoading = false;
-          draft.myPostGetDone = false;
-        }
-        break;
-      }
-      case MY_POST_GET_FAILURE:
-        draft.myPostGetDone = false;
-        draft.myPostGetError = action.error;
-        break;
-
-      // 유저가 작성한 게시글 더 받아오기
-      case MY_POST_MORE_GET_REQUEST:
-        draft.myPostMoreGetLoading = true;
-        draft.myPostMoreGetDone = false;
-        break;
-      case MY_POST_MORE_GET_SUCCESS: {
-        if (action.data.result === 'SUCCESS') {
-          draft.myPostMoreGetLoading = false;
-          draft.myPostMoreGetDone = true;
-          draft.myPostMoreGetFailed = true;
-          draft.myPostPageNumber = draft.myPostPageNumber + 1;
-          draft.myPosts = draft.myPosts.concat(myPost(action.data.list));
-        } else if (action.data.result === 'FAILED') {
-          draft.myPostMoreGetLoading = false;
-          draft.myPostMoreGetDone = false;
-          draft.myPostMoreGetFailed = false;
-        }
-        break;
-      }
-      case MY_POST_MORE_GET_FAILURE:
-        draft.myPostMoreGetDone = false;
-        draft.myPostMoreGetError = action.error;
-        break;
-
-      case PAGE_CHANGE:
-        draft.postCompleat = false;
         break;
 
       default:

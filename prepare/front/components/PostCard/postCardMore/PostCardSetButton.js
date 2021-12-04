@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import style from '../../../styles/css/postCard.module.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { REMOVE_POST_REQUEST } from '../../../reducers/post';
+import { REMOVE_POST_REQUEST } from '../../../reducers/postAdd';
 
 const PostCardSetButton = ({ post }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
   const [optionButton, setOptionButton] = useState(true);
 
   useEffect(() => {

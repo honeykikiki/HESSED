@@ -8,6 +8,7 @@ import {
   takeLatest,
   throttle,
 } from 'redux-saga/effects';
+
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
@@ -15,9 +16,6 @@ import {
   ADD_COMMENT_REPLY_REQUEST,
   ADD_COMMENT_REPLY_SUCCESS,
   ADD_COMMENT_REPLY_FAILURE,
-  REMOVE_POST_REQUEST,
-  REMOVE_POST_SUCCESS,
-  REMOVE_POST_FAILURE,
   REMOVE_COMMENT_REQUEST,
   REMOVE_COMMENT_SUCCESS,
   REMOVE_COMMENT_FAILURE,
@@ -36,71 +34,12 @@ import {
   UNSAVE_POST_REQUEST,
   UNSAVE_POST_SUCCESS,
   UNSAVE_POST_FAILURE,
-  ADD_POST_SUCCESS,
-  ADD_POST_FAILURE,
-  ADD_POST_REQUEST,
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
   LOAD_POSTS_FAILURE,
   LOAD_MORE_POSTS_REQUEST,
   LOAD_MORE_POSTS_SUCCESS,
-  GET_ID_POST_REQUEST,
-  GET_ID_POST_SUCCESS,
-  GET_ID_POST_FAILURE,
-  MY_POST_GET_REQUEST,
-  MY_POST_GET_SUCCESS,
-  MY_POST_GET_FAILURE,
-  MY_POST_MORE_GET_REQUEST,
-  MY_POST_MORE_GET_SUCCESS,
-  MY_POST_MORE_GET_FAILURE,
-} from '../reducers/post';
-
-// 게시물 등록하기
-function addPostAPI(data) {
-  return axios.post(
-    // `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
-    `/board/insert.do`,
-    data,
-  );
-}
-
-function* addPost(action) {
-  try {
-    const result = yield call(addPostAPI, action.data);
-    yield put({
-      type: ADD_POST_SUCCESS,
-      data: result.data,
-    });
-  } catch (error) {
-    console.error(error);
-    yield put({
-      type: ADD_POST_FAILURE,
-      data: error.response.data,
-    });
-  }
-}
-
-// 게시물 삭제하기
-function removePostAPI(data) {
-  return axios.delete(`/post/${data.postId}`);
-}
-
-function* removePost(action) {
-  try {
-    // const result = yield call(removePostAPI, action.data)
-    yield delay(1000);
-    yield put({
-      type: REMOVE_POST_SUCCESS,
-      data: action.data,
-    });
-  } catch (error) {
-    console.error(error);
-    yield put({
-      type: REMOVE_POST_FAILURE,
-      data: error.response.data,
-    });
-  }
-}
+} from '../reducers/postMainAction';
 
 //댓글달기
 function addPostCommentAPI(data) {
@@ -325,77 +264,6 @@ function* loadMorePosts(action) {
   }
 }
 
-// 특정 게시물  가져오기
-function getIdPostAPI(data) {
-  // return axios.get(`/board/list.do?page=${data.page}`, data);
-  return axios.get(`/board/view/${data.bo_no}`, data);
-}
-
-function* getIdPost(action) {
-  try {
-    const result = yield call(getIdPostAPI, action.data);
-    yield put({
-      type: GET_ID_POST_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: GET_ID_POST_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-// 작성 게시물 받아오기
-function myPostGetAPI(data) {
-  return axios.post(`/profile.do?mem_id=${data.mem_id}`, data);
-}
-
-function* myPostGet(action) {
-  try {
-    const result = yield call(myPostGetAPI, action.data);
-    yield put({
-      type: MY_POST_GET_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: MY_POST_GET_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-// 작성 게시물 더 받아오기
-function myPostMoreGetAPI(data) {
-  return axios.post(`/profile/list.do?mem_id=${data.mem_id}`, data);
-}
-
-function* myPostMoreGet(action) {
-  try {
-    const result = yield call(myPostMoreGetAPI, action.data);
-    yield put({
-      type: MY_POST_MORE_GET_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: MY_POST_MORE_GET_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-function* watchAddPost() {
-  yield takeLatest(ADD_POST_REQUEST, addPost);
-}
-function* watchRemovePost() {
-  yield takeLatest(REMOVE_POST_REQUEST, removePost);
-}
-
 function* watchAddPostComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addPostComment);
 }
@@ -440,22 +308,8 @@ function* watchLoadMorePosts() {
   yield takeLatest(LOAD_MORE_POSTS_REQUEST, loadMorePosts);
 }
 
-function* watchGetIdPost() {
-  yield takeLatest(GET_ID_POST_REQUEST, getIdPost);
-}
-
-function* watchMyPostGet() {
-  yield takeLatest(MY_POST_GET_REQUEST, myPostGet);
-}
-
-function* watchMyPostMoreGet() {
-  yield takeLatest(MY_POST_MORE_GET_REQUEST, myPostMoreGet);
-}
-
-export default function* userSaga() {
+export default function* postMainActionSaga() {
   yield all([
-    fork(watchAddPost),
-    fork(watchRemovePost),
     fork(watchAddPostComment),
     fork(watchAddRemoveComment),
     fork(watchAddPostCommentReply),
@@ -466,8 +320,5 @@ export default function* userSaga() {
     fork(watchUnSavePost),
     fork(watchLoadPosts),
     fork(watchLoadMorePosts),
-    fork(watchGetIdPost),
-    fork(watchMyPostGet),
-    fork(watchMyPostMoreGet),
   ]);
 }
