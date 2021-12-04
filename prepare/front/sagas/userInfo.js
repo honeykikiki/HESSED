@@ -15,8 +15,6 @@ import {
   CHANGE_PROFILEIMG_FAILURE,
 } from '../reducers/userInfo';
 
-const API = () => {};
-
 // 로그인
 function logInAPI(data) {
   return axios.post(`/login.do`, data);

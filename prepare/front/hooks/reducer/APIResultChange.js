@@ -47,7 +47,6 @@ export const generateDummyPost = (list, listImg) =>
 
 // userInfo
 export const dummyUser = (data) => ({
-  // ...data,
   no: data.mem_no,
   id: data.mem_id,
   name: data.mem_name,

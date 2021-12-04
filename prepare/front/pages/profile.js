@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Router from 'next/router';
+import { useInView } from 'react-intersection-observer';
 
 import MainLayout from '../components/MainLayout';
 
@@ -30,6 +31,7 @@ const Profile = () => {
     myPostPageNumber,
     myPostMoreGetFailed,
   } = useSelector((state) => state.userPost);
+  const [ref, inView] = useInView();
 
   // 저장한 게시글만 가져오기
   // const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
@@ -38,7 +40,6 @@ const Profile = () => {
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [photoToAddList, setPhotoToAddList] = useState(false);
-  let pageActionControl = 0;
 
   const imageInput = useRef();
 
@@ -66,39 +67,24 @@ const Profile = () => {
       });
     }
 
-    function onScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (
-          !myPostMoreGetLoading &&
-          pageActionControl === 0 &&
-          myPostMoreGetFailed
-        ) {
-          const formData = new FormData();
-          formData.append('page', myPostPageNumber);
-          formData.append('mem_id', me.id);
-          dispatch({
-            type: MY_POST_MORE_GET_REQUEST,
-            data: formData,
-          });
-          pageActionControl = 1;
-        }
-      }
+    if (inView && !myPostMoreGetLoading && myPostMoreGetFailed) {
+      const formData = new FormData();
+      formData.append('page', myPostPageNumber);
+      formData.append('mem_id', me.id);
+      dispatch({
+        type: MY_POST_MORE_GET_REQUEST,
+        data: formData,
+      });
     }
-
-    window.addEventListener('scroll', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
   }, [
     me,
-    changeNickname,
     nicknameSet,
-    pageActionControl,
     myPostGetLoading,
     myPosts,
+    myPostMoreGetFailed,
+    myPostMoreGetLoading,
+    myPostPageNumber,
+    inView,
   ]);
 
   const onClickImageUpload = useCallback(() => {
@@ -236,6 +222,12 @@ const Profile = () => {
             ) : (
               <ProfilePost myPost={savePost} />
             )}
+
+            <div
+              ref={
+                !myPostMoreGetLoading && myPostMoreGetFailed ? ref : undefined
+              }
+            />
             {myPostMoreGetDone ? null : (
               <div className={style.moerPostGet}>@HESSED</div>
             )}

@@ -13,8 +13,8 @@ import {
 } from '../reducers/postMainAction';
 import { PAGE_CHANGE } from '../reducers/postAdd';
 
-// import { END } from 'redux-saga';
-// import wrapper from '../store/configureStore';
+import { END } from 'redux-saga';
+import wrapper from '../store/configureStore';
 
 const Home = () => {
   const dispatch = useDispatch();

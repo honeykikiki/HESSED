@@ -23,7 +23,9 @@ const Hessed = ({ Component }) => {
       <Head>
         <title>HESSED</title>
         <meta charSet="utf-8" />
-        {/* 메타태그 작성하기 */}
+        <meta name="Description" content="HESSED 웹 앱" />
+        <meta name="Keywords" content="HESSED공동체의 소셜미디어" />
+        <meta name="Author" content="honey-kikiki" />
         <link rel="shortcut" href="/favicon.ico" />
       </Head>
 

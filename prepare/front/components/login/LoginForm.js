@@ -5,7 +5,8 @@ import LoginLayout from '../LoginLayout';
 import useInput from '../../hooks/useInput';
 import style from '../../styles/css/loginForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOG_IN_REQUEST, SIGNUP_CHANGE_DISPLAY } from '../../reducers/userSign';
+import { LOG_IN_REQUEST } from '../../reducers/userInfo';
+import { SIGN_UP_REQUEST } from '../../reducers/userSign';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Login = () => {
   useEffect(() => {
     if (signUpDone) {
       dispatch({
-        type: SIGNUP_CHANGE_DISPLAY,
+        type: SIGN_UP_REQUEST,
       });
     }
   }, [signUpDone]);

@@ -20,16 +20,6 @@ const Home = () => {
   const [content, onChangeContent, setContetn] = useInput();
   const [notice, onChangeNotice, setNotice] = useInput(false);
 
-  const imageInput = useRef();
-  const ref = useRef();
-  const handleResizeHeight = useCallback(() => {
-    if (ref === null || ref.current === null) {
-      return;
-    }
-    ref.current.style.height = '20px';
-    ref.current.style.height = ref.current.scrollHeight + 'px';
-  }, []); //댓글창 크기 자동조절
-
   useEffect(() => {
     if (!me) {
       Router.push('/');
@@ -43,6 +33,16 @@ const Home = () => {
       }
     }
   }, [me, addPostDone, postCompleat]);
+
+  const imageInput = useRef();
+  const ref = useRef();
+  const handleResizeHeight = useCallback(() => {
+    if (ref === null || ref.current === null) {
+      return;
+    }
+    ref.current.style.height = '20px';
+    ref.current.style.height = ref.current.scrollHeight + 'px';
+  }, []); //댓글창 크기 자동조절
 
   const checkboxClick = useCallback(() => {
     setNotice((prev) => !prev);

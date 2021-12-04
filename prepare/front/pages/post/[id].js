@@ -20,10 +20,6 @@ const Post = () => {
   const { boardOneViewPost } = useSelector((state) => state.getIdPost);
   const { loginNotConnected } = useSelector((state) => state.postMainAction);
 
-  const onClickBack = useCallback(() => {
-    Router.back();
-  }, []);
-
   useEffect(() => {
     if (id) {
       dispatch({
@@ -35,6 +31,10 @@ const Post = () => {
       Router.push('/');
     }
   }, [id, loginNotConnected]);
+
+  const onClickBack = useCallback(() => {
+    Router.back();
+  }, []);
 
   return (
     <MainLayout>
@@ -62,15 +62,10 @@ const Post = () => {
 
 // export const getServerSideProps = wrapper.getServerSideProps(
 //   (store) =>
-//     async ({ req }) => {
-//       // 로그인이 풀리는 현상, 서버에서 공유하지 않는 쿠ㄱ
-//       // const cookie = req ? req.headers.cookie : '';
-//       // axios.defaults.headers.Cookie = '';
-//       // if (req && cookie) {
-//       //   axios.defaults.headers.Cookie = cookie;
-//       // }
+//     async ({ req, params }) => {
 //       store.dispatch({
 //         type: LOAD_POSTS_REQUEST,
+//         data: params.id,
 //       });
 //       store.dispatch(END);
 //       await store.sagaTask.toPromise();
