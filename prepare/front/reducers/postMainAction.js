@@ -1,5 +1,6 @@
 import produce from 'immer';
 import { REMOVE_POST_SUCCESS } from './postAdd';
+import { generateDummyPost } from '../hooks/reducer/APIResultChange';
 
 //  더미데이터
 // export const generateDummyPost = (number) =>
@@ -57,31 +58,6 @@ export const initialState = {
 
   loginNotConnected: false,
 };
-
-export const generateDummyPost = (list, listImg) =>
-  list.map((v, i) => ({
-    id: v.bo_no,
-    User: {
-      id: v.bo_writer,
-      nickname: v.mem_nickname,
-      profileImg: v.mem_profileimg,
-    },
-    content: v.bo_content,
-    Likers: [],
-    Images: listImg.filter((listImg) => {
-      if (v.bo_no === listImg.bo_no) {
-        return {
-          id: listImg.bo_img_no,
-          url: `${listImg.bo_img_location}`,
-        };
-      }
-    }),
-    liked: { id: v.goodChk },
-    saved: { id: v.saveChk },
-    likedNumber: v.goodCnt,
-    Comments: [],
-    date: v.bo_date,
-  }));
 
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';

@@ -1,4 +1,5 @@
 import immer, { produce } from 'immer';
+import { dummyUser } from '../hooks/reducer/APIResultChange';
 
 export const initialState = {
   logInLoading: false, // 로그인 시도중
@@ -36,17 +37,6 @@ export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 export const CHANGE_PROFILEIMG_REQUEST = 'CHANGE_PROFILEIMG_REQUEST';
 export const CHANGE_PROFILEIMG_SUCCESS = 'CHANGE_PROFILEIMG_SUCCESS';
 export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
-
-const dummyUser = (data) => ({
-  // ...data,
-  no: data.mem_no,
-  id: data.mem_id,
-  name: data.mem_name,
-  nickname: data.mem_nickname,
-  profileImg: data.mem_profileimg,
-  grade: data.mem_grade,
-  Saved: [],
-});
 
 // 혼자할떄
 // const dummyUser = (data) => ({

@@ -1,14 +1,6 @@
 import axios from 'axios';
 
-import {
-  all,
-  fork,
-  put,
-  call,
-  delay,
-  takeLatest,
-  throttle,
-} from 'redux-saga/effects';
+import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 
 import {
   GET_ID_POST_REQUEST,
@@ -43,5 +35,5 @@ function* watchGetIdPost() {
 }
 
 export default function* getIdPostSaga() {
-  fork(watchGetIdPost), yield all([]);
+  yield all([fork(watchGetIdPost)]);
 }

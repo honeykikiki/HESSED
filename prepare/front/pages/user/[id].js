@@ -14,11 +14,11 @@ import ProfilePost from '../../components/profile/ProfilePost';
 import {
   MY_POST_GET_REQUEST,
   MY_POST_MORE_GET_REQUEST,
-} from '../../reducers/post';
+} from '../../reducers/userPost';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { me, changeNicknameDone } = useSelector((state) => state.user);
+  const { me, changeNicknameDone } = useSelector((state) => state.userInfo);
   const {
     myPosts,
     myPostMoreGetLoading,
