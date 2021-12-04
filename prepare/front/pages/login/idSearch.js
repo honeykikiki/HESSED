@@ -5,13 +5,13 @@ import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
 import useInput from '../../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { SEARCHID_DELITE, SEARCH_ID_REQUEST } from '../../reducers/user';
+import { SEARCHID_DELITE, SEARCH_ID_REQUEST } from '../../reducers/userSign';
 import Router from 'next/router';
 
 const IdSearch = () => {
   const dispatch = useDispatch();
   const { searchIdDone, SearchID, searchIdFailed } = useSelector(
-    (state) => state.user,
+    (state) => state.userSign,
   );
 
   const [id, onChangeId, setId] = useInput('');

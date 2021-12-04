@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_COMMENT_REQUEST } from '../../reducers/post';
+
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postComment.module.css';
 import useInput from '../../hooks/useInput';
+import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
 
 const PostContent = ({ post }) => {
   const dispatch = useDispatch();
-  const { addCommentDone } = useSelector((state) => state.post);
-  const { me } = useSelector((state) => state.user);
+  const { addCommentDone } = useSelector((state) => state.postMainAction);
+  const { me } = useSelector((state) => state.userInfo);
 
   const id = useSelector((state) => state.user.me?.id);
   const [comment, onChangeInput, setComment] = useInput('');

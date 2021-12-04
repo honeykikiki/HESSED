@@ -1,43 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 
 import MainLayout from '../components/MainLayout';
 import LoginForm from '../components/login/LoginForm';
 import PostCard from '../components/PostCard/PostCard';
+
+import style from '../styles/css/postCard.module.css';
 import {
   LOAD_MORE_POSTS_REQUEST,
   LOAD_POSTS_REQUEST,
-  PAGE_CHANGE,
-} from '../reducers/post';
-import style from '../styles/css/postCard.module.css';
+} from '../reducers/postMainAction';
+import { PAGE_CHANGE } from '../reducers/postAdd';
 
-import { END } from 'redux-saga';
-import wrapper from '../store/configureStore';
+// import { END } from 'redux-saga';
+// import wrapper from '../store/configureStore';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
   const {
     mainPosts,
     loadPostsLoading,
-    postCompleat,
     loadPostFalid,
-    pageMore,
     loadPostMoreFalid,
     pageNumber,
-  } = useSelector((state) => state.post);
+  } = useSelector((state) => state.postMainAction);
+  const { postCompleat } = useSelector((state) => state.postAdd);
 
-  let number = 0;
+  const [ref, inView] = useInView();
 
-  // useEffect(() => {
-  //   if (inView && hasMorePosts && !loadPostsLoading) {
-  //     const lastId = mainPosts[mainPosts.length - 1]?.id;
-  //     dispatch({
-  //       type: LOAD_POSTS_REQUEST,
-  //       lastId,
-  //     });
-  //   }
-  // }, [inView, hasMorePosts, loadPostsLoading, mainPosts, id]);
   useEffect(() => {
     if (me && mainPosts.length <= 0 && loadPostFalid) {
       dispatch({
@@ -56,47 +48,36 @@ const Home = () => {
       return;
     }
 
-    function onScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (!loadPostsLoading && number === 0 && loadPostMoreFalid) {
-          const formData = new FormData();
-          formData.append('page', pageNumber);
-          dispatch({
-            type: LOAD_MORE_POSTS_REQUEST,
-            data: formData,
-          });
-          number = 1; // 여러번 실행을 막아준다
-        }
-      }
+    if (inView && loadPostMoreFalid && !loadPostsLoading) {
+      const formData = new FormData();
+      formData.append('page', pageNumber);
+      dispatch({
+        type: LOAD_MORE_POSTS_REQUEST,
+        data: formData,
+      });
     }
-
-    window.addEventListener('scroll', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
   }, [
     mainPosts,
     me,
     postCompleat,
-    number,
-    pageMore,
     pageNumber,
     loadPostFalid,
+    inView,
+    loadPostMoreFalid,
+    loadPostsLoading,
   ]);
 
   return (
     <>
-      {me ? (
+      {!me ? (
         <MainLayout>
           <div style={{ paddingTop: '30px' }}></div>
 
           {mainPosts.map((post, i) => {
             return <PostCard key={post.id} post={post} />;
           })}
-          {/* <div ref={!loadPostsLoading ? ref : undefined} /> */}
+
+          <div ref={loadPostMoreFalid && !loadPostsLoading ? ref : undefined} />
 
           {loadPostMoreFalid ? null : (
             <div className={style.bottomLogo}>@HESSED</div>

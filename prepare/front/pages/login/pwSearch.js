@@ -6,11 +6,11 @@ import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
 import useInput from '../../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { SEARCH_PW_REQUEST } from '../../reducers/user';
+import { SEARCH_PW_REQUEST } from '../../reducers/userSign';
 
 const PwSearch = () => {
   const dispatch = useDispatch();
-  const { searchPwDone } = useSelector((state) => state.user);
+  const { searchPwDone } = useSelector((state) => state.userSign);
 
   const [name, onChangeName, setName] = useInput('');
   const [id, onChangeId, setId] = useInput('');

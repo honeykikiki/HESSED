@@ -8,7 +8,7 @@ import style from '../../styles/css/profile.module.css';
 import styles from '../../styles/css/dynamicPost.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
-import { CHANGE_NICKNAME_REQUEST } from '../../reducers/user';
+
 import ProfileIcon from '../../components/profile/ProfileIcon';
 import ProfilePost from '../../components/profile/ProfilePost';
 import {
@@ -29,7 +29,7 @@ const Profile = () => {
     myPostMoreGetDone,
     myPostGetLoading,
     myPostprofileImg,
-  } = useSelector((state) => state.post);
+  } = useSelector((state) => state.userPost);
 
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);

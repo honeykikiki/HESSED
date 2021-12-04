@@ -8,7 +8,7 @@ import {
   DUPLICATE_CHECK_REQUEST,
   SIGN_UP_REQUEST,
   SIGNUP_FAILED,
-} from '../reducers/user';
+} from '../reducers/userSign';
 import style from '../styles/css/loginForm.module.css';
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
     duplicateCheckDisplay,
     signUpFailed,
     signUpDisplayChange,
-  } = useSelector((state) => state.user);
+  } = useSelector((state) => state.userSign);
 
   const [mem_id, onChangemem_id, setMEM_ID] = useInput('');
   const [mem_pw, onChangePassword, setPassword] = useInput('');

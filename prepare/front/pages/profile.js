@@ -9,17 +9,18 @@ import useInput from '../hooks/useInput';
 import {
   CHANGE_NICKNAME_REQUEST,
   CHANGE_PROFILEIMG_REQUEST,
-} from '../reducers/user';
+} from '../reducers/userInfo';
 import {
   MY_POST_GET_REQUEST,
   MY_POST_MORE_GET_REQUEST,
-} from '../reducers/post';
+} from '../reducers/userPost';
+
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { me, changeNicknameDone } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
   const {
     mainPosts,
     myPosts,
@@ -30,7 +31,7 @@ const Profile = () => {
     myPostMoreGetLoading,
     myPostPageNumber,
     myPostMoreGetFailed,
-  } = useSelector((state) => state.post);
+  } = useSelector((state) => state.psot);
 
   // 저장한 게시글만 가져오기
   const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
@@ -55,12 +56,12 @@ const Profile = () => {
     }
 
     if (myPosts.length === 0 && me && !myPostGetLoading) {
-      const formData = new FormData();
-      formData.append('mem_id', me.id);
-      // dispatch({
-      //   type: MY_POST_GET_REQUEST,
-      //   data: formData,
-      // });
+      // const formData = new FormData();
+      // formData.append('mem_id', me.id);
+      // // dispatch({
+      // //   type: MY_POST_GET_REQUEST,
+      // //   data: formData,
+      // // });
       dispatch({
         type: MY_POST_GET_REQUEST,
         data: { mem_id: me.id },

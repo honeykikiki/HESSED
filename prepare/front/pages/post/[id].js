@@ -9,7 +9,7 @@ import MainLayout from '../../components/MainLayout';
 
 import { END } from 'redux-saga';
 import wrapper from '../../store/configureStore';
-import { GET_ID_POST_REQUEST } from '../../reducers/post';
+import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 
 const Post = () => {
   const router = useRouter();
@@ -17,10 +17,8 @@ const Post = () => {
 
   const dispatch = useDispatch();
 
-  const { boardOneViewPost, loginNotConnected } = useSelector(
-    (state) => state.post,
-  );
-  const { notLoginConnected } = useSelector((state) => state.user);
+  const { boardOneViewPost } = useSelector((state) => state.getIdPost);
+  const { loginNotConnected } = useSelector((state) => state.postMainAction);
 
   const onClickBack = useCallback(() => {
     Router.back();
@@ -33,10 +31,10 @@ const Post = () => {
         data: { bo_no: +id },
       });
     }
-    if (loginNotConnected || notLoginConnected) {
+    if (loginNotConnected) {
       Router.push('/');
     }
-  }, [id, loginNotConnected, notLoginConnected]);
+  }, [id, loginNotConnected]);
 
   return (
     <MainLayout>

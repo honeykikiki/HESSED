@@ -1,15 +1,6 @@
 import produce from 'immer';
-import { MY_POST_GET_REQUEST, MY_POST_GET_SUCCESS } from './post';
 
 export const initialState = {
-  logInLoading: false, // 로그인 시도중
-  logInDone: false,
-  logInError: null,
-  logInFailed: true, // 로그인 실패
-
-  logOutLoading: false, // 로그아웃 시도중
-  logOutDone: false,
-  logOutError: null,
   searchIdLoading: false, // 아이디찾기 시도중
   searchIdDone: false,
   searchIdError: null,
@@ -23,40 +14,25 @@ export const initialState = {
   cerifiedLoading: false, // 인증번호 시도중
   cerifiedDone: false,
   cerifiedError: null,
+
   passwordChangeLoading: false, // 비민번호 바꾸기 시도중
   passwordChangeDone: false,
   passwordChangeError: null,
+
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
   signUpFailed: true, // 회원가입 실패
+
   signUpDisplayChange: false, // 회원가입 완료
   duplicateCheckLoading: false, // 아이디 중복체크 시도중
   duplicateCheckDone: false,
   duplicateCheckError: null,
   duplicateCheckDisplay: true,
 
-  changeNicknameLoading: false, // 닉네임 수정
-  changeNicknameDone: false,
-  changeNicknameError: null,
-  changeProfileImgLoading: false, // 프로필 이미지 수정
-  changeProfileImgDone: false,
-  changeProfileImgError: null,
-
-  me: null,
   SearchID: null,
   SearchPW: null,
-
-  // notLoginConnected: false,
 };
-
-export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
-export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
-export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
-
-export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
-export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
-export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
 export const SIGN_UP_REQUEST = 'SING_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SING_UP_SUCCESS';
@@ -65,14 +41,6 @@ export const SIGN_UP_FAILURE = 'SING_UP_FAILURE';
 export const DUPLICATE_CHECK_REQUEST = 'DUPLICATE_CHECK_REQUEST';
 export const DUPLICATE_CHECK_SUCCESS = 'DUPLICATE_CHECK_SUCCESS';
 export const DUPLICATE_CHECK_FAILURE = 'DUPLICATE_CHECK_FAILURE';
-
-export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
-export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
-export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
-
-export const CHANGE_PROFILEIMG_REQUEST = 'CHANGE_PROFILEIMG_REQUEST';
-export const CHANGE_PROFILEIMG_SUCCESS = 'CHANGE_PROFILEIMG_SUCCESS';
-export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
 
 export const SEARCH_ID_REQUEST = 'SEARCH_ID_REQUEST';
 export const SEARCH_ID_SUCCESS = 'SEARCH_ID_SUCCESS';
@@ -94,83 +62,11 @@ export const SEARCHID_DELITE = 'SEARCHID_DELITE';
 
 export const SIGNUP_CHANGE_DISPLAY = 'SIGNUP_CHANGE_DISPLAY';
 
-export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const SIGNUP_FAILED = 'SIGNUP_FAILED';
-
-const dummyUser = (data) => ({
-  // ...data,
-  no: data.mem_no,
-  id: data.mem_id,
-  name: data.mem_name,
-  nickname: data.mem_nickname,
-  profileImg: data.mem_profileimg,
-  grade: data.mem_grade,
-  // Posts: [],
-  // Liked: [],
-  Saved: [],
-});
-
-// 혼자할떄
-// const dummyUser = (data) => ({
-//   ...data,
-//   no: 1,
-//   id: 'data.mem_id',
-//   name: 'data.mem_name',
-//   nickname: 'data.mem_nickname',
-//   profileImg: null,
-//   grade: 'data.mem_grade',
-//   Posts: [],
-//   Liked: [],
-//   Saved: [],
-// });
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      //로그인
-      case LOG_IN_REQUEST:
-        draft.logInLoading = true;
-        draft.logInDone = false;
-        draft.logInError = null;
-        break;
-      case LOG_IN_SUCCESS:
-        // draft.me = dummyUser();
-        if (action.data.result === 'SUCCESS') {
-          draft.me = dummyUser(action.data.member); //action.data;
-          draft.logInLoading = false;
-          draft.logInDone = true;
-          draft.logInFailed = true;
-        } else {
-          draft.logInLoading = false;
-          draft.logInDone = false;
-          draft.logInFailed = false;
-        }
-        break;
-      case LOG_IN_FAILURE:
-        draft.logInLoading = false;
-        draft.logInError = action.error;
-        break;
-      //로그아웃
-      case LOG_OUT_REQUEST:
-        draft.logOutLoading = true;
-        draft.logOutDone = false;
-        draft.logOutError = null;
-        break;
-      case LOG_OUT_SUCCESS:
-        if (action.data.result === 'LOGOUT') {
-          draft.logOutLoading = false;
-          draft.logOutDone = true;
-          draft.me = null;
-        } else {
-          draft.logOutLoading = false;
-          draft.logOutDone = false;
-        }
-        break;
-      case LOG_OUT_FAILURE:
-        draft.logOutLoading = false;
-        draft.logOutError = action.error;
-        break;
-
       // 아이디 찾기
       case SEARCH_ID_REQUEST:
         draft.searchIdLoading = true;
@@ -316,42 +212,6 @@ const reducer = (state = initialState, action) => {
         draft.duplicateCheckError = action.error;
         break;
 
-      // 닉네임 수정하기
-      case CHANGE_NICKNAME_REQUEST:
-        draft.changeNicknameLoading = true;
-        draft.changeNicknameDone = false;
-        draft.changeNicknameError = null;
-        break;
-      case CHANGE_NICKNAME_SUCCESS: {
-        draft.changeNicknameLoading = false;
-        draft.changeNicknameDone = true;
-        draft.changeNicknameError = null;
-        draft.myPost = action.data;
-        break;
-      }
-      case CHANGE_NICKNAME_FAILURE:
-        draft.changeNicknameDone = false;
-        draft.changeNicknameError = action.error;
-        break;
-
-      // 프로필 이미지 수정하기
-      case CHANGE_PROFILEIMG_REQUEST:
-        draft.changeProfileImgLoading = true;
-        draft.changeProfileImgDone = false;
-        draft.changeProfileImgError = null;
-        break;
-      case CHANGE_PROFILEIMG_SUCCESS: {
-        draft.changeProfileImgLoading = false;
-        draft.changeProfileImgDone = true;
-        draft.changeProfileImgError = null;
-        draft.me.profileImg = action.data;
-        break;
-      }
-      case CHANGE_PROFILEIMG_FAILURE:
-        draft.changeProfileImgDone = false;
-        draft.changeProfileImgError = action.error;
-        break;
-
       // 찾은 아이디 삭제
       case SEARCHID_DELITE:
         draft.SearchID = null;
@@ -360,6 +220,7 @@ const reducer = (state = initialState, action) => {
       case SIGNUP_CHANGE_DISPLAY:
         draft.signUpDisplayChange = false;
       default:
+        break;
     }
   });
 };

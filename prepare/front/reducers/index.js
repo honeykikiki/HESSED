@@ -1,8 +1,14 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from 'redux'; //리듀서 합치는거
 
-import user from './user';
-import post from './post';
+import userInfo from './userInfo';
+import userSign from './userSign';
+
+import postAdd from './postAdd';
+import postMainAction from './postMainAction';
+import getIdPost from './getIdPost';
+import userPost from './userPost';
+
 import menu from './menu';
 
 const rootReducer = (state, action) => {
@@ -12,8 +18,12 @@ const rootReducer = (state, action) => {
       return action.payload;
     default:
       const combineReducer = combineReducers({
-        user,
-        post,
+        userInfo,
+        userSign,
+        postAdd,
+        postMainAction,
+        getIdPost,
+        userPost,
         menu,
       });
       return combineReducer(state, action);

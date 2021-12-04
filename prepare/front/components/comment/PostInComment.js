@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-import { ADD_COMMENT_REQUEST } from '../../reducers/post';
+import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
 
 import style from '../../styles/css/dynamicComment.module.css';
 import useInput from '../../hooks/useInput';
@@ -11,8 +11,8 @@ import Comment from './Comment';
 
 const PostInComment = ({ post }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
-  const { addCommentDone } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.userInfo);
+  const { addCommentDone } = useSelector((state) => state.postMainAction);
   const { commentToReply } = useSelector((state) => state.menu);
 
   const [comment, onChangeInput, setComment] = useInput('');

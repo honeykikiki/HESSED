@@ -12,7 +12,7 @@ import CommentOptionBtn from './CommentOptionBtn';
 
 const Comment = ({ post }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
 
   const [userId, setUserId] = useState();
   const [nickname, setNickname] = useState();

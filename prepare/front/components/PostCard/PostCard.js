@@ -14,9 +14,6 @@ import PostCardSetButton from './postCardMore/PostCardSetButton';
 import { baseURL } from '../../config/config';
 
 const PostCard = ({ post }) => {
-  // const { me } = useSelector((state) => state.user);
-  // const id = useSelector((state) => state.user.me && state.user.me.id);
-
   return (
     <section className={style.a}>
       <article className={style.maxWidth}>

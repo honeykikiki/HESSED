@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   REMOVE_COMMENT_REPLY_REQUEST,
   REMOVE_COMMENT_REQUEST,
-} from '../../reducers/post';
+} from '../../reducers/postMainAction';
 
 const CommentOptionBtn = ({
   post,
@@ -17,7 +17,7 @@ const CommentOptionBtn = ({
   commentReplyCheckdId,
 }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.userInfo);
   const [optionButton, setOptionButton] = useState(true);
 
   const onClickOptionOpen = useCallback(() => {
