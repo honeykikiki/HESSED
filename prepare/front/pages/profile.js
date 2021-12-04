@@ -22,19 +22,17 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
   const {
-    mainPosts,
     myPosts,
     myPostsLength,
     myPostGetLoading,
-    myPostpageMore,
     myPostMoreGetDone,
     myPostMoreGetLoading,
     myPostPageNumber,
     myPostMoreGetFailed,
-  } = useSelector((state) => state.psot);
+  } = useSelector((state) => state.userPost);
 
   // 저장한 게시글만 가져오기
-  const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
+  // const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
 
   const [changeNickname, onChangeNickname, setNickname] = useInput();
   const [nicknameSet, setNicknameSet] = useState(true);

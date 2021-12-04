@@ -19,7 +19,7 @@ const Post = () => {
   // }
 
   const dispatch = useDispatch();
-  const { mainPosts } = useSelector((state) => state.post);
+  const { mainPosts } = useSelector((state) => state.postMainAction);
   const post = mainPosts.find((v) => v.id === +id);
   return (
     // <MainLayout>

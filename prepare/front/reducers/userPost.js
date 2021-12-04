@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { myPost } from '../hooks/reducer/APIResultChange';
 
 export const initialState = {
   myPosts: [],
@@ -17,16 +18,6 @@ export const initialState = {
   myPostNickname: null,
   myPostprofileImg: null,
 };
-
-export const myPost = (list) =>
-  list.map((v, id) => ({
-    id: v.bo_no,
-    Images: v.bo_img_location,
-    postCount: v.boardCount,
-    User: {
-      id: v.mem_id,
-    },
-  }));
 
 export const MY_POST_GET_REQUEST = 'MY_POST_GET_REQUEST';
 export const MY_POST_GET_SUCCESS = 'MY_POST_GET_SUCCESS';

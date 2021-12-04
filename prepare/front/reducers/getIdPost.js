@@ -1,31 +1,13 @@
 import produce from 'immer';
 
+import { boardOneViewPost } from '../hooks/reducer/APIResultChange';
+
 export const initialState = {
   getIdPostLoading: false, // 특정 게시물 가져오기
   getIdPostDone: false,
   getIdPostError: null,
 
   boardOneViewPost: null,
-};
-
-export const boardOneViewPost = (list) => {
-  return {
-    id: list.bo_no,
-    User: {
-      id: list.bo_writer,
-      nickname: list.mem_nickname,
-      profileImg: list.mem_profileimg,
-    },
-    content: list.bo_content,
-    Images: list.boardImgList.map((listImg) => {
-      return {
-        id: listImg.bo_img_no,
-        bo_img_location: `${listImg.bo_img_location}`,
-      };
-    }),
-    Comments: [],
-    date: list.bo_date,
-  };
 };
 
 export const GET_ID_POST_REQUEST = 'GET_ID_POST_REQUEST';
