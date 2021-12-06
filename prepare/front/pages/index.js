@@ -34,6 +34,7 @@ const Home = () => {
     if (me && mainPosts.length <= 0 && loadPostFalid) {
       dispatch({
         type: LOAD_POSTS_REQUEST,
+        data: { mem_id: me.id },
       });
       return;
     }
@@ -41,6 +42,7 @@ const Home = () => {
     if (postCompleat) {
       dispatch({
         type: LOAD_POSTS_REQUEST,
+        data: { mem_id: me.id },
       });
       dispatch({
         type: PAGE_CHANGE,
@@ -51,6 +53,7 @@ const Home = () => {
     if (inView && loadPostMoreFalid && !loadPostsLoading) {
       const formData = new FormData();
       formData.append('page', pageNumber);
+      formData.append('mem_id', me.id);
       dispatch({
         type: LOAD_MORE_POSTS_REQUEST,
         data: formData,
