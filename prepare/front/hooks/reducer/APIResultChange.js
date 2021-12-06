@@ -14,6 +14,7 @@ export const boardOneViewPost = (list) => {
         bo_img_location: `${listImg.bo_img_location}`,
       };
     }),
+    likedNumber: list.goodCnt,
     Comments: [],
     date: list.bo_date,
   };
@@ -29,7 +30,6 @@ export const generateDummyPost = (list, listImg) =>
       profileImg: v.mem_profileimg,
     },
     content: v.bo_content,
-    Likers: [],
     Images: listImg.filter((listImg) => {
       if (v.bo_no === listImg.bo_no) {
         return {

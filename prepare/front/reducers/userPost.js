@@ -44,6 +44,7 @@ const reducer = (state = initialState, action) => {
           draft.myPostPageNumber = 2;
           draft.myPostNickname = action.data.memberVO.mem_nickname;
           draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
+          draft.myPostMoreGetFailed = true;
         } else {
           draft.myPostGetLoading = false;
           draft.myPostGetDone = false;

@@ -6,7 +6,7 @@ import { baseURL } from '../../config/config';
 const ProfilePostImages = ({ myPosts, number, index }) => {
   return (
     <>
-      {myPosts.length > 1 ? (
+      {myPosts?.length > 1 ? (
         <span>
           <img src="/icon/more.png" alt="moreIcon" />
         </span>

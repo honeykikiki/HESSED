@@ -69,7 +69,7 @@ const Home = () => {
 
   return (
     <>
-      {!me ? (
+      {me ? (
         <MainLayout>
           <div style={{ paddingTop: '30px' }}></div>
 

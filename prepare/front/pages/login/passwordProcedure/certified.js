@@ -13,14 +13,14 @@ const Certified = () => {
 
   const [certified, onChangeCertified, setCertified] = useInput('');
 
-  // useEffect(() => {
-  //   if (cerifiedDone) {
-  //     Router.push('/login/passwordProcedure/pwChange');
-  //   }
-  //   if (!SearchPW) {
-  //     Router.push('/');
-  //   }
-  // }, [cerifiedDone, SearchPW]);
+  useEffect(() => {
+    if (cerifiedDone) {
+      Router.push('/login/passwordProcedure/pwChange');
+    }
+    if (!SearchPW) {
+      Router.push('/');
+    }
+  }, [cerifiedDone, SearchPW]);
 
   const certifiedSubmit = useCallback(
     (e) => {

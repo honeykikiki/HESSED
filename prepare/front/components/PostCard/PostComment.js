@@ -12,7 +12,7 @@ const PostContent = ({ post }) => {
   const { addCommentDone } = useSelector((state) => state.postMainAction);
   const { me } = useSelector((state) => state.userInfo);
 
-  const id = useSelector((state) => state.user.me?.id);
+  // const id = useSelector((state) => state.user.me?.id);
   const [comment, onChangeInput, setComment] = useInput('');
 
   const commentPost = useCallback(
@@ -40,7 +40,7 @@ const PostContent = ({ post }) => {
       });
       setComment('');
     },
-    [comment, id],
+    [comment],
   );
 
   return (

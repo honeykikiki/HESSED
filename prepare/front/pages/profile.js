@@ -55,12 +55,6 @@ const Profile = () => {
     }
 
     if (myPosts.length === 0 && me && !myPostGetLoading) {
-      // const formData = new FormData();
-      // formData.append('mem_id', me.id);
-      // // dispatch({
-      // //   type: MY_POST_GET_REQUEST,
-      // //   data: formData,
-      // // });
       dispatch({
         type: MY_POST_GET_REQUEST,
         data: { mem_id: me.id },
