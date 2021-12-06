@@ -36,8 +36,9 @@ const MainLayout = ({ children }) => {
     });
     dispatch({
       type: LOAD_POSTS_REQUEST,
+      data: { mem_id: me.id },
     });
-  }, [postCard]);
+  }, [postCard, me]);
   const upLoadClick = useCallback(() => {
     dispatch({
       type: UP_LOAD,

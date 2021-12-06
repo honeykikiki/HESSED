@@ -213,7 +213,7 @@ const reducer = (state = initialState, action) => {
             (v) => v.id === action.data.goodVO.bo_no,
           );
           if (post) {
-            post.liked.id = action.data.goodVO.mem_id;
+            post.liked = { mem_id: action.data.goodVO.mem_id };
             post.likedNumber = post.likedNumber + 1;
           }
           draft.likePostLoading = false;
@@ -242,7 +242,7 @@ const reducer = (state = initialState, action) => {
           (v) => v.id === action.data.goodVO.bo_no,
         );
         if (post) {
-          post.liked.id = null;
+          post.liked = [];
           post.likedNumber = post.likedNumber - 1;
         }
         draft.unLikePostLoading = false;
@@ -262,12 +262,13 @@ const reducer = (state = initialState, action) => {
         draft.savePostError = null;
         break;
       case SAVE_POST_SUCCESS: {
+        console.log(action.data);
         if (action.data.result === 'OK') {
           const post = draft.mainPosts.find(
             (v) => v.id === action.data.boardVO.bo_no,
           );
           if (post) {
-            post.saved.id = action.data.boardVO.mem_id;
+            post.saved = { mem_id: action.data.boardVO.mem_id };
           }
           draft.savePostLoading = false;
           draft.savePostDone = true;
@@ -295,7 +296,7 @@ const reducer = (state = initialState, action) => {
           (v) => v.id === action.data.boardVO.bo_no,
         );
         if (post) {
-          post.saved.id = null;
+          post.saved = [];
         }
         draft.unSavePostLoading = false;
         draft.unSavePostDone = true;
@@ -326,6 +327,8 @@ const reducer = (state = initialState, action) => {
           draft.mainPosts = generateDummyPost(
             action.data.list,
             action.data.imgList,
+            action.data.goodList,
+            action.data.boardSaveList,
           );
         } else if (action.data.result === 'NOTEXIST') {
           draft.loadPostsLoading = false;
@@ -355,7 +358,12 @@ const reducer = (state = initialState, action) => {
           draft.loadPostMoreFalid = true;
           draft.pageNumber = draft.pageNumber + 1;
           draft.mainPosts = draft.mainPosts.concat(
-            generateDummyPost(action.data.list, action.data.imgList),
+            generateDummyPost(
+              action.data.list,
+              action.data.imgList,
+              action.data.goodList,
+              action.data.boardSaveList,
+            ),
           );
         } else if (action.data.result === 'NOTEXIST') {
           draft.loadPostsLoading = false;

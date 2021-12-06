@@ -21,8 +21,8 @@ export const boardOneViewPost = (list) => {
 };
 
 // postMainAction
-export const generateDummyPost = (list, listImg) =>
-  list.map((v, i) => ({
+export const generateDummyPost = (list, listImg, goodList, saveList) => {
+  return list.map((v, i) => ({
     id: v.bo_no,
     User: {
       id: v.bo_writer,
@@ -38,12 +38,21 @@ export const generateDummyPost = (list, listImg) =>
         };
       }
     }),
-    liked: { id: v.goodChk },
-    saved: { id: v.saveChk },
+    liked: goodList.filter((goodList) => {
+      if (goodList.bo_no === v.bo_no) {
+        return v.mem_id;
+      }
+    }),
+    saved: saveList.filter((saveList) => {
+      if (saveList.bo_no === v.bo_no) {
+        return v.mem_id;
+      }
+    }),
     likedNumber: v.goodCnt,
     Comments: [],
     date: v.bo_date,
   }));
+};
 
 // userInfo
 export const dummyUser = (data) => ({

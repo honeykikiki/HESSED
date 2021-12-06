@@ -223,8 +223,7 @@ function* unSavePost(action) {
 
 // 게시물 가져오기
 function loadPostsAPI(data) {
-  // return axios.get(`/posts?lastId=${lastId || 0}`);
-  return axios.get(`/board/list.do`);
+  return axios.get(`/board/list.do?mem_id=${data.mem_id}`, data);
 }
 
 function* loadPosts(action) {
@@ -244,7 +243,6 @@ function* loadPosts(action) {
 }
 // 게시물 더 가져오기
 function loadMorePostsAPI(data) {
-  // return axios.get(`/board/list.do?page=${data.page}`, data);
   return axios.post(`/board/list.do`, data);
 }
 
