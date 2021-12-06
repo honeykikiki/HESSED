@@ -14,7 +14,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
 
-  const { addPostDone, postCompleat } = useSelector((state) => state.postAdd);
+  const { addPostDone, postCompleat, addPostLoading } = useSelector(
+    (state) => state.postAdd,
+  );
 
   const [photoToAddList, setPhotoToAddList] = useState([]);
   const [content, onChangeContent, setContetn] = useInput();
@@ -77,7 +79,7 @@ const Home = () => {
   const upLoadFormClick = useCallback(
     (e) => {
       e.preventDefault();
-      if (!photoToAddList.length > 0) {
+      if (!photoToAddList.length > 0 && photoToAddList === null) {
         alert('이미지를 등록해주세요');
         return;
       }
@@ -92,6 +94,10 @@ const Home = () => {
       });
       formData.append('bo_writer', me.id);
       formData.append('bo_content', content);
+
+      if (addPostLoading) {
+        return;
+      }
 
       dispatch({
         type: ADD_POST_REQUEST,

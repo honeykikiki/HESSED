@@ -83,7 +83,7 @@ const PostIcon = ({ post }) => {
     <article className={style.postIcon}>
       <div>
         {/* 좋아요 */}
-        {post.liked?.id ? (
+        {post.liked?.id === 'Y' || post.liked?.id === me.id ? (
           <div onClick={onUnLike}>
             <img src="/icon/heartOn.svg" alt="Hearticon" />
           </div>
@@ -112,7 +112,7 @@ const PostIcon = ({ post }) => {
 
       <div>
         {/* 저장 */}
-        {post.saved?.id ? (
+        {post.saved?.id === 'Y' || post.saved?.id === me.id ? (
           <div onClick={onUnSave}>
             <img src="/icon/saveOn.svg" alt="saveicon" />
           </div>

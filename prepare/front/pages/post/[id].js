@@ -36,6 +36,8 @@ const Post = () => {
     Router.back();
   }, []);
 
+  console.log(boardOneViewPost);
+
   return (
     <MainLayout>
       {boardOneViewPost && (

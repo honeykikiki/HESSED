@@ -81,6 +81,7 @@ const Login = () => {
             </p>
           </a>
         </Link>
+        <br />
 
         <Link href="/signup">
           <a>

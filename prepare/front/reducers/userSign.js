@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { dummyUser } from '../hooks/reducer/APIResultChange';
 
 export const initialState = {
   searchIdLoading: false, // 아이디찾기 시도중
@@ -165,7 +166,7 @@ const reducer = (state = initialState, action) => {
           draft.signUpLoading = false;
           draft.signUpDone = true;
           draft.duplicateCheckDisplay = true;
-          draft.signUpFailed = true;
+          draft.signUpFailed = false;
           draft.signUpDisplayChange = true;
         } else if (action.data.result === 'EXIST') {
           alert('아이디가 중복입니다.');
@@ -199,11 +200,11 @@ const reducer = (state = initialState, action) => {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = false;
           draft.duplicateCheckDisplay = false;
-          draft.signUpFailed = false;
         } else {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = true;
           draft.duplicateCheckDisplay = true;
+          draft.signUpFailed = false;
         }
 
         break;

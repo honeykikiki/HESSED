@@ -24,6 +24,7 @@ const reducer = (state = initialState, action) => {
         draft.getIdPostError = null;
         break;
       case GET_ID_POST_SUCCESS:
+        console.log(action.data.boardVO, 'action.data.boardVO');
         if (action.data.result === 'SUCCESS') {
           draft.getIdPostLoading = false;
           draft.getIdPostDone = true;

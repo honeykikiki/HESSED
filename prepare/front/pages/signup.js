@@ -88,7 +88,6 @@ const Login = () => {
   const onSubmitSignUp = useCallback(
     (e) => {
       e.preventDefault();
-
       if (
         mem_pw === '' ||
         mem_pw !== passwordCheck ||
@@ -97,7 +96,7 @@ const Login = () => {
         mem_phone === '' ||
         mem_nickname === '' ||
         agree === false ||
-        duplicateCheckDone === false
+        duplicateCheckDone !== false
       ) {
         dispatch({
           type: SIGNUP_FAILED,
@@ -121,6 +120,8 @@ const Login = () => {
     [
       mem_id,
       mem_pw,
+      passwordCheck,
+      passwordError,
       mem_name,
       mem_phone,
       mem_nickname,

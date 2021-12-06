@@ -6,12 +6,13 @@ import style from '../styles/css/mainPage.module.css';
 
 import QrCode from './QrCode/QrCode';
 import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
-import { LOG_OUT_REQUEST } from '../reducers/userSign';
+
 import Router from 'next/router';
 
 import { baseURL } from '../config/config';
-import { LOAD_MORE_POSTS_REQUEST } from '../reducers/postMainAction';
+import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
 import { MY_POST_GET_REQUEST } from '../reducers/userPost';
+import { LOG_OUT_REQUEST } from '../reducers/userInfo';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const MainLayout = ({ children }) => {
       type: POST_CARD,
     });
     dispatch({
-      type: LOAD_MORE_POSTS_REQUEST,
+      type: LOAD_POSTS_REQUEST,
     });
   }, [postCard]);
   const upLoadClick = useCallback(() => {
