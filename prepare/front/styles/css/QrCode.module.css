@@ -98,7 +98,7 @@
 .close {
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  bottom: 10px;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   background-color: #409857;

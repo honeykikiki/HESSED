@@ -1,14 +1,6 @@
 import axios from 'axios';
 
-import {
-  all,
-  fork,
-  put,
-  call,
-  delay,
-  takeLatest,
-  throttle,
-} from 'redux-saga/effects';
+import { all, fork, put, call, delay, takeLatest } from 'redux-saga/effects';
 
 import {
   ADD_POST_SUCCESS,
@@ -17,6 +9,9 @@ import {
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
   REMOVE_POST_FAILURE,
+  UPDATE_POST_REQUEST,
+  UPDATE_POST_SUCCESS,
+  UPDATE_POST_FAILURE,
 } from '../reducers/postAdd';
 
 // 게시물 등록하기
@@ -39,6 +34,26 @@ function* addPost(action) {
     console.error(error);
     yield put({
       type: ADD_POST_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
+// 게시물 수정
+function updatePostAPI(data) {
+  return axios.post(`/board/insert.do`, data);
+}
+
+function* updatePost(action) {
+  try {
+    const result = yield call(updatePostAPI, action.data);
+    yield put({
+      type: UPDATE_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: UPDATE_POST_FAILURE,
       data: error.response.data,
     });
   }
@@ -69,10 +84,13 @@ function* removePost(action) {
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
+function* watchUpdatePost() {
+  yield takeLatest(UPDATE_POST_REQUEST, updatePost);
+}
 function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
 
 export default function* postAddSaga() {
-  yield all([fork(watchAddPost), fork(watchRemovePost)]);
+  yield all([fork(watchAddPost), fork(watchRemovePost), fork(watchUpdatePost)]);
 }
