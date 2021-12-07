@@ -4,16 +4,15 @@ import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../styles/css/dynamicPost.module.css';
-import PostCard from '../../components/PostCard/PostCard';
+import UploadImages from '../../components/postUpload/UploadImages';
 import MainLayout from '../../components/MainLayout';
 
-import { END } from 'redux-saga';
-import wrapper from '../../store/configureStore';
 import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { me } = useSelector((state) => state.userInfo);
 
   const dispatch = useDispatch();
 
@@ -21,6 +20,9 @@ const Post = () => {
   const { loginNotConnected } = useSelector((state) => state.postMainAction);
 
   useEffect(() => {
+    if (!me) {
+      Router.push('/');
+    }
     if (id) {
       dispatch({
         type: GET_ID_POST_REQUEST,
@@ -34,7 +36,7 @@ const Post = () => {
 
   const onClickBack = useCallback(() => {
     Router.back();
-  }, []);
+  }, [me]);
 
   return (
     <MainLayout>
@@ -50,10 +52,32 @@ const Post = () => {
             <div onClick={onClickBack}>
               <img src="/icon/back.svg" width="12px" alt="BackIcon" />
             </div>
-            <div>{`${boardOneViewPost.User.nickname}님의 게시글`}</div>
+            <div>{`${boardOneViewPost.User.nickname}님의 게시글 수정하기`}</div>
           </div>
           <div style={{ paddingTop: '34px' }}></div>
-          <PostCard post={boardOneViewPost} />
+          <ul>
+            {boardOneViewPost.Images
+              ? boardOneViewPost.Images.map((v) => {
+                  return (
+                    <li key={v.url}>
+                      <div
+                        className={style.remove}
+                        onClick={() => onRemove(v.url)}
+                      >
+                        x
+                      </div>
+                      <img
+                        src={v.url}
+                        style={{
+                          backgroundImage: `url(${v.url})`,
+                        }}
+                        alt="uploadImg"
+                      />
+                    </li>
+                  );
+                })
+              : null}
+          </ul>
         </section>
       )}
     </MainLayout>

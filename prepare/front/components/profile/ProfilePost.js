@@ -1,12 +1,62 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useInView } from 'react-intersection-observer';
+
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/profile.module.css';
-import { baseUrl } from '../../config/config';
 import ProfilePostImages from './ProfilePostImage';
+import Router from 'next/router';
 
-const ProfilePost = ({ myPosts }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { MY_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
+import { MY_SAVE_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
+
+const ProfilePost = ({ myPosts, postToSave }) => {
+  const dispatch = useDispatch();
+  const { me } = useSelector((state) => state.userInfo);
+  const {
+    myPostMoreGetLoading,
+    myPostPageNumber,
+    myPostMoreGetFailed,
+    mySavePostMoreGetLoading,
+    mySavePostPageNumber,
+    mySavePostMoreGetFailed,
+  } = useSelector((state) => state.userPost);
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (!me) {
+      Router.push('/');
+    }
+    if (inView && !myPostMoreGetLoading && myPostMoreGetFailed) {
+      const formData = new FormData();
+      formData.append('page', myPostPageNumber);
+      formData.append('mem_id', me?.id);
+      dispatch({
+        type: MY_POST_MORE_GET_REQUEST,
+        data: formData,
+      });
+    }
+
+    if (inView && !mySavePostMoreGetLoading && mySavePostMoreGetFailed) {
+      const formData = new FormData();
+      formData.append('page', mySavePostPageNumber);
+      formData.append('mem_id', me?.id);
+      dispatch({
+        type: MY_SAVE_POST_MORE_GET_REQUEST,
+        data: formData,
+      });
+    }
+  }, [
+    inView,
+    myPostMoreGetLoading,
+    myPostMoreGetFailed,
+    myPostPageNumber,
+    mySavePostMoreGetLoading,
+    mySavePostMoreGetFailed,
+    me,
+  ]);
   return (
     <>
       <div className={style.upLoadImageBox}>
@@ -47,6 +97,25 @@ const ProfilePost = ({ myPosts }) => {
             );
           }
         })}
+        {postToSave ? (
+          <div
+            ref={
+              postToSave && !myPostMoreGetLoading && myPostMoreGetFailed
+                ? ref
+                : undefined
+            }
+          />
+        ) : (
+          <div
+            ref={
+              !postToSave &&
+              !mySavePostMoreGetLoading &&
+              mySavePostMoreGetFailed
+                ? ref
+                : undefined
+            }
+          />
+        )}
       </div>
     </>
   );

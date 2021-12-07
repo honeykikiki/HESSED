@@ -5,6 +5,7 @@ import style from '../../../styles/css/postCard.module.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { REMOVE_POST_REQUEST } from '../../../reducers/postAdd';
+import Router from 'next/router';
 
 const PostCardSetButton = ({ post }) => {
   const dispatch = useDispatch();
@@ -47,6 +48,10 @@ const PostCardSetButton = ({ post }) => {
     });
   }, []);
 
+  const onClickPostUpdate = useCallback(() => {
+    Router.push(`/updatePost/${post.id}`);
+  }, [post]);
+
   return (
     <>
       <div className={style.menu} onClick={onClickOptionOpen}>
@@ -61,6 +66,9 @@ const PostCardSetButton = ({ post }) => {
             >
               <div onClick={onClickPostCardRemove}>
                 <p>삭제</p>
+              </div>
+              <div onClick={onClickPostUpdate}>
+                <p>수정</p>
               </div>
               <div onClick={onClickOptionClose}>
                 <p>취소</p>

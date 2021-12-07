@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Router from 'next/router';
-import { useInView } from 'react-intersection-observer';
 
 import MainLayout from '../components/MainLayout';
 
@@ -11,10 +10,6 @@ import {
   CHANGE_NICKNAME_REQUEST,
   CHANGE_PROFILEIMG_REQUEST,
 } from '../reducers/userInfo';
-import {
-  MY_POST_GET_REQUEST,
-  MY_POST_MORE_GET_REQUEST,
-} from '../reducers/userPost';
 
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
@@ -24,14 +19,11 @@ const Profile = () => {
   const { me } = useSelector((state) => state.userInfo);
   const {
     myPosts,
+    savePosts,
     myPostsLength,
     myPostGetLoading,
     myPostMoreGetDone,
-    myPostMoreGetLoading,
-    myPostPageNumber,
-    myPostMoreGetFailed,
   } = useSelector((state) => state.userPost);
-  const [ref, inView] = useInView();
 
   // 저장한 게시글만 가져오기
   // const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
@@ -53,33 +45,7 @@ const Profile = () => {
       setPhotoToAddList();
       setNickname('');
     }
-
-    if (myPosts.length === 0 && me && !myPostGetLoading) {
-      dispatch({
-        type: MY_POST_GET_REQUEST,
-        data: { mem_id: me.id },
-      });
-    }
-
-    if (inView && !myPostMoreGetLoading && myPostMoreGetFailed) {
-      const formData = new FormData();
-      formData.append('page', myPostPageNumber);
-      formData.append('mem_id', me.id);
-      dispatch({
-        type: MY_POST_MORE_GET_REQUEST,
-        data: formData,
-      });
-    }
-  }, [
-    me,
-    nicknameSet,
-    myPostGetLoading,
-    myPosts,
-    myPostMoreGetFailed,
-    myPostMoreGetLoading,
-    myPostPageNumber,
-    inView,
-  ]);
+  }, [me, nicknameSet, myPostGetLoading, myPosts]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -102,7 +68,7 @@ const Profile = () => {
   const onSave = useCallback(() => {
     setpostToSave(false);
   }, [postToSave]);
-
+  1;
   const profileSet = useCallback(
     (e) => {
       setNicknameSet((prev) => !prev);
@@ -212,16 +178,11 @@ const Profile = () => {
             />
 
             {postToSave ? (
-              <ProfilePost myPosts={myPosts} />
+              <ProfilePost myPosts={myPosts} postToSave={postToSave} />
             ) : (
-              <ProfilePost myPost={savePost} />
+              <ProfilePost myPosts={savePosts} postToSave={postToSave} />
             )}
 
-            <div
-              ref={
-                !myPostMoreGetLoading && myPostMoreGetFailed ? ref : undefined
-              }
-            />
             {myPostMoreGetDone ? null : (
               <div className={style.moerPostGet}>@HESSED</div>
             )}

@@ -99,6 +99,10 @@
   border-bottom: 1px solid #dfdfdf;
 }
 
+.optionButton div:nth-child(2) {
+  border-bottom: 1px solid #dfdfdf;
+}
+
 .postImage {
   width: 100%;
   height: auto;
