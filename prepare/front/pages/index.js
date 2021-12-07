@@ -26,7 +26,9 @@ const Home = () => {
     loadPostMoreFalid,
     pageNumber,
   } = useSelector((state) => state.postMainAction);
-  const { postCompleat } = useSelector((state) => state.postAdd);
+  const { postCompleat, updateCompleat } = useSelector(
+    (state) => state.postAdd,
+  );
 
   const [ref, inView] = useInView();
 
@@ -39,7 +41,7 @@ const Home = () => {
       return;
     }
 
-    if (postCompleat) {
+    if (postCompleat || updateCompleat) {
       dispatch({
         type: LOAD_POSTS_REQUEST,
         data: { mem_id: me.id },
@@ -63,6 +65,7 @@ const Home = () => {
     mainPosts,
     me,
     postCompleat,
+    updateCompleat,
     pageNumber,
     loadPostFalid,
     inView,
