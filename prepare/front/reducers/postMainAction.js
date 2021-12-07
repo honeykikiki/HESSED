@@ -262,7 +262,6 @@ const reducer = (state = initialState, action) => {
         draft.savePostError = null;
         break;
       case SAVE_POST_SUCCESS: {
-        console.log(action.data);
         if (action.data.result === 'OK') {
           const post = draft.mainPosts.find(
             (v) => v.id === action.data.boardVO.bo_no,

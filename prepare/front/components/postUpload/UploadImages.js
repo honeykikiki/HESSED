@@ -6,7 +6,7 @@ import style from '../../styles/css/upload.module.css';
 const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
-  }, [imageInput.current]);
+  }, [imageInput?.current]);
 
   const onRemove = useCallback(
     (deleteUrl) => {

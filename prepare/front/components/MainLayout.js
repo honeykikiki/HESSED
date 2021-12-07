@@ -10,8 +10,14 @@ import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
 import Router from 'next/router';
 
 import { baseURL } from '../config/config';
-import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
-import { MY_POST_GET_REQUEST } from '../reducers/userPost';
+import {
+  LOAD_POSTS_REQUEST,
+  SAVE_POST_REQUEST,
+} from '../reducers/postMainAction';
+import {
+  MY_POST_GET_REQUEST,
+  MY_SAVE_POST_GET_REQUEST,
+} from '../reducers/userPost';
 import { LOG_OUT_REQUEST } from '../reducers/userInfo';
 
 const MainLayout = ({ children }) => {
@@ -60,6 +66,10 @@ const MainLayout = ({ children }) => {
     Router.push('/profile');
     dispatch({
       type: MY_POST_GET_REQUEST,
+      data: { mem_id: me.id },
+    });
+    dispatch({
+      type: MY_SAVE_POST_GET_REQUEST,
       data: { mem_id: me.id },
     });
   }, [me]);
@@ -121,7 +131,7 @@ const MainLayout = ({ children }) => {
                         className={style.profileimg}
                         onClick={profileClickToggle}
                       >
-                        {me?.profileImg ? (
+                        {me?.profileImg?.url ? (
                           <img
                             src={`${baseURL}/${me.profileImg}`}
                             alt="profileImg"
