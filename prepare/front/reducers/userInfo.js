@@ -1,5 +1,6 @@
 import immer, { produce } from 'immer';
 import { dummyUser } from '../hooks/reducer/APIResultChange';
+import { MY_POST_GET_SUCCESS } from './userPost';
 
 export const initialState = {
   logInLoading: false, // 로그인 시도중
@@ -11,13 +12,10 @@ export const initialState = {
   logOutDone: false,
   logOutError: null,
 
-  changeNicknameLoading: false, // 닉네임 수정
-  changeNicknameDone: false,
-  changeNicknameError: null,
-
-  changeProfileImgLoading: false, // 프로필 이미지 수정
-  changeProfileImgDone: false,
-  changeProfileImgError: null,
+  changeProfileLoading: false, // 프로필 이미지 수정
+  changeProfileDone: false,
+  changeProfileError: null,
+  changeProfileSuccess: false,
 
   me: null,
 };
@@ -30,27 +28,9 @@ export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
-export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
-export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
-export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
-
-export const CHANGE_PROFILEIMG_REQUEST = 'CHANGE_PROFILEIMG_REQUEST';
-export const CHANGE_PROFILEIMG_SUCCESS = 'CHANGE_PROFILEIMG_SUCCESS';
-export const CHANGE_PROFILEIMG_FAILURE = 'CHANGE_PROFILEIMG_FAILURE';
-
-// 혼자할떄
-// const dummyUser = (data) => ({
-//   ...data,
-//   no: 1,
-//   id: 'data.mem_id',
-//   name: 'data.mem_name',
-//   nickname: 'data.mem_nickname',
-//   profileImg: null,
-//   grade: 'data.mem_grade',
-//   Posts: [],
-//   Liked: [],
-//   Saved: [],
-// });
+export const CHANGE_PROFILE_REQUEST = 'CHANGE_PROFILE_REQUEST';
+export const CHANGE_PROFILE_SUCCESS = 'CHANGE_PROFILE_SUCCESS';
+export const CHANGE_PROFILE_FAILURE = 'CHANGE_PROFILE_FAILURE';
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -99,42 +79,34 @@ const reducer = (state = initialState, action) => {
         draft.logOutError = action.error;
         break;
 
-      // 닉네임 수정하기
-      case CHANGE_NICKNAME_REQUEST:
-        draft.changeNicknameLoading = true;
-        draft.changeNicknameDone = false;
-        draft.changeNicknameError = null;
-        break;
-      case CHANGE_NICKNAME_SUCCESS: {
-        draft.changeNicknameLoading = false;
-        draft.changeNicknameDone = true;
-        draft.changeNicknameError = null;
-        draft.myPost = action.data;
-        break;
-      }
-      case CHANGE_NICKNAME_FAILURE:
-        draft.changeNicknameDone = false;
-        draft.changeNicknameError = action.error;
-        break;
-
       // 프로필 이미지 수정하기
-      case CHANGE_PROFILEIMG_REQUEST:
-        draft.changeProfileImgLoading = true;
-        draft.changeProfileImgDone = false;
-        draft.changeProfileImgError = null;
+      case CHANGE_PROFILE_REQUEST:
+        draft.changeProfileLoading = true;
+        draft.changeProfileDone = false;
+        draft.changeProfileError = null;
         break;
-      case CHANGE_PROFILEIMG_SUCCESS: {
-        draft.changeProfileImgLoading = false;
-        draft.changeProfileImgDone = true;
-        draft.changeProfileImgError = null;
+      case CHANGE_PROFILE_SUCCESS: {
+        draft.changeProfileLoading = false;
+        draft.changeProfileDone = true;
+        draft.changeProfileError = null;
+        draft.changeProfileSuccess = true;
         draft.me.profileImg = action.data;
         break;
       }
-      case CHANGE_PROFILEIMG_FAILURE:
-        draft.changeProfileImgDone = false;
-        draft.changeProfileImgError = action.error;
+      case CHANGE_PROFILE_FAILURE:
+        draft.changeProfileDone = false;
+        draft.changeProfileError = action.error;
         break;
 
+      case MY_POST_GET_SUCCESS: {
+        if (action.data.result === 'SUCCESS') {
+          draft.me = dummyUser(action.data.memberVO);
+          draft.changeProfileSuccess = false;
+        } else if (action.data.result === 'FAILED') {
+          draft.changeProfileSuccess = true;
+        }
+        break;
+      }
       default:
         break;
     }

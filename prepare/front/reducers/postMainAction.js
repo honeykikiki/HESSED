@@ -271,7 +271,6 @@ const reducer = (state = initialState, action) => {
           }
           draft.savePostLoading = false;
           draft.savePostDone = true;
-          // draft.me.Saved.push({ id: action.data.boardVO.bo_no });
         } else if (action.data.result === 'NOTCONNECTED') {
           draft.savePostLoading = false;
           draft.savePostDone = false;

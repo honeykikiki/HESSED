@@ -10,9 +10,9 @@ import {
   CHANGE_NICKNAME_REQUEST,
   CHANGE_NICKNAME_SUCCESS,
   CHANGE_NICKNAME_FAILURE,
-  CHANGE_PROFILEIMG_REQUEST,
-  CHANGE_PROFILEIMG_SUCCESS,
-  CHANGE_PROFILEIMG_FAILURE,
+  CHANGE_PROFILE_REQUEST,
+  CHANGE_PROFILE_SUCCESS,
+  CHANGE_PROFILE_FAILURE,
 } from '../reducers/userInfo';
 
 // 로그인
@@ -79,23 +79,23 @@ function* changeNickname(action) {
   }
 }
 
-// 프로필 이미지 수정
-function changeProfileImgAPI(data) {
-  return axios.patch(``, data);
+// 프로필 수정
+function changeProfileAPI(data) {
+  console.log(data);
+  return axios.post(`/profile/update.do`, data);
 }
 
-function* changeProfileImg(action) {
+function* changeProfile(action) {
   try {
-    // const result = yield call(changeProfileImgAPI);
-    yield delay(1000);
+    const result = yield call(changeProfileAPI, action.data);
     yield put({
-      type: CHANGE_PROFILEIMG_SUCCESS,
-      data: action.data,
+      type: CHANGE_PROFILE_SUCCESS,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
     yield put({
-      type: CHANGE_PROFILEIMG_FAILURE,
+      type: CHANGE_PROFILE_FAILURE,
       error: err.response.data,
     });
   }
@@ -107,18 +107,11 @@ function* watchLogIn() {
 function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
-function* watchChangeNickname() {
-  yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
-}
-function* watchChangeProfileImg() {
-  yield takeLatest(CHANGE_PROFILEIMG_REQUEST, changeProfileImg);
+
+function* watchChangeProfile() {
+  yield takeLatest(CHANGE_PROFILE_REQUEST, changeProfile);
 }
 
 export default function* userInfoSaga() {
-  yield all([
-    fork(watchLogIn),
-    fork(watchLogOut),
-    fork(watchChangeNickname),
-    fork(watchChangeProfileImg),
-  ]);
+  yield all([fork(watchLogIn), fork(watchLogOut), fork(watchChangeProfile)]);
 }

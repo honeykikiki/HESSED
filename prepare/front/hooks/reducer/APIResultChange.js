@@ -62,7 +62,6 @@ export const dummyUser = (data) => ({
   nickname: data.mem_nickname,
   profileImg: data.mem_profileimg,
   grade: data.mem_grade,
-  Saved: [],
 });
 
 // userPost
