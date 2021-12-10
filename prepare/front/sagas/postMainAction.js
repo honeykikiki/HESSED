@@ -221,14 +221,22 @@ function* unSavePost(action) {
   }
 }
 
-// 게시물 가져오기
-function loadPostsAPI(data) {
-  return axios.get(`/board/list.do?mem_id=${data.mem_id}`, data);
+export function commonRequestPost(data, url) {
+  return axios.post(`${url}`, data);
 }
+
+// 게시물 가져오기
+// function loadPostsAPI(data) {
+//   return axios.get(`/board/list.do?mem_id=${data.mem_id}`, data);
+// }
 
 function* loadPosts(action) {
   try {
-    const result = yield call(loadPostsAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/board/list.do?mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: result.data,

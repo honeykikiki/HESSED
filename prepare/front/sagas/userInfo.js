@@ -7,22 +7,23 @@ import {
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
   LOG_OUT_FAILURE,
-  CHANGE_NICKNAME_REQUEST,
-  CHANGE_NICKNAME_SUCCESS,
-  CHANGE_NICKNAME_FAILURE,
   CHANGE_PROFILE_REQUEST,
   CHANGE_PROFILE_SUCCESS,
   CHANGE_PROFILE_FAILURE,
 } from '../reducers/userInfo';
 
-// 로그인
-function logInAPI(data) {
-  return axios.post(`/login.do`, data);
+export function commonRequestPost(data, url) {
+  return axios.post(`${url}`, data);
 }
+
+// 로그인
+// function logInAPI(data) {
+//   return axios.post(`/login.do`, data);
+// }
 
 function* logIn(action) {
   try {
-    const result = yield call(logInAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/login.do`);
     yield put({
       type: LOG_IN_SUCCESS,
       data: result.data,
@@ -52,28 +53,6 @@ function* logOut(action) {
     console.error(err);
     yield put({
       type: LOG_OUT_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-// 닉네임 수정
-function changeNicknameAPI(data) {
-  return axios.patch(``, data);
-}
-
-function* changeNickname(action) {
-  try {
-    // const result = yield call(changeNicknameAPI);
-    yield delay(1000);
-    yield put({
-      type: CHANGE_NICKNAME_SUCCESS,
-      data: action.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: CHANGE_NICKNAME_FAILURE,
       error: err.response.data,
     });
   }
