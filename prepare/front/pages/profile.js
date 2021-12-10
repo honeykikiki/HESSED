@@ -8,15 +8,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../hooks/useInput';
 import {
   CHANGE_NICKNAME_REQUEST,
-  CHANGE_PROFILEIMG_REQUEST,
+  CHANGE_PROFILE_REQUEST,
 } from '../reducers/userInfo';
 
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
+import { MY_POST_GET_REQUEST } from '../reducers/userPost';
+import { baseURL } from '../config/config';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.userInfo);
+  const { me, changeProfileSuccess } = useSelector((state) => state.userInfo);
   const {
     myPosts,
     savePosts,
@@ -32,6 +34,7 @@ const Profile = () => {
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [photoToAddList, setPhotoToAddList] = useState(false);
+  const [profileImg, setProfileImg] = useState(null);
 
   const imageInput = useRef();
 
@@ -45,7 +48,13 @@ const Profile = () => {
       setPhotoToAddList();
       setNickname('');
     }
-  }, [me, nicknameSet, myPostGetLoading, myPosts]);
+    if (changeProfileSuccess) {
+      dispatch({
+        type: MY_POST_GET_REQUEST,
+        data: { mem_id: me.id },
+      });
+    }
+  }, [me, nicknameSet, changeProfileSuccess]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -53,10 +62,9 @@ const Profile = () => {
 
   const handleImage = useCallback(
     (e) => {
-      const temp = {};
       const photoToAdd = e.target.files;
-      temp.url = URL.createObjectURL(photoToAdd[0]);
-      setPhotoToAddList(temp);
+      setProfileImg(URL.createObjectURL(photoToAdd[0]));
+      setPhotoToAddList(photoToAdd[0]);
     },
     [photoToAddList],
   );
@@ -68,10 +76,10 @@ const Profile = () => {
   const onSave = useCallback(() => {
     setpostToSave(false);
   }, [postToSave]);
-  1;
   const profileSet = useCallback(
     (e) => {
       setNicknameSet((prev) => !prev);
+      setProfileImg(null);
     },
     [nicknameSet],
   );
@@ -80,20 +88,17 @@ const Profile = () => {
     (e) => {
       e.preventDefault();
 
-      if (changeNickname) {
-        dispatch({
-          type: CHANGE_NICKNAME_REQUEST,
-          data: {
-            mem_id: me.id,
-            mem_nickname: changeNickname,
-          },
-        });
+      if (!changeNickname && !photoToAddList) {
+        return alert('닉네임 이미지가 있어야합니다.');
       }
       const formData = new FormData();
-      formData.append('mem_profileImg', photoToAddList);
+      formData.append('mem_id', me.id);
+      formData.append('mem_image', photoToAddList);
+      formData.append('mem_nickname', changeNickname);
+
       if (photoToAddList) {
         dispatch({
-          type: CHANGE_PROFILEIMG_REQUEST,
+          type: CHANGE_PROFILE_REQUEST,
           data: formData,
         });
       }
@@ -112,8 +117,8 @@ const Profile = () => {
             <div>
               <div>
                 {nicknameSet ? (
-                  me?.profileImg?.url ? (
-                    <img src={`${me?.profileImg?.url}`} alt="ProfiltImg" />
+                  me?.profileImg !== '' ? (
+                    <img src={`${baseURL}${me?.profileImg}`} alt="ProfiltImg" />
                   ) : (
                     <img
                       src="/icon/profileBasic.svg"
@@ -121,8 +126,8 @@ const Profile = () => {
                       alt="ProfiltImg"
                     />
                   ) // 코드 바꾸기
-                ) : photoToAddList?.url ? (
-                  <img src={`${photoToAddList.url}`} alt="ProfiltImg" />
+                ) : profileImg ? (
+                  <img src={`${profileImg}`} alt="ProfiltImg" />
                 ) : (
                   <img
                     src="/icon/addphoto.svg"

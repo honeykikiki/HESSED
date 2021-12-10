@@ -11,7 +11,6 @@ import userInfoSaga from './userInfo';
 import userSignSaga from './userSign';
 
 axois.defaults.baseURL = baseURL;
-
 axois.defaults.withCredentials = true;
 
 export default function* rootSaga() {

@@ -7,22 +7,23 @@ import {
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
   LOG_OUT_FAILURE,
-  CHANGE_NICKNAME_REQUEST,
-  CHANGE_NICKNAME_SUCCESS,
-  CHANGE_NICKNAME_FAILURE,
-  CHANGE_PROFILEIMG_REQUEST,
-  CHANGE_PROFILEIMG_SUCCESS,
-  CHANGE_PROFILEIMG_FAILURE,
+  CHANGE_PROFILE_REQUEST,
+  CHANGE_PROFILE_SUCCESS,
+  CHANGE_PROFILE_FAILURE,
 } from '../reducers/userInfo';
 
-// 로그인
-function logInAPI(data) {
-  return axios.post(`/login.do`, data);
+export function commonRequestPost(data, url) {
+  return axios.post(`${url}`, data);
 }
+
+// 로그인
+// function logInAPI(data) {
+//   return axios.post(`/login.do`, data);
+// }
 
 function* logIn(action) {
   try {
-    const result = yield call(logInAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/login.do`);
     yield put({
       type: LOG_IN_SUCCESS,
       data: result.data,
@@ -57,45 +58,23 @@ function* logOut(action) {
   }
 }
 
-// 닉네임 수정
-function changeNicknameAPI(data) {
-  return axios.patch(``, data);
+// 프로필 수정
+function changeProfileAPI(data) {
+  console.log(data);
+  return axios.post(`/profile/update.do`, data);
 }
 
-function* changeNickname(action) {
+function* changeProfile(action) {
   try {
-    // const result = yield call(changeNicknameAPI);
-    yield delay(1000);
+    const result = yield call(changeProfileAPI, action.data);
     yield put({
-      type: CHANGE_NICKNAME_SUCCESS,
-      data: action.data,
+      type: CHANGE_PROFILE_SUCCESS,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
     yield put({
-      type: CHANGE_NICKNAME_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-// 프로필 이미지 수정
-function changeProfileImgAPI(data) {
-  return axios.patch(``, data);
-}
-
-function* changeProfileImg(action) {
-  try {
-    // const result = yield call(changeProfileImgAPI);
-    yield delay(1000);
-    yield put({
-      type: CHANGE_PROFILEIMG_SUCCESS,
-      data: action.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: CHANGE_PROFILEIMG_FAILURE,
+      type: CHANGE_PROFILE_FAILURE,
       error: err.response.data,
     });
   }
@@ -107,18 +86,11 @@ function* watchLogIn() {
 function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
-function* watchChangeNickname() {
-  yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
-}
-function* watchChangeProfileImg() {
-  yield takeLatest(CHANGE_PROFILEIMG_REQUEST, changeProfileImg);
+
+function* watchChangeProfile() {
+  yield takeLatest(CHANGE_PROFILE_REQUEST, changeProfile);
 }
 
 export default function* userInfoSaga() {
-  yield all([
-    fork(watchLogIn),
-    fork(watchLogOut),
-    fork(watchChangeNickname),
-    fork(watchChangeProfileImg),
-  ]);
+  yield all([fork(watchLogIn), fork(watchLogOut), fork(watchChangeProfile)]);
 }
