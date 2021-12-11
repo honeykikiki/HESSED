@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
+import { commonRequestGet } from '../hooks/API';
 
 import {
   GET_ID_POST_REQUEST,
@@ -9,14 +8,13 @@ import {
 } from '../reducers/getIdPost';
 
 // 특정 게시물  가져오기
-function getIdPostAPI(data) {
-  // return axios.get(`/board/list.do?page=${data.page}`, data);
-  return axios.get(`/board/view/${data.bo_no}`, data);
-}
-
 function* getIdPost(action) {
   try {
-    const result = yield call(getIdPostAPI, action.data);
+    const result = yield call(
+      commonRequestGet,
+      action.data,
+      `/board/view/${action.data.bo_no}`,
+    );
     yield put({
       type: GET_ID_POST_SUCCESS,
       data: result.data,
