@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import { all, fork, put, call, takeLatest, throttle } from 'redux-saga/effects';
+import { commonRequestPost } from '../hooks/API';
 
 import {
   MY_POST_GET_REQUEST,
@@ -18,13 +17,13 @@ import {
 } from '../reducers/userPost';
 
 // 작성 게시물 받아오기
-function myPostGetAPI(data) {
-  return axios.post(`/profile.do?mem_id=${data.mem_id}`, data);
-}
-
 function* myPostGet(action) {
   try {
-    const result = yield call(myPostGetAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/profile.do?mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: MY_POST_GET_SUCCESS,
       data: result.data,
@@ -39,13 +38,13 @@ function* myPostGet(action) {
 }
 
 // 작성 게시물 더 받아오기
-function myPostMoreGetAPI(data) {
-  return axios.post(`/profile/list.do?mem_id=${data.mem_id}`, data);
-}
-
 function* myPostMoreGet(action) {
   try {
-    const result = yield call(myPostMoreGetAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/profile/list.do?mem_id=${action.ata.mem_id}`,
+    );
     yield put({
       type: MY_POST_MORE_GET_SUCCESS,
       data: result.data,
@@ -60,13 +59,13 @@ function* myPostMoreGet(action) {
 }
 
 // 저장 게시물 받아오기
-function mySavePostGetAPI(data) {
-  return axios.post(`/profile.do?mem_id=${data.mem_id}`, data);
-}
-
 function* mySavePostGet(action) {
   try {
-    const result = yield call(mySavePostGetAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/profile.do?mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: MY_SAVE_POST_GET_SUCCESS,
       data: result.data,
@@ -81,13 +80,13 @@ function* mySavePostGet(action) {
 }
 
 // 작성 게시물 더 받아오기
-function mySavePostMoreGetAPI(data) {
-  return axios.post(`/profile/savelist.do?mem_id=${data.mem_id}`, data);
-}
-
 function* mySavePostMoreGet(action) {
   try {
-    const result = yield call(mySavePostMoreGetAPI, action.data);
+    const result = yield call(
+      mySavePostMoreGetAPI,
+      action.data,
+      `/profile/savelist.do?mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: MY_SAVE_POST_MORE_GET_SUCCESS,
       data: result.data,

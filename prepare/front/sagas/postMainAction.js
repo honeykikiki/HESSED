@@ -8,6 +8,7 @@ import {
   takeLatest,
   throttle,
 } from 'redux-saga/effects';
+import { commonRequestPost } from '../hooks/API';
 
 import {
   ADD_COMMENT_REQUEST,
@@ -128,16 +129,13 @@ function* removeCommentReply(action) {
 }
 
 // 좋아요
-function likePostAPI(data) {
-  return axios.post(
-    `/good/check.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
-    data,
-  );
-}
-
 function* likePost(action) {
   try {
-    const result = yield call(likePostAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/good/check.do?bo_no=${action.data.bo_no}&mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: LIKE_POST_SUCCESS,
       data: result.data,
@@ -151,16 +149,13 @@ function* likePost(action) {
   }
 }
 // 좋아요 취소
-function unLikePostAPI(data) {
-  return axios.post(
-    `/good/checkOut.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
-    data,
-  );
-}
-
 function* unLikePost(action) {
   try {
-    const result = yield call(unLikePostAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/good/checkOut.do?bo_no=${action.data.bo_no}&mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: UNLIKE_POST_SUCCESS,
       data: result.data,
@@ -175,16 +170,13 @@ function* unLikePost(action) {
 }
 
 // 게시물 저장
-function savePostAPI(data) {
-  return axios.post(
-    `/board/save.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
-    data,
-  );
-}
-
 function* savePost(action) {
   try {
-    const result = yield call(savePostAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/board/save.do?bo_no=${action.data.bo_no}&mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: SAVE_POST_SUCCESS,
       data: result.data,
@@ -198,16 +190,13 @@ function* savePost(action) {
   }
 }
 // 게시물 저장 취소
-function unSavePostAPI(data) {
-  return axios.post(
-    `/board/cancel.do?bo_no=${data.bo_no}&mem_id=${data.mem_id}`,
-    data,
-  );
-}
-
 function* unSavePost(action) {
   try {
-    const result = yield call(unSavePostAPI, action.data);
+    const result = yield call(
+      unSavePostAPI,
+      action.data,
+      `/board/cancel.do?bo_no=${action.data.bo_no}&mem_id=${action.data.mem_id}`,
+    );
     yield put({
       type: UNSAVE_POST_SUCCESS,
       data: result.data,
@@ -221,15 +210,7 @@ function* unSavePost(action) {
   }
 }
 
-export function commonRequestPost(data, url) {
-  return axios.post(`${url}`, data);
-}
-
 // 게시물 가져오기
-// function loadPostsAPI(data) {
-//   return axios.get(`/board/list.do?mem_id=${data.mem_id}`, data);
-// }
-
 function* loadPosts(action) {
   try {
     const result = yield call(
@@ -250,13 +231,9 @@ function* loadPosts(action) {
   }
 }
 // 게시물 더 가져오기
-function loadMorePostsAPI(data) {
-  return axios.post(`/board/list.do`, data);
-}
-
 function* loadMorePosts(action) {
   try {
-    const result = yield call(loadMorePostsAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/board/list.do`);
     yield put({
       type: LOAD_MORE_POSTS_SUCCESS,
       data: result.data,

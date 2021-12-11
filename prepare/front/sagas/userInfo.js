@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { all, fork, put, call, delay, takeLatest } from 'redux-saga/effects';
+import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
+import { commonRequestPost } from '../hooks/API';
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -12,15 +12,7 @@ import {
   CHANGE_PROFILE_FAILURE,
 } from '../reducers/userInfo';
 
-export function commonRequestPost(data, url) {
-  return axios.post(`${url}`, data);
-}
-
 // 로그인
-// function logInAPI(data) {
-//   return axios.post(`/login.do`, data);
-// }
-
 function* logIn(action) {
   try {
     const result = yield call(commonRequestPost, action.data, `/login.do`);
@@ -38,13 +30,9 @@ function* logIn(action) {
 }
 
 // 로그아웃
-function logOutAPI(data) {
-  return axios.post(`/logout.do`, data);
-}
-
 function* logOut(action) {
   try {
-    const result = yield call(logOutAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/logout.do`);
     yield put({
       type: LOG_OUT_SUCCESS,
       data: result.data,
@@ -59,14 +47,13 @@ function* logOut(action) {
 }
 
 // 프로필 수정
-function changeProfileAPI(data) {
-  console.log(data);
-  return axios.post(`/profile/update.do`, data);
-}
-
 function* changeProfile(action) {
   try {
-    const result = yield call(changeProfileAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/profile/update.do`,
+    );
     yield put({
       type: CHANGE_PROFILE_SUCCESS,
       data: result.data,

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { all, fork, put, call, delay, takeLatest } from 'redux-saga/effects';
+import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
+import { commonRequestPost } from '../hooks/API';
 import {
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
@@ -39,13 +39,9 @@ import {
 // }
 
 // 회원가입
-function signUpAPI(data) {
-  return axios.post(`/register.do`, data);
-}
-
 function* signUp(action) {
   try {
-    const result = yield call(signUpAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/register.do`);
     yield put({
       type: SIGN_UP_SUCCESS,
       data: result.data,
@@ -60,13 +56,9 @@ function* signUp(action) {
 }
 
 // 아이디찾기
-function searchIdAPI(data) {
-  return axios.post(`/findID.do`, data);
-}
-
 function* searchId(action) {
   try {
-    const result = yield call(searchIdAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/findID.do`);
     yield put({
       type: SEARCH_ID_SUCCESS,
       data: result.data,
@@ -81,13 +73,9 @@ function* searchId(action) {
 }
 
 // 비밀번호찾기
-function searchPwAPI(data) {
-  return axios.post(`/findPW.do`, data);
-}
-
 function* searchPw(action) {
   try {
-    const result = yield call(searchPwAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/findPW.do`);
     yield put({
       type: SEARCH_PW_SUCCESS,
       data: result.data,
@@ -102,13 +90,9 @@ function* searchPw(action) {
 }
 
 // 인증번호
-function certifiedAPI(data) {
-  return axios.post(`/pwAccount.do`, data);
-}
-
 function* certified(action) {
   try {
-    const result = yield call(certifiedAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/pwAccount.do`);
     yield put({
       type: CERIFIED_SUCCESS,
       data: result.data,
@@ -123,13 +107,9 @@ function* certified(action) {
 }
 
 // 비밀번호 바꾸기
-function pwChangeAPI(data) {
-  return axios.post(`/pwUpdate.do`, data);
-}
-
 function* pwChange(action) {
   try {
-    const result = yield call(pwChangeAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/pwUpdate.do`);
     yield put({
       type: PASSWORD_CHANGE_SUCCESS,
       data: result.data,
@@ -144,13 +124,9 @@ function* pwChange(action) {
 }
 
 // 아이디 중복체크
-function duplicateCheckAPI(data) {
-  return axios.post(`/idCheck.do`, data);
-}
-
 function* duplicateCheck(action) {
   try {
-    const result = yield call(duplicateCheckAPI, action.data);
+    const result = yield call(commonRequestPost, action.data, `/idCheck.do`);
     yield put({
       type: DUPLICATE_CHECK_SUCCESS,
       data: result.data,

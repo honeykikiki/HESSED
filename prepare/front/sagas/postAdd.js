@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import { all, fork, put, call, delay, takeLatest } from 'redux-saga/effects';
+import { commonRequestDelete, commonRequestPost } from '../hooks/API';
 
 import {
   ADD_POST_SUCCESS,
@@ -15,17 +14,13 @@ import {
 } from '../reducers/postAdd';
 
 // 게시물 등록하기
-function addPostAPI(data) {
-  return axios.post(
-    // `/board/insert.do?bo_writer=${data.bo_writer}&bo_content=${data.bo_content}&bo_image=${data.bo_image}`,
-    `/board/insert.do`,
-    data,
-  );
-}
-
 function* addPost(action) {
   try {
-    const result = yield call(addPostAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/board/insert.do`,
+    );
     yield put({
       type: ADD_POST_SUCCESS,
       data: result.data,
@@ -39,13 +34,13 @@ function* addPost(action) {
   }
 }
 // 게시물 수정
-function updatePostAPI(data) {
-  return axios.post(`/board/insert.do`, data);
-}
-
 function* updatePost(action) {
   try {
-    const result = yield call(updatePostAPI, action.data);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      `/board/insert.do`,
+    );
     yield put({
       type: UPDATE_POST_SUCCESS,
       data: result.data,
@@ -60,17 +55,16 @@ function* updatePost(action) {
 }
 
 // 게시물 삭제하기
-function removePostAPI(data) {
-  return axios.delete(`/post/${data.postId}`);
-}
-
 function* removePost(action) {
   try {
-    // const result = yield call(removePostAPI, action.data)
-    yield delay(1000);
+    const result = yield call(
+      commonRequestDelete,
+      action.data,
+      `/post/${action.data.postId}`,
+    );
     yield put({
       type: REMOVE_POST_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
