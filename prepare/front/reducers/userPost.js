@@ -13,7 +13,7 @@ export const initialState = {
   myPostMoreGetLoading: false, // 유저가 작성한 더 게시글 받아오기
   myPostMoreGetDone: false,
   myPostMoreGetError: null,
-  myPostMoreGetFailed: true,
+  myPostMoreGetFailed: false,
   myPostPageNumber: 2,
   myPostNickname: null,
   myPostprofileImg: null,
@@ -25,7 +25,7 @@ export const initialState = {
   mySavePostMoreGetLoading: false, // 유저가 저장한 더 게시글 받아오기
   mySavePostMoreGetDone: false,
   mySavePostMoreGetError: null,
-  mySavePostMoreGetFailed: true,
+  mySavePostMoreGetFailed: false,
   mySavePostPageNumber: 2,
   mySavePostprofileImg: null,
 };
@@ -56,13 +56,14 @@ const reducer = (state = initialState, action) => {
         break;
       case (MY_POST_GET_SUCCESS, MY_SAVE_POST_GET_SUCCESS): {
         if (action.data.result === 'SUCCESS') {
-          draft.myPostGetLoading = false;
-          draft.myPostGetDone = true;
           draft.myPosts = myPost(action.data.list, action.data.memberVO);
           draft.myPostsLength = action.data.memberVO.cnt;
-          draft.myPostPageNumber = 2;
           draft.myPostNickname = action.data.memberVO.mem_nickname;
           draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
+
+          draft.myPostGetLoading = false;
+          draft.myPostGetDone = true;
+          draft.myPostPageNumber = 2;
           draft.myPostMoreGetFailed = true;
 
           draft.mySavePostPageNumber = 2;

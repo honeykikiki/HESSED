@@ -29,6 +29,7 @@ const ProfilePost = ({ myPosts, postToSave }) => {
     if (!me) {
       Router.push('/');
     }
+
     if (inView && !myPostMoreGetLoading && myPostMoreGetFailed) {
       const formData = new FormData();
       formData.append('page', myPostPageNumber);
@@ -57,6 +58,7 @@ const ProfilePost = ({ myPosts, postToSave }) => {
     mySavePostMoreGetFailed,
     me,
   ]);
+
   return (
     <>
       <div className={style.upLoadImageBox}>

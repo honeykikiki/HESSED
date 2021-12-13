@@ -10,10 +10,7 @@ import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
 import Router from 'next/router';
 
 import { baseURL } from '../config/config';
-import {
-  LOAD_POSTS_REQUEST,
-  SAVE_POST_REQUEST,
-} from '../reducers/postMainAction';
+import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
 import {
   MY_POST_GET_REQUEST,
   MY_SAVE_POST_GET_REQUEST,
@@ -26,6 +23,7 @@ const MainLayout = ({ children }) => {
     (state) => state.menu,
   );
   const { me } = useSelector((state) => state.userInfo);
+  const { myPosts, savePosts } = useSelector((state) => state.userPost);
 
   const [profileToggle, setProfileToggle] = useState(false);
 
@@ -64,14 +62,16 @@ const MainLayout = ({ children }) => {
   }, []);
   const onProfile = useCallback(() => {
     Router.push('/profile');
-    dispatch({
-      type: MY_POST_GET_REQUEST,
-      data: { mem_id: me.id },
-    });
-    dispatch({
-      type: MY_SAVE_POST_GET_REQUEST,
-      data: { mem_id: me.id },
-    });
+    if (me) {
+      dispatch({
+        type: MY_POST_GET_REQUEST,
+        data: { mem_id: me.id },
+      });
+      dispatch({
+        type: MY_SAVE_POST_GET_REQUEST,
+        data: { mem_id: me.id },
+      });
+    }
   }, [me]);
   return (
     <>

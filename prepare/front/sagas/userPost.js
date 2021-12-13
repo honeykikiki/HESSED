@@ -43,7 +43,7 @@ function* myPostMoreGet(action) {
     const result = yield call(
       commonRequestPost,
       action.data,
-      `/profile/list.do?mem_id=${action.ata.mem_id}`,
+      `/profile/list.do?mem_id=${action.data.mem_id}`,
     );
     yield put({
       type: MY_POST_MORE_GET_SUCCESS,
@@ -83,7 +83,7 @@ function* mySavePostGet(action) {
 function* mySavePostMoreGet(action) {
   try {
     const result = yield call(
-      mySavePostMoreGetAPI,
+      commonRequestPost,
       action.data,
       `/profile/savelist.do?mem_id=${action.data.mem_id}`,
     );
