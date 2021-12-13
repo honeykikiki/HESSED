@@ -11,33 +11,27 @@ import useInput from '../../hooks/useInput';
 
 import ProfileIcon from '../../components/profile/ProfileIcon';
 import ProfilePost from '../../components/profile/ProfilePost';
-import {
-  MY_POST_GET_REQUEST,
-  MY_POST_MORE_GET_REQUEST,
-} from '../../reducers/userPost';
+import { MY_POST_GET_REQUEST } from '../../reducers/userPost';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { me, changeNicknameDone } = useSelector((state) => state.userInfo);
   const {
     myPosts,
-    myPostMoreGetLoading,
-    myPostMoreGetFailed,
+    savePosts,
     myPostsLength,
-    myPostPageNumber,
     myPostNickname,
     myPostMoreGetDone,
     myPostGetLoading,
     myPostprofileImg,
+    userPosts,
+    userPostGetLoading,
   } = useSelector((state) => state.userPost);
 
-  const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
-  const [changeNickname, onChangeNickname, setNickname] = useInput();
 
   const router = useRouter();
   const { id } = router.query;
-  let actionControl = 0;
 
   useEffect(() => {
     // if (!me) {
@@ -47,50 +41,13 @@ const Profile = () => {
       setNickname('');
     }
 
-    if (myPosts.length === 0 && !myPostGetLoading && id) {
+    if (!userPostGetLoading && !myPostGetLoading && id) {
       dispatch({
         type: MY_POST_GET_REQUEST,
         data: { mem_id: id },
       });
     }
-
-    function onScroll() {
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (
-          !myPostMoreGetLoading &&
-          actionControl === 0 &&
-          myPostMoreGetFailed
-        ) {
-          const formData = new FormData();
-          formData.append('page', myPostPageNumber);
-          formData.append('mem_id', id);
-          dispatch({
-            type: MY_POST_MORE_GET_REQUEST,
-            data: formData,
-          });
-          actionControl = 0;
-        }
-      }
-    }
-
-    window.addEventListener('scroll', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [
-    me,
-    changeNickname,
-    id,
-    myPostPageNumber,
-    myPostMoreGetFailed,
-    myPostMoreGetLoading,
-    actionControl,
-    myPostGetLoading,
-    myPosts,
-  ]);
+  }, [me, id, userPostGetLoading, myPostGetLoading]);
 
   const onPost = useCallback(() => {
     setpostToSave(true);
@@ -178,9 +135,9 @@ const Profile = () => {
               postToSave={postToSave}
             />
             {postToSave ? (
-              <ProfilePost myPosts={myPosts} />
+              <ProfilePost myPosts={userPosts} />
             ) : (
-              <ProfilePost myPost={savePost} />
+              <ProfilePost myPosts={savePosts} />
             )}
           </div>
           {myPostMoreGetDone ? null : (

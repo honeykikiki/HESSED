@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postImage.module.css';
@@ -6,18 +6,49 @@ import { baseURL } from '../../config/config';
 
 const PostImages = ({ images }) => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
+  const [position, setPosition] = useState('');
 
+  // let startCoord;
+
+  // useEffect(() => {
+  //   window.addEventListener('mousedown', (event) => {
+  //     startCoord = [event.clientX, event.clientY];
+  //   });
+  //   window.addEventListener('mouseup', (event) => {
+  //     const endCoord = [event.clientX, event.clientY];
+  //     const diffX = endCoord[0] - startCoord[0];
+  //     const diffY = endCoord[1] - startCoord[1];
+  //     console.log()
+  //     if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) {
+  //       setPosition('left');
+  //     } else if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY)) {
+  //       setPosition('right');
+  //     } else if (diffY > 0 && Math.abs(diffX) <= Math.abs(diffY)) {
+  //       setPosition('down');
+  //     } else if (diffY < 0 && Math.abs(diffX) <= Math.abs(diffY)) {
+  //       setPosition('up');
+  //     }
+  //   });
+  // }, []);
+
+  // console.log(position);
   const onClickLeft = useCallback(() => {
     if (imageCuurrentNo > 0) {
       setImageCuurrentNo((prev) => prev - 1);
     }
-  }, [imageCuurrentNo]);
+    if (position === 'right') {
+      setImageCuurrentNo((prev) => prev - 1);
+    }
+  }, [imageCuurrentNo, position]);
 
   const onClickRight = useCallback(() => {
     if (imageCuurrentNo < images.length - 1) {
       setImageCuurrentNo((prev) => prev + 1);
     }
-  }, [imageCuurrentNo]);
+    if (position === 'left') {
+      setImageCuurrentNo((prev) => prev - 1);
+    }
+  }, [imageCuurrentNo, position]);
 
   return (
     <>

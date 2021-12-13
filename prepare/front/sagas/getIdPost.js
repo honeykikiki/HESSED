@@ -10,11 +10,11 @@ import {
 // 특정 게시물  가져오기
 function* getIdPost(action) {
   try {
-    const result = yield call(
-      commonRequestGet,
-      action.data,
-      `/board/view/${action.data.bo_no}`,
-    );
+    let url = `/board/view/${action.data.bo_no}`;
+    if (action.data.mem_id) {
+      url = `/board/view/${action.data.bo_no}?mem_id=${action.data.mem_id}`;
+    }
+    const result = yield call(commonRequestGet, action.data, url);
     yield put({
       type: GET_ID_POST_SUCCESS,
       data: result.data,
