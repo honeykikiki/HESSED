@@ -16,7 +16,7 @@ const Post = () => {
   const { id } = router.query;
 
   const dispatch = useDispatch();
-
+  const { me } = useSelector((state) => state.userInfo);
   const { boardOneViewPost } = useSelector((state) => state.getIdPost);
   const { loginNotConnected } = useSelector((state) => state.postMainAction);
 
@@ -24,13 +24,13 @@ const Post = () => {
     if (id) {
       dispatch({
         type: GET_ID_POST_REQUEST,
-        data: { bo_no: +id },
+        data: { bo_no: +id, mem_id: me?.id },
       });
     }
     if (loginNotConnected) {
       Router.push('/');
     }
-  }, [id, loginNotConnected]);
+  }, [id, loginNotConnected, me]);
 
   const onClickBack = useCallback(() => {
     Router.back();

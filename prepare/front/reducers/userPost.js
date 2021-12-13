@@ -1,10 +1,12 @@
 import produce from 'immer';
 import { myPost } from '../hooks/reducer/APIResultChange';
+import { LOG_IN_SUCCESS } from './userInfo';
 
 export const initialState = {
   myPosts: [],
   myPostsLength: null,
   savePosts: [],
+  userPosts: [],
 
   myPostGetLoading: false, // 유저가 작성한 게시글 받아오기
   myPostGetDone: false,
@@ -28,6 +30,18 @@ export const initialState = {
   mySavePostMoreGetFailed: false,
   mySavePostPageNumber: 2,
   mySavePostprofileImg: null,
+
+  userPostGetLoading: false, // 유저가 작성한 게시글 받아오기
+  userPostGetDone: false,
+  userPostGetError: null,
+
+  userPostMoreGetLoading: false, // 유저가 작성한 더 게시글 받아오기
+  userPostMoreGetDone: false,
+  userPostMoreGetError: null,
+  userPostMoreGetFailed: false,
+  userPostPageNumber: 2,
+  userPostNickname: null,
+  userPostprofileImg: null,
 };
 
 export const MY_POST_GET_REQUEST = 'MY_POST_GET_REQUEST';
@@ -53,22 +67,38 @@ const reducer = (state = initialState, action) => {
       case (MY_POST_GET_REQUEST, MY_SAVE_POST_GET_REQUEST):
         draft.myPostGetLoading = true;
         draft.myPostGetDone = false;
+        draft.userPostGetLoading = true;
+
         break;
       case (MY_POST_GET_SUCCESS, MY_SAVE_POST_GET_SUCCESS): {
         if (action.data.result === 'SUCCESS') {
-          draft.myPosts = myPost(action.data.list, action.data.memberVO);
-          draft.myPostsLength = action.data.memberVO.cnt;
-          draft.myPostNickname = action.data.memberVO.mem_nickname;
-          draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
+          if (action.data.list[0].mem_id === action.data.memberVO.mem_id) {
+            draft.myPosts = myPost(action.data.list, action.data.memberVO);
+            draft.myPostsLength = action.data.memberVO.cnt;
+            draft.myPostNickname = action.data.memberVO.mem_nickname;
+            draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
+            // draft.myPostGetLoading = false;
+            draft.myPostGetDone = true;
+            draft.myPostPageNumber = 2;
+            draft.myPostMoreGetFailed = true;
+            draft.mySavePostPageNumber = 2;
+            draft.savePosts = myPost(action.data.saveList);
+            draft.mySavePostMoreGetFailed = true;
+          } else {
+            draft.userPosts = myPost(action.data.list, action.data.memberVO);
+            // draft.userPostGetLoading = false;
 
-          draft.myPostGetLoading = false;
-          draft.myPostGetDone = true;
-          draft.myPostPageNumber = 2;
-          draft.myPostMoreGetFailed = true;
+            draft.userPostGetDone = false;
+            draft.userPostGetError = null;
 
-          draft.mySavePostPageNumber = 2;
-          draft.savePosts = myPost(action.data.saveList);
-          draft.mySavePostMoreGetFailed = true;
+            draft.userPostMoreGetLoading = false;
+            draft.userPostMoreGetDone = false;
+            draft.userPostMoreGetError = null;
+            draft.userPostMoreGetFailed = false;
+            draft.userPostPageNumber = 2;
+            draft.userPostNickname = null;
+            draft.userPostprofileImg = null;
+          }
         } else {
           draft.myPostGetLoading = false;
           draft.myPostGetDone = false;

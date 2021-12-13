@@ -12,6 +12,7 @@ import PostContent from '../PostCard/PostContent';
 import PostComment from '../PostCard/PostComment';
 import PostCardSetButton from './postCardMore/PostCardSetButton';
 import { baseURL } from '../../config/config';
+import PostHeader from './PostHeader';
 
 const PostCard = ({ post }) => {
   return (
@@ -21,25 +22,7 @@ const PostCard = ({ post }) => {
           <div className={style.postCard}>
             <div className={style.postHead}>
               <header>
-                <div>
-                  <Link href={`/user/${post.User.id}`}>
-                    <a>
-                      {post.User.profileImg ? (
-                        <img
-                          src={`${baseURL}/${post.User.profileImg}`}
-                          alt="profileImg"
-                        />
-                      ) : (
-                        <img src="/icon/profileBasic.svg" alt="profileImg" />
-                      )}
-                    </a>
-                  </Link>
-                </div>
-                <div>
-                  <Link href={`/user/${post.User.id}`}>
-                    <a>{`${post.User.nickname}`}</a>
-                  </Link>
-                </div>
+                <PostHeader post={post} />
               </header>
               <PostCardSetButton post={post} />
               {/* {true ?  : null} */}

@@ -8,6 +8,7 @@ export const boardOneViewPost = (list) => {
       profileImg: list.mem_profileimg,
     },
     content: list.bo_content,
+    liked: list.goodChk,
     Images: list.boardImgList.map((listImg) => {
       return {
         id: listImg.bo_img_no,

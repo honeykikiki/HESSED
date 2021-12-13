@@ -88,7 +88,8 @@ const PostIcon = ({ post }) => {
             <img src="/icon/heartOff.svg" alt="Hearticon" />
           </div>
         ) : post?.liked[0]?.mem_id === me.id ||
-          post?.liked?.mem_id === me.id ? (
+          post?.liked?.mem_id === me.id ||
+          post?.liked === me.id ? (
           <div onClick={onUnLike}>
             <img src="/icon/heartOn.svg" alt="Hearticon" />
           </div>

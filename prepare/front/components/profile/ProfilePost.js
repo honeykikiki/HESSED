@@ -123,7 +123,7 @@ const ProfilePost = ({ myPosts, postToSave }) => {
   );
 };
 
-// ProfilePost.propTypes = {
+// ProfilePost.propTypes =j {
 //   myPosts: PropTypes.arrayOf,
 // };
 
