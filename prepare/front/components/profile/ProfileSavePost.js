@@ -10,12 +10,16 @@ import Router from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { MY_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
+import { MY_SAVE_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
 
-const ProfilePost = ({ myPosts }) => {
+const ProfileSavePost = ({ myPosts }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
-  const { myPostMoreGetLoading, myPostPageNumber, myPostMoreGetFailed } =
-    useSelector((state) => state.userPost);
+  const {
+    mySavePostMoreGetLoading,
+    mySavePostPageNumber,
+    mySavePostMoreGetFailed,
+  } = useSelector((state) => state.userPost);
   const [ref, inView] = useInView();
 
   useEffect(() => {
@@ -23,16 +27,22 @@ const ProfilePost = ({ myPosts }) => {
       Router.push('/');
     }
 
-    if (inView && !myPostMoreGetLoading && myPostMoreGetFailed) {
+    if (inView && !mySavePostMoreGetLoading && mySavePostMoreGetFailed) {
       const formData = new FormData();
-      formData.append('page', myPostPageNumber);
+      formData.append('page', mySavePostPageNumber);
       formData.append('mem_id', me?.id);
       dispatch({
-        type: MY_POST_MORE_GET_REQUEST,
+        type: MY_SAVE_POST_MORE_GET_REQUEST,
         data: formData,
       });
     }
-  }, [inView, myPostMoreGetLoading, myPostMoreGetFailed, myPostPageNumber, me]);
+  }, [
+    inView,
+    mySavePostMoreGetLoading,
+    mySavePostPageNumber,
+    mySavePostMoreGetFailed,
+    me,
+  ]);
 
   return (
     <>
@@ -76,7 +86,11 @@ const ProfilePost = ({ myPosts }) => {
         })}
 
         <div
-          ref={!myPostMoreGetLoading && myPostMoreGetFailed ? ref : undefined}
+          ref={
+            !mySavePostMoreGetLoading && mySavePostMoreGetFailed
+              ? ref
+              : undefined
+          }
         />
       </div>
     </>
@@ -87,4 +101,4 @@ const ProfilePost = ({ myPosts }) => {
 //   myPosts: PropTypes.arrayOf,
 // };
 
-export default ProfilePost;
+export default ProfileSavePost;

@@ -4,32 +4,32 @@ import { LOG_IN_SUCCESS } from './userInfo';
 
 export const initialState = {
   myPosts: [],
-  myPostsLength: null,
   savePosts: [],
-  userPosts: [],
+  myPostsLength: null,
+  myPostNickname: null,
+  myPostprofileImg: null,
 
-  myPostGetLoading: false, // 유저가 작성한 게시글 받아오기
+  myPostGetLoading: false, // 내가 작성한 게시글 받아오기
   myPostGetDone: false,
   myPostGetError: null,
 
-  myPostMoreGetLoading: false, // 유저가 작성한 더 게시글 받아오기
+  myPostMoreGetLoading: false, // 내가 작성한 더 게시글 받아오기
   myPostMoreGetDone: false,
   myPostMoreGetError: null,
   myPostMoreGetFailed: false,
   myPostPageNumber: 2,
-  myPostNickname: null,
-  myPostprofileImg: null,
 
-  mySavePostGetLoading: false, // 유저가 저장한 게시글 받아오기
-  mySavePostGetDone: false,
-  mySavePostGetError: null,
-
-  mySavePostMoreGetLoading: false, // 유저가 저장한 더 게시글 받아오기
+  mySavePostMoreGetLoading: false, // 내가 저장한 더 게시글 받아오기
   mySavePostMoreGetDone: false,
   mySavePostMoreGetError: null,
   mySavePostMoreGetFailed: false,
   mySavePostPageNumber: 2,
-  mySavePostprofileImg: null,
+
+  userPosts: [],
+  userSavePosts: [],
+  userPostsLength: null,
+  userPostNickname: null,
+  userPostprofileImg: null,
 
   userPostGetLoading: false, // 유저가 작성한 게시글 받아오기
   userPostGetDone: false,
@@ -40,77 +40,83 @@ export const initialState = {
   userPostMoreGetError: null,
   userPostMoreGetFailed: false,
   userPostPageNumber: 2,
-  userPostNickname: null,
-  userPostprofileImg: null,
+
+  userSavePostMoreGetLoading: false, // 유저가 저장한 더 게시글 받아오기
+  userSavePostMoreGetDone: false,
+  userSavePostMoreGetError: null,
+  userSavePostMoreGetFailed: false,
+  userSavePostPageNumber: 2,
 };
 
-export const MY_POST_GET_REQUEST = 'MY_POST_GET_REQUEST';
-export const MY_POST_GET_SUCCESS = 'MY_POST_GET_SUCCESS';
-export const MY_POST_GET_FAILURE = 'MY_POST_GET_FAILURE';
+export const MY_POST_AND_SAVE_POST_GET_REQUEST =
+  'MY_POST_AND_SAVE_POST_GET_REQUEST';
+export const MY_POST_AND_SAVE_POST_GET_SUCCESS =
+  'MY_POST_AND_SAVE_POST_GET_SUCCESS';
+export const MY_POST_AND_SAVE_POST_GET_FAILURE =
+  'MY_POST_AND_SAVE_POST_GET_FAILURE';
 
 export const MY_POST_MORE_GET_REQUEST = 'MY_POST_MORE_GET_REQUEST';
 export const MY_POST_MORE_GET_SUCCESS = 'MY_POST_MORE_GET_SUCCESS';
 export const MY_POST_MORE_GET_FAILURE = 'MY_POST_MORE_GET_FAILURE';
 
-export const MY_SAVE_POST_GET_REQUEST = 'MY_SAVE_POST_GET_REQUEST';
-export const MY_SAVE_POST_GET_SUCCESS = 'MY_SAVE_POST_GET_SUCCESS';
-export const MY_SAVE_POST_GET_FAILURE = 'MY_SAVE_POST_GET_FAILURE';
-
 export const MY_SAVE_POST_MORE_GET_REQUEST = 'MY_SAVE_POST_MORE_GET_REQUEST';
 export const MY_SAVE_POST_MORE_GET_SUCCESS = 'MY_SAVE_POST_MORE_GET_SUCCESS';
 export const MY_SAVE_POST_MORE_GET_FAILURE = 'MY_SAVE_POST_MORE_GET_FAILURE';
 
+export const USER_POST_AND_SAVE_POST_GET_REQUEST =
+  'USER_POST_AND_SAVE_POST_GET_REQUEST';
+export const USER_POST_AND_SAVE_POST_GET_SUCCESS =
+  'USER_POST_AND_SAVE_POST_GET_SUCCESS';
+export const USER_POST_AND_SAVE_POST_GET_FAILURE =
+  'USER_POST_AND_SAVE_POST_GET_FAILURE';
+
+export const USER_POST_MORE_GET_REQUEST = 'USER_POST_MORE_GET_REQUEST';
+export const USER_POST_MORE_GET_SUCCESS = 'USER_POST_MORE_GET_SUCCESS';
+export const USER_POST_MORE_GET_FAILURE = 'USER_POST_MORE_GET_FAILURE';
+
+export const USER_SAVE_POST_MORE_GET_REQUEST =
+  'USER_SAVE_POST_MORE_GET_REQUEST';
+export const USER_SAVE_POST_MORE_GET_SUCCESS =
+  'USER_SAVE_POST_MORE_GET_SUCCESS';
+export const USER_SAVE_POST_MORE_GET_FAILURE =
+  'USER_SAVE_POST_MORE_GET_FAILURE';
+
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      // 유저가 작성한 게시글 받아오기
-      case (MY_POST_GET_REQUEST, MY_SAVE_POST_GET_REQUEST):
+      // 내가 작성한,저장한 게시글  받아오기
+      case MY_POST_AND_SAVE_POST_GET_REQUEST:
         draft.myPostGetLoading = true;
         draft.myPostGetDone = false;
         draft.userPostGetLoading = true;
-
         break;
-      case (MY_POST_GET_SUCCESS, MY_SAVE_POST_GET_SUCCESS): {
+      case MY_POST_AND_SAVE_POST_GET_SUCCESS: {
         if (action.data.result === 'SUCCESS') {
-          if (action.data.list[0].mem_id === action.data.memberVO.mem_id) {
-            draft.myPosts = myPost(action.data.list, action.data.memberVO);
-            draft.myPostsLength = action.data.memberVO.cnt;
-            draft.myPostNickname = action.data.memberVO.mem_nickname;
-            draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
-            // draft.myPostGetLoading = false;
-            draft.myPostGetDone = true;
-            draft.myPostPageNumber = 2;
-            draft.myPostMoreGetFailed = true;
-            draft.mySavePostPageNumber = 2;
-            draft.savePosts = myPost(action.data.saveList);
-            draft.mySavePostMoreGetFailed = true;
-          } else {
-            draft.userPosts = myPost(action.data.list, action.data.memberVO);
-            // draft.userPostGetLoading = false;
+          draft.myPosts = myPost(action.data.list, action.data.memberVO);
+          draft.myPostsLength = action.data.memberVO.cnt;
+          draft.myPostNickname = action.data.memberVO.mem_nickname;
+          draft.myPostprofileImg = action.data.memberVO.mem_profileimg;
+          draft.savePosts = myPost(action.data.saveList);
 
-            draft.userPostGetDone = false;
-            draft.userPostGetError = null;
+          draft.myPostGetLoading = false;
+          draft.myPostGetDone = true;
+          draft.myPostPageNumber = 2;
+          draft.myPostMoreGetFailed = true;
 
-            draft.userPostMoreGetLoading = false;
-            draft.userPostMoreGetDone = false;
-            draft.userPostMoreGetError = null;
-            draft.userPostMoreGetFailed = false;
-            draft.userPostPageNumber = 2;
-            draft.userPostNickname = null;
-            draft.userPostprofileImg = null;
-          }
+          draft.mySavePostPageNumber = 2;
+          draft.mySavePostMoreGetFailed = true;
         } else {
           draft.myPostGetLoading = false;
           draft.myPostGetDone = false;
         }
         break;
       }
-      case (MY_POST_GET_FAILURE, MY_SAVE_POST_GET_FAILURE):
+      case MY_POST_AND_SAVE_POST_GET_FAILURE:
         draft.myPostGetDone = false;
         draft.myPostGetError = action.error;
         break;
 
-      // 유저가 작성한 게시글 더 받아오기
+      // 내가 작성한 게시글 더 받아오기
       case MY_POST_MORE_GET_REQUEST:
         draft.myPostMoreGetLoading = true;
         draft.myPostMoreGetDone = false;
@@ -134,7 +140,7 @@ const reducer = (state = initialState, action) => {
         draft.myPostMoreGetError = action.error;
         break;
 
-      // 유저가 작성한 게시글 더 받아오기
+      // 내가 저장한 게시글 더 받아오기
       case MY_SAVE_POST_MORE_GET_REQUEST:
         draft.myPostMoreGetLoading = true;
         draft.myPostMoreGetDone = false;
@@ -158,6 +164,88 @@ const reducer = (state = initialState, action) => {
       case MY_SAVE_POST_MORE_GET_FAILURE:
         draft.mySavePostMoreGetDone = false;
         draft.mySavePostMoreGetError = action.error;
+        break;
+
+      // 다른 유저 작성한,저장한 게시글 받아오기
+      case USER_POST_AND_SAVE_POST_GET_REQUEST:
+        draft.myPostGetLoading = true;
+        draft.myPostGetDone = false;
+        draft.userPostGetLoading = true;
+        break;
+      case USER_POST_AND_SAVE_POST_GET_SUCCESS: {
+        if (action.data.result === 'SUCCESS') {
+          draft.userPosts = myPost(action.data.list, action.data.memberVO);
+          draft.userPostsLength = action.data.memberVO.cnt;
+          draft.userPostNickname = action.data.memberVO.mem_nickname;
+          draft.userPostprofileImg = action.data.memberVO.mem_profileimg;
+          draft.userSavePosts = myPost(action.data.saveList);
+
+          draft.myPostGetLoading = false;
+          draft.userPostGetDone = true;
+          draft.userPostPageNumber = 2;
+          draft.userPostMoreGetFailed = true;
+
+          draft.userSavePostPageNumber = 2;
+          draft.userSavePostMoreGetFailed = true;
+        } else {
+          draft.userPostGetLoading = false;
+          draft.userPostGetDone = false;
+        }
+        break;
+      }
+      case USER_POST_AND_SAVE_POST_GET_FAILURE:
+        draft.myPostGetDone = false;
+        draft.myPostGetError = action.error;
+        break;
+
+      // 유저가 작성한 게시글 더 받아오기
+      case USER_POST_MORE_GET_REQUEST:
+        draft.userPostMoreGetLoading = true;
+        draft.userPostMoreGetDone = false;
+        break;
+      case USER_POST_MORE_GET_SUCCESS: {
+        if (action.data.result === 'SUCCESS') {
+          draft.userPostMoreGetLoading = false;
+          draft.userPostMoreGetDone = true;
+          draft.userPostMoreGetFailed = true;
+          draft.userPostPageNumber = draft.userPostPageNumber + 1;
+          draft.userPosts = draft.userPosts.concat(myPost(action.data.list));
+        } else if (action.data.result === 'FAILED') {
+          draft.userPostMoreGetLoading = false;
+          draft.userPostMoreGetDone = false;
+          draft.userPostMoreGetFailed = false;
+        }
+        break;
+      }
+      case USER_POST_MORE_GET_FAILURE:
+        draft.userPostMoreGetDone = false;
+        draft.userPostMoreGetError = action.error;
+        break;
+
+      // 유저가 저장한 게시글 더 받아오기
+      case USER_SAVE_POST_MORE_GET_REQUEST:
+        draft.userPostMoreGetLoading = true;
+        draft.userPostMoreGetDone = false;
+        break;
+      case USER_SAVE_POST_MORE_GET_SUCCESS: {
+        if (action.data.result === 'SUCCESS') {
+          draft.userSavePostMoreGetLoading = false;
+          draft.userSavePostMoreGetDone = true;
+          draft.userSavePostMoreGetFailed = true;
+          draft.userSavePostPageNumber = draft.userSavePostPageNumber + 1;
+          draft.userSavePosts = draft.userSavePosts.concat(
+            myPost(action.data.saveList),
+          );
+        } else if (action.data.result === 'FAILED') {
+          draft.userSavePostMoreGetLoading = false;
+          draft.userSavePostMoreGetDone = false;
+          draft.userSavePostMoreGetFailed = false;
+        }
+        break;
+      }
+      case USER_SAVE_POST_MORE_GET_FAILURE:
+        draft.userSavePostMoreGetDone = false;
+        draft.userSavePostMoreGetError = action.error;
         break;
 
       default:

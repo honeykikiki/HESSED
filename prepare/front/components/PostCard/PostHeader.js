@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { USER_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
 
 const PostHeader = ({ post }) => {
+  const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
 
+  const getUserPost = useCallback(() => {
+    dispatch({
+      type: USER_POST_AND_SAVE_POST_GET_REQUEST,
+      data: { mem_id: post.User.id },
+    });
+  }, [post]);
   return (
     <>
-      {me.id === post.User.id ? (
-        <div>
+      {me?.id === post.User.id ? (
+        <header>
           <div>
             <Link href={`profile`}>
               <a>
@@ -28,9 +37,9 @@ const PostHeader = ({ post }) => {
               <a>{`${post.User.nickname}`}</a>
             </Link>
           </div>
-        </div>
+        </header>
       ) : (
-        <div>
+        <header onClick={getUserPost}>
           <div>
             <Link href={`/user/${post.User.id}`}>
               <a>
@@ -50,7 +59,7 @@ const PostHeader = ({ post }) => {
               <a>{`${post.User.nickname}`}</a>
             </Link>
           </div>
-        </div>
+        </header>
       )}
     </>
   );

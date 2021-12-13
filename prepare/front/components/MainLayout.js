@@ -11,10 +11,7 @@ import Router from 'next/router';
 
 import { baseURL } from '../config/config';
 import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
-import {
-  MY_POST_GET_REQUEST,
-  MY_SAVE_POST_GET_REQUEST,
-} from '../reducers/userPost';
+import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../reducers/userPost';
 import { LOG_OUT_REQUEST } from '../reducers/userInfo';
 
 const MainLayout = ({ children }) => {
@@ -64,11 +61,7 @@ const MainLayout = ({ children }) => {
     Router.push('/profile');
     if (me) {
       dispatch({
-        type: MY_POST_GET_REQUEST,
-        data: { mem_id: me.id },
-      });
-      dispatch({
-        type: MY_SAVE_POST_GET_REQUEST,
+        type: MY_POST_AND_SAVE_POST_GET_REQUEST,
         data: { mem_id: me.id },
       });
     }
