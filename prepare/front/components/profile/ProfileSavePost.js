@@ -9,16 +9,22 @@ import ProfilePostImages from './ProfilePostImage';
 import Router from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { MY_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
+import {
+  MY_POST_MORE_GET_REQUEST,
+  USER_SAVE_POST_MORE_GET_REQUEST,
+} from '../../reducers/userPost';
 import { MY_SAVE_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
 
-const ProfileSavePost = ({ myPosts }) => {
+const ProfileSavePost = ({ myPosts, bool }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
   const {
     mySavePostMoreGetLoading,
     mySavePostPageNumber,
     mySavePostMoreGetFailed,
+    userSavePostMoreGetLoading,
+    userSavePostPageNumber,
+    userSavePostMoreGetFailed,
   } = useSelector((state) => state.userPost);
   const [ref, inView] = useInView();
 
@@ -27,12 +33,32 @@ const ProfileSavePost = ({ myPosts }) => {
       Router.push('/');
     }
 
-    if (inView && !mySavePostMoreGetLoading && mySavePostMoreGetFailed) {
+    if (
+      inView &&
+      !mySavePostMoreGetLoading &&
+      mySavePostMoreGetFailed &&
+      bool
+    ) {
       const formData = new FormData();
       formData.append('page', mySavePostPageNumber);
       formData.append('mem_id', me?.id);
       dispatch({
         type: MY_SAVE_POST_MORE_GET_REQUEST,
+        data: formData,
+      });
+    }
+
+    if (
+      inView &&
+      !userSavePostMoreGetLoading &&
+      userSavePostMoreGetFailed &&
+      !bool
+    ) {
+      const formData = new FormData();
+      formData.append('page', userSavePostPageNumber);
+      // formData.append('mem_id', me?.id);
+      dispatch({
+        type: USER_SAVE_POST_MORE_GET_REQUEST,
         data: formData,
       });
     }
@@ -42,6 +68,10 @@ const ProfileSavePost = ({ myPosts }) => {
     mySavePostPageNumber,
     mySavePostMoreGetFailed,
     me,
+    bool,
+    userSavePostMoreGetLoading,
+    userSavePostPageNumber,
+    userSavePostMoreGetFailed,
   ]);
 
   return (

@@ -126,7 +126,7 @@ const Profile = () => {
                       className={style.profileBasic}
                       alt="ProfiltImg"
                     />
-                  ) // 코드 바꾸기
+                  )
                 ) : profileImg ? (
                   <img src={`${profileImg}`} alt="ProfiltImg" />
                 ) : (
@@ -184,9 +184,9 @@ const Profile = () => {
             />
 
             {postToSave ? (
-              <ProfilePost myPosts={myPosts} />
+              <ProfilePost myPosts={myPosts} bool={true} />
             ) : (
-              <ProfileSavePost myPosts={savePosts} />
+              <ProfileSavePost myPosts={savePosts} bool={true} />
             )}
 
             {myPostMoreGetDone ? null : (

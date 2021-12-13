@@ -12,6 +12,7 @@ import useInput from '../../hooks/useInput';
 import ProfileIcon from '../../components/profile/ProfileIcon';
 import ProfilePost from '../../components/profile/ProfilePost';
 import { MY_POST_GET_REQUEST } from '../../reducers/userPost';
+import { baseURL } from '../../config/config';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -19,11 +20,9 @@ const Profile = () => {
   const {
     myPosts,
     savePosts,
-    myPostsLength,
-    myPostNickname,
-    myPostMoreGetDone,
-    myPostGetLoading,
-    myPostprofileImg,
+    userPostsLength,
+    userPostNickname,
+    userPostprofileImg,
     userPosts,
     userPostGetLoading,
   } = useSelector((state) => state.userPost);
@@ -64,12 +63,12 @@ const Profile = () => {
   return (
     <MainLayout>
       <Head>
-        <title>{`HESSED ${myPostNickname} 님의 게사글`}</title>
-        <meta name="description" content={`${myPostNickname}님의 게시글`} />
-        <meta property="og:title" content={`${myPostNickname}님의 게시글`} />
+        <title>{`HESSED ${userPostNickname} 님의 게사글`}</title>
+        <meta name="description" content={`${userPostNickname}님의 게시글`} />
+        <meta property="og:title" content={`${userPostNickname}님의 게시글`} />
         <meta
           property="og:description"
-          content={`${myPostNickname}님의 게시글`}
+          content={`${userPostNickname}님의 게시글`}
         />
         <meta property="og:image" content="/icon/HESSED_LOGO-W.png" />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
@@ -79,7 +78,7 @@ const Profile = () => {
         <div onClick={onClickBack}>
           <img src="/icon/back.svg" width="12px" alt="BackIcon" />
         </div>
-        <div>{`${myPostNickname}님의 게시글`}</div>
+        <div>{`${userPostNickname}님의 게시글`}</div>
       </div>
 
       <div style={{ paddingTop: '44px' }}></div>
@@ -88,8 +87,11 @@ const Profile = () => {
           <div className={style.profileImg}>
             <div>
               <div>
-                {myPostprofileImg ? (
-                  <img src={`${myPostprofileImg}`} alt="ProfiltImg" />
+                {userPostprofileImg ? (
+                  <img
+                    src={`${baseURL}${userPostprofileImg}`}
+                    alt="ProfiltImg"
+                  />
                 ) : (
                   <img
                     src="/icon/profileBasic.svg"
@@ -97,36 +99,19 @@ const Profile = () => {
                     alt="ProfiltImg"
                   />
                 )}
-                {/* <img src="/icon/profle_img.png" alt="ProfileIcon" /> */}
               </div>
-              <p>{myPostNickname}</p>
+              <p>{userPostNickname}</p>
             </div>
 
             <div>
               <div>
                 <div>
-                  <p>{myPostsLength}</p>
+                  <p>{userPostsLength}</p>
                   게시글
                 </div>
               </div>
-              {/* <div className={style.profileNameReSet} onClick={profileSet}>
-                프로필수정
-              </div> */}
             </div>
           </div>
-
-          {/* {!me?.id ? null : nicknameSet ? null : (
-            <form className={style.changeNickname}>
-              <input
-                type="text"
-                placeholder="변경할 닉네임을 입력해 주세요"
-                value={changeNickname}
-                onChange={onChangeNickname}
-                required
-              />
-              <button onClick={clickChangeNickname}>바꾸기</button>
-            </form>
-          )} */}
 
           <div>
             <ProfileIcon
@@ -135,9 +120,9 @@ const Profile = () => {
               postToSave={postToSave}
             />
             {postToSave ? (
-              <ProfilePost myPosts={userPosts} />
+              <ProfilePost myPosts={userPosts} bool={false} />
             ) : (
-              <ProfilePost myPosts={usersavePosts} />
+              <ProfilePost myPosts={usersavePosts} bool={false} />
             )}
           </div>
           {myPostMoreGetDone ? null : (
