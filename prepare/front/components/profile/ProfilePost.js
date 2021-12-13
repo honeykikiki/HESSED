@@ -9,13 +9,21 @@ import ProfilePostImages from './ProfilePostImage';
 import Router from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { MY_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
+import {
+  MY_POST_MORE_GET_REQUEST,
+  USER_POST_MORE_GET_REQUEST,
+} from '../../reducers/userPost';
 
-const ProfilePost = ({ myPosts }) => {
+const ProfilePost = ({ myPosts, bool }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
-  const { myPostMoreGetLoading, myPostPageNumber, myPostMoreGetFailed } =
-    useSelector((state) => state.userPost);
+  const {
+    myPostMoreGetLoading,
+    myPostPageNumber,
+    myPostMoreGetFailed,
+    userPostMoreGetLoading,
+    userPostMoreGetFailed,
+  } = useSelector((state) => state.userPost);
   const [ref, inView] = useInView();
 
   useEffect(() => {
@@ -23,7 +31,7 @@ const ProfilePost = ({ myPosts }) => {
       Router.push('/');
     }
 
-    if (inView && !myPostMoreGetLoading && myPostMoreGetFailed) {
+    if (inView && !myPostMoreGetLoading && myPostMoreGetFailed && bool) {
       const formData = new FormData();
       formData.append('page', myPostPageNumber);
       formData.append('mem_id', me?.id);
@@ -32,7 +40,26 @@ const ProfilePost = ({ myPosts }) => {
         data: formData,
       });
     }
-  }, [inView, myPostMoreGetLoading, myPostMoreGetFailed, myPostPageNumber, me]);
+
+    if (inView && !userPostMoreGetLoading && userPostMoreGetFailed && !bool) {
+      const formData = new FormData();
+      formData.append('page', myPostPageNumber);
+      // formData.append('mem_id', me?.id);
+      dispatch({
+        type: USER_POST_MORE_GET_REQUEST,
+        data: formData,
+      });
+    }
+  }, [
+    inView,
+    myPostMoreGetLoading,
+    myPostMoreGetFailed,
+    myPostPageNumber,
+    me,
+    bool,
+    userPostMoreGetLoading,
+    userPostMoreGetFailed,
+  ]);
 
   return (
     <>
