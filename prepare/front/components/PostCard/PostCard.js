@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 // import { Router } from 'next/router';
-import Link from 'next/link';
 
 import style from '../../styles/css/postCard.module.css';
 
@@ -21,9 +20,7 @@ const PostCard = ({ post }) => {
         <article className={style.maxWidth}>
           <div className={style.postCard}>
             <div className={style.postHead}>
-              <header>
-                <PostHeader post={post} />
-              </header>
+              <PostHeader post={post} />
               <PostCardSetButton post={post} />
               {/* {true ?  : null} */}
             </div>

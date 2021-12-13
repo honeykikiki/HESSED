@@ -137,7 +137,7 @@ const Profile = () => {
             {postToSave ? (
               <ProfilePost myPosts={userPosts} />
             ) : (
-              <ProfilePost myPosts={savePosts} />
+              <ProfilePost myPosts={usersavePosts} />
             )}
           </div>
           {myPostMoreGetDone ? null : (

@@ -15,6 +15,7 @@ import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
 import { MY_POST_GET_REQUEST } from '../reducers/userPost';
 import { baseURL } from '../config/config';
+import ProfileSavePost from '../components/profile/ProfileSavePost';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -183,9 +184,9 @@ const Profile = () => {
             />
 
             {postToSave ? (
-              <ProfilePost myPosts={myPosts} postToSave={postToSave} />
+              <ProfilePost myPosts={myPosts} />
             ) : (
-              <ProfilePost myPosts={savePosts} postToSave={postToSave} />
+              <ProfileSavePost myPosts={savePosts} />
             )}
 
             {myPostMoreGetDone ? null : (
