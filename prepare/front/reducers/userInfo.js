@@ -1,6 +1,6 @@
 import immer, { produce } from 'immer';
 import { dummyUser } from '../hooks/reducer/APIResultChange';
-import { MY_POST_GET_SUCCESS } from './userPost';
+import { MY_POST_AND_SAVE_POST_GET_SUCCESS } from './userPost';
 
 export const initialState = {
   logInLoading: false, // 로그인 시도중
@@ -98,7 +98,7 @@ const reducer = (state = initialState, action) => {
         draft.changeProfileError = action.error;
         break;
 
-      case MY_POST_GET_SUCCESS: {
+      case MY_POST_AND_SAVE_POST_GET_SUCCESS: {
         if (action.data.result === 'SUCCESS') {
           draft.me = dummyUser(action.data.memberVO);
           draft.changeProfileSuccess = false;

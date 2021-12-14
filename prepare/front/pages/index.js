@@ -103,12 +103,6 @@ const Home = () => {
 // export const getServerSideProps = wrapper.getServerSideProps(
 //   (store) =>
 //     async ({ req }) => {
-//       // 로그인이 풀리는 현상, 서버에서 공유하지 않는 쿠ㄱ
-//       // const cookie = req ? req.headers.cookie : '';
-//       // axios.defaults.headers.Cookie = '';
-//       // if (req && cookie) {
-//       //   axios.defaults.headers.Cookie = cookie;
-//       // }
 //       store.dispatch({
 //         type: LOAD_POSTS_REQUEST,
 //       });

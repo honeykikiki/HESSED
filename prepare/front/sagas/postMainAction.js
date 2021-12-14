@@ -193,7 +193,7 @@ function* savePost(action) {
 function* unSavePost(action) {
   try {
     const result = yield call(
-      unSavePostAPI,
+      commonRequestPost,
       action.data,
       `/board/cancel.do?bo_no=${action.data.bo_no}&mem_id=${action.data.mem_id}`,
     );
