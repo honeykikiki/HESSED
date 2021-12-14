@@ -143,7 +143,7 @@ const Profile = () => {
                   />
                 )}
               </div>
-              <p>{myPostNickname}</p>
+              <p className={style.nickname}>{myPostNickname}</p>
             </div>
 
             <div>

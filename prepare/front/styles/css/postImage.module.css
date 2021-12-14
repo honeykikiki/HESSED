@@ -4,6 +4,8 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  border-bottom: 1.5px solid #dbdbdb;
+  border-top: 1.5px solid #dbdbdb;
 }
 
 .imageBox .imageInnerBox {

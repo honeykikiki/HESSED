@@ -23,6 +23,10 @@
           align-items: center;
 }
 
+.profileImg .nickname {
+  margin-top: 10px;
+}
+
 .profileImg > div {
   width: 40%;
 }
@@ -53,7 +57,7 @@
   border: 1px solid black;
   padding: 2.5px 0;
   border-radius: 5px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .changeNickname {
@@ -90,17 +94,17 @@
 
 .postBox {
   width: 100%;
-  border-top: 1px solid #dfdfdf;
   padding-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   text-align: center;
-  margin-top: calc(10px + 1%);
+  margin-top: 5px;
 }
 
 .postBox div {
   width: 50%;
+  border-bottom: 1px solid #dbdbdb;
 }
 
 .upLoadImageBox {
