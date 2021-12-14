@@ -11,20 +11,19 @@ import useInput from '../../hooks/useInput';
 
 import ProfileIcon from '../../components/profile/ProfileIcon';
 import ProfilePost from '../../components/profile/ProfilePost';
-import { MY_POST_GET_REQUEST } from '../../reducers/userPost';
+import { USER_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
 import { baseURL } from '../../config/config';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { me, changeNicknameDone } = useSelector((state) => state.userInfo);
   const {
-    myPosts,
-    savePosts,
+    userPostMoreGetDone,
     userPostsLength,
     userPostNickname,
     userPostprofileImg,
     userPosts,
-    userPostGetLoading,
+    userSavePosts,
   } = useSelector((state) => state.userPost);
 
   const [postToSave, setpostToSave] = useState(true);
@@ -39,14 +38,7 @@ const Profile = () => {
     if (changeNicknameDone) {
       setNickname('');
     }
-
-    if (!userPostGetLoading && !myPostGetLoading && id) {
-      dispatch({
-        type: MY_POST_GET_REQUEST,
-        data: { mem_id: id },
-      });
-    }
-  }, [me, id, userPostGetLoading, myPostGetLoading]);
+  }, [me, id]);
 
   const onPost = useCallback(() => {
     setpostToSave(true);
@@ -114,18 +106,9 @@ const Profile = () => {
           </div>
 
           <div>
-            <ProfileIcon
-              onSave={onSave}
-              onPost={onPost}
-              postToSave={postToSave}
-            />
-            {postToSave ? (
-              <ProfilePost myPosts={userPosts} bool={false} />
-            ) : (
-              <ProfilePost myPosts={usersavePosts} bool={false} />
-            )}
+            <ProfilePost myPosts={userPosts} bool={false} userId={id} />
           </div>
-          {myPostMoreGetDone ? null : (
+          {userPostMoreGetDone ? null : (
             <div className={style.moerPostGet}>@HESSED</div>
           )}
         </article>

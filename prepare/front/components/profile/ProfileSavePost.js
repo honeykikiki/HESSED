@@ -15,7 +15,7 @@ import {
 } from '../../reducers/userPost';
 import { MY_SAVE_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
 
-const ProfileSavePost = ({ myPosts, bool }) => {
+const ProfileSavePost = ({ myPosts, bool, userId }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
   const {
@@ -56,7 +56,7 @@ const ProfileSavePost = ({ myPosts, bool }) => {
     ) {
       const formData = new FormData();
       formData.append('page', userSavePostPageNumber);
-      // formData.append('mem_id', me?.id);
+      formData.append('mem_id', userId);
       dispatch({
         type: USER_SAVE_POST_MORE_GET_REQUEST,
         data: formData,
@@ -72,6 +72,7 @@ const ProfileSavePost = ({ myPosts, bool }) => {
     userSavePostMoreGetLoading,
     userSavePostPageNumber,
     userSavePostMoreGetFailed,
+    userId,
   ]);
 
   return (
@@ -118,6 +119,13 @@ const ProfileSavePost = ({ myPosts, bool }) => {
         <div
           ref={
             !mySavePostMoreGetLoading && mySavePostMoreGetFailed
+              ? ref
+              : undefined
+          }
+        />
+        <div
+          ref={
+            !userSavePostMoreGetLoading && userSavePostMoreGetFailed
               ? ref
               : undefined
           }

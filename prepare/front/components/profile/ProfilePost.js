@@ -14,7 +14,7 @@ import {
   USER_POST_MORE_GET_REQUEST,
 } from '../../reducers/userPost';
 
-const ProfilePost = ({ myPosts, bool }) => {
+const ProfilePost = ({ myPosts, bool, userId }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
   const {
@@ -22,6 +22,7 @@ const ProfilePost = ({ myPosts, bool }) => {
     myPostPageNumber,
     myPostMoreGetFailed,
     userPostMoreGetLoading,
+    userPostPageNumber,
     userPostMoreGetFailed,
   } = useSelector((state) => state.userPost);
   const [ref, inView] = useInView();
@@ -43,8 +44,8 @@ const ProfilePost = ({ myPosts, bool }) => {
 
     if (inView && !userPostMoreGetLoading && userPostMoreGetFailed && !bool) {
       const formData = new FormData();
-      formData.append('page', myPostPageNumber);
-      // formData.append('mem_id', me?.id);
+      formData.append('page', userPostPageNumber);
+      formData.append('mem_id', userId);
       dispatch({
         type: USER_POST_MORE_GET_REQUEST,
         data: formData,
@@ -58,7 +59,9 @@ const ProfilePost = ({ myPosts, bool }) => {
     me,
     bool,
     userPostMoreGetLoading,
+    userPostPageNumber,
     userPostMoreGetFailed,
+    userId,
   ]);
 
   return (
@@ -67,6 +70,7 @@ const ProfilePost = ({ myPosts, bool }) => {
         {myPosts.map((v, i) => {
           if (i % 3 === 0) {
             // i = 0 3 6 9
+
             return (
               <ul className={style.upLoadImage} key={v.id}>
                 <li>
@@ -104,6 +108,11 @@ const ProfilePost = ({ myPosts, bool }) => {
 
         <div
           ref={!myPostMoreGetLoading && myPostMoreGetFailed ? ref : undefined}
+        />
+        <div
+          ref={
+            !userPostMoreGetLoading && userPostMoreGetFailed ? ref : undefined
+          }
         />
       </div>
     </>
