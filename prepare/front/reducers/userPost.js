@@ -88,7 +88,6 @@ const reducer = (state = initialState, action) => {
       case MY_POST_AND_SAVE_POST_GET_REQUEST:
         draft.myPostGetLoading = true;
         draft.myPostGetDone = false;
-        draft.userPostGetLoading = true;
         break;
       case MY_POST_AND_SAVE_POST_GET_SUCCESS: {
         if (action.data.result === 'SUCCESS') {
@@ -142,8 +141,8 @@ const reducer = (state = initialState, action) => {
 
       // 내가 저장한 게시글 더 받아오기
       case MY_SAVE_POST_MORE_GET_REQUEST:
-        draft.myPostMoreGetLoading = true;
-        draft.myPostMoreGetDone = false;
+        draft.mySavePostMoreGetLoading = true;
+        draft.mySavePostMoreGetDone = false;
         break;
       case MY_SAVE_POST_MORE_GET_SUCCESS: {
         if (action.data.result === 'SUCCESS') {
@@ -168,9 +167,8 @@ const reducer = (state = initialState, action) => {
 
       // 다른 유저 작성한,저장한 게시글 받아오기
       case USER_POST_AND_SAVE_POST_GET_REQUEST:
-        draft.myPostGetLoading = true;
-        draft.myPostGetDone = false;
         draft.userPostGetLoading = true;
+        draft.userPostGetDone = false;
         break;
       case USER_POST_AND_SAVE_POST_GET_SUCCESS: {
         if (action.data.result === 'SUCCESS') {
@@ -180,7 +178,7 @@ const reducer = (state = initialState, action) => {
           draft.userPostprofileImg = action.data.memberVO.mem_profileimg;
           draft.userSavePosts = myPost(action.data.saveList);
 
-          draft.myPostGetLoading = false;
+          draft.userPostGetLoading = false;
           draft.userPostGetDone = true;
           draft.userPostPageNumber = 2;
           draft.userPostMoreGetFailed = true;
@@ -194,8 +192,8 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case USER_POST_AND_SAVE_POST_GET_FAILURE:
-        draft.myPostGetDone = false;
-        draft.myPostGetError = action.error;
+        draft.userPostGetDone = false;
+        draft.userPostGetError = action.error;
         break;
 
       // 유저가 작성한 게시글 더 받아오기
@@ -224,8 +222,8 @@ const reducer = (state = initialState, action) => {
 
       // 유저가 저장한 게시글 더 받아오기
       case USER_SAVE_POST_MORE_GET_REQUEST:
-        draft.userPostMoreGetLoading = true;
-        draft.userPostMoreGetDone = false;
+        draft.userSavePostMoreGetLoading = true;
+        draft.userSavePostMoreGetDone = false;
         break;
       case USER_SAVE_POST_MORE_GET_SUCCESS: {
         if (action.data.result === 'SUCCESS') {

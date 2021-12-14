@@ -2,7 +2,12 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { USER_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
+import {
+  MY_POST_AND_SAVE_POST_GET_REQUEST,
+  USER_POST_AND_SAVE_POST_GET_REQUEST,
+} from '../../reducers/userPost';
+import { baseURL } from '../../config/config';
+import { PROFILE } from '../../reducers/menu';
 
 const PostHeader = ({ post }) => {
   const dispatch = useDispatch();
@@ -14,16 +19,26 @@ const PostHeader = ({ post }) => {
       data: { mem_id: post.User.id },
     });
   }, [post]);
+
+  const getMyPost = useCallback(() => {
+    dispatch({
+      type: MY_POST_AND_SAVE_POST_GET_REQUEST,
+      data: { mem_id: me.id },
+    });
+    dispatch({
+      type: PROFILE,
+    });
+  }, [me]);
   return (
     <>
       {me?.id === post.User.id ? (
-        <header>
+        <header onClick={getMyPost}>
           <div>
             <Link href={`profile`}>
               <a>
                 {post.User.profileImg ? (
                   <img
-                    src={`${baseURL}/${post.User.profileImg}`}
+                    src={`${baseURL}${post.User.profileImg}`}
                     alt="profileImg"
                   />
                 ) : (
@@ -45,7 +60,7 @@ const PostHeader = ({ post }) => {
               <a>
                 {post.User.profileImg ? (
                   <img
-                    src={`${baseURL}/${post.User.profileImg}`}
+                    src={`${baseURL}${post.User.profileImg}`}
                     alt="profileImg"
                   />
                 ) : (

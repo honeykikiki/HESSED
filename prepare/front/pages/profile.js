@@ -13,7 +13,7 @@ import {
 
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
-import { MY_POST_GET_REQUEST } from '../reducers/userPost';
+import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../reducers/userPost';
 import { baseURL } from '../config/config';
 import ProfileSavePost from '../components/profile/ProfileSavePost';
 
@@ -21,11 +21,13 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { me, changeProfileSuccess } = useSelector((state) => state.userInfo);
   const {
+    myPostprofileImg,
+    myPostNickname,
     myPosts,
     savePosts,
     myPostsLength,
-    myPostGetLoading,
     myPostMoreGetDone,
+    userPostMoreGetDone,
   } = useSelector((state) => state.userPost);
 
   // 저장한 게시글만 가져오기
@@ -51,7 +53,7 @@ const Profile = () => {
     }
     if (changeProfileSuccess) {
       dispatch({
-        type: MY_POST_GET_REQUEST,
+        type: MY_POST_AND_SAVE_POST_GET_REQUEST,
         data: { mem_id: me.id },
       });
     }
@@ -119,7 +121,10 @@ const Profile = () => {
               <div>
                 {nicknameSet ? (
                   me?.profileImg !== '' ? (
-                    <img src={`${baseURL}${me?.profileImg}`} alt="ProfiltImg" />
+                    <img
+                      src={`${baseURL}${myPostprofileImg}`}
+                      alt="ProfiltImg"
+                    />
                   ) : (
                     <img
                       src="/icon/profileBasic.svg"
@@ -138,7 +143,7 @@ const Profile = () => {
                   />
                 )}
               </div>
-              <p>{me?.nickname}</p>
+              <p>{myPostNickname}</p>
             </div>
 
             <div>
@@ -189,7 +194,7 @@ const Profile = () => {
               <ProfileSavePost myPosts={savePosts} bool={true} />
             )}
 
-            {myPostMoreGetDone ? null : (
+            {myPostMoreGetDone || userPostMoreGetDone ? null : (
               <div className={style.moerPostGet}>@HESSED</div>
             )}
           </div>

@@ -8,30 +8,6 @@ const PostImages = ({ images }) => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
   const [position, setPosition] = useState('');
 
-  // let startCoord;
-
-  // useEffect(() => {
-  //   window.addEventListener('mousedown', (event) => {
-  //     startCoord = [event.clientX, event.clientY];
-  //   });
-  //   window.addEventListener('mouseup', (event) => {
-  //     const endCoord = [event.clientX, event.clientY];
-  //     const diffX = endCoord[0] - startCoord[0];
-  //     const diffY = endCoord[1] - startCoord[1];
-  //     console.log()
-  //     if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) {
-  //       setPosition('left');
-  //     } else if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY)) {
-  //       setPosition('right');
-  //     } else if (diffY > 0 && Math.abs(diffX) <= Math.abs(diffY)) {
-  //       setPosition('down');
-  //     } else if (diffY < 0 && Math.abs(diffX) <= Math.abs(diffY)) {
-  //       setPosition('up');
-  //     }
-  //   });
-  // }, []);
-
-  // console.log(position);
   const onClickLeft = useCallback(() => {
     if (imageCuurrentNo > 0) {
       setImageCuurrentNo((prev) => prev - 1);
@@ -66,15 +42,18 @@ const PostImages = ({ images }) => {
         )}
         {images.map((v, i) => {
           return (
-            <img
-              key={v?.bo_img_location}
-              src={`${baseURL}/${v.bo_img_location}`}
-              style={{
-                transform: `translate3d(-${imageCuurrentNo * 100}%, 0px, 0px)`,
-                transition: 'all .4s',
-              }}
-              alt="PostImg"
-            />
+            <div className={style.imageInnerBox} key={v?.bo_img_location}>
+              <img
+                src={`${baseURL}/${v.bo_img_location}`}
+                style={{
+                  transform: `translate3d(-${
+                    imageCuurrentNo * 100
+                  }%, -50%, 0px)`,
+                  transition: 'all .4s',
+                }}
+                alt="PostImg"
+              />
+            </div>
           );
         })}
         {images.length === 1 ? null : (
