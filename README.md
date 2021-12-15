@@ -12,6 +12,8 @@
 <span><img src="https://img.shields.io/badge/Sass-cc6699?style=flat&logo=sass&logoColor=white"/></span><br/>
 
 ### 시작
+> 시작
+    npm run build -> npm start
 
 > next 설치
 
