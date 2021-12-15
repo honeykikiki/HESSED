@@ -4,7 +4,6 @@
   "description": "<!-- 이미지넣기 -->",
   "main": "index.js",
   "scripts": {
-    // "front": "cd prepare/front && npm run build && npm start",
     "front": "cd prepare/front && npm run dev",
     "heroku-prebuild": "npm run front"
   },
