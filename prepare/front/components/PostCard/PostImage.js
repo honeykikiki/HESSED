@@ -41,22 +41,18 @@ const PostImages = ({ images }) => {
             <Image src="/icon/right.png" alt="RightIcon" />
           </div>
         )}
-        {images.map((v, i) => {
-          return (
-            <div className={style.imageInnerBox} key={v?.bo_img_location}>
-              <Image
-                src={`${baseURL}/${v.bo_img_location}`}
-                style={{
-                  transform: `translate3d(-${
-                    imageCuurrentNo * 100
-                  }%, -50%, 0px)`,
-                  transition: 'all .4s',
-                }}
-                alt="PostImg"
-              />
-            </div>
-          );
-        })}
+        {images.map((v, i) => (
+          <div className={style.imageInnerBox} key={v?.bo_img_location}>
+            <Image
+              src={`${baseURL}/${v.bo_img_location}`}
+              style={{
+                transform: `translate3d(-${imageCuurrentNo * 100}%, -50%, 0%)`,
+                transition: 'all .4s',
+              }}
+              alt="PostImg"
+            />
+          </div>
+        ))}
         {images.length === 1 ? null : (
           <span>{`${imageCuurrentNo + 1} / ${images.length}`}</span>
         )}

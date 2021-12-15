@@ -21,7 +21,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
         ? photoToAddList.map((v) => {
             return (
               <li key={v.url}>
-                <div className={style.remove} onClick={() => onRemove(v.url)}>
+                <div className={style.remove} onKeyDown={() => onRemove(v.url)}>
                   x
                 </div>
                 <Image
@@ -35,6 +35,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
             );
           })
         : null}
+
       <li onClick={onClickImageUpload}>
         <div className={style.imageInput}>
           <Image

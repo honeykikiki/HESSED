@@ -1,19 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { useInView } from 'react-intersection-observer';
+import React, { useEffect } from "react";
+import Link from "next/link";
+import { useInView } from "react-intersection-observer";
 
-import PropTypes from 'prop-types';
+import Router from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import style from "../../styles/css/profile.module.css";
+import ProfilePostImages from "./ProfilePostImage";
 
-import style from '../../styles/css/profile.module.css';
-import ProfilePostImages from './ProfilePostImage';
-import Router from 'next/router';
-
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  MY_POST_MORE_GET_REQUEST,
   USER_SAVE_POST_MORE_GET_REQUEST,
-} from '../../reducers/userPost';
-import { MY_SAVE_POST_MORE_GET_REQUEST } from '../../reducers/userPost';
+  MY_SAVE_POST_MORE_GET_REQUEST,
+} from "../../reducers/userPost";
 
 const ProfileSavePost = ({ myPosts, bool, userId }) => {
   const dispatch = useDispatch();
@@ -30,33 +27,23 @@ const ProfileSavePost = ({ myPosts, bool, userId }) => {
 
   useEffect(() => {
     if (!me) {
-      Router.push('/');
+      Router.push("/");
     }
 
-    if (
-      inView &&
-      !mySavePostMoreGetLoading &&
-      mySavePostMoreGetFailed &&
-      bool
-    ) {
+    if (inView && !mySavePostMoreGetLoading && mySavePostMoreGetFailed && bool) {
       const formData = new FormData();
-      formData.append('page', mySavePostPageNumber);
-      formData.append('mem_id', me?.id);
+      formData.append("page", mySavePostPageNumber);
+      formData.append("mem_id", me?.id);
       dispatch({
         type: MY_SAVE_POST_MORE_GET_REQUEST,
         data: formData,
       });
     }
 
-    if (
-      inView &&
-      !userSavePostMoreGetLoading &&
-      userSavePostMoreGetFailed &&
-      !bool
-    ) {
+    if (inView && !userSavePostMoreGetLoading && userSavePostMoreGetFailed && !bool) {
       const formData = new FormData();
-      formData.append('page', userSavePostPageNumber);
-      formData.append('mem_id', userId);
+      formData.append("page", userSavePostPageNumber);
+      formData.append("mem_id", userId);
       dispatch({
         type: USER_SAVE_POST_MORE_GET_REQUEST,
         data: formData,
@@ -79,6 +66,7 @@ const ProfileSavePost = ({ myPosts, bool, userId }) => {
     <>
       <div className={style.upLoadImageBox}>
         {myPosts.map((v, i) => {
+          return;
           if (i % 3 === 0) {
             // i = 0 3 6 9
             return (
@@ -116,20 +104,8 @@ const ProfileSavePost = ({ myPosts, bool, userId }) => {
           }
         })}
 
-        <div
-          ref={
-            !mySavePostMoreGetLoading && mySavePostMoreGetFailed
-              ? ref
-              : undefined
-          }
-        />
-        <div
-          ref={
-            !userSavePostMoreGetLoading && userSavePostMoreGetFailed
-              ? ref
-              : undefined
-          }
-        />
+        <div ref={!mySavePostMoreGetLoading && mySavePostMoreGetFailed ? ref : undefined} />
+        <div ref={!userSavePostMoreGetLoading && userSavePostMoreGetFailed ? ref : undefined} />
       </div>
     </>
   );
