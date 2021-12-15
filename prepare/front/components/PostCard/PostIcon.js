@@ -1,9 +1,10 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
-import style from '../../styles/css/postIcon.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import style from '../../styles/css/postIcon.module.css';
 import {
   LIKE_POST_REQUEST,
   SAVE_POST_REQUEST,
@@ -85,17 +86,17 @@ const PostIcon = ({ post }) => {
         {/* 좋아요 */}
         {!post.liked ? (
           <div onClick={onLike}>
-            <img src="/icon/heartOff.svg" alt="Hearticon" />
+            <Image src="/icon/heartOff.svg" alt="Hearticon" />
           </div>
         ) : post?.liked[0]?.mem_id === me.id ||
           post?.liked?.mem_id === me.id ||
           post?.liked === me.id ? (
           <div onClick={onUnLike}>
-            <img src="/icon/heartOn.svg" alt="Hearticon" />
+            <Image src="/icon/heartOn.svg" alt="Hearticon" />
           </div>
         ) : (
           <div onClick={onLike}>
-            <img src="/icon/heartOff.svg" alt="Hearticon" />
+            <Image src="/icon/heartOff.svg" alt="Hearticon" />
           </div>
         )}
       </div>
@@ -105,7 +106,7 @@ const PostIcon = ({ post }) => {
         <Link href={`/${post.id}/comment`}>
           <a>
             <div>
-              <img src="/icon/comment.svg" alt="Commenticon" />
+              <Image src="/icon/comment.svg" alt="Commenticon" />
             </div>
           </a>
         </Link>
@@ -113,22 +114,22 @@ const PostIcon = ({ post }) => {
 
       <div>
         {/* 공유 */}
-        <img src="/icon/share.svg" onClick={onShare} alt="Shareicon" />
+        <Image src="/icon/share.svg" onClick={onShare} alt="Shareicon" />
       </div>
 
       <div>
         {/* 저장 */}
         {!post.saved ? (
           <div onClick={onSave}>
-            <img src="/icon/saveOff.svg" alt="saveicon" />
+            <Image src="/icon/saveOff.svg" alt="saveicon" />
           </div>
         ) : post.saved[0]?.mem_id === me.id || post.saved?.mem_id === me.id ? (
           <div onClick={onUnSave}>
-            <img src="/icon/saveOn.svg" alt="saveicon" />
+            <Image src="/icon/saveOn.svg" alt="saveicon" />
           </div>
         ) : (
           <div onClick={onSave}>
-            <img src="/icon/saveOff.svg" alt="saveicon" />
+            <Image src="/icon/saveOff.svg" alt="saveicon" />
           </div>
         )}
       </div>

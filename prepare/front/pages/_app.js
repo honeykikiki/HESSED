@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head'; // 헤드 컴포넌트
+
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 import '../styles/css/style.css';
 
@@ -35,7 +37,7 @@ const Hessed = ({ Component }) => {
 
       <div className="loadingPage">
         <div>
-          <img src="/icon/HESSED_LOGO-W.png" width="180" alt="LogoImg" />
+          <Image src="/icon/HESSED_LOGO-W.png" width="180" alt="LogoImg" />
         </div>
       </div>
       <Component />

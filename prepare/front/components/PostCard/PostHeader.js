@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 import {
   MY_POST_AND_SAVE_POST_GET_REQUEST,
   USER_POST_AND_SAVE_POST_GET_REQUEST,
@@ -34,21 +35,21 @@ const PostHeader = ({ post }) => {
       {me?.id === post.User.id ? (
         <header onClick={getMyPost}>
           <div>
-            <Link href={`profile`}>
+            <Link href="profile">
               <a>
                 {post.User.profileImg ? (
-                  <img
+                  <Image
                     src={`${baseURL}${post.User.profileImg}`}
                     alt="profileImg"
                   />
                 ) : (
-                  <img src="/icon/profileBasic.svg" alt="profileImg" />
+                  <Image src="/icon/profileBasic.svg" alt="profileImg" />
                 )}
               </a>
             </Link>
           </div>
           <div>
-            <Link href={`profile`}>
+            <Link href="profile">
               <a>{`${post.User.nickname}`}</a>
             </Link>
           </div>
@@ -59,12 +60,12 @@ const PostHeader = ({ post }) => {
             <Link href={`/user/${post.User.id}`}>
               <a>
                 {post.User.profileImg ? (
-                  <img
+                  <Image
                     src={`${baseURL}${post.User.profileImg}`}
                     alt="profileImg"
                   />
                 ) : (
-                  <img src="/icon/profileBasic.svg" alt="profileImg" />
+                  <Image src="/icon/profileBasic.svg" alt="profileImg" />
                 )}
               </a>
             </Link>

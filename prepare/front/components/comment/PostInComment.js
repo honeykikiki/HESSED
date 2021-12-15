@@ -1,7 +1,8 @@
-import React, { useEffect, useCallback, useRef, useState } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import Image from 'next/image';
 
 import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
 
@@ -29,8 +30,8 @@ const PostInComment = ({ post }) => {
       return;
     }
     ref.current.style.height = '20px';
-    ref.current.style.height = ref.current.scrollHeight + 'px';
-  }, []); //댓글창 크기 자동조절
+    ref.current.style.height = `${ref.current.scrollHeight}px`;
+  }, []); // 댓글창 크기 자동조절
 
   // useEffect(() => {
   //   if (me) {
@@ -75,7 +76,7 @@ const PostInComment = ({ post }) => {
     <div className={style.mComment}>
       <div className={style.head}>
         <div onClick={onClickBack}>
-          <img src="/icon/back.svg" width="12px" alt="backIcon" />
+          <Image src="/icon/back.svg" width="12px" alt="backIcon" />
         </div>
         <div>댓글</div>
       </div>
@@ -85,9 +86,9 @@ const PostInComment = ({ post }) => {
           <div className={style.userNickname}>
             <div className={style.userIcon}>
               {post.User.profileImg ? (
-                <img src={post.User.profileImg.url} alt="profileImg" />
+                <Image src={post.User.profileImg.url} alt="profileImg" />
               ) : (
-                <img src="/icon/profileBasic.svg" alt="profileImg" />
+                <Image src="/icon/profileBasic.svg" alt="profileImg" />
               )}
             </div>
 
@@ -110,13 +111,13 @@ const PostInComment = ({ post }) => {
               className={style.text}
               ref={ref}
               onInput={handleResizeHeight}
-              placeholder={`댓글달기..`}
+              placeholder="댓글달기.."
               autoComplete="off"
               autoCorrect="off"
               value={comment}
               onChange={onChangeInput}
               required
-            ></textarea>
+            />
             {true}
             <button onClick={commentPost}>게시</button>
           </form>

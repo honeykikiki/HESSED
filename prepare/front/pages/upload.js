@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Router from 'next/router';
 
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
 import style from '../styles/css/upload.module.css';
 import useInput from '../hooks/useInput';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { POST_CARD } from '../reducers/menu';
 import UploadImages from '../components/postUpload/UploadImages';
@@ -43,8 +43,8 @@ const Home = () => {
       return;
     }
     ref.current.style.height = '20px';
-    ref.current.style.height = ref.current.scrollHeight + 'px';
-  }, []); //댓글창 크기 자동조절
+    ref.current.style.height = `${ref.current.scrollHeight}px`;
+  }, []); // 댓글창 크기 자동조절
 
   const checkboxClick = useCallback(() => {
     setNotice((prev) => !prev);
@@ -110,7 +110,7 @@ const Home = () => {
   return (
     <>
       <MainLayout>
-        <div style={{ paddingTop: '24px' }}></div>
+        <div style={{ paddingTop: '24px' }} />
         <section className={style.a}>
           <article className={style.maxWidth}>
             <form
@@ -132,7 +132,7 @@ const Home = () => {
                       value={notice}
                       onClick={checkboxClick}
                     />
-                    <label for="switch-1" className={style.switchLlabel}>
+                    <label htmlFor="switch-1" className={style.switchLlabel}>
                       Switch
                     </label>
                   </div>
@@ -174,7 +174,7 @@ const Home = () => {
             </form>
           </article>
         </section>
-        <div style={{ paddingBottom: '44px' }}></div>
+        <div style={{ paddingBottom: '44px' }} />
       </MainLayout>
     </>
   );

@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import style from '../../../styles/css/postCard.module.css';
+import Image from 'next/image';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { REMOVE_POST_REQUEST } from '../../../reducers/postAdd';
 import Router from 'next/router';
+import style from '../../../styles/css/postCard.module.css';
+
+import { REMOVE_POST_REQUEST } from '../../../reducers/postAdd';
 
 const PostCardSetButton = ({ post }) => {
   const dispatch = useDispatch();
@@ -30,13 +31,11 @@ const PostCardSetButton = ({ post }) => {
   const onClickOptionOpen = useCallback(() => {
     if (optionButton) {
       setOptionButton(false);
-      return;
     }
   }, [optionButton]);
   const onClickOptionClose = useCallback(() => {
     if (!optionButton) {
       setOptionButton(true);
-      return;
     }
   }, [optionButton]);
 
@@ -55,7 +54,7 @@ const PostCardSetButton = ({ post }) => {
   return (
     <>
       <div className={style.menu} onClick={onClickOptionOpen}>
-        <img src="/icon/btn.svg" alt="btnIcon" />
+        <Image src="/icon/btn.svg" alt="btnIcon" />
 
         {optionButton ? null : me.id === post.User.id ? (
           // post.User.id == me.id

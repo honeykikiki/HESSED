@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 
 import style from '../../styles/css/dynamicPost.module.css';
 import MainLayout from '../../components/MainLayout';
 
 import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
-import { baseURL } from '../../config/config';
 import PostImages from '../../components/PostCard/PostImage';
 import useInput from '../../hooks/useInput';
 import { UPDATE_POST_REQUEST } from '../../reducers/postAdd';
@@ -28,8 +28,8 @@ const Post = () => {
       return;
     }
     ref.current.style.height = '20px';
-    ref.current.style.height = ref.current.scrollHeight + 'px';
-  }, []); //댓글창 크기 자동조절
+    ref.current.style.height = `${ref.current.scrollHeight}px`;
+  }, []); // 댓글창 크기 자동조절
 
   useEffect(() => {
     if (!me || updateCompleat) {
@@ -54,9 +54,9 @@ const Post = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append(mem_id, me.id);
-    formData.append(bo_no, id);
-    formData.append(bo_content, content);
+    formData.append('mem_id', me.id);
+    formData.append('bo_no', id);
+    formData.append('bo_content', content);
     dispatch({
       type: UPDATE_POST_REQUEST,
       data: formData,
@@ -76,11 +76,11 @@ const Post = () => {
           <article className={style.maxWidth}>
             <div className={style.head}>
               <div onClick={onClickBack}>
-                <img src="/icon/back.svg" width="12px" alt="BackIcon" />
+                <Image src="/icon/back.svg" width="12px" alt="BackIcon" />
               </div>
               <div>{`${boardOneViewPost.User.nickname}님의 게시글 수정하기`}</div>
             </div>
-            <div style={{ paddingTop: '34px' }}></div>
+            <div style={{ paddingTop: '34px' }} />
             <div className={style.postImage}>
               {boardOneViewPost.Images ? (
                 <PostImages images={boardOneViewPost.Images} />

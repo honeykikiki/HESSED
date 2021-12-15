@@ -1,32 +1,27 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
+import Image from 'next/image';
 
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../components/MainLayout';
 
 import style from '../../styles/css/profile.module.css';
 import styles from '../../styles/css/dynamicPost.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../../hooks/useInput';
 
-import ProfileIcon from '../../components/profile/ProfileIcon';
 import ProfilePost from '../../components/profile/ProfilePost';
-import { USER_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
+
 import { baseURL } from '../../config/config';
 
 const Profile = () => {
-  const dispatch = useDispatch();
-  const { me, changeNicknameDone } = useSelector((state) => state.userInfo);
+  const { me } = useSelector((state) => state.userInfo);
   const {
     userPostMoreGetDone,
     userPostsLength,
     userPostNickname,
     userPostprofileImg,
     userPosts,
-    userSavePosts,
   } = useSelector((state) => state.userPost);
-
-  const [postToSave, setpostToSave] = useState(true);
 
   const router = useRouter();
   const { id } = router.query;
@@ -35,18 +30,7 @@ const Profile = () => {
     // if (!me) {
     //   Router.push('/');
     // }
-    if (changeNicknameDone) {
-      setNickname('');
-    }
   }, [me, id]);
-
-  const onPost = useCallback(() => {
-    setpostToSave(true);
-  }, [postToSave]);
-
-  const onSave = useCallback(() => {
-    setpostToSave(false);
-  }, [postToSave]);
 
   const onClickBack = useCallback(() => {
     Router.back();
@@ -68,24 +52,24 @@ const Profile = () => {
 
       <div className={styles.head}>
         <div onClick={onClickBack}>
-          <img src="/icon/back.svg" width="12px" alt="BackIcon" />
+          <Image src="/icon/back.svg" width="12px" alt="BackIcon" />
         </div>
         <div>{`${userPostNickname}님의 게시글`}</div>
       </div>
 
-      <div style={{ paddingTop: '44px' }}></div>
+      <div style={{ paddingTop: '44px' }} />
       <section className={style.a}>
         <article className={style.maxWidth}>
           <div className={style.profileImg}>
             <div>
               <div>
                 {userPostprofileImg ? (
-                  <img
+                  <Image
                     src={`${baseURL}${userPostprofileImg}`}
                     alt="ProfiltImg"
                   />
                 ) : (
-                  <img
+                  <Image
                     src="/icon/profileBasic.svg"
                     className={style.profileBasic}
                     alt="ProfiltImg"
@@ -113,7 +97,7 @@ const Profile = () => {
           )}
         </article>
       </section>
-      <div style={{ paddingBottom: '54px' }}></div>
+      <div style={{ paddingBottom: '54px' }} />
     </MainLayout>
   );
 };
