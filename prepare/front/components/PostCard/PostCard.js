@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux';
 
 import style from '../../styles/css/postCard.module.css';
 
-import PostImages from '../PostCard/PostImage';
-import PostIcon from '../PostCard/PostIcon';
-import PostContent from '../PostCard/PostContent';
-import PostComment from '../PostCard/PostComment';
+import PostImages from './PostImage';
+import PostIcon from './PostIcon';
+import PostContent from './PostContent';
+import PostComment from './PostComment';
 import PostCardSetButton from './postCardMore/PostCardSetButton';
 import { baseURL } from '../../config/config';
 import PostHeader from './PostHeader';

@@ -73,7 +73,7 @@ const CommentOptionBtn = ({
           }}
           onClick={onClickOptionOpen}
         >
-          <Image />
+          <img alt="img" />
           {/* {post.User. === me.id}/{me.id} */}
           {optionButton ? null : me.id === post.User.id ? (
             <div
@@ -110,7 +110,7 @@ const CommentOptionBtn = ({
           }}
           onClick={onClickOptionOpen}
         >
-          <Image />
+          <img alt="img" />
           {/* {post.User. === me.id}/{me.id} */}
           {optionButton ? null : me.id === post.User.id ? (
             <div

@@ -76,7 +76,7 @@ const PostInComment = ({ post }) => {
     <div className={style.mComment}>
       <div className={style.head}>
         <div onClick={onClickBack}>
-          <Image src="/icon/back.svg" width="12px" alt="backIcon" />
+          <img src="/icon/back.svg" width="12px" alt="backIcon" />
         </div>
         <div>댓글</div>
       </div>
@@ -86,9 +86,9 @@ const PostInComment = ({ post }) => {
           <div className={style.userNickname}>
             <div className={style.userIcon}>
               {post.User.profileImg ? (
-                <Image src={post.User.profileImg.url} alt="profileImg" />
+                <img src={post.User.profileImg.url} alt="profileImg" />
               ) : (
-                <Image src="/icon/profileBasic.svg" alt="profileImg" />
+                <img src="/icon/profileBasic.svg" alt="profileImg" />
               )}
             </div>
 

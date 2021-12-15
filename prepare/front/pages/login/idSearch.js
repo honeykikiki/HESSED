@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 
+import { useDispatch, useSelector } from 'react-redux';
+import Router from 'next/router';
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
 import useInput from '../../hooks/useInput';
-import { useDispatch, useSelector } from 'react-redux';
 import { SEARCHID_DELITE, SEARCH_ID_REQUEST } from '../../reducers/userSign';
-import Router from 'next/router';
 
 const IdSearch = () => {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const IdSearch = () => {
         />
 
         {searchIdFailed ? null : id ? null : (
-          <div className={style.signupCheck}>{`이름을 입력해주세요.`}</div>
+          <div className={style.signupCheck}>이름을 입력해주세요.</div>
         )}
 
         <input
@@ -61,7 +61,7 @@ const IdSearch = () => {
           type="number"
         />
         {searchIdFailed ? null : phone ? null : (
-          <div className={style.signupCheck}>{`전화번호를 입력해주세요.`}</div>
+          <div className={style.signupCheck}>전화번호를 입력해주세요.</div>
         )}
 
         <button>아이디 찾기</button>
@@ -79,7 +79,7 @@ const IdSearch = () => {
         <div className={style.searchId}>
           <div>
             <p>
-              아이디는 <span>"{SearchID}"</span> 입니다
+              아이디는 <span>{SearchID}</span> 입니다
             </p>
             <button onClick={idConfirm}>확인</button>
           </div>

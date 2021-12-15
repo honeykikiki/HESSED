@@ -1,5 +1,6 @@
+/* eslint-disable no-case-declarations */
 import { HYDRATE } from 'next-redux-wrapper';
-import { combineReducers } from 'redux'; //리듀서 합치는거
+import { combineReducers } from 'redux'; // 리듀서 합치는거
 
 import userInfo from './userInfo';
 import userSign from './userSign';

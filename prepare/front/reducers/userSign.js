@@ -155,7 +155,7 @@ const reducer = (state = initialState, action) => {
         draft.passwordChangeError = action.error;
         break;
 
-      //회원가입
+      // 회원가입
       case SIGN_UP_REQUEST:
         draft.signUpLoading = true;
         draft.signUpDone = false;
@@ -216,10 +216,13 @@ const reducer = (state = initialState, action) => {
       // 찾은 아이디 삭제
       case SEARCHID_DELITE:
         draft.SearchID = null;
+        break;
 
       // 회원 가입 완료후 로그인창 전환
       case SIGNUP_CHANGE_DISPLAY:
         draft.signUpDisplayChange = false;
+        break;
+
       default:
         break;
     }

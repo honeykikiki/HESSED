@@ -86,17 +86,17 @@ const PostIcon = ({ post }) => {
         {/* 좋아요 */}
         {!post.liked ? (
           <div onClick={onLike}>
-            <Image src="/icon/heartOff.svg" alt="Hearticon" />
+            <img src="/icon/heartOff.svg" alt="Hearticon" />
           </div>
         ) : post?.liked[0]?.mem_id === me.id ||
           post?.liked?.mem_id === me.id ||
           post?.liked === me.id ? (
           <div onClick={onUnLike}>
-            <Image src="/icon/heartOn.svg" alt="Hearticon" />
+            <img src="/icon/heartOn.svg" alt="Hearticon" />
           </div>
         ) : (
           <div onClick={onLike}>
-            <Image src="/icon/heartOff.svg" alt="Hearticon" />
+            <img src="/icon/heartOff.svg" alt="Hearticon" />
           </div>
         )}
       </div>
@@ -106,7 +106,7 @@ const PostIcon = ({ post }) => {
         <Link href={`/${post.id}/comment`}>
           <a>
             <div>
-              <Image src="/icon/comment.svg" alt="Commenticon" />
+              <img src="/icon/comment.svg" alt="Commenticon" />
             </div>
           </a>
         </Link>
@@ -114,22 +114,22 @@ const PostIcon = ({ post }) => {
 
       <div>
         {/* 공유 */}
-        <Image src="/icon/share.svg" onClick={onShare} alt="Shareicon" />
+        <img src="/icon/share.svg" onClick={onShare} alt="Shareicon" />
       </div>
 
       <div>
         {/* 저장 */}
         {!post.saved ? (
           <div onClick={onSave}>
-            <Image src="/icon/saveOff.svg" alt="saveicon" />
+            <img src="/icon/saveOff.svg" alt="saveicon" />
           </div>
         ) : post.saved[0]?.mem_id === me.id || post.saved?.mem_id === me.id ? (
           <div onClick={onUnSave}>
-            <Image src="/icon/saveOn.svg" alt="saveicon" />
+            <img src="/icon/saveOn.svg" alt="saveicon" />
           </div>
         ) : (
           <div onClick={onSave}>
-            <Image src="/icon/saveOff.svg" alt="saveicon" />
+            <img src="/icon/saveOff.svg" alt="saveicon" />
           </div>
         )}
       </div>

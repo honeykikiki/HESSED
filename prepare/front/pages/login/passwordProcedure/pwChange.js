@@ -19,23 +19,23 @@ const PwChange = () => {
     }
   }, [passwordChangeDone]);
 
-  const [mem_pw, onChangePassword, setPassword] = useInput('');
+  const [pw, onChangePassword, setPassword] = useInput('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
 
   const onChangePasswordCheck = useCallback(
     (e) => {
       setPasswordCheck(e.target.value);
-      setPasswordError(e.target.value !== mem_pw);
+      setPasswordError(e.target.value !== pw);
     },
-    [mem_pw],
+    [pw],
   );
 
   const passwordChangeSubmit = useCallback(
     (e) => {
       e.preventDefault();
       const formData = new FormData();
-      formData.append('mem_pw', mem_pw);
+      formData.append('mem_pw', pw);
       formData.append('mem_id', SearchPW.id);
 
       dispatch({
@@ -43,17 +43,17 @@ const PwChange = () => {
         data: formData,
       });
     },
-    [mem_pw, SearchPW],
+    [pw, SearchPW],
   );
 
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={passwordChangeSubmit}>
         <input
-          name="mem_pw"
+          name="pw"
           placeholder="비밀번호를 입력해주세요"
           type="password"
-          value={mem_pw}
+          value={pw}
           onChange={onChangePassword}
           // required
         />
@@ -71,7 +71,7 @@ const PwChange = () => {
         {passwordError ? (
           <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
         ) : (
-          <div style={{ color: '#409857' }}>{`*보안100%`}</div>
+          <div style={{ color: '#409857' }}>*보안100%</div>
         )}
 
         <button>비밀번호 바꾸기</button>

@@ -1,6 +1,5 @@
 import produce from 'immer';
 import { myPost } from '../hooks/reducer/APIResultChange';
-import { LOG_IN_SUCCESS } from './userInfo';
 
 export const initialState = {
   myPosts: [],
@@ -125,7 +124,7 @@ const reducer = (state = initialState, action) => {
           draft.myPostMoreGetLoading = false;
           draft.myPostMoreGetDone = true;
           draft.myPostMoreGetFailed = true;
-          draft.myPostPageNumber = draft.myPostPageNumber + 1;
+          draft.myPostPageNumber += 1;
           draft.myPosts = draft.myPosts.concat(myPost(action.data.list));
         } else if (action.data.result === 'FAILED') {
           draft.myPostMoreGetLoading = false;
@@ -206,7 +205,7 @@ const reducer = (state = initialState, action) => {
           draft.userPostMoreGetLoading = false;
           draft.userPostMoreGetDone = true;
           draft.userPostMoreGetFailed = true;
-          draft.userPostPageNumber = draft.userPostPageNumber + 1;
+          draft.userPostPageNumber += 1;
           draft.userPosts = draft.userPosts.concat(myPost(action.data.list));
         } else if (action.data.result === 'FAILED') {
           draft.userPostMoreGetLoading = false;
@@ -230,7 +229,7 @@ const reducer = (state = initialState, action) => {
           draft.userSavePostMoreGetLoading = false;
           draft.userSavePostMoreGetDone = true;
           draft.userSavePostMoreGetFailed = true;
-          draft.userSavePostPageNumber = draft.userSavePostPageNumber + 1;
+          draft.userSavePostPageNumber += 1;
           draft.userSavePosts = draft.userSavePosts.concat(
             myPost(action.data.saveList),
           );

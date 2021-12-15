@@ -147,7 +147,6 @@ const Login = () => {
         {signUpFailed ? null : id ? null : (
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
-
         <button
           type="button"
           className={style.formButton}
@@ -155,9 +154,7 @@ const Login = () => {
         >
           중복체크
         </button>
-
         <br />
-
         <input
           name="pw"
           placeholder="비밀번호를 입력해주세요"
@@ -168,26 +165,21 @@ const Login = () => {
         {signUpFailed ? null : pw ? null : (
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
-
         <input
           placeholder="비밀번호를 다시한번 입력해주세요"
           type="password"
           value={passwordCheck}
           onChange={onChangePasswordCheck}
         />
-
         {signUpFailed ? null : passwordCheck ? null : (
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
-
         {passwordError ? (
           <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
         ) : passwordCheck ? (
           <div style={{ color: '#409857' }}>*보안100%</div>
         ) : null}
-
         <br />
-
         <input
           name="name"
           placeholder="이름을 입력해주세요"
@@ -198,7 +190,6 @@ const Login = () => {
         {signUpFailed ? null : name ? null : (
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
-
         <input
           name="nickname"
           placeholder="별명을 입력해주세요"
@@ -209,7 +200,6 @@ const Login = () => {
         {signUpFailed ? null : nickname ? null : (
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
-
         <input
           name="phone"
           placeholder="전화번호를 입력해주세요"
@@ -222,7 +212,6 @@ const Login = () => {
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
         <br />
-
         <div className={style.checkBox} onClick={checkboxClick}>
           <input
             name="mem_flag"
@@ -231,12 +220,12 @@ const Login = () => {
             value={agree}
             onChange={checkboxClick}
           />
+
           <label htmlFor="mem_flag">개인정보 활용 동의 (보기)</label>
           {signUpFailed ? null : agree ? null : (
             <div className={style.signupCheck}>{'*개인정보 동의 '}</div>
           )}
         </div>
-
         <button style={{ marginTop: 5 }} type="submit" onClick={onSubmitSignUp}>
           가입하기
         </button>

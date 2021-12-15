@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 
+import { useDispatch, useSelector } from 'react-redux';
 import LoginLayout from '../LoginLayout';
 import useInput from '../../hooks/useInput';
 import style from '../../styles/css/loginForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { LOG_IN_REQUEST } from '../../reducers/userInfo';
 import { SIGN_UP_REQUEST } from '../../reducers/userSign';
 
@@ -50,7 +50,7 @@ const Login = () => {
           onChange={onchangeId}
         />
         {logInFailed ? null : id ? null : (
-          <div className={style.signupCheck}>{`*아이디를 입력해주세요.`}</div>
+          <div className={style.signupCheck}>*아이디를 입력해주세요.</div>
         )}
 
         <input
@@ -61,11 +61,11 @@ const Login = () => {
           type="password"
         />
         {logInFailed ? null : password ? null : (
-          <div className={style.signupCheck}>{`*비밀번호를 입력해주세요.`}</div>
+          <div className={style.signupCheck}>*비밀번호를 입력해주세요.</div>
         )}
 
         {logInFailed ? null : id && password ? (
-          <div className={style.signupCheck}>{`계정을 다시 입력해주세요.`}</div>
+          <div className={style.signupCheck}>계정을 다시 입력해주세요.</div>
         ) : null}
 
         <button type="submit">로그인</button>

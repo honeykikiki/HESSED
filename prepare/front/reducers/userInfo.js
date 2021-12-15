@@ -1,4 +1,4 @@
-import immer, { produce } from 'immer';
+import produce from 'immer';
 import { dummyUser } from '../hooks/reducer/APIResultChange';
 import { MY_POST_AND_SAVE_POST_GET_SUCCESS } from './userPost';
 
@@ -35,7 +35,7 @@ export const CHANGE_PROFILE_FAILURE = 'CHANGE_PROFILE_FAILURE';
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      //로그인
+      // 로그인
       case LOG_IN_REQUEST:
         draft.logInLoading = true;
         draft.logInDone = false;
@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
       case LOG_IN_SUCCESS:
         // draft.me = dummyUser();
         if (action.data.result === 'SUCCESS') {
-          draft.me = dummyUser(action.data.member); //action.data;
+          draft.me = dummyUser(action.data.member); // action.data;
           draft.logInLoading = false;
           draft.logInDone = true;
           draft.logInFailed = true;
@@ -58,7 +58,7 @@ const reducer = (state = initialState, action) => {
         draft.logInLoading = false;
         draft.logInError = action.error;
         break;
-      //로그아웃
+      // 로그아웃
       case LOG_OUT_REQUEST:
         draft.logOutLoading = true;
         draft.logOutDone = false;

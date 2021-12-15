@@ -119,21 +119,21 @@ const Profile = () => {
               <div>
                 {nicknameSet ? (
                   me?.profileImg !== '' ? (
-                    <Image
+                    <img
                       src={`${baseURL}${myPostprofileImg}`}
                       alt="ProfiltImg"
                     />
                   ) : (
-                    <Image
+                    <img
                       src="/icon/profileBasic.svg"
                       className={style.profileBasic}
                       alt="ProfiltImg"
                     />
                   )
                 ) : profileImg ? (
-                  <Image src={`${profileImg}`} alt="ProfiltImg" />
+                  <img src={`${profileImg}`} alt="ProfiltImg" />
                 ) : (
-                  <Image
+                  <img
                     src="/icon/addphoto.svg"
                     className={style.addImg}
                     onClick={onClickImageUpload}

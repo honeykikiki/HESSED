@@ -47,7 +47,7 @@ const Post = () => {
         <section>
           <div className={style.head}>
             <div onClick={onClickBack}>
-              <Image src="/icon/back.svg" width="12px" alt="BackIcon" />
+              <img src="/icon/back.svg" width="12px" alt="BackIcon" />
             </div>
             <div>{`${boardOneViewPost.User.nickname}님의 게시글`}</div>
           </div>
