@@ -1,34 +1,35 @@
 {
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
   "env": {
     "browser": true,
-    "node": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
-  "extends": ["airbnb", "eslint:recommended", "plugin:prettier/recommended"],
-  "plugins": ["import", "react-hooks", "prettier"],
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "js": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
-    "jsx-a11y/label-has-associated-control": "off",
-    "jsx-a11y/anchor-is-valid": "off",
-    "no-console": "off",
-    "no-underscore-dangle": "off",
-    "react/forbid-prop-types": "off",
-    "react/jsx-filename-extension": "off",
-    "react/jsx-one-expression-per-line": "off",
-    "object-curly-newline": "off",
-    "linebreak-style": "off",
-    "no-param-reassign": "off",
-
-    "prettier/prettier": "error",
-    "consistent-return": "off",
-    "eslint-disable ": "no-alert",
-    "react/prop-types": "off"
+    "react/react-in-jsx-scope": 0,
+    "react/prefer-stateless-function": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "no-nested-ternary": 0
   }
 }
