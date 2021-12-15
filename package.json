@@ -2,9 +2,9 @@
   "name": "hessed_210906",
   "version": "1.0.0",
   "description": "<!-- 이미지넣기 -->",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "front": "cd prepare/front && npm ci && npm run dev",
+    "front": "cd prepare/front && npm ci && npm run build && npm start",
     "heroku-prebuild": "npm run front"
   },
   "repository": {
@@ -12,9 +12,5 @@
     "url": "git+https://github.com/honeykikiki/HESSEDH-APP.git"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/honeykikiki/HESSEDH-APP/issues"
-  },
-  "homepage": "https://github.com/honeykikiki/HESSEDH-APP#readme"
+  "license": "ISC"
 }
