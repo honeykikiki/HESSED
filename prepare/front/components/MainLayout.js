@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Router from 'next/router';
 import style from '../styles/css/mainPage.module.css';
 
 import QrCode from './QrCode/QrCode';
 import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
-
-import Router from 'next/router';
 
 import { baseURL } from '../config/config';
 import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
@@ -74,7 +74,7 @@ const MainLayout = ({ children }) => {
             <div className={style.logo}>
               <Link href="/">
                 <a>
-                  <h1></h1>
+                  <h1 />
                 </a>
               </Link>
             </div>
@@ -86,9 +86,9 @@ const MainLayout = ({ children }) => {
                       {/* Postcard */}
                       <a>
                         {postCard ? (
-                          <img src="/icon/home-B.svg" alt="Posticon" />
+                          <Image src="/icon/home-B.svg" alt="Posticon" />
                         ) : (
-                          <img src="/icon/home-W.svg" alt="Posticon" />
+                          <Image src="/icon/home-W.svg" alt="Posticon" />
                         )}
                       </a>
                     </Link>
@@ -99,9 +99,9 @@ const MainLayout = ({ children }) => {
                       {/* UpLoad */}
                       <a>
                         {upLoad ? (
-                          <img src="/icon/upLoad-B.svg" alt="upLoadicon" />
+                          <Image src="/icon/upLoad-B.svg" alt="upLoadicon" />
                         ) : (
-                          <img src="/icon/upLoad-W.svg" alt="upLoadicon" />
+                          <Image src="/icon/upLoad-W.svg" alt="upLoadicon" />
                         )}
                       </a>
                     </Link>
@@ -111,9 +111,9 @@ const MainLayout = ({ children }) => {
                     {/* QrCode */}
                     <a>
                       {qrCode ? (
-                        <img src="/icon/QR-W.svg" alt="qrCodeicon" />
+                        <Image src="/icon/QR-W.svg" alt="qrCodeicon" />
                       ) : (
-                        <img src="/icon/QR-B.svg" alt="qrCodeicon" />
+                        <Image src="/icon/QR-B.svg" alt="qrCodeicon" />
                       )}
                     </a>
                   </li>
@@ -125,16 +125,19 @@ const MainLayout = ({ children }) => {
                         onClick={profileClickToggle}
                       >
                         {me?.profileImg?.url ? (
-                          <img
+                          <Image
                             src={`${baseURL}/${me.profileImg}`}
                             alt="profileImg"
                           />
                         ) : (
-                          <img src="/icon/profileBasic.svg" alt="profileImg" />
+                          <Image
+                            src="/icon/profileBasic.svg"
+                            alt="profileImg"
+                          />
                         )}
 
                         {/* {me.profileImg ? (
-                          <img
+                          <Image
                             src={`${baseURL}/${me.profileImg}`}
                             className={style.circle}
                             alt="profileImg"
@@ -143,7 +146,7 @@ const MainLayout = ({ children }) => {
                         {profileToggle ? (
                           <div className={style.profileBox}>
                             <div>
-                              <span></span>
+                              <span />
                               <div onClick={onProfile}>프로필</div>
                               <div onClick={onLogOut}>로그아웃</div>
                             </div>

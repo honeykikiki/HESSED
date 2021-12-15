@@ -2,13 +2,12 @@ import React, { useCallback, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 
 import style from '../../styles/css/dynamicPost.module.css';
 import PostCard from '../../components/PostCard/PostCard';
 import MainLayout from '../../components/MainLayout';
 
-import { END } from 'redux-saga';
-import wrapper from '../../store/configureStore';
 import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 
 const Post = () => {
@@ -48,11 +47,11 @@ const Post = () => {
         <section>
           <div className={style.head}>
             <div onClick={onClickBack}>
-              <img src="/icon/back.svg" width="12px" alt="BackIcon" />
+              <Image src="/icon/back.svg" width="12px" alt="BackIcon" />
             </div>
             <div>{`${boardOneViewPost.User.nickname}님의 게시글`}</div>
           </div>
-          <div style={{ paddingTop: '34px' }}></div>
+          <div style={{ paddingTop: '34px' }} />
           <PostCard post={boardOneViewPost} />
         </section>
       )}

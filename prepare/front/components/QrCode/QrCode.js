@@ -1,6 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import Router from 'next/router';
+import React, { useCallback, useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 
 import style from '../../styles/css/QrCode.module.css';
 import { POST_CARD } from '../../reducers/menu';
@@ -40,7 +41,7 @@ const QrCode = () => {
         <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
+              <Image src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>
@@ -53,7 +54,7 @@ const QrCode = () => {
             </div>
             <div className={style.QrCode}>
               <div>
-                <img src="/icon/QR-B.svg" alt="qrIcon" />
+                <Image src="/icon/QR-B.svg" alt="qrIcon" />
               </div>
             </div>
             <div className={style.close} onClick={onClose}>
@@ -65,7 +66,7 @@ const QrCode = () => {
         <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
+              <Image src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>

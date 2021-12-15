@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Router from 'next/router';
+import Image from 'next/image';
 
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
 
 import style from '../styles/css/profile.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../hooks/useInput';
 import { CHANGE_PROFILE_REQUEST } from '../reducers/userInfo';
 
 import ProfileIcon from '../components/profile/ProfileIcon';
@@ -13,6 +13,7 @@ import ProfilePost from '../components/profile/ProfilePost';
 import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../reducers/userPost';
 import { baseURL } from '../config/config';
 import ProfileSavePost from '../components/profile/ProfileSavePost';
+import useInput from '../hooks/useInput';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -110,7 +111,7 @@ const Profile = () => {
 
   return (
     <MainLayout>
-      <div style={{ paddingTop: '44px' }}></div>
+      <div style={{ paddingTop: '44px' }} />
       <section className={style.a}>
         <article className={style.maxWidth}>
           <div className={style.profileImg}>
@@ -118,21 +119,21 @@ const Profile = () => {
               <div>
                 {nicknameSet ? (
                   me?.profileImg !== '' ? (
-                    <img
+                    <Image
                       src={`${baseURL}${myPostprofileImg}`}
                       alt="ProfiltImg"
                     />
                   ) : (
-                    <img
+                    <Image
                       src="/icon/profileBasic.svg"
                       className={style.profileBasic}
                       alt="ProfiltImg"
                     />
                   )
                 ) : profileImg ? (
-                  <img src={`${profileImg}`} alt="ProfiltImg" />
+                  <Image src={`${profileImg}`} alt="ProfiltImg" />
                 ) : (
-                  <img
+                  <Image
                     src="/icon/addphoto.svg"
                     className={style.addImg}
                     onClick={onClickImageUpload}
@@ -186,9 +187,9 @@ const Profile = () => {
             />
 
             {postToSave ? (
-              <ProfilePost myPosts={myPosts} bool={true} />
+              <ProfilePost myPosts={myPosts} bool />
             ) : (
-              <ProfileSavePost myPosts={savePosts} bool={true} />
+              <ProfileSavePost myPosts={savePosts} bool />
             )}
 
             {myPostMoreGetDone || userPostMoreGetDone ? null : (
@@ -197,7 +198,7 @@ const Profile = () => {
           </div>
         </article>
       </section>
-      <div style={{ paddingBottom: '54px' }}></div>
+      <div style={{ paddingBottom: '54px' }} />
     </MainLayout>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/dynamicComment.module.css';
 import useInput from '../../hooks/useInput';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { ADD_COMMENT_REPLY_REQUEST } from '../../reducers/postMainAction';
 import { COMMENT_TO_REPLY_CLOSE } from '../../reducers/menu';
 
@@ -34,8 +34,8 @@ const CommentsToReply = ({
       return;
     }
     ref.current.style.height = '20px';
-    ref.current.style.height = ref.current.scrollHeight + 'px';
-  }, []); //댓글창 크기 자동조절
+    ref.current.style.height = `${ref.current.scrollHeight}px`;
+  }, []); // 댓글창 크기 자동조절
 
   useEffect(() => {
     if (ref === null || ref.current === null) {
@@ -106,13 +106,13 @@ const CommentsToReply = ({
   return (
     <>
       {!v?.Comments[0] ? null : reply ? (
-        <button onClick={onClickReply}>
-          <span></span>
+        <button type="button" onClick={onClickReply}>
+          <span />
           <p>답글 보기({v.Comments.length}개)</p>
         </button>
       ) : (
-        <button onClick={onClickReply}>
-          <span></span>
+        <button type="button" onClick={onClickReply}>
+          <span />
           <p>답글 숨기기</p>
         </button>
       )}
@@ -167,13 +167,13 @@ const CommentsToReply = ({
                 className={style.text}
                 ref={ref}
                 onInput={handleResizeHeight}
-                placeholder={`답글달기..`}
+                placeholder="답글달기.."
                 autoComplete="off"
                 autoCorrect="off"
                 value={commentReply}
                 onChange={onChangeInput}
                 required
-              ></textarea>
+              />
               <button onClick={onClickAddReply}>게시</button>
             </form>
           </div>

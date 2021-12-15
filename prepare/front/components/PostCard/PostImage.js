@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 import style from '../../styles/css/postImage.module.css';
 import { baseURL } from '../../config/config';
@@ -31,19 +32,19 @@ const PostImages = ({ images }) => {
       <div className={style.imageBox}>
         {imageCuurrentNo >= 1 && (
           <div className={style.left} onClick={onClickLeft}>
-            <img src="/icon/left.png" alt="LeftIcon" />
+            <Image src="/icon/left.png" alt="LeftIcon" />
           </div>
         )}
 
         {imageCuurrentNo < images.length - 1 && (
           <div className={style.right} onClick={onClickRight}>
-            <img src="/icon/right.png" alt="RightIcon" />
+            <Image src="/icon/right.png" alt="RightIcon" />
           </div>
         )}
         {images.map((v, i) => {
           return (
             <div className={style.imageInnerBox} key={v?.bo_img_location}>
-              <img
+              <Image
                 src={`${baseURL}/${v.bo_img_location}`}
                 style={{
                   transform: `translate3d(-${

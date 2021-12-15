@@ -74,7 +74,7 @@ const Home = () => {
     <>
       {me ? (
         <MainLayout>
-          <div style={{ paddingTop: '30px' }}></div>
+          <div style={{ paddingTop: '30px' }} />
 
           {mainPosts.map((post) => {
             return <PostCard key={post.id} post={post} />;
@@ -86,7 +86,7 @@ const Home = () => {
             <div className={style.bottomLogo}>@HESSED</div>
           )}
 
-          <div style={{ paddingBottom: '54px' }}></div>
+          <div style={{ paddingBottom: '54px' }} />
         </MainLayout>
       ) : (
         <LoginForm />

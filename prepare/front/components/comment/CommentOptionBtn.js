@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import style from '../../styles/css/postCard.module.css';
+import Image from 'next/image';
 
 import { useDispatch, useSelector } from 'react-redux';
+import style from '../../styles/css/postCard.module.css';
+
 import {
   REMOVE_COMMENT_REPLY_REQUEST,
   REMOVE_COMMENT_REQUEST,
@@ -23,13 +24,11 @@ const CommentOptionBtn = ({
   const onClickOptionOpen = useCallback(() => {
     if (optionButton) {
       setOptionButton(false);
-      return;
     }
   }, [optionButton]);
   const onClickOptionClose = useCallback(() => {
     if (!optionButton) {
       setOptionButton(true);
-      return;
     }
   }, [optionButton]);
 
@@ -66,7 +65,7 @@ const CommentOptionBtn = ({
   return (
     <>
       {bool ? (
-        //댓글용
+        // 댓글용
         <span
           className={style.menu}
           style={{
@@ -74,7 +73,7 @@ const CommentOptionBtn = ({
           }}
           onClick={onClickOptionOpen}
         >
-          <img />
+          <Image />
           {/* {post.User. === me.id}/{me.id} */}
           {optionButton ? null : me.id === post.User.id ? (
             <div
@@ -103,7 +102,7 @@ const CommentOptionBtn = ({
           )}
         </span>
       ) : (
-        //답글용
+        // 답글용
         <span
           className={style.menu}
           style={{
@@ -111,7 +110,7 @@ const CommentOptionBtn = ({
           }}
           onClick={onClickOptionOpen}
         >
-          <img />
+          <Image />
           {/* {post.User. === me.id}/{me.id} */}
           {optionButton ? null : me.id === post.User.id ? (
             <div

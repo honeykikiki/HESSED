@@ -1,5 +1,6 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 import style from '../../styles/css/upload.module.css';
 
@@ -23,7 +24,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
                 <div className={style.remove} onClick={() => onRemove(v.url)}>
                   x
                 </div>
-                <img
+                <Image
                   src={v.url}
                   style={{
                     backgroundImage: `url(${v.url})`,
@@ -36,7 +37,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
         : null}
       <li onClick={onClickImageUpload}>
         <div className={style.imageInput}>
-          <img
+          <Image
             src="/icon/addphoto.svg"
             className={style.addImg}
             alt="addPhotoIcon"
