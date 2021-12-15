@@ -8,7 +8,7 @@
   },
   "scripts": {
     "front": "cd prepare/front && npm ci && npm run build && npm start",
-    "heroku-prebuild": "npm install --dev"
+    "heroku-prebuild": "npm run front"
   },
   "repository": {
     "type": "git",
