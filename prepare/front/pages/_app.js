@@ -23,8 +23,12 @@ const Hessed = ({ Component }) => {
       <Head>
         <title>HESSED</title>
         <meta charSet="utf-8" />
-        <meta name="Description" content="HESSED 웹 앱" />
-        <meta name="Keywords" content="HESSED공동체의 소셜미디어" />
+        <meta name="og:title" content="HESSED Web App" />
+        {/* <meta name="og:url" content="url" /> */}
+        <meta name="og:type" content="website" />
+        <link rel="og:image" href="/favicon.ico" />
+        <meta name="Description" content="HESSED Web App" />
+        <meta name="Keywords" content="HESSED sns" />
         <meta name="Author" content="honey-kikiki" />
         <link rel="shortcut" href="/favicon.ico" />
       </Head>

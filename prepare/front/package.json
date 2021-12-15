@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p 3030",
+    "dev": "next -p process.env.PORT || 3030 ",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production next start -p 3060"
+    "start": "cross-env NODE_ENV=production next start -p process.env.PORT || 3030"
   },
   "author": "honey.kikiki",
   "license": "ISC",
@@ -29,7 +29,7 @@
     "sass": "^1.39.0",
     "styled-components": "^5.3.1"
   },
-  "devDependencies": { 
+  "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
