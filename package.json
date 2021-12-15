@@ -4,7 +4,7 @@
   "description": "<!-- 이미지넣기 -->",
   "main": "app.js",
   "scripts": {
-    "front": "cd prepare/front && npm ci && npm run build && npm start",
+    "front": "cd prepare/front && npm ci && yarn add --dev eslint && npm run build && npm start",
     "heroku-prebuild": "npm run front"
   },
   "repository": {

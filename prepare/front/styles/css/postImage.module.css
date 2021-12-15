@@ -69,13 +69,11 @@
 @media screen and (min-width: 720px) {
   .imageBox {
     width: 1000%;
-    height: 100%;
-  }
-  .imageBox img {
-    width: 10%;
     height: 600px;
-    -webkit-transform: translate3d(0%, 0px, 0px);
-            transform: translate3d(0%, 0px, 0px);
+  }
+  .imageBox .imageInnerBox {
+    width: 10%;
+    height: 100%;
   }
   .left {
     position: absolute;
