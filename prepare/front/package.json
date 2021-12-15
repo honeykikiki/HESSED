@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next -p process.env.PORT || 3030 ",
-    "build": "ANALYZE=false NODE_ENV=production next build",
+    "build": "ANALYZE=false NODE_ENV=production next build & next export",
     "start": "cross-env NODE_ENV=production next start -p process.env.PORT || 3030"
   },
   "author": "honey.kikiki",

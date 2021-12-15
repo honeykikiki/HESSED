@@ -46,7 +46,11 @@ const Profile = () => {
           property="og:description"
           content={`${userPostNickname}님의 게시글`}
         />
-        <meta property="og:image" content="/icon/HESSED_LOGO-W.png" />
+        <meta
+          property="og:image"
+          content="/icon/HESSED_LOGO-W.png"
+          layout="fill"
+        />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
 
