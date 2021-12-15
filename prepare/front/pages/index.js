@@ -13,9 +13,6 @@ import {
 } from '../reducers/postMainAction';
 import { PAGE_CHANGE } from '../reducers/postAdd';
 
-import { END } from 'redux-saga';
-import wrapper from '../store/configureStore';
-
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
@@ -97,18 +94,5 @@ const Home = () => {
     </>
   );
 };
-
-//  다시 포스트로 넘어갈떄 리랜더링 되는현상
-
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) =>
-//     async ({ req }) => {
-//       store.dispatch({
-//         type: LOAD_POSTS_REQUEST,
-//       });
-//       store.dispatch(END);
-//       await store.sagaTask.toPromise();
-//     },
-// );
 
 export default Home;

@@ -6,10 +6,7 @@ import MainLayout from '../components/MainLayout';
 import style from '../styles/css/profile.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../hooks/useInput';
-import {
-  CHANGE_NICKNAME_REQUEST,
-  CHANGE_PROFILE_REQUEST,
-} from '../reducers/userInfo';
+import { CHANGE_PROFILE_REQUEST } from '../reducers/userInfo';
 
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
