@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "<!-- 이미지넣기 -->",
   "main": "app.js",
+  "engines": {
+    "node": "16.13"
+  },
   "scripts": {
-    "front": "cd prepare/front && npm ci && yarn add --dev eslint && npm run build && npm start",
+    "front": "cd prepare/front && npm ci && npm i --dev eslint && npm run build && npm start",
     "heroku-prebuild": "npm run front"
   },
   "repository": {
