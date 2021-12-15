@@ -28,7 +28,11 @@ const Post = () => {
           property="og:description"
           content={`${post?.User.nickname}님의 게시글`}
         />
-        <meta property="og:image" content="/icon/HESSED_LOGO-W.png" />
+        <meta
+          property="og:image"
+          content="/icon/HESSED_LOGO-W.png"
+          layout="fill"
+        />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
       {post ? <PostInComment post={post} /> : null}
