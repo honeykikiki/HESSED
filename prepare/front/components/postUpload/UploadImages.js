@@ -24,7 +24,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
                 <div className={style.remove} onKeyDown={() => onRemove(v.url)}>
                   x
                 </div>
-                <Image
+                <img
                   src={v.url}
                   style={{
                     backgroundImage: `url(${v.url})`,
@@ -38,7 +38,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
 
       <li onClick={onClickImageUpload}>
         <div className={style.imageInput}>
-          <Image
+          <img
             src="/icon/addphoto.svg"
             className={style.addImg}
             alt="addPhotoIcon"

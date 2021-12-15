@@ -4,10 +4,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   compress: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
   webpack(config) {
     const prod = process.env.NODE_ENV === 'production';
     return {

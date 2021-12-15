@@ -104,11 +104,10 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
       // 게시물 삭제
       case REMOVE_POST_SUCCESS:
-        draft.mainPosts = draft.mainPosts = draft.mainPosts.filter(
+        draft.mainPosts = draft.mainPosts.filter(
           (v) => v.id !== action.data.postId,
         );
         break;
-
       // 댓글달기
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;
@@ -214,7 +213,7 @@ const reducer = (state = initialState, action) => {
           );
           if (post) {
             post.liked = { mem_id: action.data.goodVO.mem_id };
-            post.likedNumber = post.likedNumber + 1;
+            post.likedNumber += 1;
           }
           draft.likePostLoading = false;
           draft.likePostDone = true;
@@ -243,7 +242,7 @@ const reducer = (state = initialState, action) => {
         );
         if (post) {
           post.liked = [];
-          post.likedNumber = post.likedNumber - 1;
+          post.likedNumber -= 1;
         }
         draft.unLikePostLoading = false;
         draft.unLikePostDone = true;
@@ -354,7 +353,7 @@ const reducer = (state = initialState, action) => {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = true;
           draft.loadPostMoreFalid = true;
-          draft.pageNumber = draft.pageNumber + 1;
+          draft.pageNumber += 1;
           draft.mainPosts = draft.mainPosts.concat(
             generateDummyPost(
               action.data.list,

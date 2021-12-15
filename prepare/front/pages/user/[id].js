@@ -56,7 +56,7 @@ const Profile = () => {
 
       <div className={styles.head}>
         <div onClick={onClickBack}>
-          <Image src="/icon/back.svg" width="12px" alt="BackIcon" />
+          <img src="/icon/back.svg" width="12px" alt="BackIcon" />
         </div>
         <div>{`${userPostNickname}님의 게시글`}</div>
       </div>
@@ -68,12 +68,12 @@ const Profile = () => {
             <div>
               <div>
                 {userPostprofileImg ? (
-                  <Image
+                  <img
                     src={`${baseURL}${userPostprofileImg}`}
                     alt="ProfiltImg"
                   />
                 ) : (
-                  <Image
+                  <img
                     src="/icon/profileBasic.svg"
                     className={style.profileBasic}
                     alt="ProfiltImg"

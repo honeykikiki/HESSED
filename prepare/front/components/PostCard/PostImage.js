@@ -32,18 +32,18 @@ const PostImages = ({ images }) => {
       <div className={style.imageBox}>
         {imageCuurrentNo >= 1 && (
           <div className={style.left} onClick={onClickLeft}>
-            <Image src="/icon/left.png" alt="LeftIcon" />
+            <img src="/icon/left.png" alt="LeftIcon" />
           </div>
         )}
 
         {imageCuurrentNo < images.length - 1 && (
           <div className={style.right} onClick={onClickRight}>
-            <Image src="/icon/right.png" alt="RightIcon" />
+            <img src="/icon/right.png" alt="RightIcon" />
           </div>
         )}
         {images.map((v, i) => (
           <div className={style.imageInnerBox} key={v?.bo_img_location}>
-            <Image
+            <img
               src={`${baseURL}/${v.bo_img_location}`}
               style={{
                 transform: `translate3d(-${imageCuurrentNo * 100}%, -50%, 0%)`,

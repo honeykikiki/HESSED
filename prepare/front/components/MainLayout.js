@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import img from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Router from 'next/router';
@@ -74,7 +74,7 @@ const MainLayout = ({ children }) => {
             <div className={style.logo}>
               <Link href="/">
                 <a>
-                  <h1 />
+                  <h1>logo</h1>
                 </a>
               </Link>
             </div>
@@ -86,9 +86,9 @@ const MainLayout = ({ children }) => {
                       {/* Postcard */}
                       <a>
                         {postCard ? (
-                          <Image src="/icon/home-B.svg" alt="Posticon" />
+                          <img src="/icon/home-B.svg" alt="Posticon" />
                         ) : (
-                          <Image src="/icon/home-W.svg" alt="Posticon" />
+                          <img src="/icon/home-W.svg" alt="Posticon" />
                         )}
                       </a>
                     </Link>
@@ -99,9 +99,9 @@ const MainLayout = ({ children }) => {
                       {/* UpLoad */}
                       <a>
                         {upLoad ? (
-                          <Image src="/icon/upLoad-B.svg" alt="upLoadicon" />
+                          <img src="/icon/upLoad-B.svg" alt="upLoadicon" />
                         ) : (
-                          <Image src="/icon/upLoad-W.svg" alt="upLoadicon" />
+                          <img src="/icon/upLoad-W.svg" alt="upLoadicon" />
                         )}
                       </a>
                     </Link>
@@ -111,9 +111,9 @@ const MainLayout = ({ children }) => {
                     {/* QrCode */}
                     <a>
                       {qrCode ? (
-                        <Image src="/icon/QR-W.svg" alt="qrCodeicon" />
+                        <img src="/icon/QR-W.svg" alt="qrCodeicon" />
                       ) : (
-                        <Image src="/icon/QR-B.svg" alt="qrCodeicon" />
+                        <img src="/icon/QR-B.svg" alt="qrCodeicon" />
                       )}
                     </a>
                   </li>
@@ -125,19 +125,16 @@ const MainLayout = ({ children }) => {
                         onClick={profileClickToggle}
                       >
                         {me?.profileImg?.url ? (
-                          <Image
+                          <img
                             src={`${baseURL}/${me.profileImg}`}
                             alt="profileImg"
                           />
                         ) : (
-                          <Image
-                            src="/icon/profileBasic.svg"
-                            alt="profileImg"
-                          />
+                          <img src="/icon/profileBasic.svg" alt="profileImg" />
                         )}
 
                         {/* {me.profileImg ? (
-                          <Image
+                          <img
                             src={`${baseURL}/${me.profileImg}`}
                             className={style.circle}
                             alt="profileImg"

@@ -54,6 +54,7 @@ const Home = () => {
     (e) => {
       const temp = [];
       const photoToAdd = e.target.files;
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < photoToAdd.length; i++) {
         temp.push({
           id: photoToAdd[i].name,

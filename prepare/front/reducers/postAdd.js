@@ -57,12 +57,12 @@ const reducer = (state = initialState, action) => {
         break;
 
       // 게시물 수정
-      case UPDATE_POST_SUCCESS:
+      case UPDATE_POST_REQUEST:
         draft.updatePostLoading = true;
         draft.updatePostDone = false;
         draft.updatePostError = null;
         break;
-      case UPDATE_POST_FAILURE: {
+      case UPDATE_POST_SUCCESS: {
         if (action.data.result === 'OK') {
           draft.updatePostLoading = false;
           draft.updatePostDone = true;
@@ -72,7 +72,6 @@ const reducer = (state = initialState, action) => {
           draft.updatePostDone = false;
           draft.updateCompleat = false;
         }
-
         break;
       }
       case UPDATE_POST_FAILURE:
@@ -84,7 +83,7 @@ const reducer = (state = initialState, action) => {
       case REMOVE_POST_REQUEST:
         draft.removePostLoading = true;
         draft.removePostDone = false;
-        draft.removePostError = null;
+
         break;
       case REMOVE_POST_SUCCESS: {
         draft.removePostLoading = false;

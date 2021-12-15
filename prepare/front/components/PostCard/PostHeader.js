@@ -38,12 +38,12 @@ const PostHeader = ({ post }) => {
             <Link href="profile">
               <a>
                 {post.User.profileImg ? (
-                  <Image
+                  <img
                     src={`${baseURL}${post.User.profileImg}`}
                     alt="profileImg"
                   />
                 ) : (
-                  <Image src="/icon/profileBasic.svg" alt="profileImg" />
+                  <img src="/icon/profileBasic.svg" alt="profileImg" />
                 )}
               </a>
             </Link>
@@ -60,12 +60,12 @@ const PostHeader = ({ post }) => {
             <Link href={`/user/${post.User.id}`}>
               <a>
                 {post.User.profileImg ? (
-                  <Image
+                  <img
                     src={`${baseURL}${post.User.profileImg}`}
                     alt="profileImg"
                   />
                 ) : (
-                  <Image src="/icon/profileBasic.svg" alt="profileImg" />
+                  <img src="/icon/profileBasic.svg" alt="profileImg" />
                 )}
               </a>
             </Link>

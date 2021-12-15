@@ -47,9 +47,9 @@ const Certified = () => {
           onChange={onChangeCertified}
           required
         />
-        <div
-          className={style.signupCheck}
-        >{`아이디로 보내드린 인증번호를 입력해 주세요.`}</div>
+        <div className={style.signupCheck}>
+          아이디로 보내드린 인증번호를 입력해 주세요.
+        </div>
 
         <button>인증번호 확인</button>
       </form>

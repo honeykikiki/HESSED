@@ -4,11 +4,11 @@ import { useInView } from 'react-intersection-observer';
 
 import PropTypes from 'prop-types';
 
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/profile.module.css';
 import ProfilePostImages from './ProfilePostImage';
-import Router from 'next/router';
 
-import { useDispatch, useSelector } from 'react-redux';
 import {
   MY_POST_MORE_GET_REQUEST,
   USER_POST_MORE_GET_REQUEST,

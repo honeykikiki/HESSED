@@ -75,7 +75,7 @@ const Comment = ({ post }) => {
                   <CommentOptionBtn
                     post={v}
                     postId={post.id}
-                    bool={true}
+                    bool
                     commentId={commentId}
                   />
                 </span>

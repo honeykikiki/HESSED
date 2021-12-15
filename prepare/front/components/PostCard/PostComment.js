@@ -53,7 +53,7 @@ const PostContent = ({ post }) => {
           autoCorrect="off"
           value={comment}
           onChange={onChangeInput}
-        ></textarea>
+        />
         <button onClick={commentPost}>게시</button>
       </form>
     </>

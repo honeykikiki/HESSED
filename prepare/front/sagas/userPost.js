@@ -148,7 +148,7 @@ function* userSavePostMoreGet(action) {
   }
 }
 
-//작성한 게시글 저장한 게시글
+// 작성한 게시글 저장한 게시글
 function* watchMyPostGet() {
   yield takeLatest(MY_POST_AND_SAVE_POST_GET_REQUEST, myPostGet);
 }

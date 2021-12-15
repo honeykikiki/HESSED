@@ -40,9 +40,10 @@ import {
   LOAD_POSTS_FAILURE,
   LOAD_MORE_POSTS_REQUEST,
   LOAD_MORE_POSTS_SUCCESS,
+  LOAD_MORE_POSTS_FAILURE,
 } from '../reducers/postMainAction';
 
-//댓글달기
+// 댓글달기
 function addPostCommentAPI(data) {
   return axios.post(`/post/${data.postId}/Comment`, data);
 }

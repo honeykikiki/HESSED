@@ -4,21 +4,21 @@ import Image from 'next/image';
 
 import { baseURL } from '../../config/config';
 
-const ProfilePostImages = ({ myPosts, number, index }) => {
+const ProfilePostImages = ({ myPosts }) => {
   return (
     <>
       {myPosts?.length > 1 ? (
         <span>
-          <Image src="/icon/more.png" alt="moreIcon" />
+          <img src="/icon/more.png" alt="moreIcon" />
         </span>
       ) : null}
-      {<Image src={`${baseURL}${myPosts}`} alt="PostImg" />}
+      {<img src={`${baseURL}${myPosts}`} alt="PostImg" />}
     </>
   );
 };
 
 ProfilePostImages.propTypes = {
-  myPosts: PropTypes.string,
+  myPosts: PropTypes.object,
 };
 
 export default ProfilePostImages;
