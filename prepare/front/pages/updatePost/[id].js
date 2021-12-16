@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
 
+import { END } from 'redux-saga';
 import style from '../../styles/css/dynamicPost.module.css';
 import MainLayout from '../../components/MainLayout';
 
@@ -11,6 +11,8 @@ import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 import PostImages from '../../components/PostCard/PostImage';
 import useInput from '../../hooks/useInput';
 import { UPDATE_POST_REQUEST } from '../../reducers/postAdd';
+
+import wrapper from '../../store/configureStore';
 
 const Post = () => {
   const router = useRouter();
@@ -20,7 +22,7 @@ const Post = () => {
   const { me } = useSelector((state) => state.userInfo);
   const { updateCompleat } = useSelector((state) => state.postAdd);
   const { id } = router.query;
-  const [content, onChangeContent, setContetn] = useInput();
+  const [content, onChangeContent] = useInput();
 
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {
@@ -91,6 +93,7 @@ const Post = () => {
                 name="bo_content"
                 type="text"
                 placeholder="문구를 입력해주세요"
+                value={boardOneViewPost.content}
                 ref={ref}
                 onInput={handleResizeHeight}
                 onChange={onChangeContent}
@@ -105,16 +108,16 @@ const Post = () => {
   );
 };
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) =>
-//     async ({ req, params }) => {
-//       store.dispatch({
-//         type: LOAD_POSTS_REQUEST,
-//         data: params.id,
-//       });
-//       store.dispatch(END);
-//       await store.sagaTask.toPromise();
-//     },
-// );
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ req, params }) => {
+      store.dispatch({
+        type: GET_ID_POST_REQUEST,
+        data: params.id,
+      });
+      store.dispatch(END);
+      await store.sagaTask.toPromise();
+    },
+);
 
 export default Post;
