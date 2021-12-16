@@ -1,4 +1,4 @@
-import { all, fork, put, call, delay, takeLatest } from 'redux-saga/effects';
+import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import { commonRequestDelete, commonRequestPost } from '../hooks/API';
 
 import {
@@ -60,7 +60,7 @@ function* removePost(action) {
     const result = yield call(
       commonRequestDelete,
       action.data,
-      `/post/${action.data.postId}`,
+      `/post/${action.data.bo_no}`,
     );
     yield put({
       type: REMOVE_POST_SUCCESS,

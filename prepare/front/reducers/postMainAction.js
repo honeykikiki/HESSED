@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { REMOVE_POST_SUCCESS } from './postAdd';
+import { REMOVE_POST_SUCCESS, UPDATE_POST_SUCCESS } from './postAdd';
 import { generateDummyPost } from '../hooks/reducer/APIResultChange';
 
 //  더미데이터
@@ -104,10 +104,21 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
       // 게시물 삭제
       case REMOVE_POST_SUCCESS:
-        draft.mainPosts = draft.mainPosts.filter(
-          (v) => v.id !== action.data.postId,
-        );
+        if (action.data.result === 'SUCCESSS') {
+          draft.mainPosts = draft.mainPosts.filter(
+            (v) => v.id !== action.data.postId,
+          );
+        }
         break;
+
+      // 게시물 업데이트
+      case UPDATE_POST_SUCCESS:
+        if (action.data.result === 'SUCCESS') {
+          const post = draft.mainPosts.find((v) => v.id === action.data.bo_no);
+          post.content = action.data.content;
+        }
+        break;
+
       // 댓글달기
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;

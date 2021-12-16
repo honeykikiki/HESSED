@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Image from 'next/image';
 
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
@@ -42,14 +41,17 @@ const PostCardSetButton = ({ post }) => {
   const onClickPostCardRemove = useCallback(() => {
     dispatch({
       type: REMOVE_POST_REQUEST,
-      data: { postId: post.id },
-      // data: { bo_no: post.bo_no },
+      data: { bo_no: post.id },
     });
-  }, []);
+  }, [post]);
 
   const onClickPostUpdate = useCallback(() => {
     Router.push(`/updatePost/${post.id}`);
   }, [post]);
+
+  const clickDeclaration = () => {
+    alert('신고되었습니다');
+  };
 
   return (
     <>
@@ -80,7 +82,7 @@ const PostCardSetButton = ({ post }) => {
               className={style.optionButton}
               style={{ border: '1px solid black' }}
             >
-              <div style={{ color: 'red' }}>
+              <div style={{ color: 'red' }} onClick={clickDeclaration}>
                 <p>신고</p>
               </div>
               <div onClick={onClickOptionClose}>
