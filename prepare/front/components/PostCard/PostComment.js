@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
@@ -48,7 +48,7 @@ const PostContent = ({ post }) => {
       <form className={style.form}>
         <textarea
           className={style.text}
-          placeholder="댓글달기..."
+          placeholder="댓글달기준비중입니다..."
           autoComplete="off"
           autoCorrect="off"
           value={comment}

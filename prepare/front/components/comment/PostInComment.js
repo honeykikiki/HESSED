@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import Image from 'next/image';
 
 import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
 

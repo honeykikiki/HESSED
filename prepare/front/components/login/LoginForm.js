@@ -13,8 +13,8 @@ const Login = () => {
   const { signUpDone } = useSelector((state) => state.userSign);
   const { logInFailed } = useSelector((state) => state.userInfo);
 
-  const [id, onchangeId, setId] = useInput('');
-  const [password, onchangePassword, setPassword] = useInput('');
+  const [id, onchangeId] = useInput('');
+  const [password, onchangePassword] = useInput('');
 
   useEffect(() => {
     if (signUpDone) {

@@ -23,7 +23,7 @@ const CommentsToReply = ({
   const { addCommentReplyDone } = useSelector((state) => state.postMainAction);
   const { me } = useSelector((state) => state.userInfo);
 
-  const [reply, onChangereply, setReply] = useInput(true);
+  const [reply, , setReply] = useInput(true);
   const [commentReply, onChangeInput, setCommentReply] = useInput('');
 
   const [commentReplyCheckdId, setCommentReplyCheckdId] = useState();
@@ -198,7 +198,6 @@ CommentsToReply.proptypes = {
   id: PropTypes.number.isRequired,
   commentId: PropTypes.number.isRequired,
   onClickOption: PropTypes.object.isRequired,
-  // id,
 };
 
 export default CommentsToReply;
