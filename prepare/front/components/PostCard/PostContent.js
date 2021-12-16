@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import style from '../../styles/css/postContent.module.css';
-import useInput from '../../hooks/useInput';
 
 const PostContent = ({ post }) => {
   const [more, setMore] = useState(20);

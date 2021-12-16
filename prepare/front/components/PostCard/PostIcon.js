@@ -66,6 +66,10 @@ const PostIcon = ({ post }) => {
   //   }
   // };
 
+  const servicePreparing = () => {
+    alert('댓글서비스 준비중입니다!');
+  };
+
   const onShare = useCallback(async () => {
     setUrl(`http://localhost:3030/post/${post.id}`);
     // navigator.clipboard.writeText(`${window.location.href}${post.id}`);
@@ -103,13 +107,13 @@ const PostIcon = ({ post }) => {
 
       <div>
         {/* 댓글 */}
-        <Link href={`/${post.id}/comment`}>
-          <a>
-            <div>
-              <img src="/icon/comment.svg" alt="Commenticon" />
-            </div>
-          </a>
-        </Link>
+        {/* <Link href={`/${post.id}/comment`}> */}
+        <a onClick={servicePreparing}>
+          <div>
+            <img src="/icon/comment.svg" alt="Commenticon" />
+          </div>
+        </a>
+        {/* </Link> */}
       </div>
 
       <div>

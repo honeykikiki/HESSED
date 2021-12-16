@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import Image from 'next/image';
 
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/postCard.module.css';
