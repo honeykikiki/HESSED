@@ -18,7 +18,7 @@ const ProfilePostImages = ({ myPosts }) => {
 };
 
 ProfilePostImages.propTypes = {
-  myPosts: PropTypes.object,
+  myPosts: PropTypes.string,
 };
 
 export default ProfilePostImages;

@@ -50,11 +50,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
 };
 
 UploadImages.propTypes = {
-  // photoToAddList: PropTypes.shape({
-  //   id: PropTypes.string,
-  //   file: PropTypes.object,
-  //   url: PropTypes.string,
-  // }),
+  photoToAddList: PropTypes.object,
   imageInput: PropTypes.object,
 };
 
