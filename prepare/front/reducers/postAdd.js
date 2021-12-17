@@ -60,7 +60,6 @@ const reducer = (state = initialState, action) => {
       case UPDATE_POST_REQUEST:
         draft.updatePostLoading = true;
         draft.updatePostDone = false;
-        draft.updatePostError = null;
         break;
       case UPDATE_POST_SUCCESS: {
         if (action.data.result === 'OK') {

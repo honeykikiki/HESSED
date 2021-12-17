@@ -7,25 +7,18 @@ import { baseURL } from '../../config/config';
 
 const PostImages = ({ images }) => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
-  const [position, setPosition] = useState('');
 
   const onClickLeft = useCallback(() => {
     if (imageCuurrentNo > 0) {
       setImageCuurrentNo((prev) => prev - 1);
     }
-    if (position === 'right') {
-      setImageCuurrentNo((prev) => prev - 1);
-    }
-  }, [imageCuurrentNo, position]);
+  }, [imageCuurrentNo]);
 
   const onClickRight = useCallback(() => {
     if (imageCuurrentNo < images.length - 1) {
       setImageCuurrentNo((prev) => prev + 1);
     }
-    if (position === 'left') {
-      setImageCuurrentNo((prev) => prev - 1);
-    }
-  }, [imageCuurrentNo, position]);
+  }, [imageCuurrentNo]);
 
   return (
     <>
@@ -41,12 +34,12 @@ const PostImages = ({ images }) => {
             <img src="/icon/right.png" alt="RightIcon" />
           </div>
         )}
-        {images.map((v, i) => (
+        {images.map((v) => (
           <div className={style.imageInnerBox} key={v?.bo_img_location}>
             <img
               src={`${baseURL}/${v.bo_img_location}`}
               style={{
-                transform: `translate3d(-${imageCuurrentNo * 100}%, -50%, 0%)`,
+                transform: `translate3d(-${imageCuurrentNo * 100}%, -50%, 0px)`,
                 transition: 'all .4s',
               }}
               alt="PostImg"
@@ -62,7 +55,7 @@ const PostImages = ({ images }) => {
 };
 
 PostImages.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.object).isRequired,
+  images: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default PostImages;

@@ -83,7 +83,6 @@ const MainLayout = ({ children }) => {
                 <ul>
                   <li onClick={postCardClick}>
                     <Link href="/">
-                      {/* Postcard */}
                       <a>
                         {postCard ? (
                           <img src="/icon/home-B.svg" alt="Posticon" />
@@ -96,7 +95,6 @@ const MainLayout = ({ children }) => {
 
                   <li onClick={upLoadClick}>
                     <Link href="/upload">
-                      {/* UpLoad */}
                       <a>
                         {upLoad ? (
                           <img src="/icon/upLoad-B.svg" alt="upLoadicon" />
@@ -108,7 +106,6 @@ const MainLayout = ({ children }) => {
                   </li>
 
                   <li onClick={qrCodeClick}>
-                    {/* QrCode */}
                     <a>
                       {qrCode ? (
                         <img src="/icon/QR-W.svg" alt="qrCodeicon" />

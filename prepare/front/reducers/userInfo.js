@@ -90,7 +90,6 @@ const reducer = (state = initialState, action) => {
         draft.changeProfileDone = true;
         draft.changeProfileError = null;
         draft.changeProfileSuccess = true;
-        draft.me.profileImg = action.data;
         break;
       }
       case CHANGE_PROFILE_FAILURE:

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p process.env.PORT || 3030 ",
+    "dev": "next -p  3030 ",
     "build": "ANALYZE=false NODE_ENV=production next build",
     "start": "cross-env NODE_ENV=production next start -p process.env.PORT || 3030"
   },

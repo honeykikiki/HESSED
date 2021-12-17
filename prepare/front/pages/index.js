@@ -40,12 +40,15 @@ const Home = () => {
 
     if (postCompleat || updateCompleat) {
       dispatch({
-        type: LOAD_POSTS_REQUEST,
-        data: { mem_id: me.id },
-      });
-      dispatch({
         type: PAGE_CHANGE,
       });
+      if (postCompleat) {
+        dispatch({
+          type: LOAD_POSTS_REQUEST,
+          data: { mem_id: me.id },
+        });
+      }
+
       return;
     }
 
@@ -72,7 +75,7 @@ const Home = () => {
 
   return (
     <>
-      {!me ? (
+      {me ? (
         <MainLayout>
           <div style={{ paddingTop: '30px' }} />
 

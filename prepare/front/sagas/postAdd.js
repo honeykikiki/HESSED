@@ -1,5 +1,5 @@
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
-import { commonRequestDelete, commonRequestPost } from '../hooks/API';
+import { commonRequestPost } from '../hooks/API';
 
 import {
   ADD_POST_SUCCESS,
@@ -39,7 +39,7 @@ function* updatePost(action) {
     const result = yield call(
       commonRequestPost,
       action.data,
-      `/board/insert.do`,
+      `/board/update.do`,
     );
     yield put({
       type: UPDATE_POST_SUCCESS,
@@ -58,9 +58,9 @@ function* updatePost(action) {
 function* removePost(action) {
   try {
     const result = yield call(
-      commonRequestDelete,
+      commonRequestPost,
       action.data,
-      `/post/${action.data.bo_no}`,
+      `/board/delete.do`,
     );
     yield put({
       type: REMOVE_POST_SUCCESS,

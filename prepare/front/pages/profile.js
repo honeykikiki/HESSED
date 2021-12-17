@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Router from 'next/router';
-import Image from 'next/image';
 
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
@@ -27,9 +26,7 @@ const Profile = () => {
     myPostMoreGetDone,
     userPostMoreGetDone,
   } = useSelector((state) => state.userPost);
-
-  // 저장한 게시글만 가져오기
-  // const savePost = mainPosts.filter((v) => v.saved.id === me?.id);
+  const { myPostGetLoading } = useSelector((state) => state.userPost);
 
   const [changeNickname, onChangeNickname, setNickname] = useInput();
   const [nicknameSet, setNicknameSet] = useState(true);
@@ -90,23 +87,23 @@ const Profile = () => {
       e.preventDefault();
 
       if (!changeNickname && !photoToAddList) {
-        return alert('닉네임 이미지가 있어야합니다.');
+        alert('바꿀 정보를 입력해주세요!');
+        return;
       }
+
       const formData = new FormData();
       formData.append('mem_id', me.id);
       formData.append('mem_image', photoToAddList);
-      formData.append('mem_nickname', changeNickname);
+      formData.append('mem_nickname', changeNickname || me.nickname);
 
-      if (photoToAddList) {
-        dispatch({
-          type: CHANGE_PROFILE_REQUEST,
-          data: formData,
-        });
-      }
+      dispatch({
+        type: CHANGE_PROFILE_REQUEST,
+        data: formData,
+      });
 
       setNicknameSet(true);
     },
-    [changeNickname, photoToAddList],
+    [changeNickname, photoToAddList, me],
   );
 
   return (
@@ -119,10 +116,7 @@ const Profile = () => {
               <div>
                 {nicknameSet ? (
                   me?.profileImg !== '' ? (
-                    <img
-                      src={`${baseURL}${myPostprofileImg}`}
-                      alt="ProfiltImg"
-                    />
+                    <img src={`${baseURL}${me?.profileImg}`} alt="ProfiltImg" />
                   ) : (
                     <img
                       src="/icon/profileBasic.svg"
@@ -141,7 +135,9 @@ const Profile = () => {
                   />
                 )}
               </div>
-              <p className={style.nickname}>{myPostNickname}</p>
+              <p className={style.nickname}>
+                {myPostNickname ? me.nickname : myPostNickname}
+              </p>
             </div>
 
             <div>
@@ -185,6 +181,10 @@ const Profile = () => {
               onPost={onPost}
               postToSave={postToSave}
             />
+
+            {myPostGetLoading ? (
+              <div className={style.loading}>이미지 로딩중</div>
+            ) : null}
 
             {postToSave ? (
               <ProfilePost myPosts={myPosts} bool />
