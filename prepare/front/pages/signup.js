@@ -87,6 +87,13 @@ const Login = () => {
   const onSubmitSignUp = useCallback(
     (e) => {
       e.preventDefault();
+      console.log(pw === '');
+      console.log(pw !== passwordCheck);
+      console.log(passwordError || name === '');
+      console.log(phone === '');
+      console.log(nickname === '');
+      console.log(agree === false);
+      console.log(duplicateCheckDone === false);
       if (
         pw === '' ||
         pw !== passwordCheck ||
@@ -95,7 +102,7 @@ const Login = () => {
         phone === '' ||
         nickname === '' ||
         agree === false ||
-        duplicateCheckDone !== false
+        duplicateCheckDone === false
       ) {
         dispatch({
           type: SIGNUP_FAILED,
