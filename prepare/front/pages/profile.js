@@ -115,7 +115,7 @@ const Profile = () => {
             <div>
               <div>
                 {nicknameSet ? (
-                  me?.profileImg !== '' ? (
+                  me?.profileImg ? (
                     <img src={`${baseURL}${me?.profileImg}`} alt="ProfiltImg" />
                   ) : (
                     <img
@@ -136,7 +136,7 @@ const Profile = () => {
                 )}
               </div>
               <p className={style.nickname}>
-                {myPostNickname ? me.nickname : myPostNickname}
+                {myPostNickname ? me?.nickname : myPostNickname}
               </p>
             </div>
 

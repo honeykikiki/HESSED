@@ -8,8 +8,14 @@ module.exports = withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
   },
-  webpack5: true,
-  webpack(config, { webpack }) {
+  webpack5: false,
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
+      config.resolve.fallback = {
+        fs: false,
+      };
+    }
     const prod = process.env.NODE_ENV === 'production';
     return {
       ...config,

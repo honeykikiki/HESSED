@@ -87,13 +87,7 @@ const Login = () => {
   const onSubmitSignUp = useCallback(
     (e) => {
       e.preventDefault();
-      console.log(pw === '');
-      console.log(pw !== passwordCheck);
-      console.log(passwordError || name === '');
-      console.log(phone === '');
-      console.log(nickname === '');
-      console.log(agree === false);
-      console.log(duplicateCheckDone === false);
+
       if (
         pw === '' ||
         pw !== passwordCheck ||
@@ -149,7 +143,7 @@ const Login = () => {
         {duplicateCheckDone ? (
           <div style={{ color: '#409857' }}>*아이디 사용가능합니다</div>
         ) : duplicateCheckDisplay ? null : (
-          <div style={{ color: '#409857' }}>*아이디가 중복됩니다</div>
+          <div style={{ color: 'red' }}>*아이디가 중복됩니다</div>
         )}
         {signUpFailed ? null : id ? null : (
           <div className={style.signupCheck}>*필수 정보입니다.</div>
