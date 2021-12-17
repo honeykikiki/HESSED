@@ -1,15 +1,13 @@
-const withCSS = require('@zeit/next-css');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withBundleAnalyzer({
+module.exports = {
   compress: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
-  webpack5: false,
-  webpack(config, { webpack }) {
+  webpack(config) {
     const prod = process.env.NODE_ENV === 'production';
     return {
       ...config,
@@ -17,7 +15,7 @@ module.exports = withBundleAnalyzer({
       devtool: prod ? 'hidden-source-map' : 'eval-source-map',
     };
   },
-});
+};
 
 // module.exports = nextConfig = {
 //   compress: true,

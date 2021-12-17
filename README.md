@@ -12,7 +12,9 @@
 <span><img src="https://img.shields.io/badge/Sass-cc6699?style=flat&logo=sass&logoColor=white"/></span><br/>
 
 ### 시작
+
 > 시작
+
     npm run build -> npm start
 
 > next 설치
@@ -373,3 +375,24 @@ if (checkInput.current.checked === true) {
 1. POST,GET,DELETE 별로 함수 만들어주기
 2. 함수에 data, url 인자로 넘겨주기
 3. 결과 받기
+
+## 배포전
+
+{
+Failed to compile.
+ModuleNotFoundError: Module not found: Error: Can't resolve '../hooks/useInput' in '/vercel/path0/prepare/front/pages'
+
+    > Build error occurred
+    > Error: > Build failed because of webpack errors
+
+    at /vercel/path0/prepare/front/node_modules/next/dist/build/index.js:397:19
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Span.traceAsyncFn (/vercel/path0/prepare/front/node_modules/next/dist/telemetry/trace/trace.js:60:20)
+    at async Object.build [as default] (/vercel/path0/prepare/front/node_modules/next/dist/build/index.js:77:25)
+
+    Error: Command "npm run build" exited with 1
+
+}
+
+> > 이 에러로 웹팩 에러인줄알고 찾다가 useInput 에서 useinput로 바꾸니까 해결되었다.
