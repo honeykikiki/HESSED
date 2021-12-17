@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
 import style from '../styles/css/upload.module.css';
-import useInput from '../hooks/useInput';
+import useinput from '../hooks/useinput';
 
 import { POST_CARD } from '../reducers/menu';
 import UploadImages from '../components/postUpload/UploadImages';
@@ -19,8 +19,8 @@ const Home = () => {
   );
 
   const [photoToAddList, setPhotoToAddList] = useState([]);
-  const [content, onChangeContent, setContetn] = useInput();
-  const [notice, onChangeNotice, setNotice] = useInput(false);
+  const [content, onChangeContent, setContetn] = useinput();
+  const [notice, onChangeNotice, setNotice] = useinput(false);
 
   useEffect(() => {
     if (!me) {

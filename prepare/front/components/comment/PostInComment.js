@@ -6,7 +6,7 @@ import Router from 'next/router';
 import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
 
 import style from '../../styles/css/dynamicComment.module.css';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
 import Comment from './Comment';
 
 const PostInComment = ({ post }) => {
@@ -15,7 +15,7 @@ const PostInComment = ({ post }) => {
   const { addCommentDone } = useSelector((state) => state.postMainAction);
   const { commentToReply } = useSelector((state) => state.menu);
 
-  const [comment, onChangeInput, setComment] = useInput('');
+  const [comment, onChangeInput, setComment] = useinput('');
 
   const createAt = post.date.split(' ').slice(0, 1);
   const date = createAt[0].split('-');

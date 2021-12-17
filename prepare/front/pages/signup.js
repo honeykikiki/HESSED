@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
 import LoginLayout from '../components/LoginLayout';
-import useInput from '../hooks/useInput';
+import useinput from '../hooks/useinput';
 import {
   DUPLICATE_CHECK_REQUEST,
   SIGN_UP_REQUEST,
@@ -20,12 +20,12 @@ const Login = () => {
     signUpDisplayChange,
   } = useSelector((state) => state.userSign);
 
-  const [id, onChangeid, setID] = useInput('');
-  const [pw, onChangePassword, setPassword] = useInput('');
-  const [name, onChangeName, setName] = useInput('');
-  const [phone, onChangePhone, setPhone] = useInput('');
-  const [nickname, onChangeNickname, setNickname] = useInput('');
-  const [agree, onChangeAgree, setAgree] = useInput(false);
+  const [id, onChangeid, setID] = useinput('');
+  const [pw, onChangePassword, setPassword] = useinput('');
+  const [name, onChangeName, setName] = useinput('');
+  const [phone, onChangePhone, setPhone] = useinput('');
+  const [nickname, onChangeNickname, setNickname] = useinput('');
+  const [agree, onChangeAgree, setAgree] = useinput(false);
 
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);

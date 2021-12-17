@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/dynamicComment.module.css';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
 
 import { ADD_COMMENT_REPLY_REQUEST } from '../../reducers/postMainAction';
 import { COMMENT_TO_REPLY_CLOSE } from '../../reducers/menu';
@@ -23,8 +23,8 @@ const CommentsToReply = ({
   const { addCommentReplyDone } = useSelector((state) => state.postMainAction);
   const { me } = useSelector((state) => state.userInfo);
 
-  const [reply, , setReply] = useInput(true);
-  const [commentReply, onChangeInput, setCommentReply] = useInput('');
+  const [reply, , setReply] = useinput(true);
+  const [commentReply, onChangeInput, setCommentReply] = useinput('');
 
   const [commentReplyCheckdId, setCommentReplyCheckdId] = useState();
 

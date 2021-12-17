@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
 import { SEARCHID_DELITE, SEARCH_ID_REQUEST } from '../../reducers/userSign';
 
 const IdSearch = () => {
@@ -14,8 +14,8 @@ const IdSearch = () => {
     (state) => state.userSign,
   );
 
-  const [id, onChangeId, setId] = useInput('');
-  const [phone, onChangePhone, set] = useInput('');
+  const [id, onChangeId, setId] = useinput('');
+  const [phone, onChangePhone, set] = useinput('');
 
   const onSubmitIdSearch = useCallback(
     (e) => {
