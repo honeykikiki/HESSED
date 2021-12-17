@@ -12,7 +12,7 @@ import ProfilePost from '../components/profile/ProfilePost';
 import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../reducers/userPost';
 import { baseURL } from '../config/config';
 import ProfileSavePost from '../components/profile/ProfileSavePost';
-import useInput from '../hooks/useInput';
+import useinput from '../hooks/useinput';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Profile = () => {
   } = useSelector((state) => state.userPost);
   const { myPostGetLoading } = useSelector((state) => state.userPost);
 
-  const [changeNickname, onChangeNickname, setNickname] = useInput();
+  const [changeNickname, onChangeNickname, setNickname] = useinput();
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [photoToAddList, setPhotoToAddList] = useState(false);

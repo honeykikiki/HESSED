@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
 import LoginLayout from '../../../components/LoginLayout';
-import useInput from '../../../hooks/useInput';
+import useinput from '../../../hooks/useinput';
 import style from '../../../styles/css/loginForm.module.css';
 import { PASSWORD_CHANGE_REQUEST } from '../../../reducers/userSign';
 
@@ -19,7 +19,7 @@ const PwChange = () => {
     }
   }, [passwordChangeDone]);
 
-  const [pw, onChangePassword, setPassword] = useInput('');
+  const [pw, onChangePassword, setPassword] = useinput('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
 

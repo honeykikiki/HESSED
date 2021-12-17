@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
 import LoginLayout from '../../../components/LoginLayout';
-import useInput from '../../../hooks/useInput';
+import useinput from '../../../hooks/useinput';
 import style from '../../../styles/css/loginForm.module.css';
 import { CERIFIED_REQUEST } from '../../../reducers/userSign';
 
@@ -11,7 +11,7 @@ const Certified = () => {
   const dispatch = useDispatch();
   const { cerifiedDone, SearchPW } = useSelector((state) => state.userSign);
 
-  const [certified, onChangeCertified, setCertified] = useInput('');
+  const [certified, onChangeCertified, setCertified] = useinput('');
 
   useEffect(() => {
     if (cerifiedDone) {

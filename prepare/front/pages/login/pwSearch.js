@@ -5,16 +5,16 @@ import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
 import { SEARCH_PW_REQUEST } from '../../reducers/userSign';
 
 const PwSearch = () => {
   const dispatch = useDispatch();
   const { searchPwDone } = useSelector((state) => state.userSign);
 
-  const [name, onChangeName, setName] = useInput('');
-  const [id, onChangeId, setId] = useInput('');
-  const [phone, onChangePhone, setPhone] = useInput('');
+  const [name, onChangeName, setName] = useinput('');
+  const [id, onChangeId, setId] = useinput('');
+  const [phone, onChangePhone, setPhone] = useinput('');
 
   useEffect(() => {
     if (searchPwDone) {

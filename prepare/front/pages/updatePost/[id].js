@@ -8,7 +8,7 @@ import MainLayout from '../../components/MainLayout';
 
 import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 import PostImages from '../../components/PostCard/PostImage';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
 import { UPDATE_POST_REQUEST } from '../../reducers/postAdd';
 
 const Post = () => {
@@ -19,7 +19,7 @@ const Post = () => {
   const { me } = useSelector((state) => state.userInfo);
   const { updateCompleat } = useSelector((state) => state.postAdd);
   const { id } = router.query;
-  const [content, onChangeContent] = useInput();
+  const [content, onChangeContent] = useinput();
 
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {

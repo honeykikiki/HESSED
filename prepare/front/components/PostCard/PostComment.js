@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postComment.module.css';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
 import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
 
 const PostContent = ({ post }) => {
@@ -13,7 +13,7 @@ const PostContent = ({ post }) => {
   const { me } = useSelector((state) => state.userInfo);
 
   // const id = useSelector((state) => state.user.me?.id);
-  const [comment, onChangeInput, setComment] = useInput('');
+  const [comment, onChangeInput, setComment] = useinput('');
 
   const commentPost = useCallback(
     (e) => {

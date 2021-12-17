@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { useDispatch, useSelector } from 'react-redux';
 import LoginLayout from '../LoginLayout';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
 import style from '../../styles/css/loginForm.module.css';
 import { LOG_IN_REQUEST } from '../../reducers/userInfo';
 import { SIGN_UP_REQUEST } from '../../reducers/userSign';
@@ -13,8 +13,8 @@ const Login = () => {
   const { signUpDone } = useSelector((state) => state.userSign);
   const { logInFailed } = useSelector((state) => state.userInfo);
 
-  const [id, onchangeId] = useInput('');
-  const [password, onchangePassword] = useInput('');
+  const [id, onchangeId] = useinput('');
+  const [password, onchangePassword] = useinput('');
 
   useEffect(() => {
     if (signUpDone) {
