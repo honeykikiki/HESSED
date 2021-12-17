@@ -1,3 +1,4 @@
+const withCSS = require('@zeit/next-css');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -7,7 +8,8 @@ module.exports = withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
   },
-  webpack(config) {
+  webpack5: true,
+  webpack(config, { webpack }) {
     const prod = process.env.NODE_ENV === 'production';
     return {
       ...config,

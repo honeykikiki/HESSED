@@ -78,7 +78,7 @@ const QrCode = () => {
               <input
                 name="cell"
                 type="number"
-                placeholder="ex)000-0000-0000"
+                placeholder="ex) 준비중입니다!"
                 required
               />
               <button>인증하기</button>
