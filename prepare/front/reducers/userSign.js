@@ -198,13 +198,12 @@ const reducer = (state = initialState, action) => {
       case DUPLICATE_CHECK_SUCCESS:
         if (action.data.result === 'EXIST') {
           draft.duplicateCheckLoading = false;
-          draft.duplicateCheckDone = false;
-          draft.duplicateCheckDisplay = false;
-        } else {
-          draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = true;
           draft.duplicateCheckDisplay = true;
-          draft.signUpFailed = false;
+        } else {
+          draft.duplicateCheckLoading = false;
+          draft.duplicateCheckDone = false;
+          draft.duplicateCheckDisplay = false;
         }
 
         break;
