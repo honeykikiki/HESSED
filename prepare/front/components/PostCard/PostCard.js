@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+
 // import { Router } from 'next/router';
 
 import style from '../../styles/css/postCard.module.css';
@@ -10,7 +10,6 @@ import PostIcon from './PostIcon';
 import PostContent from './PostContent';
 import PostComment from './PostComment';
 import PostCardSetButton from './postCardMore/PostCardSetButton';
-import { baseURL } from '../../config/config';
 import PostHeader from './PostHeader';
 
 const PostCard = ({ post }) => {
@@ -39,7 +38,7 @@ const PostCard = ({ post }) => {
               <PostContent post={post} />
             </div>
             <div className={style.postComment}>
-              <PostComment post={post} />
+              {/* <PostComment post={post} /> */}
             </div>
           </div>
         </article>

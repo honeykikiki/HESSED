@@ -39,14 +39,17 @@ const PostCardSetButton = ({ post }) => {
   }, [optionButton]);
 
   const onClickPostCardRemove = useCallback(() => {
+    const formData = new FormData();
+    formData.append('bo_no', post.id);
+    formData.append('bo_writer', post.User.id);
     dispatch({
       type: REMOVE_POST_REQUEST,
-      data: { bo_no: post.id },
+      data: formData,
     });
   }, [post]);
 
   const onClickPostUpdate = useCallback(() => {
-    Router.push(`/updatePost/${post.id}`);
+    Router.replace(`/updatePost/${post.id}`);
   }, [post]);
 
   const clickDeclaration = () => {

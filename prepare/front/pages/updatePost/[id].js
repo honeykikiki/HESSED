@@ -3,7 +3,6 @@ import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { END } from 'redux-saga';
 import style from '../../styles/css/dynamicPost.module.css';
 import MainLayout from '../../components/MainLayout';
 
@@ -11,8 +10,6 @@ import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 import PostImages from '../../components/PostCard/PostImage';
 import useInput from '../../hooks/useInput';
 import { UPDATE_POST_REQUEST } from '../../reducers/postAdd';
-
-import wrapper from '../../store/configureStore';
 
 const Post = () => {
   const router = useRouter();
@@ -34,8 +31,8 @@ const Post = () => {
   }, []); // 댓글창 크기 자동조절
 
   useEffect(() => {
-    if (!me || updateCompleat) {
-      Router.push('/');
+    if (updateCompleat) {
+      Router.push(`/post/${+id}`);
     }
     if (id) {
       dispatch({
@@ -43,27 +40,34 @@ const Post = () => {
         data: { bo_no: +id },
       });
     }
-    if (loginNotConnected) {
+    if (loginNotConnected || !me) {
       Router.push('/');
     }
-  }, [id, loginNotConnected]);
+  }, [id, loginNotConnected, updateCompleat, me]);
 
   const onClickBack = useCallback(() => {
     Router.back();
-  }, [me, updateCompleat]);
+  }, [me]);
 
-  const updatePost = useCallback((e) => {
-    e.preventDefault();
+  const updatePost = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!content) {
+        alert('변경할 텍스트를 입력해주세요!');
+        return;
+      }
 
-    const formData = new FormData();
-    formData.append('mem_id', me.id);
-    formData.append('bo_no', id);
-    formData.append('bo_content', content);
-    dispatch({
-      type: UPDATE_POST_REQUEST,
-      data: formData,
-    });
-  }, []);
+      const formData = new FormData();
+      formData.append('bo_no', id);
+      formData.append('bo_writer', me.id);
+      formData.append('bo_content', content);
+      dispatch({
+        type: UPDATE_POST_REQUEST,
+        data: formData,
+      });
+    },
+    [content, id, me],
+  );
 
   return (
     <MainLayout>
@@ -92,8 +96,7 @@ const Post = () => {
               <textarea
                 name="bo_content"
                 type="text"
-                placeholder="문구를 입력해주세요"
-                value={boardOneViewPost.content}
+                placeholder={boardOneViewPost.content}
                 ref={ref}
                 onInput={handleResizeHeight}
                 onChange={onChangeContent}
@@ -107,17 +110,5 @@ const Post = () => {
     </MainLayout>
   );
 };
-
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ req, params }) => {
-      store.dispatch({
-        type: GET_ID_POST_REQUEST,
-        data: params.id,
-      });
-      store.dispatch(END);
-      await store.sagaTask.toPromise();
-    },
-);
 
 export default Post;

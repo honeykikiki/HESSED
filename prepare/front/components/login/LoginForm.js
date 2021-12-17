@@ -44,7 +44,7 @@ const Login = () => {
       <form className={style.form} onSubmit={onSubmit}>
         <input
           name="mem_id"
-          type="text"
+          type="email"
           placeholder="아이디를 입력해주세요"
           value={id}
           onChange={onchangeId}

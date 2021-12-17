@@ -104,18 +104,22 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
       // 게시물 삭제
       case REMOVE_POST_SUCCESS:
-        if (action.data.result === 'SUCCESSS') {
+        if (action.data.result === 'OK') {
           draft.mainPosts = draft.mainPosts.filter(
-            (v) => v.id !== action.data.postId,
+            (v) => v.id !== action.data.boardVO.bo_no,
           );
         }
         break;
 
       // 게시물 업데이트
       case UPDATE_POST_SUCCESS:
-        if (action.data.result === 'SUCCESS') {
-          const post = draft.mainPosts.find((v) => v.id === action.data.bo_no);
-          post.content = action.data.content;
+        if (action.data.result === 'OK') {
+          const post = draft.mainPosts.find(
+            (v) => v.id === action.data.boardVO.bo_no,
+          );
+          if (post) {
+            post.content = action.data.boardVO.bo_content;
+          }
         }
         break;
 
