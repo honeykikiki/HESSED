@@ -32,6 +32,10 @@ const Hessed = ({ Component }) => {
         <meta name="Description" content="HESSED Web App" />
         <meta name="Keywords" content="HESSED sns" />
         <meta name="Author" content="honey-kikiki" />
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
         <link rel="shortcut" href="/favicon.ico" />
       </Head>
 
