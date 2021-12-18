@@ -141,11 +141,15 @@ const Login = () => {
           type="email"
         />
         {duplicateCheckDone ? (
-          <div style={{ color: '#409857' }}>*아이디 사용가능합니다</div>
+          <div style={{ color: '#409857' }}>*이메일 사용가능합니다.</div>
         ) : duplicateCheckDisplay ? null : (
-          <div style={{ color: 'red' }}>*아이디가 중복됩니다</div>
+          <div style={{ color: 'red' }}>*이메일 중복됩니다.</div>
         )}
-        {signUpFailed ? null : id ? null : (
+        {signUpFailed ? null : id ? (
+          duplicateCheckDone ? null : (
+            <div style={{ color: 'red' }}>*이메일 중복체크가 필요합니다.</div>
+          )
+        ) : (
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
         <button
@@ -176,7 +180,7 @@ const Login = () => {
           <div className={style.signupCheck}>*필수 정보입니다.</div>
         )}
         {passwordError ? (
-          <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다</div>
+          <div style={{ color: 'red' }}>*비밀번호가 일치하지 않습니다.</div>
         ) : passwordCheck ? (
           <div style={{ color: '#409857' }}>*보안100%</div>
         ) : null}

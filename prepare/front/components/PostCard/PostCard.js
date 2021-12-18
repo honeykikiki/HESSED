@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import { Router } from 'next/router';
-
 import style from '../../styles/css/postCard.module.css';
 
 import PostImages from './PostImage';
