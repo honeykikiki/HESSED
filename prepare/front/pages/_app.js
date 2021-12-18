@@ -8,17 +8,6 @@ import '../styles/css/style.css';
 import wrapper from '../store/configureStore';
 
 const Hessed = ({ Component }) => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (loading) {
-      setLoading(false);
-      setTimeout(() => {
-        const loadingPage = document.querySelector('.loadingPage');
-        loadingPage.style.display = 'none';
-      }, 850);
-    }
-  }, [loading]);
   return (
     <>
       <Head>
@@ -56,11 +45,6 @@ const Hessed = ({ Component }) => {
         <link rel="shortcut" href="/favicon.ico" />
       </Head>
 
-      <div className="loadingPage">
-        <div>
-          <img src="/icon/HESSED_LOGO-W.png" alt="LogoImg" width="180" />
-        </div>
-      </div>
       <Component />
     </>
   );

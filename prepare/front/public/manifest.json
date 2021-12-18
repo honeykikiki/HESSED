@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Next PWA",
-  "short_name": "PWA",
+  "name": "HESSED",
+  "short_name": "HESSED",
   "description": "This app is to demo PWA in Next.js",
   "icons": [
     {
