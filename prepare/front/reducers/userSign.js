@@ -174,7 +174,6 @@ const reducer = (state = initialState, action) => {
           draft.signUpDone = false;
           draft.signUpFailed = false;
         } else {
-          alert('회원가입이 실패했습니다');
           draft.signUpLoading = false;
           draft.signUpDone = false;
           draft.signUpFailed = false;

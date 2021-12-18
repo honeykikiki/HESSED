@@ -40,12 +40,19 @@ const Hessed = ({ Component }) => {
         <meta name="Author" content="honey-kikiki" />
         {/* <meta
           httpEquiv="Content-Security-Policy"
-          content="upgrade-insecure-requests, form-action 'none'"
+          content="upgrade-insecure-requests form-action 'none'"
         /> */}
+
         <meta
-          httpEquiv="Content-Security-Policy"
-          content="form-action 'none'"
+          httpEquiv="Content-Security-Policy-Report-Only"
+          content="upgrade-insecure-requests form-action 'none'"
         />
+        {/* 보안 */}
+        <meta
+          content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff"
+          httpEquiv="Content-Type"
+        />
+
         <link rel="shortcut" href="/favicon.ico" />
       </Head>
 
