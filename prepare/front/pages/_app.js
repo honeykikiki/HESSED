@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head'; // 헤드 컴포넌트
 
 import PropTypes from 'prop-types';
-import Image from 'next/image';
 
 import '../styles/css/style.css';
 
@@ -39,10 +38,10 @@ const Hessed = ({ Component }) => {
         <meta name="Description" content="HESSED Web App" />
         <meta name="Keywords" content="HESSED sns" />
         <meta name="Author" content="honey-kikiki" />
-        <meta
+        {/* <meta
           httpEquiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        />
+          content="upgrade-insecure-requests, form-action 'none'"
+        /> */}
         <meta
           httpEquiv="Content-Security-Policy"
           content="form-action 'none'"

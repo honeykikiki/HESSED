@@ -1,8 +1,10 @@
+const withPlugins = require('next-compose-plugins');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+const withPWA = require('next-pwa');
 
-module.exports = withBundleAnalyzer({
+const nextConfig = {
   async headers() {
     return [
       {
@@ -36,7 +38,22 @@ module.exports = withBundleAnalyzer({
       devtool: prod ? 'hidden-source-map' : 'eval-source-map',
     };
   },
-});
+};
+
+module.exports = withPlugins(
+  [
+    [
+      withPWA,
+      {
+        pwa: {
+          dest: 'public',
+        },
+      },
+    ],
+    [withBundleAnalyzer()],
+  ],
+  nextConfig,
+);
 
 // module.exports = nextConfig = {
 //   compress: true,

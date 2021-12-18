@@ -61,9 +61,6 @@ const Login = () => {
     [agree],
   );
 
-  console.log(id.split(''));
-  console.log(!id.split('').find((v) => v === '@'));
-
   const duplicateOnClick = useCallback(
     (e) => {
       e.preventDefault();
