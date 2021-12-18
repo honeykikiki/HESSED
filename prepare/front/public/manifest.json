@@ -5,7 +5,7 @@
   "scope": "/",
   "start_url": "/",
   "name": "HESSED",
-  "short_name": "HESSED",
+  "short_name": "",
   "description": "This app is to demo PWA in Next.js",
   "icons": [
     {
