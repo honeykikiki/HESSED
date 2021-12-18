@@ -135,10 +135,10 @@ const Login = () => {
       <form className={style.form}>
         <input
           name="id"
+          type="email"
           placeholder="이메일를 입력해주세요"
           value={id}
           onChange={onChangeid}
-          type="email"
         />
         {duplicateCheckDone ? (
           <div style={{ color: '#409857' }}>*이메일 사용가능합니다.</div>
