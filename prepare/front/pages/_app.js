@@ -26,15 +26,26 @@ const Hessed = ({ Component }) => {
         <title>HESSED</title>
         <meta charSet="utf-8" />
         <meta name="og:title" content="HESSED Web App" />
-        {/* <meta name="og:url" content="url" /> */}
+        <meta
+          name="og:url"
+          content="https://hessed-app2-git-devlop-honeykikiki.vercel.app/"
+        />
         <meta name="og:type" content="website" />
-        <link rel="og:image" href="/favicon.ico" />
+        <meta name="og:description" content="HESSED 공동체 커뮤니티" />
+        <link
+          rel="og:image"
+          href="https://hessed-app2-git-devlop-honeykikiki.vercel.app/icon/HESSED-green.png"
+        />
         <meta name="Description" content="HESSED Web App" />
         <meta name="Keywords" content="HESSED sns" />
         <meta name="Author" content="honey-kikiki" />
-        <meta
+        {/* <meta
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
+        /> */}
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="form-action 'none'"
         />
         <link rel="shortcut" href="/favicon.ico" />
       </Head>

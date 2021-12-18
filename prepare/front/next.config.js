@@ -2,7 +2,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = {
+const withPWA = require('next-pwa')({
+  pwa: {
+    dest: 'public',
+  },
+});
+
+module.exports = withBundleAnalyzer(withPWA(), {
   compress: true,
   eslint: {
     ignoreDuringBuilds: true,
@@ -15,7 +21,7 @@ module.exports = {
       devtool: prod ? 'hidden-source-map' : 'eval-source-map',
     };
   },
-};
+});
 
 // module.exports = nextConfig = {
 //   compress: true,

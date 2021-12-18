@@ -396,3 +396,11 @@ ModuleNotFoundError: Module not found: Error: Can't resolve '../hooks/useInput' 
 }
 
 > > 이 에러로 웹팩 에러인줄알고 찾다가 useInput 에서 useinput로 바꾸니까 해결되었다.
+
+## https => http 통신 가능하게
+
+> Mixed Content 에러 => 메타태그로 해결가능
+
+```html
+<meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+```

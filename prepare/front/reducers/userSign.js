@@ -196,7 +196,7 @@ const reducer = (state = initialState, action) => {
         draft.duplicateCheckError = null;
         break;
       case DUPLICATE_CHECK_SUCCESS:
-        if (action.data.result === 'EXIST') {
+        if (action.data.result === 'NOTEXIST') {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = true;
           draft.duplicateCheckDisplay = true;
