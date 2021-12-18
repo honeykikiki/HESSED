@@ -174,7 +174,6 @@ const reducer = (state = initialState, action) => {
           draft.signUpDone = false;
           draft.signUpFailed = false;
         } else {
-          alert('회원가입이 실패했습니다');
           draft.signUpLoading = false;
           draft.signUpDone = false;
           draft.signUpFailed = false;
@@ -200,6 +199,10 @@ const reducer = (state = initialState, action) => {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = true;
           draft.duplicateCheckDisplay = true;
+        } else if (action.data.result === 'EXIST') {
+          draft.duplicateCheckLoading = false;
+          draft.duplicateCheckDone = false;
+          draft.duplicateCheckDisplay = false;
         } else {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = false;

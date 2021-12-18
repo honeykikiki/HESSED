@@ -35,7 +35,7 @@ const PostHeader = ({ post }) => {
       {me?.id === post.User.id ? (
         <header onClick={getMyPost}>
           <div>
-            <Link href="profile">
+            <Link href="/profile">
               <a>
                 {post.User.profileImg ? (
                   <img
