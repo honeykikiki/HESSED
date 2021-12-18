@@ -200,6 +200,10 @@ const reducer = (state = initialState, action) => {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = true;
           draft.duplicateCheckDisplay = true;
+        } else if (action.data.result === 'EXIST') {
+          draft.duplicateCheckLoading = false;
+          draft.duplicateCheckDone = false;
+          draft.duplicateCheckDisplay = false;
         } else {
           draft.duplicateCheckLoading = false;
           draft.duplicateCheckDone = false;

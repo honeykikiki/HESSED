@@ -35,9 +35,9 @@ const Login = () => {
   useEffect(() => {
     if (signUpDisplayChange) {
       alert(`${id}님 회원가입이 완료되었습니다`);
-      Router.replace('/');
+      Router.push('/');
     }
-  }, [signUpDisplayChange]);
+  }, [signUpDisplayChange, id]);
 
   const onChangePasswordCheck = useCallback(
     (e) => {
@@ -61,6 +61,9 @@ const Login = () => {
     [agree],
   );
 
+  console.log(id.split(''));
+  console.log(!id.split('').find((v) => v === '@'));
+
   const duplicateOnClick = useCallback(
     (e) => {
       e.preventDefault();
@@ -71,14 +74,23 @@ const Login = () => {
         return;
       }
 
+      if (!id.split('').find((v) => v === '@')) {
+        alert('이메일을 입력해주세요');
+        return;
+      }
+
       const formIdData = new FormData();
       formIdData.append('mem_id', id);
-
-      if (duplicateCheckDisplay) {
+      if (
+        id.split('@')[1] === 'naver.com' &&
+        id.split('@')[1] === 'naver.com'
+      ) {
         dispatch({
           type: DUPLICATE_CHECK_REQUEST,
           data: formIdData,
         });
+      } else {
+        alert('naver.com, gamil.com 을 이용해주세요');
       }
     },
     [id, duplicateCheckDisplay],
@@ -112,10 +124,12 @@ const Login = () => {
       formData.append('mem_phone', phone);
       formData.append('mem_flag', agree);
 
-      dispatch({
-        type: SIGN_UP_REQUEST,
-        data: formData,
-      });
+      if (!signUpDisplayChange) {
+        dispatch({
+          type: SIGN_UP_REQUEST,
+          data: formData,
+        });
+      }
     },
     [
       id,
@@ -127,6 +141,7 @@ const Login = () => {
       nickname,
       agree,
       duplicateCheckDone,
+      signUpDisplayChange,
     ],
   );
 
@@ -159,6 +174,7 @@ const Login = () => {
         >
           중복체크
         </button>
+
         <br />
         <input
           name="pw"
