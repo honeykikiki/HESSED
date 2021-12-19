@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Head from 'next/head'; // 헤드 컴포넌트
 
 import PropTypes from 'prop-types';
@@ -29,13 +29,15 @@ const Hessed = ({ Component }) => {
         <meta name="Author" content="honey-kikiki" />
         {/* <meta
           httpEquiv="Content-Security-Policy"
-          content="upgrade-insecure-requests form-action 'none'"
+          // content="upgrade-insecure-requests"
+          content="form-action 'none'"
         /> */}
 
+        {/* 
         <meta
           httpEquiv="Content-Security-Policy-Report-Only"
           content="upgrade-insecure-requests form-action 'none'"
-        />
+        /> */}
         {/* 보안 */}
         <meta
           content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff"
