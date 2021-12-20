@@ -56,16 +56,6 @@ const PostIcon = ({ post }) => {
     });
   }, [post.id, me?.id]);
 
-  // const handleCopyClipBoard = async (text) => {
-  //   try {
-  //     await navigator.clipboard.writeText(text);
-
-  //     alert('복사 성공!');
-  //   } catch (error) {
-  //     alert('복사 실패!');
-  //   }
-  // };
-
   const servicePreparing = () => {
     alert('댓글서비스 준비중입니다!');
   };
@@ -129,7 +119,7 @@ const PostIcon = ({ post }) => {
           </div>
         ) : post.saved[0]?.mem_id === me.id ||
           post.saved?.mem_id === me.id ||
-          post?.liked === me.id ? (
+          post?.saved === me.id ? (
           <div onClick={onUnSave}>
             <img src="/icon/saveOn.svg" alt="saveicon" />
           </div>
