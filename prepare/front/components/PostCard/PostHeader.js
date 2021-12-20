@@ -49,7 +49,7 @@ const PostHeader = ({ post }) => {
             </Link>
           </div>
           <div>
-            <Link href="profile">
+            <Link href="/profile">
               <a>{`${post.User.nickname}`}</a>
             </Link>
           </div>
