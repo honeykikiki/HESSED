@@ -97,9 +97,9 @@ const MainLayout = ({ children }) => {
                     <Link href="/upload">
                       <a>
                         {upLoad ? (
-                          <img src="/icon/upLoad-B.svg" alt="upLoadicon" />
+                          <img src="/icon/upload-B.svg" alt="upLoadicon" />
                         ) : (
-                          <img src="/icon/upLoad-W.svg" alt="upLoadicon" />
+                          <img src="/icon/upload-W.svg" alt="upLoadicon" />
                         )}
                       </a>
                     </Link>
