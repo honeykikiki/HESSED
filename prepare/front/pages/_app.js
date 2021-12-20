@@ -27,11 +27,11 @@ const Hessed = ({ Component }) => {
         <meta name="Description" content="HESSED Web App" />
         <meta name="Keywords" content="HESSED sns" />
         <meta name="Author" content="honey-kikiki" />
-        {/* <meta
+        <meta
           httpEquiv="Content-Security-Policy"
           // content="upgrade-insecure-requests"
           content="form-action 'none'"
-        /> */}
+        />
 
         {/* 
         <meta
