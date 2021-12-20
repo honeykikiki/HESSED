@@ -9,6 +9,7 @@ export const boardOneViewPost = (list) => {
     },
     content: list.bo_content,
     liked: list.goodChk,
+    saved: list.saveChk,
     Images: list.boardImgList.map((listImg) => {
       return {
         id: listImg.bo_img_no,

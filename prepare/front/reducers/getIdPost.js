@@ -1,6 +1,12 @@
 import produce from 'immer';
 
 import { boardOneViewPost } from '../hooks/reducer/APIResultChange';
+import {
+  LIKE_POST_SUCCESS,
+  SAVE_POST_SUCCESS,
+  UNLIKE_POST_SUCCESS,
+  UNSAVE_POST_SUCCESS,
+} from './postMainAction';
 
 export const initialState = {
   getIdPostLoading: false, // 특정 게시물 가져오기
@@ -41,6 +47,29 @@ const reducer = (state = initialState, action) => {
         draft.getIdPostError = action.error;
         break;
 
+      case SAVE_POST_SUCCESS:
+        if (draft.boardOneViewPost) {
+          draft.boardOneViewPost.saved = action.data.boardVO.mem_id;
+        }
+        break;
+      case UNSAVE_POST_SUCCESS:
+        console.log(draft.boardOneViewPost);
+        if (draft.boardOneViewPost) {
+          draft.boardOneViewPost.saved = null;
+        }
+        break;
+      case LIKE_POST_SUCCESS:
+        if (draft.boardOneViewPost) {
+          draft.boardOneViewPost.liked = action.data.goodVO.mem_id;
+          draft.boardOneViewPost.likedNumber += 1;
+        }
+        break;
+      case UNLIKE_POST_SUCCESS:
+        if (draft.boardOneViewPost) {
+          draft.boardOneViewPost.liked = null;
+          draft.boardOneViewPost.likedNumber -= 1;
+        }
+        break;
       default:
         break;
     }

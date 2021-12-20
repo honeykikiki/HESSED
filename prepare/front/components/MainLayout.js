@@ -58,13 +58,13 @@ const MainLayout = ({ children }) => {
     });
   }, []);
   const onProfile = useCallback(() => {
-    Router.push('/profile');
     if (me) {
       dispatch({
         type: MY_POST_AND_SAVE_POST_GET_REQUEST,
         data: { mem_id: me.id },
       });
     }
+    Router.push('/profile');
   }, [me]);
   return (
     <>
@@ -97,15 +97,15 @@ const MainLayout = ({ children }) => {
                     <Link href="/upload">
                       <a>
                         {upLoad ? (
-                          <img src="/icon/upLoad-B.svg" alt="upLoadicon" />
+                          <img src="/icon/upload-B.svg" alt="upLoadicon" />
                         ) : (
-                          <img src="/icon/upLoad-W.svg" alt="upLoadicon" />
+                          <img src="/icon/upload-W.svg" alt="upLoadicon" />
                         )}
                       </a>
                     </Link>
                   </li>
 
-                  <li onClick={qrCodeClick}>
+                  {/* <li onClick={qrCodeClick}>
                     <a>
                       {qrCode ? (
                         <img src="/icon/QR-W.svg" alt="qrCodeicon" />
@@ -113,7 +113,7 @@ const MainLayout = ({ children }) => {
                         <img src="/icon/QR-B.svg" alt="qrCodeicon" />
                       )}
                     </a>
-                  </li>
+                  </li> */}
 
                   <li>
                     <a>

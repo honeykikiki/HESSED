@@ -50,8 +50,9 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
 };
 
 UploadImages.propTypes = {
-  photoToAddList: PropTypes.object,
+  photoToAddList: PropTypes.array,
   imageInput: PropTypes.object,
+  setPhotoToAddList: PropTypes.func,
 };
 
 export default UploadImages;

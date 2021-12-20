@@ -1,5 +1,6 @@
 import produce from 'immer';
 import { myPost } from '../hooks/reducer/APIResultChange';
+import { LOG_OUT_SUCCESS } from './userInfo';
 
 export const initialState = {
   myPosts: [],
@@ -83,6 +84,10 @@ export const USER_SAVE_POST_MORE_GET_FAILURE =
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case LOG_OUT_SUCCESS:
+        draft.myPosts = [];
+        draft.savePosts = [];
+        break;
       // 내가 작성한,저장한 게시글  받아오기
       case MY_POST_AND_SAVE_POST_GET_REQUEST:
         draft.myPostGetLoading = true;
