@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g transform="translate(-776 -565)"><rect width="24" height="24" rx="5" transform="translate(776 565)"/><path d="M822.117,577h16" transform="translate(-41.617 0.5)" stroke="#fff" stroke-width="1"/><path d="M822.117,577h16" transform="translate(1365.5 -252.617) rotate(90)" stroke="#fff" stroke-width="1"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="그룹_84" data-name="그룹 84" transform="translate(-776 -565)">
+    <rect id="사각형_65" data-name="사각형 65" width="24" height="24" rx="5" transform="translate(776 565)"/>
+    <path id="패스_41" data-name="패스 41" d="M822.117,577h16" transform="translate(-41.617 0.5)" stroke="#fff" stroke-width="1"/>
+    <path id="패스_42" data-name="패스 42" d="M822.117,577h16" transform="translate(1365.5 -252.617) rotate(90)" stroke="#fff" stroke-width="1"/>
+  </g>
+</svg>
