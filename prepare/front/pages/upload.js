@@ -80,7 +80,7 @@ const Home = () => {
   const upLoadFormClick = useCallback(
     (e) => {
       e.preventDefault();
-      if (!photoToAddList.length > 0 && photoToAddList === null) {
+      if (photoToAddList.length === 0) {
         alert('이미지를 등록해주세요');
         return;
       }
@@ -157,7 +157,6 @@ const Home = () => {
                 onChange={handleImage}
                 hidden
                 multiple
-                required
               />
 
               <div className={style.textInput}>
@@ -168,7 +167,6 @@ const Home = () => {
                   ref={ref}
                   onInput={handleResizeHeight}
                   onChange={onChangeContent}
-                  required
                 />
                 <button>게시</button>
               </div>

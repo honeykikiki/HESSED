@@ -13,9 +13,10 @@ import userSignSaga from './userSign';
 axois.defaults.baseURL = baseURL;
 axois.defaults.withCredentials = true;
 axois.defaults.headers = {
-  // 'Content-Type': 'application/json',
-  // 'Content-Type': 'multipart/form-data',
-  // 'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+  'Content-Type': 'application/json',
+  // eslint-disable-next-line no-dupe-keys
+  'Content-Type': 'multipart/form-data',
+  'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
 };
 
 export default function* rootSaga() {
