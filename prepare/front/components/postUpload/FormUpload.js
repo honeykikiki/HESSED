@@ -1,8 +1,6 @@
-/* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
 
 import React, { useCallback, useState, useRef } from 'react';
-import heic2any from 'heic2any';
 
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/upload.module.css';
@@ -40,9 +38,11 @@ const FormUpload = () => {
 
       for (let i = 0; i < photoToAdd.length; i++) {
         console.log(photoToAdd[i].name.split('.')[1], '2');
-
         if (photoToAdd[i].name.split('.')[1] === 'HEIC') {
           setImageLoading(true);
+          // eslint-disable-next-line global-require
+          const heic2any = require('heic2any');
+          // eslint-disable-next-line no-await-in-loop
           await heic2any({
             blob: photoToAdd[i],
             toType: 'image/jpeg',
