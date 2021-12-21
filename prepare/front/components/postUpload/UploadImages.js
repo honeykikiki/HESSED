@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import Image from 'next/image';
 
 import style from '../../styles/css/upload.module.css';
 
@@ -21,7 +20,7 @@ const UploadImages = ({ photoToAddList, imageInput, setPhotoToAddList }) => {
         ? photoToAddList.map((v) => {
             return (
               <li key={v.url}>
-                <div className={style.remove} onKeyDown={() => onRemove(v.url)}>
+                <div className={style.remove} onClick={() => onRemove(v.url)}>
                   x
                 </div>
                 <img
