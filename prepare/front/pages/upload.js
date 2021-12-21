@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+/* eslint-disable no-loop-func */
+import React, { useCallback, useEffect } from 'react';
 import Router from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
 import style from '../styles/css/upload.module.css';
 import useinput from '../hooks/useinput';
+import FormUpload from '../components/postUpload/FormUpload';
 
 import { POST_CARD } from '../reducers/menu';
-import UploadImages from '../components/postUpload/UploadImages';
-import { ADD_POST_REQUEST } from '../reducers/postAdd';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,6 @@ const Home = () => {
     (state) => state.postAdd,
   );
 
-  const [photoToAddList, setPhotoToAddList] = useState([]);
-  const [content, onChangeContent, setContetn] = useinput();
   const [notice, onChangeNotice, setNotice] = useinput(false);
 
   useEffect(() => {
@@ -36,77 +34,98 @@ const Home = () => {
     }
   }, [me, addPostDone, postCompleat]);
 
-  const imageInput = useRef();
-  const ref = useRef();
-  const handleResizeHeight = useCallback(() => {
-    if (ref === null || ref.current === null) {
-      return;
-    }
-    ref.current.style.height = '20px';
-    ref.current.style.height = `${ref.current.scrollHeight}px`;
-  }, []); // 댓글창 크기 자동조절
-
   const checkboxClick = useCallback(() => {
     setNotice((prev) => !prev);
   }, [notice]);
 
-  const handleImage = useCallback(
-    (e) => {
-      const temp = [];
-      const photoToAdd = e.target.files;
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < photoToAdd.length; i++) {
-        temp.push({
-          id: photoToAdd[i].name,
-          file: photoToAdd[i],
-          url: URL.createObjectURL(photoToAdd[i]),
-        });
-      }
-      if (temp.length > 10) {
-        return alert('최대개수 10개가 넘어갔습니다');
-      }
-      if (temp.length + photoToAddList.length > 10) {
-        return alert('최대개수 10개가 넘어갔습니다');
-      }
-      if (photoToAddList.length > 10) {
-        return alert('최대개수 10개가 넘어갔습니다');
-      }
+  // const handleImage = useCallback(
+  //   async (e) => {
+  //     const temp = [];
+  //     const photoToAdd = e.target.files;
+  //     console.log(photoToAdd, '1');
 
-      setPhotoToAddList(temp.concat(photoToAddList));
-    },
-    [photoToAddList],
-  );
+  //     for (let i = 0; i < photoToAdd.length; i++) {
+  //       console.log(photoToAdd[i].name.split('.')[1], '2');
 
-  const upLoadFormClick = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (photoToAddList.length === 0) {
-        alert('이미지를 등록해주세요');
-        return;
-      }
-      if (!content) {
-        alert('내용을 등록해주세요');
-        return;
-      }
+  //       if (photoToAdd[i].name.split('.')[1] === 'HEIC') {
+  //         // eslint-disable-next-line no-await-in-loop
+  //         await heic2any({ blob: photoToAdd[i], toType: 'image/jpeg' }).then(
+  //           (result) => {
+  //             console.log('heic');
+  //             console.log(result);
+  //             const file = new File(
+  //               [result],
+  //               `${photoToAdd[i].name.split('.')[0]}.jpg`,
+  //               {
+  //                 type: 'image/jpeg',
+  //                 lastModified: new Date().getTime(),
+  //               },
+  //             );
 
-      const formData = new FormData();
-      photoToAddList.forEach((p) => {
-        formData.append('bo_image', p.file);
-      });
-      formData.append('bo_writer', me.id);
-      formData.append('bo_content', content);
+  //             temp.push({
+  //               id: file.name,
+  //               file,
+  //               url: URL.createObjectURL(file),
+  //             });
+  //             console.log(temp);
+  //           },
+  //         );
+  //       } else {
+  //         console.log('jpg');
+  //         temp.push({
+  //           id: photoToAdd[i].name,
+  //           file: photoToAdd[i],
+  //           url: URL.createObjectURL(photoToAdd[i]),
+  //         });
+  //       }
+  //     }
+  //     if (temp.length > 10) {
+  //       return alert('최대개수 10개가 넘어갔습니다');
+  //     }
+  //     if (temp.length + photoToAddList.length > 10) {
+  //       return alert('최대개수 10개가 넘어갔습니다');
+  //     }
+  //     if (photoToAddList.length > 10) {
+  //       return alert('최대개수 10개가 넘어갔습니다');
+  //     }
 
-      if (addPostLoading) {
-        return;
-      }
+  //     setPhotoToAddList(temp.concat(photoToAddList));
+  //   },
+  //   [photoToAddList],
+  // );
 
-      dispatch({
-        type: ADD_POST_REQUEST,
-        data: formData,
-      });
-    },
-    [photoToAddList, content, addPostDone, me],
-  );
+  // const upLoadFormClick = useCallback(
+  //   (e) => {
+  //     e.preventDefault();
+  //     if (photoToAddList.length === 0) {
+  //       alert('이미지를 등록해주세요');
+  //       return;
+  //     }
+  //     if (!content) {
+  //       alert('내용을 등록해주세요');
+  //       return;
+  //     }
+
+  //     const formData = new FormData();
+  //     photoToAddList.forEach((p) => {
+  //       formData.append('bo_image', p.file);
+  //     });
+  //     formData.append('bo_writer', me.id);
+  //     formData.append('bo_content', content);
+
+  //     console.log(photoToAddList);
+  //     console.log(...formData);
+  //     // if (addPostLoading) {
+  //     //   return;
+  //     // }
+
+  //     dispatch({
+  //       type: ADD_POST_REQUEST,
+  //       data: formData,
+  //     });
+  //   },
+  //   [photoToAddList, content, addPostDone, me],
+  // );
 
   return (
     <>
@@ -114,31 +133,33 @@ const Home = () => {
         <div style={{ paddingTop: '24px' }} />
         <section className={style.a}>
           <article className={style.maxWidth}>
-            <form
+            {me?.grade === 'admin' && (
+              <div className={style.notice}>
+                <div>
+                  <p>공지</p>
+                </div>
+                <div className={style.switch}>
+                  <input
+                    name="mem_flag"
+                    id="switch-1"
+                    className={style.switchInput}
+                    type="checkbox"
+                    value={notice}
+                    onClick={checkboxClick}
+                  />
+                  <label htmlFor="switch-1" className={style.switchLlabel}>
+                    Switch
+                  </label>
+                </div>
+              </div>
+            )}
+            <FormUpload />
+
+            {/* <form
               encType="multipart/form-data"
               onSubmit={upLoadFormClick}
               className={style.upLoadForm}
             >
-              {me?.grade === 'admin' && (
-                <div className={style.notice}>
-                  <div>
-                    <p>공지</p>
-                  </div>
-                  <div className={style.switch}>
-                    <input
-                      name="mem_flag"
-                      id="switch-1"
-                      className={style.switchInput}
-                      type="checkbox"
-                      value={notice}
-                      onClick={checkboxClick}
-                    />
-                    <label htmlFor="switch-1" className={style.switchLlabel}>
-                      Switch
-                    </label>
-                  </div>
-                </div>
-              )}
               <div className={style.imageBox}>
                 <ul>
                   <UploadImages
@@ -170,7 +191,7 @@ const Home = () => {
                 />
                 <button>게시</button>
               </div>
-            </form>
+            </form> */}
           </article>
         </section>
         <div style={{ paddingBottom: '44px' }} />

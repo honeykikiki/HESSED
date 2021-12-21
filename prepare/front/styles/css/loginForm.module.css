@@ -89,3 +89,17 @@
   font-size: 1.6rem;
   color: #181818;
 }
+
+.PrivacyView {
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 1.4rem;
+  text-align: center;
+}
