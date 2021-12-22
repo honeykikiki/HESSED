@@ -380,7 +380,7 @@ if (checkInput.current.checked === true) {
 2. 함수에 data, url 인자로 넘겨주기
 3. 결과 받기
 
-## 배포전
+# 배포하면서 만나는 문제
 
 {
 Failed to compile.
@@ -404,7 +404,93 @@ ModuleNotFoundError: Module not found: Error: Can't resolve '../hooks/useInput' 
 ## https => http 통신 가능하게
 
 > Mixed Content 에러 => 메타태그로 해결가능
+> 백엔드 서버 https로 SSL추가 설정
 
 ```html
 <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+```
+
+## 아이폰 유저들 사진은 .heic로 저장되어 사용 못하는 문제
+
+> 문제 / 해결:
+
+    문제 : 아이폰 유저들 사진은 .heic로 저장되어 사용 못하는 문제
+    해결 : 아이폰 유저들 사진을 업로드할꺠 .jpg로 바꿔주는 라이브러리를 이용해
+    해결하였다
+    npm i heic2any
+
+```js
+let temp = [];
+await heic2any({
+  blob: file,
+  toType: "image/jpeg",
+})
+  .then((result) => {
+    const file = new File([result], `${photoToAdd[i].name.split(".")[0]}.jpg`, {
+      type: "image/jpeg",
+      lastModified: new Date().getTime(),
+    });
+    temp.push({
+      id: file.name,
+      file,
+      url: URL.createObjectURL(file),
+    });
+  })
+  .catch((error) => console.error(error));
+```
+
+## heic2any 빌들할떄 "ReferenceError: Blob is not defined" 오류
+
+> 문제 / 해결:
+
+    문제 : heic2any 빌들할떄 "ReferenceError: Blob is not defined" 오류 빌드가 되지않음
+    해결 : import로 불러와 blob를 찾지 못하여서 함수 내부에 바로 불러주기로했다.
+
+```js
+const temp = [];
+const photoToAdd = e.target.files;
+for (let i = 0; i < photoToAdd.length; i++) {
+  if (photoToAdd[i].name.split(".")[1] === "HEIC") {
+    const heic2any = require("heic2any");
+    await heic2any({
+      blob: photoToAdd[i],
+      toType: "image/jpeg",
+    })
+      .then((result) => {
+        console.log("heic");
+        console.log(result);
+        const file = new File([result], `${photoToAdd[i].name.split(".")[0]}.jpg`, {
+          type: "image/jpeg",
+          lastModified: new Date().getTime(),
+        });
+        temp.push({
+          id: file.name,
+          file,
+          url: URL.createObjectURL(file),
+        });
+        console.log(temp);
+      })
+      .catch((error) => console.error(error));
+  }
+}
+```
+
+## 이미지 파일 크기 조절
+
+> 문제 / 해결:
+
+    문제 : heic2any 빌들할떄 "ReferenceError: Blob is not defined" 오류 빌드가 되지않음
+    해결 : import로 불러와 blob를 찾지 못하여서 함수 내부에 바로 불러주기로했다.
+
+```js
+const newBolb = new Blob([photoToAdd[i]], {
+  type: "image/jepg",
+  lastModified: new Date().getTime(),
+});
+const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
+
+const newFile = new File([file], `${photoToAdd[i].name.split(".")[0]}.jpeg`, {
+  type: "image/jpeg",
+  lastModified: new Date().getTime(),
+});
 ```

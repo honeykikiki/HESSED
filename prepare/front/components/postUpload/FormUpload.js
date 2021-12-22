@@ -1,8 +1,6 @@
-/* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
 
 import React, { useCallback, useState, useRef } from 'react';
-import heic2any from 'heic2any';
 
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/upload.module.css';
@@ -14,7 +12,7 @@ import Loading from '../loading/loading';
 
 const FormUpload = () => {
   const dispatch = useDispatch();
-  const { addPostDone } = useSelector((state) => state.postAdd);
+  const { addPostDone, addPostLoading } = useSelector((state) => state.postAdd);
   const { me } = useSelector((state) => state.userInfo);
 
   const [photoToAddList, setPhotoToAddList] = useState([]);
@@ -40,24 +38,29 @@ const FormUpload = () => {
 
       for (let i = 0; i < photoToAdd.length; i++) {
         console.log(photoToAdd[i].name.split('.')[1], '2');
-
         if (photoToAdd[i].name.split('.')[1] === 'HEIC') {
           setImageLoading(true);
+          // eslint-disable-next-line global-require
+          const heic2any = require('heic2any');
+          // eslint-disable-next-line no-await-in-loop
           await heic2any({
             blob: photoToAdd[i],
             toType: 'image/jpeg',
+            quality: 0.25,
           })
             .then((result) => {
               console.log('heic');
-              console.log(result);
+              console.log(result, 'result');
+              console.log(result.size, `${result.size / 1024 / 1024}MB`);
               const file = new File(
                 [result],
-                `${photoToAdd[i].name.split('.')[0]}.jpg`,
+                `${photoToAdd[i].name.split('.')[0]}.jpeg`,
                 {
                   type: 'image/jpeg',
                   lastModified: new Date().getTime(),
                 },
               );
+
               temp.push({
                 id: file.name,
                 file,
@@ -69,10 +72,30 @@ const FormUpload = () => {
             .catch((error) => console.error(error));
         } else {
           console.log('jpg');
+          const newBolb = new Blob([photoToAdd[i]], {
+            type: 'image/jepg',
+            lastModified: new Date().getTime(),
+          });
+          const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
+
+          const newfile = new File(
+            [file],
+            `${photoToAdd[i].name.split('.')[0]}.jpeg`,
+            {
+              type: 'image/jpeg',
+              lastModified: new Date().getTime(),
+            },
+          );
+
+          console.log(newfile, 'a');
+          console.log(photoToAdd[i].name, 'photoToAdd[i].name');
+          console.log(newfile.size, `${newfile.size / 1024 / 1024}MB`);
+          console.log(newBolb, 'newBolb');
+
           temp.push({
-            id: photoToAdd[i].name,
-            file: photoToAdd[i],
-            url: URL.createObjectURL(photoToAdd[i]),
+            id: newfile.name,
+            file: newfile,
+            url: URL.createObjectURL(newfile),
           });
         }
       }
@@ -87,10 +110,10 @@ const FormUpload = () => {
       }
 
       setPhotoToAddList(temp.concat(photoToAddList));
-      console.log(photoToAddList);
     },
     [photoToAddList],
   );
+  console.log(photoToAddList);
 
   const upLoadFormClick = useCallback(
     (e) => {
@@ -110,12 +133,10 @@ const FormUpload = () => {
       });
       formData.append('bo_writer', me.id);
       formData.append('bo_content', content);
-
-      console.log(photoToAddList);
-      console.log(...formData);
-      // if (addPostLoading) {
-      //   return;
-      // }
+      console.log(...formData, 'formData');
+      if (addPostLoading) {
+        return;
+      }
 
       dispatch({
         type: ADD_POST_REQUEST,
@@ -144,7 +165,8 @@ const FormUpload = () => {
         <input
           name="bo_image"
           type="file"
-          accept="image/jpg, image/jpeg, image/png"
+          accept="image/*"
+          // accept="image/jpg, image/jpeg, image/png image/HEIC"
           ref={imageInput}
           onChange={handleImage}
           hidden

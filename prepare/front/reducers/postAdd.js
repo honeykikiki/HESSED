@@ -52,6 +52,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case ADD_POST_FAILURE:
+        draft.addPostLoading = false;
         draft.addPostDone = false;
         draft.addPostError = action.error;
         break;
