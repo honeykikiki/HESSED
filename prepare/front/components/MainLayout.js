@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
-import img from 'next/image';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import Router from 'next/router';
@@ -20,11 +20,10 @@ const MainLayout = ({ children }) => {
     (state) => state.menu,
   );
   const { me } = useSelector((state) => state.userInfo);
-  const { myPosts, savePosts } = useSelector((state) => state.userPost);
 
   const [profileToggle, setProfileToggle] = useState(false);
 
-  const profileClickToggle = useCallback((data) => {
+  const profileClickToggle = useCallback(() => {
     setProfileToggle((prev) => !prev);
     dispatch({
       type: PROFILE,
@@ -121,22 +120,15 @@ const MainLayout = ({ children }) => {
                         className={style.profileimg}
                         onClick={profileClickToggle}
                       >
-                        {me?.profileImg?.url ? (
+                        {me?.profileImg ? (
                           <img
-                            src={`${baseURL}/${me.profileImg}`}
+                            src={`${baseURL}${me.profileImg}`}
                             alt="profileImg"
                           />
                         ) : (
                           <img src="/icon/profileBasic.svg" alt="profileImg" />
                         )}
 
-                        {/* {me.profileImg ? (
-                          <img
-                            src={`${baseURL}/${me.profileImg}`}
-                            className={style.circle}
-                            alt="profileImg"
-                          />
-                        ) : null} */}
                         {profileToggle ? (
                           <div className={style.profileBox}>
                             <div>
@@ -148,7 +140,6 @@ const MainLayout = ({ children }) => {
                         ) : null}
                       </div>
                     </a>
-                    {/* </Link> */}
                   </li>
                 </ul>
               </div>
