@@ -474,3 +474,23 @@ for (let i = 0; i < photoToAdd.length; i++) {
   }
 }
 ```
+
+## 이미지 파일 크기 조절
+
+> 문제 / 해결:
+
+    문제 : heic2any 빌들할떄 "ReferenceError: Blob is not defined" 오류 빌드가 되지않음
+    해결 : import로 불러와 blob를 찾지 못하여서 함수 내부에 바로 불러주기로했다.
+
+```js
+const newBolb = new Blob([photoToAdd[i]], {
+  type: "image/jepg",
+  lastModified: new Date().getTime(),
+});
+const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
+
+const newFile = new File([file], `${photoToAdd[i].name.split(".")[0]}.jpeg`, {
+  type: "image/jpeg",
+  lastModified: new Date().getTime(),
+});
+```

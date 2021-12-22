@@ -14,9 +14,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
 
-  const { addPostDone, postCompleat, addPostLoading } = useSelector(
-    (state) => state.postAdd,
-  );
+  const { addPostDone, postCompleat } = useSelector((state) => state.postAdd);
 
   const [notice, onChangeNotice, setNotice] = useinput(false);
 
@@ -154,44 +152,6 @@ const Home = () => {
               </div>
             )}
             <FormUpload />
-
-            {/* <form
-              encType="multipart/form-data"
-              onSubmit={upLoadFormClick}
-              className={style.upLoadForm}
-            >
-              <div className={style.imageBox}>
-                <ul>
-                  <UploadImages
-                    photoToAddList={photoToAddList}
-                    imageInput={imageInput}
-                    setPhotoToAddList={setPhotoToAddList}
-                  />
-                </ul>
-              </div>
-
-              <input
-                name="bo_image"
-                type="file"
-                accept="image/jpg, image/jpeg, image/png"
-                ref={imageInput}
-                onChange={handleImage}
-                hidden
-                multiple
-              />
-
-              <div className={style.textInput}>
-                <textarea
-                  name="bo_content"
-                  type="text"
-                  placeholder="문구를 입력해주세요"
-                  ref={ref}
-                  onInput={handleResizeHeight}
-                  onChange={onChangeContent}
-                />
-                <button>게시</button>
-              </div>
-            </form> */}
           </article>
         </section>
         <div style={{ paddingBottom: '44px' }} />
