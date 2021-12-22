@@ -71,31 +71,34 @@ const FormUpload = () => {
             })
             .catch((error) => console.error(error));
         } else {
-          console.log('jpg');
-          const newBolb = new Blob([photoToAdd[i]], {
-            type: 'image/jepg',
-            lastModified: new Date().getTime(),
-          });
-          const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
+          // console.log('jpg');
+          // const newBolb = new Blob([photoToAdd[i]], {
+          //   type: 'image/jepg',
+          //   lastModified: new Date().getTime(),
+          // });
+          // const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
+          // const newfile = new File(
+          //   [file],
+          //   `${photoToAdd[i].name.split('.')[0]}.jpeg`,
+          //   {
+          //     type: 'image/jpeg',
+          //   },
+          // );
 
-          const newfile = new File(
-            [file],
-            `${photoToAdd[i].name.split('.')[0]}.jpeg`,
-            {
-              type: 'image/jpeg',
-              lastModified: new Date().getTime(),
-            },
-          );
+          // console.log(newfile, 'a');
+          // console.log(photoToAdd[i].name, 'photoToAdd[i].name');
+          // console.log(newfile.size, `${newfile.size / 1024 / 1024}MB`);
+          // console.log(newBolb, 'newBolb');
 
-          console.log(newfile, 'a');
-          console.log(photoToAdd[i].name, 'photoToAdd[i].name');
-          console.log(newfile.size, `${newfile.size / 1024 / 1024}MB`);
-          console.log(newBolb, 'newBolb');
-
+          // temp.push({
+          //   id: newfile.name,
+          //   file: newfile,
+          //   url: URL.createObjectURL(newfile),
+          // });
           temp.push({
-            id: newfile.name,
-            file: newfile,
-            url: URL.createObjectURL(newfile),
+            id: photoToAdd[i].name,
+            file: photoToAdd[i],
+            url: URL.createObjectURL(photoToAdd[i]),
           });
         }
       }

@@ -485,7 +485,6 @@ for (let i = 0; i < photoToAdd.length; i++) {
 ```js
 const newBolb = new Blob([photoToAdd[i]], {
   type: "image/jepg",
-  lastModified: new Date().getTime(),
 });
 const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
 
