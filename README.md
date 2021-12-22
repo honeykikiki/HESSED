@@ -479,17 +479,63 @@ for (let i = 0; i < photoToAdd.length; i++) {
 
 > 문제 / 해결:
 
-    문제 : heic2any 빌들할떄 "ReferenceError: Blob is not defined" 오류 빌드가 되지않음
-    해결 : import로 불러와 blob를 찾지 못하여서 함수 내부에 바로 불러주기로했다.
+    문제 : 이미지 크기가 3000px이상일떄 이미지 힙메모리 부족으로 업로드가 안되는 현상
+    해결 : npm i browser-image-compression 라이브러리 이용하여 이미지 사이즈 조절
+    <a href='https://github.com/Donaldcwl/browser-image-compression>browser-image-compression</a>
 
 ```js
-const newBolb = new Blob([photoToAdd[i]], {
-  type: "image/jepg",
-});
-const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
+const options = {
+  maxSizeMB: 1,
+  maxWidthOrHeight: 1920,
+  useWebWorker: true,
+};
+const photoToAdd = e.target.files[0];
+const compressedFile = await imageCompression(photoToAdd, options);
+```
 
-const newFile = new File([file], `${photoToAdd[i].name.split(".")[0]}.jpeg`, {
-  type: "image/jpeg",
-  lastModified: new Date().getTime(),
-});
+## 이미지 터치 슬라이드로 넘기기 기능 추가
+
+> 기능추가:
+
+    문제 : 이미지 넘기기 기능 추가하기
+    기능 : 처음 터치한 위치에서 손을 떗을떄 위치를 뺴면 -일떄 왼쪽으로 + 일떄 오른쪽으로 슬라이드 되게 만든다
+
+```js
+let startX;
+let endX;
+const [curPos, setCurPos] = useState(0);
+
+const Prev = useCallback(() => {
+  if (curPos > 0) {
+    if (imageCuurrentNo > 0) {
+      setImageCuurrentNo((prev) => prev - 1);
+      setCurPos((prev) => prev - 1);
+    }
+  }
+}, [imageCuurrentNo]);
+
+const Next = useCallback(() => {
+  if (curPos < 10) {
+    if (imageCuurrentNo < images.length - 1) {
+      setImageCuurrentNo((prev) => prev + 1);
+      setCurPos((prev) => prev + 1);
+    }
+  }
+}, [imageCuurrentNo]);
+
+const touchStart = (event) => {
+  startX = event.touches[0].pageX;
+};
+
+const touchEnd = (event) => {
+  endX = event.changedTouches[0].pageX;
+  if (startX === endX || Math.abs(startX - endX) < 30 || Math.abs(endX - startX) < 30) {
+    return;
+  }
+  if (startX > endX) {
+    Next();
+  } else {
+    Prev();
+  }
+};
 ```

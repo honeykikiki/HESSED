@@ -1,6 +1,8 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
 
 import React, { useCallback, useState, useRef } from 'react';
+import imageCompression from 'browser-image-compression';
 
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/upload.module.css';
@@ -10,13 +12,19 @@ import UploadImages from './UploadImages';
 import { ADD_POST_REQUEST } from '../../reducers/postAdd';
 import Loading from '../loading/loading';
 
+const options = {
+  maxSizeMB: 1,
+  maxWidthOrHeight: 1920,
+  useWebWorker: true,
+};
+
 const FormUpload = () => {
   const dispatch = useDispatch();
   const { addPostDone, addPostLoading } = useSelector((state) => state.postAdd);
   const { me } = useSelector((state) => state.userInfo);
 
   const [photoToAddList, setPhotoToAddList] = useState([]);
-  const [content, onChangeContent, setContetn] = useinput();
+  const [content, onChangeContent] = useinput();
   const [imageLoading, setImageLoading] = useState();
 
   const ref = useRef();
@@ -34,33 +42,33 @@ const FormUpload = () => {
     async (e) => {
       const temp = [];
       const photoToAdd = e.target.files;
-      console.log(photoToAdd, '1');
 
       for (let i = 0; i < photoToAdd.length; i++) {
-        console.log(photoToAdd[i].name.split('.')[1], '2');
         if (photoToAdd[i].name.split('.')[1] === 'HEIC') {
           setImageLoading(true);
           // eslint-disable-next-line global-require
           const heic2any = require('heic2any');
-          // eslint-disable-next-line no-await-in-loop
           await heic2any({
             blob: photoToAdd[i],
             toType: 'image/jpeg',
-            quality: 0.25,
           })
-            .then((result) => {
-              console.log('heic');
-              console.log(result, 'result');
-              console.log(result.size, `${result.size / 1024 / 1024}MB`);
+            .then(async (result) => {
+              const compressedFile = await imageCompression(result, options);
+              // console.log(
+              //   'compressedFile instanceof Blob',
+              //   compressedFile instanceof Blob,
+              // );
+              // console.log(
+              //   `compressedFile size ${compressedFile.size / 1024 / 1024} MB`,
+              // );
               const file = new File(
-                [result],
+                [compressedFile],
                 `${photoToAdd[i].name.split('.')[0]}.jpeg`,
                 {
                   type: 'image/jpeg',
                   lastModified: new Date().getTime(),
                 },
               );
-
               temp.push({
                 id: file.name,
                 file,
@@ -71,37 +79,16 @@ const FormUpload = () => {
             })
             .catch((error) => console.error(error));
         } else {
-          // console.log('jpg');
-          // const newBolb = new Blob([photoToAdd[i]], {
-          //   type: 'image/jepg',
-          //   lastModified: new Date().getTime(),
-          // });
-          // const file = newBolb.slice(0, newBolb.size / 5, newBolb.type);
-          // const newfile = new File(
-          //   [file],
-          //   `${photoToAdd[i].name.split('.')[0]}.jpeg`,
-          //   {
-          //     type: 'image/jpeg',
-          //   },
-          // );
-
-          // console.log(newfile, 'a');
-          // console.log(photoToAdd[i].name, 'photoToAdd[i].name');
-          // console.log(newfile.size, `${newfile.size / 1024 / 1024}MB`);
-          // console.log(newBolb, 'newBolb');
-
-          // temp.push({
-          //   id: newfile.name,
-          //   file: newfile,
-          //   url: URL.createObjectURL(newfile),
-          // });
+          const compressedFile = await imageCompression(photoToAdd[i], options);
+          console.log(compressedFile, 'compressedFile');
           temp.push({
-            id: photoToAdd[i].name,
-            file: photoToAdd[i],
-            url: URL.createObjectURL(photoToAdd[i]),
+            id: compressedFile.name,
+            file: compressedFile,
+            url: URL.createObjectURL(compressedFile),
           });
         }
       }
+      console.log(temp);
       if (temp.length > 10) {
         return alert('최대개수 10개가 넘어갔습니다');
       }
@@ -177,6 +164,7 @@ const FormUpload = () => {
         />
 
         {imageLoading && <Loading />}
+        {addPostLoading && <Loading />}
 
         <div className={style.textInput}>
           <textarea

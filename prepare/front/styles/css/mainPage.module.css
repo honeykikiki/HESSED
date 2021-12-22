@@ -76,8 +76,8 @@
 
 .profileimg img:nth-child(1) {
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
 }
 
 .profileimg .circle {
