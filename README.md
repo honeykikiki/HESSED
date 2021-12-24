@@ -13,7 +13,7 @@
 
 ## 배포 vercel
 
-## URL :
+이미지 넣기
 
 ### 시작
 
@@ -535,4 +535,34 @@ const touchEnd = (event) => {
     Prev();
   }
 };
+```
+
+## 텍스트 엔터버튼 클릭시 줄바끔 적용 안되는 현상
+
+> 기능추가:
+
+    문제 : 텍스트를 작성할떄 줄바꿈을 해도 텍스트가 줄바꿈이 되지않고 나오는 현상
+    기능 : 정규표현식을 활용해 엔터를 치면 추가로 \n이 적히게 만든다 그 이후 .split 와 .mpa 메소드롤 통해 <br/> 태그를 입혀준다
+
+> 텍스트를 엽력받을때
+
+```js
+const onChangeContent = useCallback((e) => {
+  setContent(e.target.value.replace(/(?:\r\n|\r|\n)/g, "\n"));
+}, []);
+```
+
+> 텍스트를 화면에 출력할떄
+
+```js
+{
+  post.content.split("\n").map((v) => {
+    return (
+      <span key={v}>
+        {v}
+        <br />
+      </span>
+    );
+  });
+}
 ```

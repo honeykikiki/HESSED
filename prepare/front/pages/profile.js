@@ -13,12 +13,14 @@ import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../reducers/userPost';
 import { baseURL } from '../config/config';
 import ProfileSavePost from '../components/profile/ProfileSavePost';
 import useinput from '../hooks/useinput';
+import { imageUpdate } from '../hooks/imageUpdateFunc/imageUpdate';
+import Loading from '../components/loading/loading';
+import { PAGE_CHANGE } from '../reducers/postAdd';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { me, changeProfileSuccess } = useSelector((state) => state.userInfo);
   const {
-    myPostprofileImg,
     myPostNickname,
     myPosts,
     savePosts,
@@ -27,42 +29,48 @@ const Profile = () => {
     userPostMoreGetDone,
   } = useSelector((state) => state.userPost);
   const { myPostGetLoading } = useSelector((state) => state.userPost);
+  const { deleteCompleat } = useSelector((state) => state.postAdd);
 
   const [changeNickname, onChangeNickname, setNickname] = useinput();
   const [nicknameSet, setNicknameSet] = useState(true);
   const [postToSave, setpostToSave] = useState(true);
   const [photoToAddList, setPhotoToAddList] = useState(false);
-  const [profileImg, setProfileImg] = useState(null);
+  const [imageLoading, setImageLoading] = useState();
 
   const imageInput = useRef();
 
   useEffect(() => {
     if (!me) {
       Router.push('/');
-      return;
     }
 
     if (nicknameSet) {
       setPhotoToAddList();
       setNickname('');
     }
-    if (changeProfileSuccess) {
+    if (changeProfileSuccess || deleteCompleat) {
       dispatch({
         type: MY_POST_AND_SAVE_POST_GET_REQUEST,
         data: { mem_id: me.id },
       });
     }
-  }, [me, nicknameSet, changeProfileSuccess]);
+    if (deleteCompleat) {
+      dispatch({
+        type: PAGE_CHANGE,
+      });
+    }
+  }, [me, nicknameSet, changeProfileSuccess, deleteCompleat]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
 
   const handleImage = useCallback(
-    (e) => {
+    async (e) => {
+      const temp = [];
       const photoToAdd = e.target.files;
-      setProfileImg(URL.createObjectURL(photoToAdd[0]));
-      setPhotoToAddList(photoToAdd[0]);
+      await imageUpdate(photoToAdd, temp, setImageLoading);
+      setPhotoToAddList(temp);
     },
     [photoToAddList],
   );
@@ -74,13 +82,9 @@ const Profile = () => {
   const onSave = useCallback(() => {
     setpostToSave(false);
   }, [postToSave]);
-  const profileSet = useCallback(
-    (e) => {
-      setNicknameSet((prev) => !prev);
-      setProfileImg(null);
-    },
-    [nicknameSet],
-  );
+  const profileSet = useCallback(() => {
+    setNicknameSet((prev) => !prev);
+  }, [nicknameSet]);
 
   const clickChangeNickname = useCallback(
     (e) => {
@@ -93,7 +97,9 @@ const Profile = () => {
 
       const formData = new FormData();
       formData.append('mem_id', me.id);
-      formData.append('mem_image', photoToAddList);
+      if (photoToAddList) {
+        formData.append('mem_image', photoToAddList[0]?.file);
+      }
       formData.append('mem_nickname', changeNickname || me.nickname);
 
       dispatch({
@@ -128,9 +134,9 @@ const Profile = () => {
                       alt="ProfiltImg"
                     />
                   )
-                ) : profileImg ? (
+                ) : photoToAddList ? (
                   <img
-                    src={`${profileImg}`}
+                    src={`${photoToAddList[0]?.url}`}
                     alt="ProfiltImg"
                     className={style.userProfileImg}
                   />
@@ -143,6 +149,7 @@ const Profile = () => {
                   />
                 )}
               </div>
+              {imageLoading && <Loading />}
               <p className={style.nickname}>
                 {myPostNickname ? me?.nickname : myPostNickname}
               </p>
@@ -155,6 +162,7 @@ const Profile = () => {
                   게시글
                 </div>
               </div>
+
               <div className={style.profileNameReSet} onClick={profileSet}>
                 {nicknameSet ? '프로필수정' : '나가기'}
               </div>
