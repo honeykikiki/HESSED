@@ -15,6 +15,10 @@
   position: relative;
 }
 
+.postCardWrap {
+  background-color: white;
+}
+
 .postHead {
   width: calc(100% - 40px);
   height: 40px;

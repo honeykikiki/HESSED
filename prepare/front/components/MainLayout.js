@@ -120,14 +120,19 @@ const MainLayout = ({ children }) => {
                         className={style.profileimg}
                         onClick={profileClickToggle}
                       >
-                        {me?.profileImg ? (
-                          <img
-                            src={`${baseURL}${me.profileImg}`}
-                            alt="profileImg"
-                          />
-                        ) : (
-                          <img src="/icon/profileBasic.svg" alt="profileImg" />
-                        )}
+                        <div className={style.profileImgBox}>
+                          {me?.profileImg ? (
+                            <img
+                              src={`${baseURL}${me.profileImg}`}
+                              alt="profileImg"
+                            />
+                          ) : (
+                            <img
+                              src="/icon/profileBasic.svg"
+                              alt="profileImg"
+                            />
+                          )}
+                        </div>
 
                         {profileToggle ? (
                           <div className={style.profileBox}>

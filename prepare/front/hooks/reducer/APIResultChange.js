@@ -56,6 +56,15 @@ export const generateDummyPost = (list, listImg, goodList, saveList) => {
   }));
 };
 
+// postMainAction =  memberList
+export const dummyMemberList = (memberlist) => {
+  return memberlist.map((v) => ({
+    memberListId: v.mem_id,
+    memberListNickname: v.mem_nickname,
+    memberListprofileImg: v.mem_profileimg,
+  }));
+};
+
 // userInfo
 export const dummyUser = (data) => ({
   no: data.mem_no,
@@ -68,7 +77,7 @@ export const dummyUser = (data) => ({
 
 // userPost
 export const myPost = (list) =>
-  list.map((v, id) => ({
+  list.map((v, i) => ({
     id: v.bo_no,
     Images: v.bo_img_location,
     postCount: v.boardCount,

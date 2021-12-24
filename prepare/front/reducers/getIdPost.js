@@ -53,7 +53,6 @@ const reducer = (state = initialState, action) => {
         }
         break;
       case UNSAVE_POST_SUCCESS:
-        console.log(draft.boardOneViewPost);
         if (draft.boardOneViewPost) {
           draft.boardOneViewPost.saved = null;
         }

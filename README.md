@@ -457,8 +457,6 @@ for (let i = 0; i < photoToAdd.length; i++) {
       toType: "image/jpeg",
     })
       .then((result) => {
-        console.log("heic");
-        console.log(result);
         const file = new File([result], `${photoToAdd[i].name.split(".")[0]}.jpg`, {
           type: "image/jpeg",
           lastModified: new Date().getTime(),
@@ -468,7 +466,6 @@ for (let i = 0; i < photoToAdd.length; i++) {
           file,
           url: URL.createObjectURL(file),
         });
-        console.log(temp);
       })
       .catch((error) => console.error(error));
   }

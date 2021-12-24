@@ -1,0 +1,80 @@
+.memberListWrap {
+  margin-top: 10px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.memberListWrap .memberlistInnerBox {
+  position: relative;
+}
+
+.memberlist {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  left: 0%;
+  top: 0;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.memberlist li {
+  text-align: center;
+  width: 80px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.memberlist .memberListImg {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  background-color: white;
+}
+
+.memberlist .memberListImg img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.memberlist p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.hessedMemberNumber {
+  font-size: 1.4rem;
+  margin-left: 20px;
+}
+
+.left {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  cursor: pointer;
+}
+
+.left img {
+  width: 24px;
+  height: 24px;
+}
+
+.right {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.right img {
+  width: 24px;
+  height: 24px;
+}

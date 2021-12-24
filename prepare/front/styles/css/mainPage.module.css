@@ -72,18 +72,30 @@
 
 .profileimg {
   position: relative;
-}
-
-.profileimg img:nth-child(1) {
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
 }
 
 .profileimg .circle {
   position: absolute;
   left: -4px;
   top: -4px;
+}
+
+.profileImgBox {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.profileImgBox img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
 }
 
 .profileBox > div {

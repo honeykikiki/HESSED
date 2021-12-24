@@ -74,13 +74,13 @@ const FormUpload = () => {
                 file,
                 url: URL.createObjectURL(file),
               });
-              console.log(temp);
+
               setImageLoading(false);
             })
             .catch((error) => console.error(error));
         } else {
           const compressedFile = await imageCompression(photoToAdd[i], options);
-          console.log(compressedFile, 'compressedFile');
+
           temp.push({
             id: compressedFile.name,
             file: compressedFile,
@@ -103,7 +103,6 @@ const FormUpload = () => {
     },
     [photoToAddList],
   );
-  console.log(photoToAddList);
 
   const upLoadFormClick = useCallback(
     (e) => {
@@ -123,7 +122,7 @@ const FormUpload = () => {
       });
       formData.append('bo_writer', me.id);
       formData.append('bo_content', content);
-      console.log(...formData, 'formData');
+
       if (addPostLoading) {
         return;
       }
