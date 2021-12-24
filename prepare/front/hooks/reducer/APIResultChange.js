@@ -79,7 +79,10 @@ export const dummyUser = (data) => ({
 export const myPost = (list) =>
   list.map((v, i) => ({
     id: v.bo_no,
-    Images: v.bo_img_location,
+    Images: {
+      imageCount: v.bo_img_count,
+      image: v.bo_img_location,
+    },
     postCount: v.boardCount,
     User: {
       id: v.mem_id,

@@ -66,11 +66,12 @@ const Profile = () => {
         <article className={style.maxWidth}>
           <div className={style.profileImg}>
             <div>
-              <div>
+              <div className={style.profileImgOutBox}>
                 {userPostprofileImg ? (
                   <img
                     src={`${baseURL}${userPostprofileImg}`}
                     alt="ProfiltImg"
+                    className={style.userProfileImg}
                   />
                 ) : (
                   <img
@@ -80,6 +81,7 @@ const Profile = () => {
                   />
                 )}
               </div>
+
               <p>{userPostNickname}</p>
             </div>
 

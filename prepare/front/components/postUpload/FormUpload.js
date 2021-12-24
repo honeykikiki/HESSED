@@ -54,13 +54,6 @@ const FormUpload = () => {
           })
             .then(async (result) => {
               const compressedFile = await imageCompression(result, options);
-              // console.log(
-              //   'compressedFile instanceof Blob',
-              //   compressedFile instanceof Blob,
-              // );
-              // console.log(
-              //   `compressedFile size ${compressedFile.size / 1024 / 1024} MB`,
-              // );
               const file = new File(
                 [compressedFile],
                 `${photoToAdd[i].name.split('.')[0]}.jpeg`,
@@ -88,7 +81,7 @@ const FormUpload = () => {
           });
         }
       }
-      console.log(temp);
+
       if (temp.length > 10) {
         return alert('최대개수 10개가 넘어갔습니다');
       }

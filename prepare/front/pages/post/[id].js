@@ -8,6 +8,8 @@ import PostCard from '../../components/PostCard/PostCard';
 import MainLayout from '../../components/MainLayout';
 
 import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
+import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
+import { PROFILE } from '../../reducers/menu';
 
 const Post = () => {
   const router = useRouter();
@@ -31,8 +33,14 @@ const Post = () => {
   }, [id, loginNotConnected, me]);
 
   const onClickBack = useCallback(() => {
+    dispatch({
+      type: MY_POST_AND_SAVE_POST_GET_REQUEST,
+      data: { mem_id: me?.id },
+    });
+    dispatch({
+      type: PROFILE,
+    });
     Router.push('/profile');
-    // Router.back();
   }, []);
 
   return (

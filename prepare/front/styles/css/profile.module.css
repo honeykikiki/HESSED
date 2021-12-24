@@ -38,6 +38,7 @@
   overflow: hidden;
   position: relative;
   border-radius: 50%;
+  background-color: white;
 }
 
 .profileImgOutBox .userProfileImg {
