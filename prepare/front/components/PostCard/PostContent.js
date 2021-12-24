@@ -32,7 +32,20 @@ const PostContent = ({ post }) => {
       </div>
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
-        <span>{`${post.content?.slice(0, more)} `}</span>
+        {more < 21 ? (
+          <span>{`${post.content?.slice(0, more)} `}</span>
+        ) : (
+          <div>
+            {post.content.split('\n').map((v) => {
+              return (
+                <span key={v}>
+                  {v}
+                  <br />
+                </span>
+              );
+            })}
+          </div>
+        )}
 
         {post.content.length < 20 ? null : moreButtonOnClick ? (
           <button onClick={contentMore}>... 더보기</button>

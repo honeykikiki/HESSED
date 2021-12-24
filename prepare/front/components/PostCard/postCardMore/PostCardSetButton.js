@@ -61,7 +61,7 @@ const PostCardSetButton = ({ post }) => {
       <div className={style.menu} onClick={onClickOptionOpen}>
         <img src="/icon/btn.svg" alt="btnIcon" />
 
-        {optionButton ? null : me.id === post.User.id ? (
+        {optionButton ? null : me?.id === post.User.id ? (
           // post.User.id == me.id
           <div className={style.buttonWrap} onClick={onClickOptionClose}>
             <div

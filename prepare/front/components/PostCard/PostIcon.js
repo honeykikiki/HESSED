@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import Image from 'next/image';
 
 import { useDispatch, useSelector } from 'react-redux';
+import Router from 'next/router';
 import style from '../../styles/css/postIcon.module.css';
 import {
   LIKE_POST_REQUEST,
@@ -19,6 +19,11 @@ const PostIcon = ({ post }) => {
   const [url, setUrl] = useState();
 
   const onLike = useCallback(() => {
+    if (!me) {
+      alert('로그인후 이용해주세요');
+      Router.push('/');
+      return;
+    }
     dispatch({
       type: LIKE_POST_REQUEST,
       data: {
@@ -38,6 +43,11 @@ const PostIcon = ({ post }) => {
   }, [post.id, me?.id]);
 
   const onSave = useCallback(() => {
+    if (!me) {
+      alert('로그인후 이용해주세요');
+      Router.push('/');
+      return;
+    }
     dispatch({
       type: SAVE_POST_REQUEST,
       data: {

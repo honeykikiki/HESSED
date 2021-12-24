@@ -251,6 +251,9 @@ const reducer = (state = initialState, action) => {
           draft.likePostDone = false;
           alert('로그인후 이용해주세요.');
           draft.loginNotConnected = true;
+        } else {
+          draft.likePostLoading = false;
+          draft.likePostDone = false;
         }
         break;
       }

@@ -4,15 +4,18 @@ export const initialState = {
   addPostLoading: false, // 게시물 등록
   addPostDone: false,
   addPostError: null,
+
   updatePostLoading: false, // 게시물 수정
   updatePostDone: false,
   updatePostError: null,
+
   removePostLoading: false, // 게시물 삭제
   removePostDone: false,
   removePostError: null,
 
   postCompleat: false,
   updateCompleat: false,
+  deleteCompleat: false,
 };
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -86,9 +89,14 @@ const reducer = (state = initialState, action) => {
 
         break;
       case REMOVE_POST_SUCCESS: {
-        draft.removePostLoading = false;
-        draft.removePostDone = true;
-        draft.removePostError = null;
+        if (action.data.result === 'OK') {
+          draft.removePostLoading = false;
+          draft.removePostDone = true;
+          draft.deleteCompleat = true;
+        } else {
+          draft.removePostLoading = false;
+          draft.removePostDone = false;
+        }
         break;
       }
       case REMOVE_POST_FAILURE:
@@ -99,6 +107,7 @@ const reducer = (state = initialState, action) => {
       case PAGE_CHANGE:
         draft.postCompleat = false;
         draft.updateCompleat = false;
+        draft.deleteCompleat = false;
         break;
 
       default:

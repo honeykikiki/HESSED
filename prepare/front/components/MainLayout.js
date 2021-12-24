@@ -21,22 +21,13 @@ const MainLayout = ({ children }) => {
   );
   const { me } = useSelector((state) => state.userInfo);
 
-  const [profileToggle, setProfileToggle] = useState(false);
-
-  const profileClickToggle = useCallback(() => {
-    setProfileToggle((prev) => !prev);
-    dispatch({
-      type: PROFILE,
-    });
-  }, []);
-
   const postCardClick = useCallback(() => {
     dispatch({
       type: POST_CARD,
     });
     dispatch({
       type: LOAD_POSTS_REQUEST,
-      data: { mem_id: me.id },
+      data: { mem_id: me?.id },
     });
   }, [postCard, me]);
   const upLoadClick = useCallback(() => {
@@ -44,6 +35,7 @@ const MainLayout = ({ children }) => {
       type: UP_LOAD,
     });
   }, [upLoad]);
+
   const qrCodeClick = useCallback(() => {
     dispatch({
       type: QR_CODE,
@@ -56,6 +48,7 @@ const MainLayout = ({ children }) => {
       type: LOG_OUT_REQUEST,
     });
   }, []);
+
   const onProfile = useCallback(() => {
     if (me) {
       dispatch({
@@ -63,8 +56,12 @@ const MainLayout = ({ children }) => {
         data: { mem_id: me.id },
       });
     }
+    dispatch({
+      type: PROFILE,
+    });
     Router.push('/profile');
   }, [me]);
+
   return (
     <>
       <div className={style.wrapper}>
@@ -76,6 +73,7 @@ const MainLayout = ({ children }) => {
                   <h1>logo</h1>
                 </a>
               </Link>
+              {/* <div onClick={onLogOut}>로그아웃</div> */}
             </div>
             <nav id={style.gnb}>
               <div>
@@ -118,7 +116,8 @@ const MainLayout = ({ children }) => {
                     <a>
                       <div
                         className={style.profileimg}
-                        onClick={profileClickToggle}
+                        // onClick={profileClickToggle}
+                        onClick={onProfile}
                       >
                         <div className={style.profileImgBox}>
                           {me?.profileImg ? (
@@ -133,16 +132,6 @@ const MainLayout = ({ children }) => {
                             />
                           )}
                         </div>
-
-                        {profileToggle ? (
-                          <div className={style.profileBox}>
-                            <div>
-                              <span />
-                              <div onClick={onProfile}>프로필</div>
-                              <div onClick={onLogOut}>로그아웃</div>
-                            </div>
-                          </div>
-                        ) : null}
                       </div>
                     </a>
                   </li>

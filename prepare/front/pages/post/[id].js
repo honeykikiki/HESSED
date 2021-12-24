@@ -19,6 +19,7 @@ const Post = () => {
   const { me } = useSelector((state) => state.userInfo);
   const { boardOneViewPost } = useSelector((state) => state.getIdPost);
   const { loginNotConnected } = useSelector((state) => state.postMainAction);
+  const { deleteCompleat } = useSelector((state) => state.postAdd);
 
   useEffect(() => {
     if (id) {
@@ -30,7 +31,10 @@ const Post = () => {
     if (loginNotConnected) {
       Router.push('/');
     }
-  }, [id, loginNotConnected, me]);
+    if (deleteCompleat) {
+      Router.push('/profile');
+    }
+  }, [id, loginNotConnected, me, deleteCompleat]);
 
   const onClickBack = useCallback(() => {
     dispatch({
