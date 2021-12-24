@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /[id]
+Disallow: /post
+Disallow: /updatePost
+Disallow: /user
+Disallow: /upload
+Disallow: /profile
+
+Uesr-agent: Googlebot-image
+Disallow: /
+
+
+sitemap: http://hessedweb.cafe24.com/robots.txt

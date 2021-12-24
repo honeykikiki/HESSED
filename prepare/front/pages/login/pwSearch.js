@@ -1,50 +1,74 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
+import Router from 'next/router';
 
+import { useDispatch, useSelector } from 'react-redux';
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
+import { SEARCH_PW_REQUEST } from '../../reducers/userSign';
 
-const IdSearch = () => {
-  const [nickname, onChangeNickname, setNickname] = useInput('');
-  const [phone, onChangePhone, setPhone] = useInput('');
+const PwSearch = () => {
+  const dispatch = useDispatch();
+  const { searchPwDone } = useSelector((state) => state.userSign);
 
-  const onSubmitIdSearch = useCallback(
+  const [name, onChangeName, setName] = useinput('');
+  const [id, onChangeId, setId] = useinput('');
+  const [phone, onChangePhone, setPhone] = useinput('');
+
+  useEffect(() => {
+    if (searchPwDone) {
+      Router.push('/login/passwordProcedure/certified');
+    }
+  }, [searchPwDone]);
+
+  const onSubmitPwSearch = useCallback(
     (e) => {
       e.preventDefault();
+      const formData = new FormData();
+      formData.append('mem_id', id);
+      formData.append('mem_name', name);
+      formData.append('mem_phone', phone);
+      dispatch({
+        type: SEARCH_PW_REQUEST,
+        data: formData,
+      });
     },
-    [nickname, phone],
+    [id, name, phone],
   );
   return (
     <LoginLayout>
-      <form className={style.form} onSubmit={onSubmitIdSearch}>
+      <form className={style.form} onSubmit={onSubmitPwSearch}>
         <input
-          placeholder="이름을 입력해주세요"
-          value={nickname}
-          onChange={onChangeNickname}
-          required
-        />
-        <br />
-
-        <input
+          name="mem_id"
           placeholder="아이디를 입력해주세요"
-          value={nickname}
-          onChange={onChangeNickname}
+          value={id}
+          onChange={onChangeId}
+          type="email"
           required
         />
-        <br />
 
         <input
-          placeholder="ex) 01012345678"
+          name="mem_name"
+          placeholder="이름을 입력해주세요"
+          value={name}
+          onChange={onChangeName}
+          type="text"
+          required
+        />
+
+        <input
+          name="mem_phone"
+          placeholder="전화번호를 입력해주세요"
           value={phone}
           onChange={onChangePhone}
           type="number"
-          maxlength="11"
+          required
         />
-        <br />
 
         <button type="submit">비밀번호 찾기</button>
       </form>
+
       <div className={style.div}>
         <Link href="/login/idSearch">
           <a>
@@ -54,9 +78,8 @@ const IdSearch = () => {
           </a>
         </Link>
       </div>
-      {false ? <div>하이</div> : null}
     </LoginLayout>
   );
 };
 
-export default IdSearch;
+export default PwSearch;

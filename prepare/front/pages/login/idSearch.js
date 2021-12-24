@@ -1,42 +1,72 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 
+import { useDispatch, useSelector } from 'react-redux';
+import Router from 'next/router';
 import LoginLayout from '../../components/LoginLayout';
 import style from '../../styles/css/loginForm.module.css';
-import useInput from '../../hooks/useInput';
+import useinput from '../../hooks/useinput';
+import { SEARCHID_DELITE, SEARCH_ID_REQUEST } from '../../reducers/userSign';
 
 const IdSearch = () => {
-  const [nickname, onChangeNickname, setNickname] = useInput('');
-  const [phone, onChangePhone, setPhone] = useInput('');
+  const dispatch = useDispatch();
+  const { searchIdDone, SearchID, searchIdFailed } = useSelector(
+    (state) => state.userSign,
+  );
 
-  const onSubmitIdSearch = useCallback((e) => {
-    e.preventDefault();
-    setNickname(nickname);
-    setPhone(phone);
+  const [id, onChangeId, setId] = useinput('');
+  const [phone, onChangePhone, set] = useinput('');
+
+  const onSubmitIdSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('mem_name', id);
+      formData.append('mem_phone', phone);
+      dispatch({
+        type: SEARCH_ID_REQUEST,
+        data: formData,
+      });
+    },
+    [id, phone],
+  );
+
+  const idConfirm = useCallback(() => {
+    dispatch({
+      type: SEARCHID_DELITE,
+    });
+    Router.push('/');
   }, []);
+
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmitIdSearch}>
         <input
+          name="mem_id"
           placeholder="이름을 입력해주세요"
-          value={nickname}
-          onChange={onChangeNickname}
-          required
+          value={id}
+          onChange={onChangeId}
+          type="text"
         />
 
-        <br />
+        {searchIdFailed ? null : id ? null : (
+          <div className={style.signupCheck}>이름을 입력해주세요.</div>
+        )}
 
         <input
-          placeholder="ex) 01012345678"
+          name="mem_phone"
+          placeholder="전화번호를 입력해주세요"
           value={phone}
           onChange={onChangePhone}
           type="number"
-          maxLength="11"
         />
-        <br />
+        {searchIdFailed ? null : phone ? null : (
+          <div className={style.signupCheck}>전화번호를 입력해주세요.</div>
+        )}
 
         <button>아이디 찾기</button>
       </form>
+
       <div className={style.div}>
         <Link href="/login/pwSearch">
           <a>
@@ -44,7 +74,17 @@ const IdSearch = () => {
           </a>
         </Link>
       </div>
-      {false ? <div>하이</div> : null}
+
+      {SearchID ? (
+        <div className={style.searchId}>
+          <div>
+            <p>
+              아이디는 <span>{SearchID}</span> 입니다
+            </p>
+            <button onClick={idConfirm}>확인</button>
+          </div>
+        </div>
+      ) : null}
     </LoginLayout>
   );
 };

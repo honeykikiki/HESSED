@@ -1,80 +1,163 @@
-import React, { useCallback, useRef } from 'react';
-import faker from 'faker';
+/* eslint-disable no-loop-func */
+import React, { useCallback, useEffect } from 'react';
+import Router from 'next/router';
 
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
-
 import style from '../styles/css/upload.module.css';
+import useinput from '../hooks/useinput';
+import FormUpload from '../components/postUpload/FormUpload';
+
+import { POST_CARD } from '../reducers/menu';
 
 const Home = () => {
-  const imageInput = useRef();
-  const onClickImageUpload = useCallback(() => {
-    imageInput.current.click();
-  }, [imageInput.current]);
-  console.log(imageInput);
+  const dispatch = useDispatch();
+  const { me } = useSelector((state) => state.userInfo);
+
+  const { addPostDone, postCompleat } = useSelector((state) => state.postAdd);
+
+  const [notice, onChangeNotice, setNotice] = useinput(false);
+
+  useEffect(() => {
+    if (!me) {
+      Router.push('/');
+    }
+    if (postCompleat) {
+      dispatch({
+        type: POST_CARD,
+      });
+      if (addPostDone) {
+        Router.push('/');
+      }
+    }
+  }, [me, addPostDone, postCompleat]);
+
+  const checkboxClick = useCallback(() => {
+    setNotice((prev) => !prev);
+  }, [notice]);
+
+  // const handleImage = useCallback(
+  //   async (e) => {
+  //     const temp = [];
+  //     const photoToAdd = e.target.files;
+  //     console.log(photoToAdd, '1');
+
+  //     for (let i = 0; i < photoToAdd.length; i++) {
+  //       console.log(photoToAdd[i].name.split('.')[1], '2');
+
+  //       if (photoToAdd[i].name.split('.')[1] === 'HEIC') {
+  //         // eslint-disable-next-line no-await-in-loop
+  //         await heic2any({ blob: photoToAdd[i], toType: 'image/jpeg' }).then(
+  //           (result) => {
+  //             console.log('heic');
+  //             console.log(result);
+  //             const file = new File(
+  //               [result],
+  //               `${photoToAdd[i].name.split('.')[0]}.jpg`,
+  //               {
+  //                 type: 'image/jpeg',
+  //                 lastModified: new Date().getTime(),
+  //               },
+  //             );
+
+  //             temp.push({
+  //               id: file.name,
+  //               file,
+  //               url: URL.createObjectURL(file),
+  //             });
+  //             console.log(temp);
+  //           },
+  //         );
+  //       } else {
+  //         console.log('jpg');
+  //         temp.push({
+  //           id: photoToAdd[i].name,
+  //           file: photoToAdd[i],
+  //           url: URL.createObjectURL(photoToAdd[i]),
+  //         });
+  //       }
+  //     }
+  //     if (temp.length > 10) {
+  //       return alert('최대개수 10개가 넘어갔습니다');
+  //     }
+  //     if (temp.length + photoToAddList.length > 10) {
+  //       return alert('최대개수 10개가 넘어갔습니다');
+  //     }
+  //     if (photoToAddList.length > 10) {
+  //       return alert('최대개수 10개가 넘어갔습니다');
+  //     }
+
+  //     setPhotoToAddList(temp.concat(photoToAddList));
+  //   },
+  //   [photoToAddList],
+  // );
+
+  // const upLoadFormClick = useCallback(
+  //   (e) => {
+  //     e.preventDefault();
+  //     if (photoToAddList.length === 0) {
+  //       alert('이미지를 등록해주세요');
+  //       return;
+  //     }
+  //     if (!content) {
+  //       alert('내용을 등록해주세요');
+  //       return;
+  //     }
+
+  //     const formData = new FormData();
+  //     photoToAddList.forEach((p) => {
+  //       formData.append('bo_image', p.file);
+  //     });
+  //     formData.append('bo_writer', me.id);
+  //     formData.append('bo_content', content);
+
+  //     console.log(photoToAddList);
+  //     console.log(...formData);
+  //     // if (addPostLoading) {
+  //     //   return;
+  //     // }
+
+  //     dispatch({
+  //       type: ADD_POST_REQUEST,
+  //       data: formData,
+  //     });
+  //   },
+  //   [photoToAddList, content, addPostDone, me],
+  // );
+
   return (
     <>
       <MainLayout>
-        <div style={{ paddingTop: '24px' }}></div>
+        <div style={{ paddingTop: '24px' }} />
         <section className={style.a}>
           <article className={style.maxWidth}>
-            <form className={style.upLoadForm}>
-              <div className={style.imageBox}>
-                <ul>
-                  <li>
-                    <img src={faker.image.image()} />
-                  </li>
-                  <li>
-                    <img src={faker.image.image()} />
-                  </li>
-                  <li>
-                    <img src={faker.image.image()} />
-                  </li>
-                  <li>
-                    <img src={faker.image.image()} />
-                  </li>
-                </ul>
-                <div className={style.left}>
-                  <img src="/icon/left.png" />
+            {me?.grade === 'admin' && (
+              <div className={style.notice}>
+                <div>
+                  <p>공지</p>
                 </div>
-                <div className={style.right}>
-                  <img src="/icon/right.png" />
+                <div className={style.switch}>
+                  <input
+                    name="mem_flag"
+                    id="switch-1"
+                    className={style.switchInput}
+                    type="checkbox"
+                    value={notice}
+                    onClick={checkboxClick}
+                  />
+                  <label htmlFor="switch-1" className={style.switchLlabel}>
+                    Switch
+                  </label>
                 </div>
-                <span>0 / 0</span>
               </div>
-
-              <div className={style.imageInput}>
-                <input
-                  type="file"
-                  name="image"
-                  ref={imageInput}
-                  hidden
-                  multiple
-                  required
-                />
-                <span onClick={onClickImageUpload}>
-                  <img src="/icon/addphoto.svg" />
-                  <p>등록할 사진을 가지고와주세요.</p>
-                </span>
-              </div>
-
-              <div className={style.textInput}>
-                <textarea
-                  type="text"
-                  name="text"
-                  placeholder="문구를 입력해주세요"
-                  maxLength={140}
-                />
-                <button>게시</button>
-              </div>
-            </form>
+            )}
+            <FormUpload />
           </article>
         </section>
-        <div style={{ paddingBottom: '44px' }}></div>
+        <div style={{ paddingBottom: '44px' }} />
       </MainLayout>
     </>
   );
 };
-
-Home.propTypes = {};
 
 export default Home;

@@ -36,6 +36,24 @@ ol {
   }
 }
 
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .loadingPage {
   position: absolute;
   background-color: #3b3733;
@@ -43,7 +61,7 @@ ol {
   height: 100%;
 }
 
-.loadingPage h1 {
+.loadingPage img {
   position: absolute;
   left: 50%;
   top: 50%;

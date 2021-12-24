@@ -1,0 +1,75 @@
+.head {
+  padding: 25px 0px;
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  z-index: 101;
+}
+
+.head div:nth-child(1) {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+}
+
+.head div:nth-child(2) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-weight: 550;
+  font-size: 1.6rem;
+}
+
+.wrap {
+  overflow: hidden;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+.wrap .maxWidth {
+  max-width: 935px;
+  margin: auto;
+}
+
+.wrap .postImage {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.textInput {
+  width: calc(100% - 40px);
+  margin: auto;
+  margin-top: 20px;
+}
+
+.textInput textarea {
+  border: none;
+  border-bottom: 1px solid black;
+  overflow: visible;
+  width: 80%;
+  height: 20px;
+  max-height: 80px;
+  outline-color: white;
+  outline-style: dashed;
+  resize: none;
+}
+
+.textInput button {
+  margin-left: 10px;
+  border: none;
+  background-color: transparent;
+  color: #409857;
+  font-weight: bold;
+  cursor: pointer;
+}

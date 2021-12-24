@@ -1,71 +1,150 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import Router from 'next/router';
 import style from '../styles/css/mainPage.module.css';
 
 import QrCode from './QrCode/QrCode';
+import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
+
+import { baseURL } from '../config/config';
+import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
+import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../reducers/userPost';
+import { LOG_OUT_REQUEST } from '../reducers/userInfo';
 
 const MainLayout = ({ children }) => {
-  const [postCardOnClick, setPostCardOnClick] = useState(true);
-  const [upLoadCardOnClick, setUpLoadCardOnClick] = useState(false);
+  const dispatch = useDispatch();
+  const { postCard, upLoad, qrCode, profile } = useSelector(
+    (state) => state.menu,
+  );
+  const { me } = useSelector((state) => state.userInfo);
 
+  const [profileToggle, setProfileToggle] = useState(false);
+
+  const profileClickToggle = useCallback(() => {
+    setProfileToggle((prev) => !prev);
+    dispatch({
+      type: PROFILE,
+    });
+  }, []);
+
+  const postCardClick = useCallback(() => {
+    dispatch({
+      type: POST_CARD,
+    });
+    dispatch({
+      type: LOAD_POSTS_REQUEST,
+      data: { mem_id: me.id },
+    });
+  }, [postCard, me]);
+  const upLoadClick = useCallback(() => {
+    dispatch({
+      type: UP_LOAD,
+    });
+  }, [upLoad]);
+  const qrCodeClick = useCallback(() => {
+    dispatch({
+      type: QR_CODE,
+    });
+  }, [qrCode]);
+
+  const onLogOut = useCallback((e) => {
+    e.preventDefault();
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+  }, []);
+  const onProfile = useCallback(() => {
+    if (me) {
+      dispatch({
+        type: MY_POST_AND_SAVE_POST_GET_REQUEST,
+        data: { mem_id: me.id },
+      });
+    }
+    Router.push('/profile');
+  }, [me]);
   return (
     <>
       <div className={style.wrapper}>
         <header id={style.header}>
           <div className={style.maxWidth}>
             <div className={style.logo}>
-              <h1></h1>
+              <Link href="/">
+                <a>
+                  <h1>logo</h1>
+                </a>
+              </Link>
             </div>
             <nav id={style.gnb}>
               <div>
                 <ul>
-                  <li>
+                  <li onClick={postCardClick}>
                     <Link href="/">
-                      {/* Postcard */}
                       <a>
-                        {postCardOnClick ? (
-                          <img src="/icon/home-w.svg" />
+                        {postCard ? (
+                          <img src="/icon/home-B.svg" alt="Posticon" />
                         ) : (
-                          <img src="/icon/home-b.svg" />
+                          <img src="/icon/home-W.svg" alt="Posticon" />
                         )}
                       </a>
                     </Link>
                   </li>
 
-                  <li>
+                  <li onClick={upLoadClick}>
                     <Link href="/upload">
-                      {/* UpLoad */}
                       <a>
-                        {upLoadCardOnClick ? (
-                          <img src="/icon/upLoad-w.svg" />
+                        {upLoad ? (
+                          <img src="/icon/postAddOne.svg" alt="upLoadicon" />
                         ) : (
-                          <img src="/icon/upLoad-b.svg" />
+                          <img src="/icon/postAddTwo.svg" alt="upLoadicon" />
                         )}
                       </a>
                     </Link>
                   </li>
 
-                  <li>
-                    {/* QrCode */}
+                  {/* <li onClick={qrCodeClick}>
                     <a>
-                      {true ? (
-                        <img src="/icon/QR-b.svg" />
+                      {qrCode ? (
+                        <img src="/icon/QR-W.svg" alt="qrCodeicon" />
                       ) : (
-                        <img src="/icon/QR-w.svg" />
+                        <img src="/icon/QR-B.svg" alt="qrCodeicon" />
                       )}
                     </a>
-                  </li>
+                  </li> */}
 
                   <li>
-                    <Link href="profile">
-                      {/* profile */}
-                      <a>
-                        <div
-                          style={{ borderRadius: '50%', background: 'gray' }}
-                        ></div>
-                      </a>
-                    </Link>
+                    <a>
+                      <div
+                        className={style.profileimg}
+                        onClick={profileClickToggle}
+                      >
+                        <div className={style.profileImgBox}>
+                          {me?.profileImg ? (
+                            <img
+                              src={`${baseURL}${me.profileImg}`}
+                              alt="profileImg"
+                            />
+                          ) : (
+                            <img
+                              src="/icon/profileBasic.svg"
+                              alt="profileImg"
+                            />
+                          )}
+                        </div>
+
+                        {profileToggle ? (
+                          <div className={style.profileBox}>
+                            <div>
+                              <span />
+                              <div onClick={onProfile}>프로필</div>
+                              <div onClick={onLogOut}>로그아웃</div>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+                    </a>
                   </li>
                 </ul>
               </div>

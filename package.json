@@ -1,0 +1,16 @@
+{
+  "name": "hessed_210906",
+  "version": "1.0.0",
+  "description": "<!-- 이미지넣기 -->",
+  "main": "app.js",
+  "scripts": {
+    "front": "cd prepare/front && npm ci && npm run build && npm start",
+    "heroku-prebuild": "npm run front"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/honeykikiki/HESSEDH-APP.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,19 +1,47 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 
 import style from '../../styles/css/QrCode.module.css';
+import { POST_CARD } from '../../reducers/menu';
 
 const QrCode = () => {
+  const dispatch = useDispatch();
+  const { qrCode } = useSelector((state) => state.menu);
+
+  const onClose = useCallback(() => {
+    dispatch({
+      type: POST_CARD,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!qrCode) {
+      document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+      return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      };
+    }
+  }, [qrCode]);
+
   return (
     <>
-      <div>
-        {/* 
+      {/* 
         클릭하면 첫번쨰 true 다른거 클릭하면 false
         두번쨰 참거짓 qr코드가있으면 true 없으면 false
         */}
-        {true ? null : false ? (
+      {qrCode ? null : qrCode ? (
+        <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED_LOGO-B.png" />
+              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>
@@ -25,13 +53,20 @@ const QrCode = () => {
               <p>21호83라</p>
             </div>
             <div className={style.QrCode}>
-              <h1>QR코드</h1>
+              <div>
+                <img src="/icon/QR-B.svg" alt="qrIcon" />
+              </div>
+            </div>
+            <div className={style.close} onClick={onClose}>
+              close
             </div>
           </div>
-        ) : (
+        </div>
+      ) : (
+        <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED_LOGO-B.png" />
+              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>
@@ -43,14 +78,17 @@ const QrCode = () => {
               <input
                 name="cell"
                 type="number"
-                placeholder="ex)000-0000-0000"
+                placeholder="ex) 준비중입니다!"
                 required
               />
               <button>인증하기</button>
             </form>
+            <div className={style.close} onClick={onClose}>
+              close
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 };

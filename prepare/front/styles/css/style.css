@@ -3,6 +3,12 @@
   margin: 0;
 }
 
+html,
+body {
+  font-size: 10px;
+  background-color: #f9f9f9;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -11,12 +17,6 @@ a {
 ul,
 ol {
   list-style: none;
-}
-
-html,
-body {
-  width: 100%;
-  font-size: 10px;
 }
 
 @-webkit-keyframes loading {
@@ -37,6 +37,24 @@ body {
   }
 }
 
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .loadingPage {
   position: absolute;
   background-color: #3b3733;
@@ -44,7 +62,7 @@ body {
   height: 100%;
 }
 
-.loadingPage h1 {
+.loadingPage img {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -52,4 +70,29 @@ body {
   transform: translate(-50%, -50%);
   -webkit-animation: loading 1s linear;
   animation: loading 1s linear;
+}
+.popup {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .popup {
+    display: block;
+    width: 100vw;
+    height: 100vw;
+    background-color: #3b3733;
+    text-align: center;
+    position: relative;
+  }
+  .popupText {
+    padding-top: 20%;
+  }
+
+  .popupText em {
+    display: block;
+    font-size: 120px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    margin-top: 100px;
+  }
 }
