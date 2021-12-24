@@ -60,7 +60,8 @@
   width: 80%;
   height: 20px;
   max-height: 80px;
-  outline-color: white;
+  outline-color: #f9f9f9;
+  background-color: #f9f9f9;
   outline-style: dashed;
   resize: none;
 }

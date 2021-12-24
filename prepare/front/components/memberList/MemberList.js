@@ -1,15 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 
 import style from '../../styles/css/memberlist.module.css';
 import { baseURL } from '../../config/config';
+import { USER_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
 
 let startX;
 let endX;
 
 const MemberList = () => {
+  const dispatch = useDispatch();
   const { memberList } = useSelector((state) => state.postMainAction);
+  const { me } = useSelector((state) => state.userInfo);
   const [curPos, setCurPos] = useState(0);
   const [windowScreenWidth, setWindowScreenWidth] = useState();
 
@@ -23,8 +26,6 @@ const MemberList = () => {
     startX = event.touches[0].pageX;
   }, []);
 
-  console.log();
-
   const touchEnd = useCallback(
     (event) => {
       endX = event.changedTouches[0].pageX;
@@ -36,14 +37,13 @@ const MemberList = () => {
 
       if (
         curPos + Math.floor(startX - endX) >
-        memberList.length * 80 - windowScreenWidth
+        (memberList.length - 1) * 80 - windowScreenWidth
       ) {
         if (windowScreenWidth > 968) {
-          console.log('여기1');
-          setCurPos((memberList.length + 1) * 80 - windowScreenWidth);
+          setCurPos((memberList.length - 1 + 1) * 80 - windowScreenWidth);
           return;
         }
-        setCurPos(memberList.length * 80 - windowScreenWidth);
+        setCurPos((memberList.length - 1) * 80 - windowScreenWidth);
         return;
       }
 
@@ -52,8 +52,8 @@ const MemberList = () => {
     [curPos, windowScreenWidth],
   );
   const onClickRight = useCallback(() => {
-    if (curPos > memberList.length * 80 - 935) {
-      setCurPos(memberList.length * 80 - 935);
+    if (curPos > (memberList.length - 1) * 80 - 935) {
+      setCurPos((memberList.length - 1) * 80 - 935);
       return;
     }
     setCurPos((prev) => prev + 240);
@@ -66,6 +66,13 @@ const MemberList = () => {
     }
     setCurPos((prev) => prev - 240);
   }, [curPos]);
+
+  const getUserPost = useCallback((userId) => {
+    dispatch({
+      type: USER_POST_AND_SAVE_POST_GET_REQUEST,
+      data: { mem_id: userId },
+    });
+  }, []);
 
   return (
     <>
@@ -83,8 +90,14 @@ const MemberList = () => {
           onTouchEnd={touchEnd}
         >
           {memberList.map((v) => {
+            if (me.id === v.memberListId) {
+              return;
+            }
             return (
-              <li key={v.memberListId}>
+              <li
+                key={v.memberListId}
+                onClick={() => getUserPost(v.memberListId)}
+              >
                 <Link href={`/user/${v.memberListId}`}>
                   <a>
                     <div className={style.memberListImg}>
@@ -107,7 +120,7 @@ const MemberList = () => {
 
         {windowScreenWidth < 1025 ? null : (
           <div>
-            {curPos < memberList.length * 80 - 935 && (
+            {curPos < (memberList.length - 1) * 80 - 935 && (
               <div className={style.right} onClick={onClickRight}>
                 <img src="/icon/right.png" alt="RightIcon" />
               </div>

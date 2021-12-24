@@ -82,15 +82,15 @@ const Login = () => {
       const formIdData = new FormData();
       formIdData.append('mem_id', id);
       if (
-        id.split('@')[1] === 'naver.com' &&
-        id.split('@')[1] === 'naver.com'
+        id.split('@')[1] === 'naver.com' ||
+        id.split('@')[1] === 'gmail.com'
       ) {
         dispatch({
           type: DUPLICATE_CHECK_REQUEST,
           data: formIdData,
         });
       } else {
-        alert('naver.com, gamil.com 을 이용해주세요');
+        alert('naver.com, gmail.com 을 이용해주세요');
       }
     },
     [id, duplicateCheckDisplay],
