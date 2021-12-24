@@ -88,15 +88,18 @@ const MemberList = () => {
                 <Link href={`/user/${v.memberListId}`}>
                   <a>
                     <div className={style.memberListImg}>
-                      <img
-                        src={`${baseURL}${v.memberListprofileImg}`}
-                        // src={`${v.memberListprofileImg}`}
-                        alt="memberImg"
-                      />
+                      {v.memberListprofileImg ? (
+                        <img
+                          src={`${baseURL}${v.memberListprofileImg}`}
+                          alt="memberImg"
+                        />
+                      ) : (
+                        <img src="/icon/profileBasic.svg" alt="profileImg" />
+                      )}
                     </div>
                   </a>
                 </Link>
-                <p>{v.memberListNickname + 1}</p>
+                <p>{v.memberListNickname}</p>
               </li>
             );
           })}
