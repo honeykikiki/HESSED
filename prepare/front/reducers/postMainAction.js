@@ -1,6 +1,9 @@
 import produce from 'immer';
 import { REMOVE_POST_SUCCESS, UPDATE_POST_SUCCESS } from './postAdd';
-import { generateDummyPost } from '../hooks/reducer/APIResultChange';
+import {
+  dummyMemberList,
+  generateDummyPost,
+} from '../hooks/reducer/APIResultChange';
 
 //  더미데이터
 // export const generateDummyPost = (number) =>
@@ -22,6 +25,7 @@ import { generateDummyPost } from '../hooks/reducer/APIResultChange';
 
 export const initialState = {
   mainPosts: [],
+  memberList: [],
 
   addCommentLoading: false, // 댓글달기
   addCommentDone: false,
@@ -58,6 +62,16 @@ export const initialState = {
 
   loginNotConnected: false,
 };
+
+// const dummyList = (number) =>
+//   Array(number)
+//     .fill()
+//     .map((v, i) => ({
+//       memberListId: i,
+//       memberListNickname: i,
+//       memberListprofileImg:
+//         'http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg',
+//     }));
 
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
@@ -342,6 +356,8 @@ const reducer = (state = initialState, action) => {
             action.data.goodList,
             action.data.boardSaveList,
           );
+          draft.memberList = dummyMemberList(action.data.memberList);
+          // draft.memberList = dummyList(26);
         } else if (action.data.result === 'NOTEXIST') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;

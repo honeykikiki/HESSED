@@ -113,10 +113,14 @@ const Profile = () => {
         <article className={style.maxWidth}>
           <div className={style.profileImg}>
             <div>
-              <div>
+              <div className={style.profileImgOutBox}>
                 {nicknameSet ? (
                   me?.profileImg ? (
-                    <img src={`${baseURL}${me?.profileImg}`} alt="ProfiltImg" />
+                    <img
+                      src={`${baseURL}${me?.profileImg}`}
+                      alt="ProfiltImg"
+                      className={style.userProfileImg}
+                    />
                   ) : (
                     <img
                       src="/icon/profileBasic.svg"
@@ -125,7 +129,11 @@ const Profile = () => {
                     />
                   )
                 ) : profileImg ? (
-                  <img src={`${profileImg}`} alt="ProfiltImg" />
+                  <img
+                    src={`${profileImg}`}
+                    alt="ProfiltImg"
+                    className={style.userProfileImg}
+                  />
                 ) : (
                   <img
                     src="/icon/addphoto.svg"

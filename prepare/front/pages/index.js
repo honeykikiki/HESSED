@@ -12,6 +12,7 @@ import {
   LOAD_POSTS_REQUEST,
 } from '../reducers/postMainAction';
 import { PAGE_CHANGE } from '../reducers/postAdd';
+import MemberListBox from '../components/memberList/MemberListBox';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -77,17 +78,23 @@ const Home = () => {
     <>
       {me ? (
         <MainLayout>
-          <div style={{ paddingTop: '30px' }} />
+          <div style={{ paddingTop: '50px' }} />
 
-          {mainPosts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
+          <MemberListBox />
 
-          <div ref={loadPostMoreFalid && !loadPostsLoading ? ref : undefined} />
+          <div className={style.postCardWrap}>
+            {mainPosts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
 
-          {loadPostMoreFalid ? null : (
-            <div className={style.bottomLogo}>@HESSED</div>
-          )}
+            <div
+              ref={loadPostMoreFalid && !loadPostsLoading ? ref : undefined}
+            />
+
+            {loadPostMoreFalid ? null : (
+              <div className={style.bottomLogo}>@HESSED</div>
+            )}
+          </div>
 
           <div style={{ paddingBottom: '54px' }} />
         </MainLayout>
