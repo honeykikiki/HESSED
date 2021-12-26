@@ -420,26 +420,30 @@ ModuleNotFoundError: Module not found: Error: Can't resolve '../hooks/useInput' 
     npm i heic2any
 
 ```js
+import heic2any from "heic2any";
 let temp = [];
-await heic2any({
-  blob: file,
-  toType: "image/jpeg",
-})
-  .then((result) => {
-    const file = new File([result], `${photoToAdd[i].name.split(".")[0]}.jpg`, {
-      type: "image/jpeg",
-      lastModified: new Date().getTime(),
-    });
-    temp.push({
-      id: file.name,
-      file,
-      url: URL.createObjectURL(file),
-    });
+const imageUpload = async (e) => {
+  const photoToAdd = e.target.files;
+  await heic2any({
+    blob: file,
+    toType: "image/jpeg",
   })
-  .catch((error) => console.error(error));
+    .then((result) => {
+      const file = new File([result], `${photoToAdd[i].name.split(".")[0]}.jpg`, {
+        type: "image/jpeg",
+        lastModified: new Date().getTime(),
+      });
+      temp.push({
+        id: file.name,
+        url: URL.createObjectURL(file),
+        file,
+      });
+    })
+    .catch((error) => console.error(error));
+};
 ```
 
-## heic2any 빌들할떄 "ReferenceError: Blob is not defined" 오류
+## heic2any Build할떄 "ReferenceError: Blob is not defined" 오류
 
 > 문제 / 해결:
 
@@ -448,28 +452,30 @@ await heic2any({
 
 ```js
 const temp = [];
-const photoToAdd = e.target.files;
-for (let i = 0; i < photoToAdd.length; i++) {
-  if (photoToAdd[i].name.split(".")[1] === "HEIC") {
-    const heic2any = require("heic2any");
-    await heic2any({
-      blob: photoToAdd[i],
-      toType: "image/jpeg",
-    })
-      .then((result) => {
-        const file = new File([result], `${photoToAdd[i].name.split(".")[0]}.jpg`, {
-          type: "image/jpeg",
-          lastModified: new Date().getTime(),
-        });
-        temp.push({
-          id: file.name,
-          file,
-          url: URL.createObjectURL(file),
-        });
+const imageUpload = async (e) => {
+  const photoToAdd = e.target.files;
+  for (let i = 0; i < photoToAdd.length; i++) {
+    if (photoToAdd[i].name.split(".")[1] === "HEIC") {
+      const heic2any = require("heic2any");
+      await heic2any({
+        blob: photoToAdd[i],
+        toType: "image/jpeg",
       })
-      .catch((error) => console.error(error));
+        .then((result) => {
+          const file = new File([result], `${photoToAdd[i].name.split(".")[0]}.jpg`, {
+            type: "image/jpeg",
+            lastModified: new Date().getTime(),
+          });
+          temp.push({
+            id: file.name,
+            file,
+            url: URL.createObjectURL(file),
+          });
+        })
+        .catch((error) => console.error(error));
+    }
   }
-}
+};
 ```
 
 ## 이미지 파일 크기 조절
@@ -481,13 +487,18 @@ for (let i = 0; i < photoToAdd.length; i++) {
     <a href='https://github.com/Donaldcwl/browser-image-compression>browser-image-compression</a>
 
 ```js
+import imageCompression from "browser-image-compression";
+
 const options = {
   maxSizeMB: 1,
   maxWidthOrHeight: 1920,
   useWebWorker: true,
 };
-const photoToAdd = e.target.files[0];
-const compressedFile = await imageCompression(photoToAdd, options);
+
+export const imageUpdate = async (e) => {
+  const photoToAdd = e.target.files[0];
+  const compressedFile = await imageCompression(photoToAdd, options);
+};
 ```
 
 ## 이미지 터치 슬라이드로 넘기기 기능 추가

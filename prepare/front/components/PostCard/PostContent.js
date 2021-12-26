@@ -26,10 +26,7 @@ const PostContent = ({ post }) => {
 
   return (
     <article className={style.art}>
-      <div>
-        {`좋아요 ${post.likedNumber}개`}
-        {/* {post.Likers.length > 0 && `좋아요 ${post.Likers.length || 0}개`} */}
-      </div>
+      <div>{`좋아요 ${post.likedNumber}개`}</div>
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
         {more < 21 ? (
