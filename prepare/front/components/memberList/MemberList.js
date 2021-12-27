@@ -6,9 +6,6 @@ import style from '../../styles/css/memberlist.module.css';
 import { baseURL } from '../../config/config';
 import { USER_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
 
-let startX;
-let endX;
-
 const MemberList = () => {
   const dispatch = useDispatch();
   const { memberList } = useSelector((state) => state.postMainAction);
@@ -103,7 +100,7 @@ const MemberList = () => {
           onTouchStart={touchStart}
           onTouchEnd={touchEnd}
         >
-          {memberList.map((v, i) => {
+          {memberList.map((v) => {
             if (me.id === v.memberListId) {
               return;
             }
