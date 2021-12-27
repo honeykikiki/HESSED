@@ -107,13 +107,13 @@ const PostIcon = ({ post }) => {
 
       <div>
         {/* 댓글 */}
-        {/* <Link href={`/${post.id}/comment`}> */}
-        <a onClick={servicePreparing}>
-          <div>
-            <img src="/icon/comment.svg" alt="Commenticon" />
-          </div>
-        </a>
-        {/* </Link> */}
+        <Link href={`/${post.id}/comment`}>
+          <a>
+            <div>
+              <img src="/icon/comment.svg" alt="Commenticon" />
+            </div>
+          </a>
+        </Link>
       </div>
 
       <div>

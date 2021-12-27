@@ -20,7 +20,15 @@ const MemberList = () => {
     if (typeof window !== 'undefined') {
       setWindowScreenWidth(window.screen.width);
     }
-  }, [window]);
+
+    if (curPos > (memberList.length - 1) * 80 - windowScreenWidth) {
+      setCurPos((memberList.length - 1) * 80 - windowScreenWidth);
+    }
+
+    if (curPos + Math.floor(startX - endX) < 0) {
+      setCurPos(0);
+    }
+  }, [window, curPos]);
 
   const touchStart = useCallback((event) => {
     startX = event.touches[0].pageX;
@@ -30,8 +38,8 @@ const MemberList = () => {
     (event) => {
       endX = event.changedTouches[0].pageX;
 
-      if (curPos + Math.floor(startX - endX) < 0) {
-        setCurPos(0);
+      if (curPos > (memberList.length - 1) * 80 - windowScreenWidth) {
+        setCurPos((memberList.length - 1) * 80 - windowScreenWidth);
         return;
       }
 
@@ -40,17 +48,18 @@ const MemberList = () => {
         (memberList.length - 1) * 80 - windowScreenWidth
       ) {
         if (windowScreenWidth > 968) {
-          setCurPos((memberList.length - 1 + 1) * 80 - windowScreenWidth);
+          setCurPos(memberList.length * 80 - windowScreenWidth);
           return;
         }
         setCurPos((memberList.length - 1) * 80 - windowScreenWidth);
         return;
       }
 
-      setCurPos((prev) => prev + Math.floor(startX - endX));
+      setCurPos((prev) => prev + Math.floor(startX - endX) * 3);
     },
     [curPos, windowScreenWidth],
   );
+
   const onClickRight = useCallback(() => {
     if (curPos > (memberList.length - 1) * 80 - 935) {
       setCurPos((memberList.length - 1) * 80 - 935);
@@ -89,13 +98,15 @@ const MemberList = () => {
           onTouchStart={touchStart}
           onTouchEnd={touchEnd}
         >
-          {memberList.map((v) => {
+          {memberList.map((v, i) => {
             if (me.id === v.memberListId) {
               return;
             }
             return (
               <li
-                key={v.memberListId}
+                // key={v.memberListId}
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
                 onClick={() => getUserPost(v.memberListId)}
               >
                 <Link href={`/user/${v.memberListId}`}>

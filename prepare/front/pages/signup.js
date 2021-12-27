@@ -10,6 +10,7 @@ import {
   SIGNUP_FAILED,
 } from '../reducers/userSign';
 import style from '../styles/css/loginForm.module.css';
+import Loading from '../components/loading/loading';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Login = () => {
     duplicateCheckDisplay,
     signUpFailed,
     signUpDisplayChange,
+    signUpLoading,
   } = useSelector((state) => state.userSign);
 
   const [id, onChangeid, setID] = useinput('');
@@ -127,7 +129,9 @@ const Login = () => {
       formData.append('mem_nickname', nickname);
       formData.append('mem_phone', phone);
       formData.append('mem_flag', agree);
-
+      if (signUpLoading) {
+        return;
+      }
       if (!signUpDisplayChange) {
         dispatch({
           type: SIGN_UP_REQUEST,
@@ -146,6 +150,7 @@ const Login = () => {
       agree,
       duplicateCheckDone,
       signUpDisplayChange,
+      signUpLoading,
     ],
   );
 
@@ -257,6 +262,7 @@ const Login = () => {
           가입하기
         </button>
       </form>
+      {signUpLoading || <Loading />}
       {privacyViewAgree && (
         <div className={style.PrivacyView}>
           (HESSED)는 아래의 목적으로 개인정보를 수집 및 이용하며, 회원의

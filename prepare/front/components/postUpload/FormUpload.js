@@ -10,6 +10,8 @@ import UploadImages from './UploadImages';
 import { ADD_POST_REQUEST } from '../../reducers/postAdd';
 import Loading from '../loading/loading';
 import { imageUpdate } from '../../hooks/imageUpdateFunc/imageUpdate';
+import PostImages from '../PostCard/PostImage';
+import FormUploadTwo from './FormUploadTwo';
 
 const FormUpload = () => {
   const dispatch = useDispatch();
@@ -86,6 +88,11 @@ const FormUpload = () => {
     },
     [photoToAddList, content, addPostDone, me],
   );
+
+  const onClickImageUpload = useCallback(() => {
+    imageInput.current.click();
+  }, [imageInput?.current]);
+
   return (
     <>
       <form
@@ -93,15 +100,9 @@ const FormUpload = () => {
         onSubmit={upLoadFormClick}
         className={style.upLoadForm}
       >
-        <div className={style.imageBox}>
-          <ul>
-            <UploadImages
-              photoToAddList={photoToAddList}
-              imageInput={imageInput}
-              setPhotoToAddList={setPhotoToAddList}
-            />
-          </ul>
-        </div>
+        <p onClick={onClickImageUpload} className={style.imagePlus}>
+          이미지 추가
+        </p>
 
         <input
           name="bo_image"
@@ -113,6 +114,17 @@ const FormUpload = () => {
           hidden
           multiple
         />
+
+        <div className={style.imageBox}>
+          {/* <ul>
+            <UploadImages
+              photoToAddList={photoToAddList}
+              imageInput={imageInput}
+              setPhotoToAddList={setPhotoToAddList}
+            />
+          </ul> */}
+          <FormUploadTwo images={photoToAddList} />
+        </div>
 
         {imageLoading && <Loading />}
         {addPostLoading && <Loading />}
@@ -126,6 +138,7 @@ const FormUpload = () => {
             onInput={handleResizeHeight}
             onChange={onChangeContent}
           />
+
           <button>게시</button>
         </div>
       </form>

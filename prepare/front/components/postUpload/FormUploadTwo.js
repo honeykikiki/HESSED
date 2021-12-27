@@ -3,12 +3,11 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postImage.module.css';
-import { baseURL } from '../../config/config';
 
 let startX;
 let endX;
 
-const PostImages = ({ images }) => {
+const FormUploadTwo = ({ images }) => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
   const [curPos, setCurPos] = useState(0);
 
@@ -16,22 +15,22 @@ const PostImages = ({ images }) => {
     if (imageCuurrentNo > 0) {
       setImageCuurrentNo((prev) => prev - 1);
     }
-  }, [imageCuurrentNo]);
+  }, [imageCuurrentNo, images]);
 
   const onClickRight = useCallback(() => {
     if (imageCuurrentNo < images.length - 1) {
       setImageCuurrentNo((prev) => prev + 1);
     }
-  }, [imageCuurrentNo]);
+  }, [imageCuurrentNo, images]);
 
   const Prev = useCallback(() => {
     if (curPos > 0) {
-      if (imageCuurrentNo > 0) {
+      if (imageCuurrentNo >= 0) {
         setImageCuurrentNo((prev) => prev - 1);
         setCurPos((prev) => prev - 1);
       }
     }
-  }, [imageCuurrentNo]);
+  }, [imageCuurrentNo, curPos, images]);
 
   const Next = useCallback(() => {
     if (curPos < 10) {
@@ -40,27 +39,30 @@ const PostImages = ({ images }) => {
         setCurPos((prev) => prev + 1);
       }
     }
-  }, [imageCuurrentNo]);
+  }, [imageCuurrentNo, curPos, images]);
 
-  const touchStart = (event) => {
+  const touchStart = useCallback((event) => {
     startX = event.touches[0].pageX;
-  };
+  }, []);
 
-  const touchEnd = (event) => {
-    endX = event.changedTouches[0].pageX;
-    if (
-      startX === endX ||
-      Math.abs(startX - endX) < 30 ||
-      Math.abs(endX - startX) < 30
-    ) {
-      return;
-    }
-    if (startX > endX) {
-      Next();
-    } else {
-      Prev();
-    }
-  };
+  const touchEnd = useCallback(
+    (event) => {
+      endX = event.changedTouches[0].pageX;
+      if (
+        startX === endX ||
+        Math.abs(startX - endX) < 30 ||
+        Math.abs(endX - startX) < 30
+      ) {
+        return;
+      }
+      if (startX > endX) {
+        Next();
+      } else {
+        Prev();
+      }
+    },
+    [imageCuurrentNo, curPos, images],
+  );
 
   return (
     <>
@@ -82,9 +84,9 @@ const PostImages = ({ images }) => {
         )}
 
         {images.map((v) => (
-          <div className={style.imageInnerBox} key={v?.bo_img_location}>
+          <div className={style.imageInnerBox} key={v.url}>
             <img
-              src={`${baseURL}/${v.bo_img_location}`}
+              src={`${v.url}`}
               style={{
                 transform: `translate3d(-${imageCuurrentNo * 100}%, -50%, 0px)`,
                 transition: 'all .4s',
@@ -93,7 +95,7 @@ const PostImages = ({ images }) => {
             />
           </div>
         ))}
-        {images.length === 1 ? null : (
+        {images.length < 1 ? null : (
           <span>{`${imageCuurrentNo + 1} / ${images.length}`}</span>
         )}
       </div>
@@ -101,8 +103,8 @@ const PostImages = ({ images }) => {
   );
 };
 
-PostImages.propTypes = {
+FormUploadTwo.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default PostImages;
+export default FormUploadTwo;
