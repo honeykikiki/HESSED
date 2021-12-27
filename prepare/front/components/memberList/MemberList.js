@@ -6,15 +6,14 @@ import style from '../../styles/css/memberlist.module.css';
 import { baseURL } from '../../config/config';
 import { USER_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
 
-let startX;
-let endX;
-
 const MemberList = () => {
   const dispatch = useDispatch();
   const { memberList } = useSelector((state) => state.postMainAction);
   const { me } = useSelector((state) => state.userInfo);
   const [curPos, setCurPos] = useState(0);
   const [windowScreenWidth, setWindowScreenWidth] = useState();
+  const [startX, setStartX] = useState(0);
+  const [endX, setEndX] = useState(0);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -30,13 +29,16 @@ const MemberList = () => {
     }
   }, [window, curPos]);
 
-  const touchStart = useCallback((event) => {
-    startX = event.touches[0].pageX;
-  }, []);
+  const touchStart = useCallback(
+    (event) => {
+      setStartX(event.touches[0].pageX);
+    },
+    [startX],
+  );
 
   const touchEnd = useCallback(
     (event) => {
-      endX = event.changedTouches[0].pageX;
+      setEndX(event.changedTouches[0].pageX);
 
       if (curPos > (memberList.length - 1) * 80 - windowScreenWidth) {
         setCurPos((memberList.length - 1) * 80 - windowScreenWidth);
@@ -57,7 +59,7 @@ const MemberList = () => {
 
       setCurPos((prev) => prev + Math.floor(startX - endX) * 3);
     },
-    [curPos, windowScreenWidth],
+    [curPos, windowScreenWidth, memberList, startX, endX],
   );
 
   const onClickRight = useCallback(() => {
@@ -98,15 +100,13 @@ const MemberList = () => {
           onTouchStart={touchStart}
           onTouchEnd={touchEnd}
         >
-          {memberList.map((v, i) => {
+          {memberList.map((v) => {
             if (me.id === v.memberListId) {
               return;
             }
             return (
               <li
-                // key={v.memberListId}
-                // eslint-disable-next-line react/no-array-index-key
-                key={i}
+                key={v.memberListId}
                 onClick={() => getUserPost(v.memberListId)}
               >
                 <Link href={`/user/${v.memberListId}`}>
