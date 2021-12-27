@@ -8,6 +8,7 @@ import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
 import style from '../../styles/css/dynamicComment.module.css';
 import useinput from '../../hooks/useinput';
 import Comment from './Comment';
+import { baseURL } from '../../config/config';
 
 const PostInComment = ({ post }) => {
   const dispatch = useDispatch();
@@ -85,7 +86,10 @@ const PostInComment = ({ post }) => {
           <div className={style.userNickname}>
             <div className={style.userIcon}>
               {post.User.profileImg ? (
-                <img src={post.User.profileImg.url} alt="profileImg" />
+                <img
+                  src={`${baseURL}${post.User.profileImg}`}
+                  alt="profileImg"
+                />
               ) : (
                 <img src="/icon/profileBasic.svg" alt="profileImg" />
               )}
