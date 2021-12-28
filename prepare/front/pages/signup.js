@@ -262,7 +262,7 @@ const Login = () => {
           가입하기
         </button>
       </form>
-      {signUpLoading || <Loading />}
+      {signUpLoading && <Loading />}
       {privacyViewAgree && (
         <div className={style.PrivacyView}>
           (HESSED)는 아래의 목적으로 개인정보를 수집 및 이용하며, 회원의

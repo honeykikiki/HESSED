@@ -8,6 +8,30 @@ import style from '../../styles/css/loginForm.module.css';
 import { LOG_IN_REQUEST } from '../../reducers/userInfo';
 import { SIGN_UP_REQUEST } from '../../reducers/userSign';
 
+// const userAgent = navigator.userAgent.toLowerCase();
+
+// const url = 'https://hessed-app.vercel.app/';
+// const icon = '바로가기 아이콘 이미지 경로';
+// const title = 'HESSED';
+// const serviceCode = 'HESSED';
+
+// // eslint-disable-next-line camelcase
+// function home_key() {
+//   document.write(
+//     `<object id="bookmark_obj" type="text/回头ml" data="naversearchapp://addshortcut?url=${url}&icon=${icon}&title=${title}&serviceCode=${serviceCode}&version=7" width="0" height="0"></object>`,
+//   );
+// }
+
+// if (userAgent.match('iphone')) {
+//   home_key();
+// } else if (userAgent.match('ipad')) {
+//   home_key();
+// } else if (userAgent.match('ipod')) {
+//   home_key();
+// } else if (userAgent.match('android')) {
+//   home_key();
+// }
+
 const Login = () => {
   const dispatch = useDispatch();
   const { signUpDone } = useSelector((state) => state.userSign);

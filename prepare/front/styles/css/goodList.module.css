@@ -1,0 +1,51 @@
+.a {
+  font-size: 1.4rem;
+  font-weight: 550;
+  margin-top: 20px;
+}
+
+.a .maxWidth {
+  max-width: 935px;
+  margin: auto;
+}
+
+.a .maxWidth .postCard {
+  max-width: 600px;
+  height: 100%;
+  position: relative;
+}
+
+.goodUserBox {
+  width: calc(100% - 20px);
+  margin: auto;
+}
+
+.goodUserBox .goodUser {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.goodUserBox .goodUserImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background-color: #dfdfdf;
+}
+
+.goodUserBox .goodUserImg img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.goodUserBox .goodUserNickname {
+  margin-left: 20px;
+  line-height: 32px;
+}

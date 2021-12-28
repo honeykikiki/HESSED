@@ -71,28 +71,40 @@ ol {
   -webkit-animation: loading 1s linear;
   animation: loading 1s linear;
 }
-.popup {
-  display: none;
+
+/* .popup {
+  display: block;
+  width: calc(100% - 50px);
+  height: 80vh;
+  overflow: scroll;
+  background-color: white;
+  text-align: center;
+  z-index: 100;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.popup button {
+  all: unset;
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.popup p {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
-@media screen and (min-width: 768px) {
-  .popup {
-    display: block;
-    width: 100vw;
-    height: 100vw;
-    background-color: #3b3733;
-    text-align: center;
-    position: relative;
-  }
-  .popupText {
-    padding-top: 20%;
-  }
+.popup img {
+  width: 80%;
+} */
 
-  .popupText em {
-    display: block;
-    font-size: 120px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    margin-top: 100px;
-  }
+@media screen and (min-width: 768px) {
 }

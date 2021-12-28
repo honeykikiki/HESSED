@@ -7,7 +7,7 @@ import style from '../../styles/css/postImage.module.css';
 let startX;
 let endX;
 
-const FormUploadTwo = ({ images }) => {
+const FormUploadTwo = ({ images, setPhotoToAddList }) => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
   const [curPos, setCurPos] = useState(0);
 
@@ -64,6 +64,13 @@ const FormUploadTwo = ({ images }) => {
     [imageCuurrentNo, curPos, images],
   );
 
+  const onRemove = useCallback(
+    (deleteUrl) => {
+      setPhotoToAddList(images.filter((v) => v.url !== deleteUrl));
+    },
+    [images],
+  );
+
   return (
     <>
       <div
@@ -85,6 +92,9 @@ const FormUploadTwo = ({ images }) => {
 
         {images.map((v) => (
           <div className={style.imageInnerBox} key={v.url}>
+            <div className={style.remove} onClick={() => onRemove(v.url)}>
+              x
+            </div>
             <img
               src={`${v.url}`}
               style={{

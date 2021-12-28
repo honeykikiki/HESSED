@@ -46,12 +46,7 @@ const Hessed = ({ Component }) => {
 
         <link rel="shortcut" href="/favicon.ico" />
       </Head>
-      {/* <div className="popup">
-        <div className="popupText">
-          <img src="/icon/HESSED-green.png" alt="logo" />
-          <em>comming soon~</em>
-        </div>
-      </div> */}
+
       <Component />
     </>
   );
