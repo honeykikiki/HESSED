@@ -34,6 +34,7 @@ const PostContent = ({ post }) => {
       </div>
       {/* </a>
       </Link> */}
+
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
         {more < 21 ? (
