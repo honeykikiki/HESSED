@@ -6,11 +6,9 @@ import React, { useCallback, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/upload.module.css';
 
-import UploadImages from './UploadImages';
 import { ADD_POST_REQUEST } from '../../reducers/postAdd';
 import Loading from '../loading/loading';
 import { imageUpdate } from '../../hooks/imageUpdateFunc/imageUpdate';
-import PostImages from '../PostCard/PostImage';
 import FormUploadTwo from './FormUploadTwo';
 
 const FormUpload = () => {
@@ -100,9 +98,9 @@ const FormUpload = () => {
         onSubmit={upLoadFormClick}
         className={style.upLoadForm}
       >
-        <p onClick={onClickImageUpload} className={style.imagePlus}>
+        <div onClick={onClickImageUpload} className={style.imagePlus}>
           이미지 추가
-        </p>
+        </div>
 
         <input
           name="bo_image"
@@ -123,7 +121,10 @@ const FormUpload = () => {
               setPhotoToAddList={setPhotoToAddList}
             />
           </ul> */}
-          <FormUploadTwo images={photoToAddList} />
+          <FormUploadTwo
+            images={photoToAddList}
+            setPhotoToAddList={setPhotoToAddList}
+          />
         </div>
 
         {imageLoading && <Loading />}

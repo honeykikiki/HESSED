@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
-import Image from 'next/image';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MainLayout from '../../components/MainLayout';
 
 import style from '../../styles/css/profile.module.css';

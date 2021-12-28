@@ -13,10 +13,10 @@ const PostContent = ({ post }) => {
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
 
-  const contentbrief = useCallback(() => {
-    setMore(20);
-    setMoreButtonOnClick((prev) => !prev);
-  }, [more, moreButtonOnClick]);
+  // const contentbrief = useCallback(() => {
+  //   setMore(20);
+  //   setMoreButtonOnClick((prev) => !prev);
+  // }, [more, moreButtonOnClick]);
 
   const createAt = post.date.split(' ').slice(0, 1);
   const date = createAt[0].split('-');
@@ -26,14 +26,21 @@ const PostContent = ({ post }) => {
 
   return (
     <article className={style.art}>
-      <div>{`좋아요 ${post.likedNumber}개`}</div>
+      {/* <Link href="/post/goodList">
+        <a> */}
+      <div>
+        {`좋아요 ${post.likedNumber}개`}
+        {/* <span>{` oo님 외 ${post.likedNumber}명`}</span> */}
+      </div>
+      {/* </a>
+      </Link> */}
+
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
         {more < 21 ? (
-          <span onClick={contentMore}>{`${post.content?.slice(
-            0,
-            more,
-          )} `}</span>
+          <span onClick={contentMore}>
+            {`${post.content?.slice(0, more)} `}
+          </span>
         ) : (
           <span>
             {post.content.split('\n').map((v) => {
