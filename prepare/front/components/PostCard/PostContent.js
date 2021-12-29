@@ -41,7 +41,13 @@ const PostContent = ({ post }) => {
           <a>
             <div onClick={getGoodList}>
               {`좋아요 ${post.likedNumber}개`}
-              {/* <span>{` oo님 외 ${post.likedNumber}명`}</span> */}
+              {post.likedNumber === 1 ? (
+                <em>{` ${post.likeMember}님 이 좋아합니다`}</em>
+              ) : (
+                <em>{` ${post.likeMember}님 외 ${
+                  post.likedNumber - 1
+                }명 이 좋아합니다`}</em>
+              )}
             </div>
           </a>
         </Link>

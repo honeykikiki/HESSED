@@ -49,10 +49,14 @@ const GoodList = () => {
                   <Link href="/profile">
                     <a>
                       <div className={style.goodUserImg}>
-                        <img
-                          alt="profileImg"
-                          src={`${baseURL}${v.memberListprofileImg}`}
-                        />
+                        {v.memberListprofileImg ? (
+                          <img
+                            alt="profileImg"
+                            src={`${baseURL}${v.memberListprofileImg}`}
+                          />
+                        ) : (
+                          <img src="/icon/profileBasic.svg" alt="profileImg" />
+                        )}
                       </div>
 
                       <div className={style.goodUserNickname}>
@@ -72,10 +76,14 @@ const GoodList = () => {
                 <Link href={`/user/${v.memberListId}`}>
                   <a>
                     <div className={style.goodUserImg}>
-                      <img
-                        alt="profileImg"
-                        src={`${baseURL}${v.memberListprofileImg}`}
-                      />
+                      {v.memberListprofileImg ? (
+                        <img
+                          alt="profileImg"
+                          src={`${baseURL}${v.memberListprofileImg}`}
+                        />
+                      ) : (
+                        <img src="/icon/profileBasic.svg" alt="profileImg" />
+                      )}
                     </div>
 
                     <div className={style.goodUserNickname}>

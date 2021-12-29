@@ -51,6 +51,7 @@ export const generateDummyPost = (list, listImg, goodList, saveList) => {
       }
     }),
     likedNumber: v.goodCnt,
+    likeMember: v.goodNick,
     Comments: [],
     date: v.bo_date,
   }));

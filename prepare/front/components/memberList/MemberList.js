@@ -85,9 +85,6 @@ const MemberList = () => {
     });
   }, []);
 
-  console.log(windowScreenWidth, 'windowScreenWidth');
-  console.log(windowScreenWidth < 1025, 'windowScreenWidth');
-
   return (
     <>
       <div className={style.memberlistInnerBox}>

@@ -380,7 +380,7 @@ if (checkInput.current.checked === true) {
 2. 함수에 data, url 인자로 넘겨주기
 3. 결과 받기
 
-# 배포하면서 만나는 문제
+# 배포이후 하면서 만나는 문제
 
 {
 Failed to compile.
@@ -577,3 +577,8 @@ const onChangeContent = useCallback((e) => {
   });
 }
 ```
+
+## 텍스트 엔터버튼 클릭시 줄바끔 적용 안되는 현상
+
+    문제 : TypeError: Cannot read property 'map' of null
+    해결 : store에 기본 값을 null로 작성해서 map인 배열메서드를 사용할수없어서 빌드 오류가났다.

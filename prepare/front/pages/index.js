@@ -51,8 +51,6 @@ const Home = () => {
           data: { mem_id: me.id },
         });
       }
-
-      return;
     }
 
     if (inView && loadPostMoreFalid && !loadPostsLoading) {
