@@ -41,7 +41,11 @@ const GoodList = () => {
           {boardGoodListPost.map((v) => {
             if (v.memberListId === me.id) {
               return (
-                <li className={style.goodUser} onClick={getMyPost}>
+                <li
+                  className={style.goodUser}
+                  onClick={getMyPost}
+                  key={v.memberListId}
+                >
                   <Link href="/profile">
                     <a>
                       <div className={style.goodUserImg}>
@@ -63,6 +67,7 @@ const GoodList = () => {
               <li
                 className={style.goodUser}
                 onClick={getUserPost(v.memberListId)}
+                key={v.memberListId}
               >
                 <Link href={`/user/${v.memberListId}`}>
                   <a>

@@ -21,7 +21,7 @@ export const initialState = {
   getGoodListError: null,
 
   boardOneViewPost: null,
-  boardGoodListPost: null,
+  boardGoodListPost: [],
 };
 
 export const GET_ID_POST_REQUEST = 'GET_ID_POST_REQUEST';
