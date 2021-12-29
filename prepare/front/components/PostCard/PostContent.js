@@ -2,9 +2,12 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
+import { useDispatch } from 'react-redux';
 import style from '../../styles/css/postContent.module.css';
+import { GET_GOOD_LIST_REQUEST } from '../../reducers/getIdPost';
 
 const PostContent = ({ post }) => {
+  const dispatch = useDispatch();
   const [more, setMore] = useState(20);
   const [moreButtonOnClick, setMoreButtonOnClick] = useState(true);
 
@@ -12,6 +15,13 @@ const PostContent = ({ post }) => {
     setMore(post.content.length);
     setMoreButtonOnClick((prev) => !prev);
   }, [more, moreButtonOnClick]);
+
+  const getGoodList = useCallback(() => {
+    dispatch({
+      type: GET_GOOD_LIST_REQUEST,
+      data: { postId: post.id },
+    });
+  }, [post]);
 
   // const contentbrief = useCallback(() => {
   //   setMore(20);
@@ -26,14 +36,16 @@ const PostContent = ({ post }) => {
 
   return (
     <article className={style.art}>
-      {/* <Link href="/post/goodList">
-        <a> */}
-      {/* </a>
-      </Link> */}
-      <div>
-        {`좋아요 ${post.likedNumber}개`}
-        {/* <span>{` oo님 외 ${post.likedNumber}명`}</span> */}
-      </div>
+      {post.likedNumber === 0 ? null : (
+        <Link href={`/post/${post.id}/goodList`}>
+          <a>
+            <div onClick={getGoodList}>
+              {`좋아요 ${post.likedNumber}개`}
+              {/* <span>{` oo님 외 ${post.likedNumber}명`}</span> */}
+            </div>
+          </a>
+        </Link>
+      )}
 
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>

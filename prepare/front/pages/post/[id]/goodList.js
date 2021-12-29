@@ -1,16 +1,24 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import Router from 'next/router';
 
-import MainLayout from '../../components/MainLayout';
-import GoodList from '../../components/goodList/GoodList';
-import style from '../../styles/css/goodList.module.css';
-import styles from '../../styles/css/dynamicPost.module.css';
+import { useSelector } from 'react-redux';
+import MainLayout from '../../../components/MainLayout';
+import GoodList from '../../../components/goodList/GoodList';
+import style from '../../../styles/css/goodList.module.css';
+import styles from '../../../styles/css/dynamicPost.module.css';
 
 const goodList = () => {
+  const { me } = useSelector((state) => state.userInfo);
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
+
+  useEffect(() => {
+    if (!me) {
+      Router.push('/');
+    }
+  }, [me]);
   return (
     <MainLayout>
       <div className={styles.head}>

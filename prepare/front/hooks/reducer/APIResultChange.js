@@ -77,7 +77,7 @@ export const dummyUser = (data) => ({
 
 // userPost
 export const myPost = (list) =>
-  list.map((v, i) => ({
+  list.map((v) => ({
     id: v.bo_no,
     Images: {
       imageCount: v.bo_img_count,

@@ -26,6 +26,10 @@
   padding-bottom: 10px;
 }
 
+.memberlist li:active {
+  background-color: #dfdfdf;
+}
+
 .memberlist .memberListImg {
   width: 56px;
   height: 56px;
