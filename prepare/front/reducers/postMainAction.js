@@ -346,6 +346,7 @@ const reducer = (state = initialState, action) => {
 
         break;
       case LOAD_POSTS_SUCCESS:
+        console.log(action.data);
         if (action.data.result === 'SUCCESS') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = true;

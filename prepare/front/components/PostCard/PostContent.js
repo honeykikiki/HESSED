@@ -34,6 +34,7 @@ const PostContent = ({ post }) => {
         {`좋아요 ${post.likedNumber}개`}
         {/* <span>{` oo님 외 ${post.likedNumber}명`}</span> */}
       </div>
+
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
         {more < 21 ? (
