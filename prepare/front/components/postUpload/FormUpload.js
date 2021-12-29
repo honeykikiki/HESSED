@@ -98,9 +98,9 @@ const FormUpload = () => {
         onSubmit={upLoadFormClick}
         className={style.upLoadForm}
       >
-        <div onClick={onClickImageUpload} className={style.imagePlus}>
+        <p onClick={onClickImageUpload} className={style.imagePlus}>
           이미지 추가
-        </div>
+        </p>
 
         <input
           name="bo_image"

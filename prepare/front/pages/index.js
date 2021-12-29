@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-restricted-globals */
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
+import Link from 'next/link';
 
 import MainLayout from '../components/MainLayout';
 import LoginForm from '../components/login/LoginForm';
@@ -92,7 +94,11 @@ const Home = () => {
             />
 
             {loadPostMoreFalid ? null : (
-              <div className={style.bottomLogo}>@HESSED</div>
+              <Link href="https://open.kakao.com/o/sJECgaRd">
+                <a target="_blank">
+                  <div className={style.bottomLogo}>@HESSED</div>
+                </a>
+              </Link>
             )}
           </div>
 

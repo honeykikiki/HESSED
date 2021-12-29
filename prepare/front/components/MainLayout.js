@@ -42,13 +42,6 @@ const MainLayout = ({ children }) => {
     });
   }, [qrCode]);
 
-  const onLogOut = useCallback((e) => {
-    e.preventDefault();
-    dispatch({
-      type: LOG_OUT_REQUEST,
-    });
-  }, []);
-
   const onProfile = useCallback(() => {
     if (me) {
       dispatch({
@@ -68,12 +61,11 @@ const MainLayout = ({ children }) => {
         <header id={style.header}>
           <div className={style.maxWidth}>
             <div className={style.logo}>
-              <Link href="/">
-                <a>
-                  <h1>logo</h1>
-                </a>
-              </Link>
-              {/* <div onClick={onLogOut}>로그아웃</div> */}
+              {/* <Link href="/">
+                <a> */}
+              <h1>logo</h1>
+              {/* </a>
+              </Link> */}
             </div>
             <nav id={style.gnb}>
               <div>

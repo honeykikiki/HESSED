@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Router from 'next/router';
+import Link from 'next/link';
 
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../components/MainLayout';
 
 import style from '../styles/css/profile.module.css';
-import { CHANGE_PROFILE_REQUEST } from '../reducers/userInfo';
+import { CHANGE_PROFILE_REQUEST, LOG_OUT_REQUEST } from '../reducers/userInfo';
 
 import ProfileIcon from '../components/profile/ProfileIcon';
 import ProfilePost from '../components/profile/ProfilePost';
@@ -36,6 +37,7 @@ const Profile = () => {
   const [postToSave, setpostToSave] = useState(true);
   const [photoToAddList, setPhotoToAddList] = useState(false);
   const [imageLoading, setImageLoading] = useState();
+  const [optionButton, setOptionButton] = useState(false);
 
   const imageInput = useRef();
 
@@ -59,7 +61,20 @@ const Profile = () => {
         type: PAGE_CHANGE,
       });
     }
-  }, [me, nicknameSet, changeProfileSuccess, deleteCompleat]);
+
+    if (optionButton) {
+      document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+      return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      };
+    }
+  }, [me, nicknameSet, changeProfileSuccess, deleteCompleat, optionButton]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -85,6 +100,25 @@ const Profile = () => {
   const profileSet = useCallback(() => {
     setNicknameSet((prev) => !prev);
   }, [nicknameSet]);
+
+  const onClickOptionOpen = useCallback(() => {
+    if (!optionButton) {
+      setOptionButton(true);
+    }
+  }, [optionButton]);
+
+  const onClickOptionClose = useCallback(() => {
+    if (optionButton) {
+      setOptionButton(false);
+    }
+  }, [optionButton]);
+
+  const onLogOut = useCallback((e) => {
+    e.preventDefault();
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+  }, []);
 
   const clickChangeNickname = useCallback(
     (e) => {
@@ -115,6 +149,26 @@ const Profile = () => {
   return (
     <MainLayout>
       <div style={{ paddingTop: '44px' }} />
+
+      <div className={style.setting} onClick={onClickOptionOpen}>
+        <img src="/icon/setting.svg" alt="settingIcon" />
+        {optionButton ? (
+          <div className={style.stteingBox} onClick={onClickOptionClose}>
+            <div className={style.optionButton}>
+              <Link href="https://open.kakao.com/o/sJECgaRd">
+                <a target="_blank">
+                  <div>고객센터</div>
+                </a>
+              </Link>
+              <div onClick={onLogOut}>로그아웃</div>
+              <div onClick={onClickOptionClose}>취소</div>
+            </div>
+          </div>
+        ) : null}
+      </div>
+
+      {/* 클릭시 화면 보여지기  */}
+
       <section className={style.a}>
         <article className={style.maxWidth}>
           <div className={style.profileImg}>
@@ -209,7 +263,11 @@ const Profile = () => {
             )}
 
             {myPostMoreGetDone || userPostMoreGetDone ? null : (
-              <div className={style.moerPostGet}>@HESSED</div>
+              <Link href="https://open.kakao.com/o/sJECgaRd">
+                <a target="_blank">
+                  <div className={style.moerPostGet}>@HESSED</div>
+                </a>
+              </Link>
             )}
           </div>
         </article>
