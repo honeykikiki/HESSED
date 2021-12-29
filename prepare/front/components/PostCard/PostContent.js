@@ -28,12 +28,12 @@ const PostContent = ({ post }) => {
     <article className={style.art}>
       {/* <Link href="/post/goodList">
         <a> */}
+      {/* </a>
+      </Link> */}
       <div>
         {`좋아요 ${post.likedNumber}개`}
         {/* <span>{` oo님 외 ${post.likedNumber}명`}</span> */}
       </div>
-      {/* </a>
-      </Link> */}
       <div className={style.content}>
         <p>{`${post.User.nickname}`}</p>
         {more < 21 ? (

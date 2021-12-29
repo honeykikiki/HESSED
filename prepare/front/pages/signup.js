@@ -251,8 +251,8 @@ const Login = () => {
             onChange={checkboxClick}
           />
 
-          <label htmlFor="mem_flag">
-            <span onClick={PrivacyView}>개인정보 활용 동의 (보기)</span>
+          <label htmlFor="mem_flag" onClick={PrivacyView}>
+            개인정보 활용 동의 (보기)
           </label>
           {signUpFailed ? null : agree ? null : (
             <div className={style.signupCheck}>*개인정보 동의</div>

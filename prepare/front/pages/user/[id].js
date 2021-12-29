@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 
 import { useSelector } from 'react-redux';
 import MainLayout from '../../components/MainLayout';
@@ -98,7 +99,11 @@ const Profile = () => {
             <ProfilePost myPosts={userPosts} bool={false} userId={id} />
           </div>
           {userPostMoreGetDone ? null : (
-            <div className={style.moerPostGet}>@HESSED</div>
+            <Link href="https://open.kakao.com/o/sJECgaRd">
+              <a target="_blank">
+                <div className={style.moerPostGet}>@HESSED</div>
+              </a>
+            </Link>
           )}
         </article>
       </section>

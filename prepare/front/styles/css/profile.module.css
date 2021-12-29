@@ -8,6 +8,55 @@
   margin: auto;
 }
 
+.setting {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  z-index: 100;
+}
+
+.setting img {
+  width: 24px;
+}
+
+.stteingBox {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.stteingBox .optionButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: white;
+  text-align: center;
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.stteingBox .optionButton div {
+  width: 80%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.stteingBox .optionButton div:nth-child(1) {
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.stteingBox .optionButton div:nth-child(2) {
+  border-bottom: 1px solid #dfdfdf;
+}
+
 .profileImg {
   display: -webkit-box;
   display: -ms-flexbox;

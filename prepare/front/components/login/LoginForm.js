@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,30 +8,6 @@ import style from '../../styles/css/loginForm.module.css';
 import { LOG_IN_REQUEST } from '../../reducers/userInfo';
 import { SIGN_UP_REQUEST } from '../../reducers/userSign';
 
-// const userAgent = navigator.userAgent.toLowerCase();
-
-// const url = 'https://hessed-app.vercel.app/';
-// const icon = '바로가기 아이콘 이미지 경로';
-// const title = 'HESSED';
-// const serviceCode = 'HESSED';
-
-// // eslint-disable-next-line camelcase
-// function home_key() {
-//   document.write(
-//     `<object id="bookmark_obj" type="text/回头ml" data="naversearchapp://addshortcut?url=${url}&icon=${icon}&title=${title}&serviceCode=${serviceCode}&version=7" width="0" height="0"></object>`,
-//   );
-// }
-
-// if (userAgent.match('iphone')) {
-//   home_key();
-// } else if (userAgent.match('ipad')) {
-//   home_key();
-// } else if (userAgent.match('ipod')) {
-//   home_key();
-// } else if (userAgent.match('android')) {
-//   home_key();
-// }
-
 const Login = () => {
   const dispatch = useDispatch();
   const { signUpDone } = useSelector((state) => state.userSign);
@@ -39,12 +15,16 @@ const Login = () => {
 
   const [id, onchangeId] = useinput('');
   const [password, onchangePassword] = useinput('');
+  const [phoneMode, setPhoneModel] = useState('');
 
   useEffect(() => {
     if (signUpDone) {
       dispatch({
         type: SIGN_UP_REQUEST,
       });
+    }
+    if (navigator) {
+      setPhoneModel(navigator.userAgent.toLowerCase());
     }
   }, [signUpDone]);
 
@@ -63,6 +43,7 @@ const Login = () => {
     },
     [id, password],
   );
+
   return (
     <LoginLayout>
       <form className={style.form} onSubmit={onSubmit}>
@@ -113,6 +94,20 @@ const Login = () => {
           </a>
         </Link>
       </div>
+      {/* 홈화면 추가 팝압창 */}
+      {phoneMode.indexOf('iphone') > -1 ? (
+        <div className={style.homePlus}>
+          {/* <img src="/icon/postAddTwo.svg" alt="upLoadicon" /> */}
+          <p>하단의 버튼을 클릭해서 홈화면 추가를 해주세요!</p>
+          <span />
+        </div>
+      ) : (
+        <div className={style.homePlus}>
+          <img src="/popup/chrome-plus.png" alt="더보기 버튼" />
+          <img src="/popup/samsung-plus.png" alt="더보기 버튼" />
+          <p>더보기 버튼을 클릭해서 홈화면 추가를 해주세요!</p>
+        </div>
+      )}
     </LoginLayout>
   );
 };
