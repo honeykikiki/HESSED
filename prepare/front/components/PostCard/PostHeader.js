@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
+
 import {
   MY_POST_AND_SAVE_POST_GET_REQUEST,
   USER_POST_AND_SAVE_POST_GET_REQUEST,

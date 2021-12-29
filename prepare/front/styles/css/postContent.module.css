@@ -8,6 +8,10 @@
   margin-top: 5px;
 }
 
+.art em {
+  font-style: normal;
+}
+
 .content > p {
   font-size: 1.4rem;
   font-weight: 550;

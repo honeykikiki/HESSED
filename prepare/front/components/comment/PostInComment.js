@@ -98,7 +98,16 @@ const PostInComment = ({ post }) => {
             <p>{post?.User.nickname}</p>
           </div>
 
-          <div className={style.postContent}>{post?.content}</div>
+          <div className={style.postContent}>
+            {post.content.split('\n').map((v) => {
+              return (
+                <span key={v}>
+                  {v}
+                  <br />
+                </span>
+              );
+            })}
+          </div>
 
           <div className={style.time}>{`${Year}년 ${Month}월 ${Day}일`}</div>
         </div>

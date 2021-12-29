@@ -51,6 +51,7 @@ export const generateDummyPost = (list, listImg, goodList, saveList) => {
       }
     }),
     likedNumber: v.goodCnt,
+    likeMember: v.goodNick,
     Comments: [],
     date: v.bo_date,
   }));
@@ -77,7 +78,7 @@ export const dummyUser = (data) => ({
 
 // userPost
 export const myPost = (list) =>
-  list.map((v, i) => ({
+  list.map((v) => ({
     id: v.bo_no,
     Images: {
       imageCount: v.bo_img_count,

@@ -131,13 +131,14 @@ const MemberList = () => {
 
         {windowScreenWidth < 1025 ? null : (
           <div>
-            {curPos < (memberList.length - 1) * 80 - 935 && (
-              <div className={style.right} onClick={onClickRight}>
-                <img src="/icon/right.png" alt="RightIcon" />
-              </div>
-            )}
+            {curPos < (memberList.length - 1) * 80 - 935 &&
+              windowScreenWidth < 1025 && (
+                <div className={style.right} onClick={onClickRight}>
+                  <img src="/icon/right.png" alt="RightIcon" />
+                </div>
+              )}
 
-            {curPos > 240 && (
+            {curPos > 240 && windowScreenWidth < 1025 && (
               <div className={style.left} onClick={onClickLeft}>
                 <img src="/icon/left.png" alt="LeftIcon" />
               </div>

@@ -380,7 +380,7 @@ if (checkInput.current.checked === true) {
 2. 함수에 data, url 인자로 넘겨주기
 3. 결과 받기
 
-# 배포하면서 만나는 문제
+# 배포이후 하면서 만나는 문제
 
 {
 Failed to compile.
@@ -555,7 +555,7 @@ const touchEnd = (event) => {
     문제 : 텍스트를 작성할떄 줄바꿈을 해도 텍스트가 줄바꿈이 되지않고 나오는 현상
     기능 : 정규표현식을 활용해 엔터를 치면 추가로 \n이 적히게 만든다 그 이후 .split 와 .mpa 메소드롤 통해 <br/> 태그를 입혀준다
 
-> 텍스트를 엽력받을때
+> 텍스트를 입력받을때
 
 ```js
 const onChangeContent = useCallback((e) => {
@@ -577,3 +577,8 @@ const onChangeContent = useCallback((e) => {
   });
 }
 ```
+
+## 텍스트 엔터버튼 클릭시 줄바끔 적용 안되는 현상
+
+    문제 : TypeError: Cannot read property 'map' of null
+    해결 : store에 기본 값을 null로 작성해서 map인 배열메서드를 사용할수없어서 빌드 오류가났다.

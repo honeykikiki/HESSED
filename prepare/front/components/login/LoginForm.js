@@ -102,11 +102,13 @@ const Login = () => {
           <span />
         </div>
       ) : (
-        <div className={style.homePlus}>
-          <img src="/popup/chrome-plus.png" alt="더보기 버튼" />
-          <img src="/popup/samsung-plus.png" alt="더보기 버튼" />
-          <p>더보기 버튼을 클릭해서 홈화면 추가를 해주세요!</p>
-        </div>
+        phoneMode.indexOf('android') > -1 && (
+          <div className={style.homePlus}>
+            <img src="/popup/chrome-plus.png" alt="더보기 버튼" />
+            <img src="/popup/samsung-plus.png" alt="더보기 버튼" />
+            <p>더보기 버튼을 클릭해서 홈화면 추가를 해주세요!</p>
+          </div>
+        )
       )}
     </LoginLayout>
   );

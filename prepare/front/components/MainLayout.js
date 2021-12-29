@@ -12,7 +12,6 @@ import { POST_CARD, PROFILE, QR_CODE, UP_LOAD } from '../reducers/menu';
 import { baseURL } from '../config/config';
 import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
 import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../reducers/userPost';
-import { LOG_OUT_REQUEST } from '../reducers/userInfo';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -36,11 +35,11 @@ const MainLayout = ({ children }) => {
     });
   }, [upLoad]);
 
-  const qrCodeClick = useCallback(() => {
-    dispatch({
-      type: QR_CODE,
-    });
-  }, [qrCode]);
+  // const qrCodeClick = useCallback(() => {
+  //   dispatch({
+  //     type: QR_CODE,
+  //   });
+  // }, [qrCode]);
 
   const onProfile = useCallback(() => {
     if (me) {

@@ -167,8 +167,6 @@ const Profile = () => {
         ) : null}
       </div>
 
-      {/* 클릭시 화면 보여지기  */}
-
       <section className={style.a}>
         <article className={style.maxWidth}>
           <div className={style.profileImg}>
