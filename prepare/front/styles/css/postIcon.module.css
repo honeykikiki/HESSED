@@ -18,6 +18,13 @@
 .postIcon > div img {
   width: 24px;
   height: 24px;
+  -webkit-transition: all 0.4;
+  transition: all 0.4;
+}
+
+.postIcon > div img:active {
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
 }
 
 .postIcon > div:nth-child(4) {

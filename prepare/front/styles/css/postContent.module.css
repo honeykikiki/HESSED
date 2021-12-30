@@ -12,7 +12,12 @@
   font-style: normal;
 }
 
-.content > p {
+.art p {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.content > .usernickname {
   font-size: 1.4rem;
   font-weight: 550;
 }

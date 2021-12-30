@@ -43,10 +43,8 @@ const Hessed = ({ Component }) => {
           content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff"
           httpEquiv="Content-Type"
         />
-
         <link rel="shortcut" href="/favicon.ico" />
       </Head>
-
       <Component />
     </>
   );

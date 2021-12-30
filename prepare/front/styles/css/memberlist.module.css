@@ -1,6 +1,5 @@
 .memberListWrap {
-  margin-top: 10px;
-  height: 100px;
+  height: 110px;
   overflow: hidden;
 }
 
@@ -15,8 +14,9 @@
   position: absolute;
   left: 0%;
   top: 0;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
+  -webkit-transition: ease-out 0.3s;
+  transition: ease-out 0.3s;
+  margin-top: 10px;
 }
 
 .memberlist li {
@@ -24,10 +24,6 @@
   width: 80px;
   padding-top: 20px;
   padding-bottom: 10px;
-}
-
-.memberlist li:active {
-  background-color: #dfdfdf;
 }
 
 .memberlist .memberListImg {
