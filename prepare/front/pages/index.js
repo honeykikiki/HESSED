@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
