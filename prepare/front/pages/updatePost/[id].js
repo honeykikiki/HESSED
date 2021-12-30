@@ -96,10 +96,10 @@ const Post = () => {
               <textarea
                 name="bo_content"
                 type="text"
-                placeholder={boardOneViewPost.content}
                 ref={ref}
                 onInput={handleResizeHeight}
                 onChange={onChangeContent}
+                defaultValue={boardOneViewPost.content}
                 required
               />
               <button>수정하기</button>
