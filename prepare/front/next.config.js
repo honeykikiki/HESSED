@@ -36,10 +36,10 @@ const nextConfig = {
       ...config,
       mode: prod ? 'production' : 'development',
       devtool: prod ? 'hidden-source-map' : 'eval-source-map',
-      plugins: [
-        ...config.plugins,
-        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /^\.\/ko$/),
-      ],
+      // plugins: [
+      //   ...config.plugins,
+      //   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /^\.\/ko$/),
+      // ],
     };
   },
 };
