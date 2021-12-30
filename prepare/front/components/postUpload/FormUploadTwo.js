@@ -8,38 +8,38 @@ let startX;
 let endX;
 
 const FormUploadTwo = ({ images, setPhotoToAddList }) => {
-  const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
+  const [imageCurrentNo, setImageCurrentNo] = useState(0);
   const [curPos, setCurPos] = useState(0);
 
   const onClickLeft = useCallback(() => {
-    if (imageCuurrentNo > 0) {
-      setImageCuurrentNo((prev) => prev - 1);
+    if (imageCurrentNo > 0) {
+      setImageCurrentNo((prev) => prev - 1);
     }
-  }, [imageCuurrentNo, images]);
+  }, [imageCurrentNo, images]);
 
   const onClickRight = useCallback(() => {
-    if (imageCuurrentNo < images.length - 1) {
-      setImageCuurrentNo((prev) => prev + 1);
+    if (imageCurrentNo < images.length - 1) {
+      setImageCurrentNo((prev) => prev + 1);
     }
-  }, [imageCuurrentNo, images]);
+  }, [imageCurrentNo, images]);
 
   const Prev = useCallback(() => {
     if (curPos > 0) {
-      if (imageCuurrentNo >= 0) {
-        setImageCuurrentNo((prev) => prev - 1);
+      if (imageCurrentNo >= 0) {
+        setImageCurrentNo((prev) => prev - 1);
         setCurPos((prev) => prev - 1);
       }
     }
-  }, [imageCuurrentNo, curPos, images]);
+  }, [imageCurrentNo, curPos, images]);
 
   const Next = useCallback(() => {
     if (curPos < 10) {
-      if (imageCuurrentNo < images.length - 1) {
-        setImageCuurrentNo((prev) => prev + 1);
+      if (imageCurrentNo < images.length - 1) {
+        setImageCurrentNo((prev) => prev + 1);
         setCurPos((prev) => prev + 1);
       }
     }
-  }, [imageCuurrentNo, curPos, images]);
+  }, [imageCurrentNo, curPos, images]);
 
   const touchStart = useCallback((event) => {
     startX = event.touches[0].pageX;
@@ -61,14 +61,21 @@ const FormUploadTwo = ({ images, setPhotoToAddList }) => {
         Prev();
       }
     },
-    [imageCuurrentNo, curPos, images],
+    [imageCurrentNo, curPos, images],
   );
 
   const onRemove = useCallback(
     (deleteUrl) => {
       setPhotoToAddList(images.filter((v) => v.url !== deleteUrl));
+      if (imageCurrentNo === 0) {
+        return;
+      }
+
+      if (imageCurrentNo + 1 === images.length) {
+        setImageCurrentNo((prev) => prev - 1);
+      }
     },
-    [images],
+    [images, imageCurrentNo],
   );
 
   return (
@@ -78,13 +85,12 @@ const FormUploadTwo = ({ images, setPhotoToAddList }) => {
         onTouchStart={touchStart}
         onTouchEnd={touchEnd}
       >
-        {imageCuurrentNo >= 1 && (
+        {imageCurrentNo >= 1 && (
           <div className={style.left} onClick={onClickLeft}>
             <img src="/icon/left.png" alt="LeftIcon" />
           </div>
         )}
-
-        {imageCuurrentNo < images.length - 1 && (
+        {imageCurrentNo < images.length - 1 && (
           <div className={style.right} onClick={onClickRight}>
             <img src="/icon/right.png" alt="RightIcon" />
           </div>
@@ -92,21 +98,29 @@ const FormUploadTwo = ({ images, setPhotoToAddList }) => {
 
         {images.map((v) => (
           <div className={style.imageInnerBox} key={v.url}>
-            <div className={style.remove} onClick={() => onRemove(v.url)}>
-              x
+            <div
+              style={{
+                transform: `translate3d(-${imageCurrentNo * 100}%, 0%, 0px)`,
+                transition: 'all .4s',
+              }}
+            >
+              <p className={style.remove} onClick={() => onRemove(v.url)}>
+                x
+              </p>
             </div>
             <img
-              src={`${v.url}`}
+              src={v.url}
               style={{
-                transform: `translate3d(-${imageCuurrentNo * 100}%, -50%, 0px)`,
+                transform: `translate3d(-${imageCurrentNo * 100}%, -50%, 0px)`,
                 transition: 'all .4s',
               }}
               alt="PostImg"
             />
           </div>
         ))}
+
         {images.length < 1 ? null : (
-          <span>{`${imageCuurrentNo + 1} / ${images.length}`}</span>
+          <span>{`${imageCurrentNo + 1} / ${images.length}`}</span>
         )}
       </div>
     </>

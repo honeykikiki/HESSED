@@ -14,6 +14,23 @@
   position: relative;
 }
 
+.imageBox .imageInnerBox div {
+  position: relative;
+  z-index: 10;
+}
+
+.imageBox .imageInnerBox .remove {
+  position: absolute;
+  right: 25px;
+  top: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  line-height: 24px;
+  border-radius: 50%;
+}
+
 .imageBox .imageInnerBox > img {
   position: absolute;
   left: 0%;
@@ -74,6 +91,7 @@
   .imageBox .imageInnerBox {
     width: 10%;
     height: 100%;
+    position: relative;
   }
   .left {
     position: absolute;
@@ -92,17 +110,4 @@
     width: 24px;
     height: auto;
   }
-}
-
-.remove {
-  position: absolute;
-  right: 25px;
-  top: 5px;
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 24px;
-  height: 24px;
-  text-align: center;
-  line-height: 24px;
-  border-radius: 50%;
 }
