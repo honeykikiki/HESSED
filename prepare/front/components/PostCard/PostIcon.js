@@ -7,6 +7,7 @@ import Router from 'next/router';
 import style from '../../styles/css/postIcon.module.css';
 import {
   LIKE_POST_REQUEST,
+  LOAD_COMMENT_REQUEST,
   SAVE_POST_REQUEST,
   UNLIKE_POST_REQUEST,
   UNSAVE_POST_REQUEST,
@@ -66,6 +67,15 @@ const PostIcon = ({ post }) => {
     });
   }, [post.id, me?.id]);
 
+  const loadPostRequest = useCallback(() => {
+    const formData = new FormData();
+    formData.append('bo_no', post.id);
+    dispatch({
+      type: LOAD_COMMENT_REQUEST,
+      data: formData,
+    });
+  }, [post]);
+
   const servicePreparing = () => {
     alert('댓글서비스 준비중입니다!');
   };
@@ -109,7 +119,7 @@ const PostIcon = ({ post }) => {
         {/* 댓글 */}
         <Link href={`/${post.id}/comment`}>
           <a>
-            <div>
+            <div onClick={loadPostRequest}>
               <img src="/icon/comment.svg" alt="Commenticon" />
             </div>
           </a>

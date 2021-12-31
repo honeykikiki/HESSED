@@ -86,6 +86,7 @@ const reducer = (state = initialState, action) => {
         draft.changeProfileError = null;
         break;
       case CHANGE_PROFILE_SUCCESS: {
+        // 분기 추가하기
         draft.changeProfileLoading = false;
         draft.changeProfileDone = true;
         draft.changeProfileError = null;

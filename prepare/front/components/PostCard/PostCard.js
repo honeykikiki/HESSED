@@ -36,7 +36,7 @@ const PostCard = ({ post }) => {
               <PostContent post={post} />
             </div>
             <div className={style.postComment}>
-              {/* <PostComment post={post} /> */}
+              <PostComment post={post} />
             </div>
           </div>
         </article>

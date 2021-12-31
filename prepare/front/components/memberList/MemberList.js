@@ -109,20 +109,25 @@ const MemberList = () => {
                 key={v.memberListId}
                 onClick={() => getUserPost(v.memberListId)}
               >
-                <Link href={`/user/${v.memberListId}`}>
-                  <a>
-                    <div className={style.memberListImg}>
-                      {v.memberListprofileImg ? (
+                <div className={style.memberListImg}>
+                  {v.memberListprofileImg ? (
+                    <Link href={`/user/${v.memberListId}`}>
+                      <a>
                         <img
                           src={`${baseURL}${v.memberListprofileImg}`}
                           alt="memberImg"
                         />
-                      ) : (
+                      </a>
+                    </Link>
+                  ) : (
+                    <Link href={`/user/${v.memberListId}`}>
+                      <a>
                         <img src="/icon/profileBasic.svg" alt="profileImg" />
-                      )}
-                    </div>
-                  </a>
-                </Link>
+                      </a>
+                    </Link>
+                  )}
+                </div>
+
                 <p>{v.memberListNickname}</p>
               </li>
             );

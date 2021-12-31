@@ -3,26 +3,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
+import {
+  ADD_COMMENT_REQUEST,
+  LOAD_COMMENT_REQUEST,
+} from '../../reducers/postMainAction';
 
 import style from '../../styles/css/dynamicComment.module.css';
+
 import useinput from '../../hooks/useinput';
 import Comment from './Comment';
 import { baseURL } from '../../config/config';
+import { timeCalculator } from '../../hooks/timer/timeCalculator';
 
-const PostInComment = ({ post }) => {
+const PostInContent = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
   const { addCommentDone } = useSelector((state) => state.postMainAction);
   const { commentToReply } = useSelector((state) => state.menu);
+  const { postComments } = useSelector((state) => state.postMainAction);
 
   const [comment, onChangeInput, setComment] = useinput('');
-
-  const createAt = post.date.split(' ').slice(0, 1);
-  const date = createAt[0].split('-');
-  const Year = date[0];
-  const Month = date[1];
-  const Day = date[2];
 
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {
@@ -33,19 +33,19 @@ const PostInComment = ({ post }) => {
     ref.current.style.height = `${ref.current.scrollHeight}px`;
   }, []); // 댓글창 크기 자동조절
 
-  // useEffect(() => {
-  //   if (me) {
-  //     return;
-  //   }
-  //   Router.push('/');
-  // }, []); //로그인 안되있을떄 뒤로 보내기
-
   useEffect(() => {
-    if (addCommentDone) {
-      setComment('');
-      // ref.current.style.height = '20px';
+    if (!me) {
+      Router.push('/');
     }
-  }, [addCommentDone]);
+    if (addCommentDone) {
+      const formData = new FormData();
+      formData.append('bo_no', post.id);
+      dispatch({
+        type: LOAD_COMMENT_REQUEST,
+        data: formData,
+      });
+    }
+  }, [addCommentDone, me, post]);
 
   const commentPost = useCallback(
     (e) => {
@@ -53,17 +53,16 @@ const PostInComment = ({ post }) => {
       if (!comment) {
         return alert('댓글을 작성해주세요');
       }
+      const formData = new FormData();
+      formData.append('bo_no', post.id);
+      formData.append('cmt_content', comment);
+      formData.append('mem_nickname', me.nickname);
       dispatch({
         type: ADD_COMMENT_REQUEST,
-        data: {
-          postId: post.id,
-          User: {
-            id: me.id,
-            nickname: me.nickname,
-          },
-          content: comment,
-        },
+        data: formData,
       });
+      ref.current.style.height = '20px';
+      setComment('');
     },
     [comment, post, me],
   );
@@ -71,6 +70,8 @@ const PostInComment = ({ post }) => {
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
+
+  console.log(postComments);
 
   return (
     <div className={style.mComment}>
@@ -109,10 +110,21 @@ const PostInComment = ({ post }) => {
             })}
           </div>
 
-          <div className={style.time}>{`${Year}년 ${Month}월 ${Day}일`}</div>
+          <div className={style.time}>
+            <div>{timeCalculator(post)}</div>
+          </div>
         </div>
         <div className={style.postComment}>
-          <Comment post={post} />
+          {postComments.map((v) => {
+            return (
+              <ul>
+                <Comment post={post} postComments={v} />
+              </ul>
+            );
+          })}
+          {/* {postComments
+            ? 
+            : null} */}
         </div>
       </div>
 
@@ -130,7 +142,6 @@ const PostInComment = ({ post }) => {
               onChange={onChangeInput}
               required
             />
-            {true}
             <button onClick={commentPost}>게시</button>
           </form>
         </div>
@@ -139,7 +150,7 @@ const PostInComment = ({ post }) => {
   );
 };
 
-PostInComment.propTypes = {
+PostInContent.propTypes = {
   post: PropTypes.shape({
     id: PropTypes.number,
     user: PropTypes.object,
@@ -151,4 +162,4 @@ PostInComment.propTypes = {
   }).isRequired,
 };
 
-export default PostInComment;
+export default PostInContent;

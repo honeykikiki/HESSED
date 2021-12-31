@@ -10,7 +10,7 @@ import {
 } from '../../reducers/postMainAction';
 
 const CommentOptionBtn = ({
-  post,
+  postComments,
   postId,
   commentId,
   bool,
@@ -65,16 +65,10 @@ const CommentOptionBtn = ({
     <>
       {bool ? (
         // 댓글용
-        <span
-          className={style.menu}
-          style={{
-            backgroundImage: 'url(/icon/btn.svg)',
-          }}
-          onClick={onClickOptionOpen}
-        >
-          <img alt="img" />
+        <span className={style.menu} onClick={onClickOptionOpen}>
+          <img style={{ marginBottom: '-5px' }} src="/icon/btn.svg" alt="img" />
           {/* {post.User. === me.id}/{me.id} */}
-          {optionButton ? null : me.id === post.User.id ? (
+          {optionButton ? null : me.nickname === postComments.User.nickname ? (
             <div
               className={style.optionButton}
               style={{ border: '1px solid black' }}
@@ -102,16 +96,10 @@ const CommentOptionBtn = ({
         </span>
       ) : (
         // 답글용
-        <span
-          className={style.menu}
-          style={{
-            backgroundImage: 'url(/icon/btn.svg)',
-          }}
-          onClick={onClickOptionOpen}
-        >
-          <img alt="img" />
+        <span className={style.menu} onClick={onClickOptionOpen}>
+          <img src="/icon/btn.svg" alt="img" />
           {/* {post.User. === me.id}/{me.id} */}
-          {optionButton ? null : me.id === post.User.id ? (
+          {optionButton ? null : me.nickname === postComments.User.nickname ? (
             <div
               className={style.optionButton}
               style={{ border: '1px solid black' }}

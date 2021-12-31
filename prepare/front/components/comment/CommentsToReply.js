@@ -11,7 +11,7 @@ import { COMMENT_TO_REPLY_CLOSE } from '../../reducers/menu';
 import CommentOptionBtn from './CommentOptionBtn';
 
 const CommentsToReply = ({
-  v,
+  postComments,
   userId,
   nickname,
   commentId,
@@ -97,18 +97,18 @@ const CommentsToReply = ({
   );
 
   const onCLickCommentReplyCheckdId = useCallback(
-    (v) => () => {
-      setCommentReplyCheckdId(v.commentReplyId);
+    (postComments) => () => {
+      setCommentReplyCheckdId(postComments.commentReplyId);
     },
     [commentReplyCheckdId],
   );
 
   return (
     <>
-      {!v?.Comments[0] ? null : reply ? (
+      {!postComments?.Comments[0] ? null : reply ? (
         <button type="button" onClick={onClickReply}>
           <span />
-          <p>답글 보기({v.Comments.length}개)</p>
+          <p>답글 보기({postComments.Comments.length}개)</p>
         </button>
       ) : (
         <button type="button" onClick={onClickReply}>
@@ -121,7 +121,7 @@ const CommentsToReply = ({
       <div>
         <div>
           {!reply &&
-            v.Comments.map((v, i) => {
+            postComments.Comments.map((v) => {
               return (
                 <ul key={v.commentReplyId}>
                   <li onClick={onClickOption(v)}>
@@ -138,8 +138,8 @@ const CommentsToReply = ({
                     </div>
 
                     <div className={style.contentInComment}>
-                      <span>{v.User.nickname}</span>
-                      <span>{v.content}</span>
+                      <span>{postComments.User.nickname}</span>
+                      <span>{postComments.content}</span>
                       <span onClick={onCLickCommentReplyCheckdId(v)}>
                         <CommentOptionBtn
                           post={v}
@@ -160,7 +160,7 @@ const CommentsToReply = ({
           <div className={style.form}>
             <div className={style.commentBox}>
               <div onClick={onClickReplyClose}>X</div>
-              <p>{nickname} 님에게 답글 남기는 중</p>
+              <p>{postComments.User.nickname} 님에게 답글 남기는 중</p>
             </div>
             <form>
               <textarea

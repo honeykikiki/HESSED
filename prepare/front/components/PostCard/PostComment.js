@@ -21,22 +21,28 @@ const PostContent = ({ post }) => {
       if (!comment) {
         return alert('댓글을 작성해주세요');
       }
+      const formData = new FormData();
+      formData.append('bo_no', post.id);
+      formData.append('cmt_content', comment);
+      formData.append('mem_nickname', me.nickname);
+
       dispatch({
         type: ADD_COMMENT_REQUEST,
-        data: {
-          postId: +post.id,
-          commentId:
-            post.Comments[post.Comments.length - 1]?.commentId + 1 || 1,
-          User: {
-            id: me.id,
-            nickname: me.nickname,
-          },
-          content: comment,
-          // bo_no : post.id
-          // mem_id: me.id,
-          // cmt_content: comment,
-          // comments: [],
-        },
+        data: formData,
+        // {
+        //   postId: +post.id,
+        //   commentId:
+        //     post.Comments[post.Comments.length - 1]?.commentId + 1 || 1,
+        //   User: {
+        //     id: me.id,
+        //     nickname: me.nickname,
+        //   },
+        //   content: comment,
+        //   // bo_no : post.id
+        //   // mem_id: me.id,
+        //   // cmt_content: comment,
+        //   // comments: [],
+        // },
       });
       setComment('');
     },
