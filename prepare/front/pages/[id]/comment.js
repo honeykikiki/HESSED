@@ -1,17 +1,21 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 
-import PostInComment from '../../components/comment/PostInComment';
+import PostInContent from '../../components/comment/PostInContent';
 
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
-  const dispatch = useDispatch();
   const { mainPosts } = useSelector((state) => state.postMainAction);
+  const { me } = useSelector((state) => state.userInfo);
   const post = mainPosts.find((v) => v.id === +id);
-
+  useEffect(() => {
+    if (!me) {
+      Router.replace('/');
+    }
+  }, [me]);
   return (
     <>
       <Head>
@@ -35,7 +39,8 @@ const Post = () => {
         />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
-      {post ? <PostInComment post={post} /> : null}
+
+      {post ? <PostInContent post={post} /> : null}
     </>
   );
 };

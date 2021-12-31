@@ -89,3 +89,14 @@ export const myPost = (list) =>
       id: v.mem_id,
     },
   }));
+
+export const commentsList = (list) =>
+  list.map((v) => ({
+    User: {
+      nickname: v.mem_nickname,
+      profileImg: v.mem_profileimg,
+    },
+    content: v.cmt_content,
+    date: v.cmt_date,
+    Comments: [],
+  }));

@@ -26,6 +26,7 @@
 
 .mComment {
   width: calc(100%);
+  max-width: 936px;
   height: 100%;
   margin: auto;
   font-size: 1.4rem;
@@ -85,12 +86,12 @@
   display: -ms-flexbox;
   display: flex;
   font-size: 1.2rem;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .timeAndReply div {
   color: #8e8e8e;
-  margin-left: 40px;
+  margin-right: 10px;
 }
 
 .timeAndReply button {
@@ -109,6 +110,10 @@
   padding: 0 20px;
 }
 
+.postComment ul li {
+  margin-top: 20px;
+}
+
 .postComment ul li:nth-child(1) {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -117,6 +122,8 @@
 
 .postComment ul .contentInComment span {
   margin-right: 10px;
+  max-width: 100vw;
+  word-break: break-all;
 }
 
 .postComment ul .contentInComment span img {
@@ -173,7 +180,9 @@
 .form {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -182,6 +191,7 @@
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+  max-width: 936px;
   background-color: #dbdbdb;
   padding: 10px 0;
 }

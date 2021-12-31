@@ -1,13 +1,5 @@
 import axios from 'axios';
-import {
-  all,
-  fork,
-  put,
-  call,
-  delay,
-  takeLatest,
-  throttle,
-} from 'redux-saga/effects';
+import { all, fork, put, call, takeLatest, throttle } from 'redux-saga/effects';
 import { commonRequestPost } from '../hooks/API';
 
 import {
@@ -41,20 +33,43 @@ import {
   LOAD_MORE_POSTS_REQUEST,
   LOAD_MORE_POSTS_SUCCESS,
   LOAD_MORE_POSTS_FAILURE,
+  LOAD_COMMENT_REQUEST,
+  LOAD_COMMENT_SUCCESS,
+  LOAD_COMMENT_FAILURE,
 } from '../reducers/postMainAction';
 
-// 댓글달기
-function addPostCommentAPI(data) {
-  return axios.post(`/post/${data.postId}/Comment`, data);
+// 댓글가져오기
+function* loadComment(action) {
+  try {
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      '/comment/list.do',
+    );
+    yield put({
+      type: LOAD_COMMENT_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: LOAD_COMMENT_FAILURE,
+      data: error.response.data,
+    });
+  }
 }
 
+// 댓글달기
 function* addPostComment(action) {
   try {
-    // const result = yield call(addPostCommentAPI, action.data)
-    yield delay(1000);
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      '/comment/insert.do',
+    );
     yield put({
       type: ADD_COMMENT_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
@@ -65,17 +80,12 @@ function* addPostComment(action) {
   }
 }
 // 댓글 삭제하기
-function removeCommentAPI(data) {
-  return axios.delete(`post/${data.postId}/Comment`);
-}
-
 function* removeComment(action) {
   try {
-    // const result = yield call(removeCommentAPI, action.data)
-    yield delay(1000);
+    const result = yield call(commonRequestPost, action.data, 'url');
     yield put({
       type: REMOVE_COMMENT_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
@@ -87,17 +97,12 @@ function* removeComment(action) {
 }
 
 // 댓글에 답글달기
-function addPostCommentReplyAPI(data) {
-  return axios.post(`/post/${data.postId}/comment/${data.commentId}`, data);
-}
-
 function* addPostCommentReply(action) {
   try {
-    // const result = yield call(addPostCommentReplyAPI, action.data)
-    yield delay(1000);
+    const result = yield call(commonRequestPost, action.data, 'url');
     yield put({
       type: ADD_COMMENT_REPLY_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
@@ -108,17 +113,12 @@ function* addPostCommentReply(action) {
   }
 }
 // 댓글의 답글 삭제하기
-function removeCommentReplyAPI(data) {
-  return axios.delete(`/post/${data.postId}/comment/${data.commentId}`);
-}
-
 function* removeCommentReply(action) {
   try {
-    // const result = yield call(removeCommentReplyAPI, action.data)
-    yield delay(1000);
+    const result = yield call(commonRequestPost, action.data, 'url');
     yield put({
       type: REMOVE_COMMENT_REPLY_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
@@ -248,6 +248,10 @@ function* loadMorePosts(action) {
   }
 }
 
+function* watchLoadComments() {
+  yield takeLatest(LOAD_COMMENT_REQUEST, loadComment);
+}
+
 function* watchAddPostComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addPostComment);
 }
@@ -304,5 +308,6 @@ export default function* postMainActionSaga() {
     fork(watchUnSavePost),
     fork(watchLoadPosts),
     fork(watchLoadMorePosts),
+    fork(watchLoadComments),
   ]);
 }

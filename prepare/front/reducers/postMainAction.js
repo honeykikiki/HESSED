@@ -3,6 +3,7 @@ import { REMOVE_POST_SUCCESS, UPDATE_POST_SUCCESS } from './postAdd';
 import {
   dummyMemberList,
   generateDummyPost,
+  commentsList,
 } from '../hooks/reducer/APIResultChange';
 
 //  더미데이터
@@ -26,25 +27,35 @@ import {
 export const initialState = {
   mainPosts: [],
   memberList: [],
+  postComments: [],
+
+  loadCommentLoading: false, // 게시물 댓글 가져오기
+  loadCommentDone: false,
+  loadCommentError: null,
+  loadCommentFalid: true,
 
   addCommentLoading: false, // 댓글달기
   addCommentDone: false,
   addCommentError: null,
+
   removeCommentLoading: false, // 댓글 삭제
   removeCommentDone: false,
   removeCommentError: null,
+
   addCommentReplyLoading: false, // 댓글의 답글 달기
   addCommentReplyDone: false,
   addCommentReplyError: null,
   removeCommentReplyLoading: false, // 댓글의 답글 삭제
   removeCommentReplyDone: false,
   removeCommentReplyError: null,
+
   likePostLoading: false, // 좋아요
   likePostDone: false,
   likePostError: null,
   unLikePostLoading: false, // 좋아요 취소
   unLikePostDone: false,
   unLikePostError: null,
+
   savePostLoading: false, // 게시물 저장
   savePostDone: false,
   savePostError: null,
@@ -76,6 +87,10 @@ export const initialState = {
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+export const LOAD_COMMENT_REQUEST = 'LOAD_COMMENT_REQUEST';
+export const LOAD_COMMENT_SUCCESS = 'LOAD_COMMENT_SUCCESS';
+export const LOAD_COMMENT_FAILURE = 'LOAD_COMMENT_FAILURE';
 
 export const REMOVE_COMMENT_REQUEST = 'REMOVE_COMMENT_REQUEST';
 export const REMOVE_COMMENT_SUCCESS = 'REMOVE_COMMENT_SUCCESS';
@@ -137,6 +152,30 @@ const reducer = (state = initialState, action) => {
         }
         break;
 
+      // 댓글 블러오기
+      case LOAD_COMMENT_REQUEST:
+        draft.loadCommentLoading = true;
+        draft.loadCommentDone = false;
+        draft.loadCommentError = null;
+        break;
+      case LOAD_COMMENT_SUCCESS: {
+        console.log(action.data);
+        if (action.data.result === 'SUCCESS') {
+          draft.postComments = commentsList(action.data.list);
+          draft.loadCommentLoading = false;
+          draft.loadCommentDone = true;
+          draft.addCommentDone = false;
+        } else {
+          draft.loadCommentLoading = false;
+          draft.loadCommentDone = false;
+        }
+        break;
+      }
+      case LOAD_COMMENT_FAILURE:
+        draft.addCommentDone = false;
+        draft.addCommentError = action.error;
+        break;
+
       // 댓글달기
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;
@@ -144,11 +183,15 @@ const reducer = (state = initialState, action) => {
         draft.addCommentError = null;
         break;
       case ADD_COMMENT_SUCCESS: {
-        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-        post.Comments.push(action.data);
-        draft.addCommentLoading = false;
-        draft.addCommentDone = true;
-        draft.addCommentError = null;
+        if (action.data === 'SUCCESS') {
+          // const post = draft.mainPosts.find((v) => v.id === action.data.bo_no);
+          // post.Comments.push(action.data);
+          draft.addCommentLoading = false;
+          draft.addCommentDone = true;
+        } else {
+          draft.addCommentLoading = false;
+          draft.addCommentDone = false;
+        }
         break;
       }
       case ADD_COMMENT_FAILURE:
