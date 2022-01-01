@@ -15,7 +15,7 @@ import {
 } from '../reducers/postMainAction';
 import { PAGE_CHANGE } from '../reducers/postAdd';
 import MemberListBox from '../components/memberList/MemberListBox';
-import Loading from '../components/loading/Loading';
+import Loading from '../components/loading/loading';
 
 const Home = () => {
   const dispatch = useDispatch();

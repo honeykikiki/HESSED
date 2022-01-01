@@ -2,7 +2,7 @@ import React from 'react';
 
 import style from '../../styles/css/loading.module.css';
 
-const Loading = () => {
+const loading = () => {
   return (
     <>
       <div className={style.loading}>
@@ -12,4 +12,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default loading;
