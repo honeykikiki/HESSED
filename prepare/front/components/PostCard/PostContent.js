@@ -86,28 +86,44 @@ const PostContent = ({ post }) => {
           <button onClick={contentMore}>... 더보기</button>
         ) : null}
       </div>
-      {post?.Comments?.length > 2 && (
-        <Link href={`/${post.id}/comment`}>
-          <a>
-            <p className={style.commentMore} onClick={loadPostRequest}>
-              {post.Comments.length}개의 댓글 모두보기
-            </p>
-          </a>
-        </Link>
-      )}
+
+      <Link href={`/${post.id}/comment`}>
+        <a>
+          <p className={style.commentMore} onClick={loadPostRequest}>
+            {post.Comments.length > 2
+              ? `${post.Comments.length}개의댓글 모두보기`
+              : null}
+          </p>
+        </a>
+      </Link>
+
       <div>
         <div>
           {post.Comments.length > 0 ? (
-            <div className={style.comment}>
-              <div>
-                <span>{`${post.Comments[0]?.User?.nickname ?? ''}`}</span>
-                <span>{`${post.Comments[0]?.content ?? ''}`}</span>
-              </div>
-              <div>
-                <span>{`${post?.Comments[1]?.User?.nickname ?? ''}  `}</span>
-                <span>{`${post?.Comments[1]?.content ?? ''} `}</span>
-              </div>
-            </div>
+            <Link href={`/${post.id}/comment`}>
+              <a>
+                <div className={style.comment}>
+                  {post.Comments[0] ? (
+                    <div>
+                      <span>{`${post.Comments[0]?.nickname}`}</span>
+                      <span>{`${post.Comments[0]?.comment}`}</span>
+                    </div>
+                  ) : null}
+                  {post.Comments[1] ? (
+                    <div>
+                      <span>{`${post.Comments[1]?.nickname}`}</span>
+                      <span>{`${post.Comments[1]?.comment}`}</span>
+                    </div>
+                  ) : null}
+                  {post.Comments[2] ? (
+                    <div>
+                      <span>{`${post.Comments[2]?.nickname}`}</span>
+                      <span>{`${post.Comments[2]?.comment}`}</span>
+                    </div>
+                  ) : null}
+                </div>
+              </a>
+            </Link>
           ) : null}
         </div>
       </div>
@@ -122,7 +138,7 @@ PostContent.propTypes = {
     user: PropTypes.object,
     content: PropTypes.string,
     data: PropTypes.string,
-    comments: PropTypes.arrayOf(PropTypes.object),
+    Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,

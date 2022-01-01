@@ -128,6 +128,8 @@ export const LOAD_MORE_POSTS_REQUEST = 'LOAD_MORE_POSTS_REQUEST';
 export const LOAD_MORE_POSTS_SUCCESS = 'LOAD_MORE_POSTS_SUCCES';
 export const LOAD_MORE_POSTS_FAILURE = 'LOAD_MORE_POSTS_FAILURE';
 
+export const MAIN_SCREEN_COMMENT_PUSH = 'MAIN_SCREEN_COMMENT_PUSH';
+
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
@@ -152,6 +154,14 @@ const reducer = (state = initialState, action) => {
         }
         break;
 
+      // 메인 화면에서 댓글달때 게시물에 작성 댓글보이게
+      case MAIN_SCREEN_COMMENT_PUSH:
+        console.log(action.data);
+        // eslint-disable-next-line no-case-declarations
+        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        post.Comments.push(action.data);
+        break;
+
       // 댓글 블러오기
       case LOAD_COMMENT_REQUEST:
         draft.loadCommentLoading = true;
@@ -159,13 +169,14 @@ const reducer = (state = initialState, action) => {
         draft.loadCommentError = null;
         break;
       case LOAD_COMMENT_SUCCESS: {
-        console.log(action.data);
         if (action.data.result === 'SUCCESS') {
           draft.postComments = commentsList(action.data.list);
           draft.loadCommentLoading = false;
           draft.loadCommentDone = true;
           draft.addCommentDone = false;
+          draft.addCommentReplyDone = false;
         } else {
+          draft.postComments = [];
           draft.loadCommentLoading = false;
           draft.loadCommentDone = false;
         }
@@ -230,14 +241,14 @@ const reducer = (state = initialState, action) => {
         draft.addCommentReplyError = null;
         break;
       case ADD_COMMENT_REPLY_SUCCESS: {
-        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-        post.Comments.find(
-          (v) => v.commentId === action.data.commentId,
-        ).Comments.push(action.data);
+        if (action.data === 'OK') {
+          draft.addCommentReplyLoading = false;
+          draft.addCommentReplyDone = true;
+        } else {
+          draft.addCommentReplyLoading = false;
+          draft.addCommentReplyDone = false;
+        }
 
-        draft.addCommentReplyLoading = false;
-        draft.addCommentReplyDone = true;
-        draft.addCommentReplyError = null;
         break;
       }
       case ADD_COMMENT_REPLY_FAILURE:

@@ -37,11 +37,16 @@ const MemberList = () => {
   );
 
   const touchEnd = useCallback(
-    (event) => {
-      setEndX(event.changedTouches[0].pageX);
+    async (event) => {
+      setEndX(await event.changedTouches[0].pageX);
+
+      if (startX === 0 || endX === 0) {
+        return;
+      }
 
       if (curPos > (memberList.length - 1) * 80 - windowScreenWidth) {
         setCurPos((memberList.length - 1) * 80 - windowScreenWidth);
+
         return;
       }
 
@@ -51,9 +56,11 @@ const MemberList = () => {
       ) {
         if (windowScreenWidth > 968) {
           setCurPos(memberList.length * 80 - windowScreenWidth);
+
           return;
         }
         setCurPos((memberList.length - 1) * 80 - windowScreenWidth);
+
         return;
       }
 

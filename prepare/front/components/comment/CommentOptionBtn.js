@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,22 +9,32 @@ import {
   REMOVE_COMMENT_REQUEST,
 } from '../../reducers/postMainAction';
 
-const CommentOptionBtn = ({
-  postComments,
-  postId,
-  commentId,
-  bool,
-  commentReplyCheckdId,
-}) => {
+const CommentOptionBtn = ({ postComments, bool }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
   const [optionButton, setOptionButton] = useState(true);
+
+  useEffect(() => {
+    if (optionButton) {
+      document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+      return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      };
+    }
+  }, [optionButton]);
 
   const onClickOptionOpen = useCallback(() => {
     if (optionButton) {
       setOptionButton(false);
     }
   }, [optionButton]);
+
   const onClickOptionClose = useCallback(() => {
     if (!optionButton) {
       setOptionButton(true);
@@ -35,23 +45,22 @@ const CommentOptionBtn = ({
     dispatch({
       type: REMOVE_COMMENT_REQUEST,
       data: {
-        postId: +postId,
-        commentId,
+        postId: postComments.Id,
+        commentId: postComments.commentId,
         userId: me.id,
         // bo_no : postId
         // mem_no : me.id
         // cmt_no : commentId
       },
     });
-  }, [postId, commentId]);
+  }, [postComments]);
 
   const onClickCommentReplyRemove = useCallback(() => {
     dispatch({
       type: REMOVE_COMMENT_REPLY_REQUEST,
       data: {
-        postId: +postId,
-        commentId,
-        commentReplyId: commentReplyCheckdId,
+        postId: postComments.Id,
+        commentId: postComments.commentId,
         userId: me.id,
         // bo_no : postId
         // mem-no : me.id
@@ -59,7 +68,7 @@ const CommentOptionBtn = ({
         // cmt_parent : ??
       },
     });
-  }, [commentId, commentReplyCheckdId, postId]);
+  }, [postComments]);
 
   return (
     <>
@@ -67,7 +76,6 @@ const CommentOptionBtn = ({
         // 댓글용
         <span className={style.menu} onClick={onClickOptionOpen}>
           <img style={{ marginBottom: '-5px' }} src="/icon/btn.svg" alt="img" />
-          {/* {post.User. === me.id}/{me.id} */}
           {optionButton ? null : me.nickname === postComments.User.nickname ? (
             <div
               className={style.optionButton}
@@ -98,7 +106,6 @@ const CommentOptionBtn = ({
         // 답글용
         <span className={style.menu} onClick={onClickOptionOpen}>
           <img src="/icon/btn.svg" alt="img" />
-          {/* {post.User. === me.id}/{me.id} */}
           {optionButton ? null : me.nickname === postComments.User.nickname ? (
             <div
               className={style.optionButton}
@@ -131,19 +138,14 @@ const CommentOptionBtn = ({
 };
 
 CommentOptionBtn.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number,
-    user: PropTypes.object,
+  postComments: PropTypes.shape({
+    commentId: PropTypes.number,
+    User: PropTypes.objectOf(PropTypes.string),
     content: PropTypes.string,
-    data: PropTypes.string,
-    comments: PropTypes.arrayOf(PropTypes.object),
-    Images: PropTypes.arrayOf(PropTypes.object),
-    Likers: PropTypes.arrayOf(PropTypes.object),
+    date: PropTypes.string,
+    depth: PropTypes.number,
+    // Comments: PropTypes.arrayOf(null),
   }).isRequired,
-  postId: PropTypes.number.isRequired,
-  commentId: PropTypes?.number.isRequired,
-  bool: PropTypes.bool.isRequired,
-  commentReplyCheckdId: PropTypes?.number.isRequired,
 };
 
 export default CommentOptionBtn;

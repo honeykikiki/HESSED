@@ -10,7 +10,7 @@ import {
   SIGNUP_FAILED,
 } from '../reducers/userSign';
 import style from '../styles/css/loginForm.module.css';
-import Loading from '../components/loading/loading';
+import Loading from '../components/loading/Loading';
 
 const Login = () => {
   const dispatch = useDispatch();

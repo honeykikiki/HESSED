@@ -15,7 +15,7 @@ import { baseURL } from '../config/config';
 import ProfileSavePost from '../components/profile/ProfileSavePost';
 import useinput from '../hooks/useinput';
 import { imageUpdate } from '../hooks/imageUpdateFunc/imageUpdate';
-import Loading from '../components/loading/loading';
+import Loading from '../components/loading/Loading';
 import { PAGE_CHANGE } from '../reducers/postAdd';
 
 const Profile = () => {

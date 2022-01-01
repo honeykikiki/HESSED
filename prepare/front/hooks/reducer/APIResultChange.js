@@ -92,11 +92,14 @@ export const myPost = (list) =>
 
 export const commentsList = (list) =>
   list.map((v) => ({
+    postId: v.bo_no,
+    commentId: v.cmt_no,
     User: {
       nickname: v.mem_nickname,
       profileImg: v.mem_profileimg,
     },
     content: v.cmt_content,
     date: v.cmt_date,
+    depth: v.cmt_depth,
     Comments: [],
   }));

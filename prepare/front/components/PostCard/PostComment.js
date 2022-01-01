@@ -1,22 +1,23 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postComment.module.css';
 import useinput from '../../hooks/useinput';
-import { ADD_COMMENT_REQUEST } from '../../reducers/postMainAction';
+import {
+  ADD_COMMENT_REQUEST,
+  MAIN_SCREEN_COMMENT_PUSH,
+} from '../../reducers/postMainAction';
 
 const PostContent = ({ post }) => {
   const dispatch = useDispatch();
   const { addCommentDone } = useSelector((state) => state.postMainAction);
   const { me } = useSelector((state) => state.userInfo);
-
-  // const id = useSelector((state) => state.user.me?.id);
   const [comment, onChangeInput, setComment] = useinput('');
 
   const commentPost = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       if (!comment) {
         return alert('댓글을 작성해주세요');
@@ -29,24 +30,19 @@ const PostContent = ({ post }) => {
       dispatch({
         type: ADD_COMMENT_REQUEST,
         data: formData,
-        // {
-        //   postId: +post.id,
-        //   commentId:
-        //     post.Comments[post.Comments.length - 1]?.commentId + 1 || 1,
-        //   User: {
-        //     id: me.id,
-        //     nickname: me.nickname,
-        //   },
-        //   content: comment,
-        //   // bo_no : post.id
-        //   // mem_id: me.id,
-        //   // cmt_content: comment,
-        //   // comments: [],
-        // },
       });
+      dispatch({
+        type: MAIN_SCREEN_COMMENT_PUSH,
+        data: {
+          nickname: me.nickname,
+          comment,
+          postId: post.id,
+        },
+      });
+
       setComment('');
     },
-    [comment],
+    [comment, me, post, addCommentDone],
   );
 
   return (

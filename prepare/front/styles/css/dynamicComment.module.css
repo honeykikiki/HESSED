@@ -1,7 +1,11 @@
 .head {
+  position: fixed;
+  top: 0;
+  width: 100%;
   padding: 25px 0px;
   border-bottom: 1px solid #dbdbdb;
-  position: relative;
+  background-color: white;
+  z-index: 100;
 }
 
 .head div:nth-child(1) {
@@ -31,6 +35,7 @@
   margin: auto;
   font-size: 1.4rem;
   margin-bottom: 64px;
+  margin-top: 51px;
 }
 
 .mComment .mContent {
@@ -101,8 +106,12 @@
   font-size: 1.2rem;
 }
 
+.timeAndReply p {
+  color: #8e8e8e;
+}
+
 .postComment {
-  width: calc(100%);
+  width: 100%;
 }
 
 .postComment ul {
@@ -118,6 +127,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.postComment ul .contentInComment {
+  width: 100%;
 }
 
 .postComment ul .contentInComment span {
@@ -145,7 +158,7 @@
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  background-color: white;
+  background-color: transparent;
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
@@ -161,7 +174,7 @@
   clear: both;
   position: absolute;
   left: 0%;
-  top: 50%;
+  top: 5px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   width: 24px;
@@ -174,7 +187,12 @@
 }
 
 .postComment ul .reply ul {
-  margin-left: 10px;
+  margin-left: -100px;
+}
+
+.postComment ul .reply ul .userIcon {
+  width: 27px;
+  height: 27px;
 }
 
 .form {

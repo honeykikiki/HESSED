@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from '../../styles/css/upload.module.css';
 
 import { ADD_POST_REQUEST } from '../../reducers/postAdd';
-import Loading from '../loading/loading';
+import Loading from '../loading/Loading';
 import { imageUpdate } from '../../hooks/imageUpdateFunc/imageUpdate';
 import FormUploadTwo from './FormUploadTwo';
 
