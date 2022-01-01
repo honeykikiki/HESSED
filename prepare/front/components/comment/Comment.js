@@ -57,6 +57,7 @@ const Comment = ({ postComments }) => {
                 <span>{postComments.content}</span>
               </>
             )}
+
             {/* <span>
               <CommentOptionBtn
                 postComments={postComments}
@@ -77,11 +78,10 @@ const Comment = ({ postComments }) => {
             </div>
           </div>
         </li>
-      ) : (
-        <li className={style.reply}>
-          <CommentsToReply postComments={postComments} />
-        </li>
-      )}
+      ) : // <li className={style.reply}>
+      //   <CommentsToReply postComments={postComments} />
+      // </li>
+      null}
     </>
   );
 };
