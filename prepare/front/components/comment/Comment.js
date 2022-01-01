@@ -11,13 +11,10 @@ import CommentsToReply from './CommentsToReply';
 import CommentOptionBtn from './CommentOptionBtn';
 import { timeCalculator } from '../../hooks/timer/timeCalculator';
 
-const Comment = ({ post, postComments }) => {
+const Comment = ({ postComments }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
 
-  const [userId, setUserId] = useState();
-  const [nickname, setNickname] = useState();
-  const [commentId, setCommentId] = useState();
   const [commentBool] = useState(true);
 
   useEffect(() => {
@@ -26,101 +23,77 @@ const Comment = ({ post, postComments }) => {
     }
   }, [me]);
 
-  const onClickPostUserInfo = useCallback(
-    (v) => () => {
-      setUserId(v.User.id);
-      setNickname(v.User.nickname);
-      setCommentId(v.commentId);
-      dispatch({
-        type: COMMENT_TO_REPLY_OPEN,
-      });
-    },
-    [],
-  );
-  const onClickOption = useCallback(
-    (v) => () => {
-      setCommentId(v.commentId);
-    },
-    [commentId],
-  );
+  const onClickPostUserInfo = useCallback(() => {
+    dispatch({
+      type: COMMENT_TO_REPLY_OPEN,
+    });
+  }, []);
 
   return (
     <>
-      <li>
-        <div>
-          <div className={style.userIcon}>
-            {postComments.User.profileImg ? (
-              <img
-                src={`${baseURL}/${postComments.User.profileImg}`}
-                alt="profileImg"
-              />
-            ) : (
-              <img src="/icon/profileBasic.svg" alt="profileImg" />
-            )}
+      {postComments.depth === 0 ? (
+        <li>
+          <div>
+            <div className={style.userIcon}>
+              {postComments.User.profileImg ? (
+                <img
+                  src={`${baseURL}/${postComments.User.profileImg}`}
+                  alt="profileImg"
+                />
+              ) : (
+                <img src="/icon/profileBasic.svg" alt="profileImg" />
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className={style.contentInComment}>
-          <span>{postComments.User.nickname}</span>
+          <div className={style.contentInComment}>
+            <span>{postComments.User.nickname}</span>
 
-          {postComments.content.length > 20 ? (
-            <span>{postComments.content}</span>
-          ) : (
-            <>
-              <br />
+            {postComments.content.length < 20 ? (
               <span>{postComments.content}</span>
-            </>
-          )}
-          {/* <span onClick={onClickOption(postComments)}>
-            <CommentOptionBtn
-              postComments={postComments}
-              postId={post.id}
-              commentId={commentId}
-              bool={commentBool}
-            />
-          </span> */}
-          <div className={style.timeAndReply}>
-            <div>
-              <p>{timeCalculator(postComments)}</p>
-            </div>
-            <div>
-              {/* <button
-                style={{ marginTop: -20 }}
-                onClick={onClickPostUserInfo(postComments)}
-              >
-                답글 달기
-              </button> */}
+            ) : (
+              <>
+                <br />
+                <span>{postComments.content}</span>
+              </>
+            )}
+            {/* <span>
+              <CommentOptionBtn
+                postComments={postComments}
+                bool={commentBool}
+              />
+            </span> */}
+
+            <div className={style.timeAndReply}>
+              <div>{timeCalculator(postComments)}</div>
+              <div>
+                {/* <button
+                  style={{ marginTop: -20 }}
+                  onClick={onClickPostUserInfo}
+                >
+                  답글 달기
+                </button> */}
+              </div>
             </div>
           </div>
-        </div>
-      </li>
-
-      {/* 여기서 답글 반복문 돌리기 */}
-
-      {/* <li className={style.reply}>
-        <CommentsToReply
-          postComments={postComments}
-          userId={userId}
-          nickname={nickname}
-          commentId={commentId}
-          onClickOption={onClickOption}
-          post={post}
-        />
-      </li> */}
+        </li>
+      ) : (
+        <li className={style.reply}>
+          <CommentsToReply postComments={postComments} />
+        </li>
+      )}
     </>
   );
 };
 
 Comment.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number,
-    user: PropTypes.object,
+  postComments: PropTypes.shape({
+    commentId: PropTypes.number,
+    User: PropTypes.objectOf(PropTypes.string),
     content: PropTypes.string,
-    createdAt: PropTypes.string,
-    comments: PropTypes.arrayOf(PropTypes.object),
-    Images: PropTypes.arrayOf(PropTypes.object),
-    Likers: PropTypes.arrayOf(PropTypes.object),
-    Retweet: PropTypes.objectOf(PropTypes.any),
+    date: PropTypes.string,
+    depth: PropTypes.number,
+    // Comments: PropTypes.arrayOf,
   }).isRequired,
 };
 

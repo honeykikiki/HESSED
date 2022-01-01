@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import PostInContent from '../../components/comment/PostInContent';
 

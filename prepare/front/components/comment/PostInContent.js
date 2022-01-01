@@ -14,13 +14,18 @@ import useinput from '../../hooks/useinput';
 import Comment from './Comment';
 import { baseURL } from '../../config/config';
 import { timeCalculator } from '../../hooks/timer/timeCalculator';
+import Loading from '../loading/loading';
 
 const PostInContent = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
-  const { addCommentDone } = useSelector((state) => state.postMainAction);
+  const { addCommentDone, loadCommentLoading } = useSelector(
+    (state) => state.postMainAction,
+  );
   const { commentToReply } = useSelector((state) => state.menu);
-  const { postComments } = useSelector((state) => state.postMainAction);
+  const { postComments, addCommentReplyDone } = useSelector(
+    (state) => state.postMainAction,
+  );
 
   const [comment, onChangeInput, setComment] = useinput('');
 
@@ -37,7 +42,7 @@ const PostInContent = ({ post }) => {
     if (!me) {
       Router.push('/');
     }
-    if (addCommentDone) {
+    if (addCommentDone || addCommentReplyDone) {
       const formData = new FormData();
       formData.append('bo_no', post.id);
       dispatch({
@@ -45,7 +50,7 @@ const PostInContent = ({ post }) => {
         data: formData,
       });
     }
-  }, [addCommentDone, me, post]);
+  }, [addCommentDone, addCommentReplyDone, me, post]);
 
   const commentPost = useCallback(
     (e) => {
@@ -57,6 +62,7 @@ const PostInContent = ({ post }) => {
       formData.append('bo_no', post.id);
       formData.append('cmt_content', comment);
       formData.append('mem_nickname', me.nickname);
+
       dispatch({
         type: ADD_COMMENT_REQUEST,
         data: formData,
@@ -70,8 +76,6 @@ const PostInContent = ({ post }) => {
   const onClickBack = useCallback(() => {
     Router.back();
   }, []);
-
-  console.log(postComments);
 
   return (
     <div className={style.mComment}>
@@ -114,17 +118,19 @@ const PostInContent = ({ post }) => {
             <div>{timeCalculator(post)}</div>
           </div>
         </div>
+
         <div className={style.postComment}>
-          {postComments.map((v) => {
-            return (
-              <ul>
-                <Comment post={post} postComments={v} />
-              </ul>
-            );
-          })}
-          {/* {postComments
-            ? 
-            : null} */}
+          {loadCommentLoading ? (
+            <Loading />
+          ) : (
+            postComments.map((v) => {
+              return (
+                <ul key={v.date}>
+                  <Comment postComments={v} />
+                </ul>
+              );
+            })
+          )}
         </div>
       </div>
 

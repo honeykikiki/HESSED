@@ -99,7 +99,11 @@ function* removeComment(action) {
 // 댓글에 답글달기
 function* addPostCommentReply(action) {
   try {
-    const result = yield call(commonRequestPost, action.data, 'url');
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      '/comment/reply.do',
+    );
     yield put({
       type: ADD_COMMENT_REPLY_SUCCESS,
       data: result.data,

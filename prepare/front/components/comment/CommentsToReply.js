@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,24 +9,16 @@ import { ADD_COMMENT_REPLY_REQUEST } from '../../reducers/postMainAction';
 import { COMMENT_TO_REPLY_CLOSE } from '../../reducers/menu';
 
 import CommentOptionBtn from './CommentOptionBtn';
+import { baseURL } from '../../config/config';
+import { timeCalculator } from '../../hooks/timer/timeCalculator';
 
-const CommentsToReply = ({
-  postComments,
-  userId,
-  nickname,
-  commentId,
-  onClickOption,
-  post,
-}) => {
+const CommentsToReply = ({ postComments }) => {
   const dispatch = useDispatch();
   const { commentToReply } = useSelector((state) => state.menu);
   const { addCommentReplyDone } = useSelector((state) => state.postMainAction);
-  const { me } = useSelector((state) => state.userInfo);
 
   const [reply, , setReply] = useinput(true);
   const [commentReply, onChangeInput, setCommentReply] = useinput('');
-
-  const [commentReplyCheckdId, setCommentReplyCheckdId] = useState();
 
   const ref = useRef();
   const handleResizeHeight = useCallback(() => {
@@ -59,53 +51,30 @@ const CommentsToReply = ({
     });
   }, [commentToReply]);
 
-  // const CommentsNum = post?.Comments?.findIndex(
-  //   (v) => v.commentId === commentId,
-  // );
-  // const commentReplyIdNum =
-  //   post.Comments[CommentsNum]?.Comments[
-  //     post.Comments[CommentsNum]?.Comments.length - 1
-  //   ]?.commentReplyId + 1 || 1;
-
   const onClickAddReply = useCallback(
     (e) => {
       e.preventDefault();
       if (!commentReply) {
         return alert('댓글을 작성해주세요');
       }
+
+      const formDate = new FormData();
+      formDate.append('bo_no', postComments.postId);
+      formDate.append('cmt_no', postComments.commentId);
+      formDate.append('cmt_content', commentReply);
+      formDate.append('mem_nickname', postComments.User.nickname);
+
       dispatch({
         type: ADD_COMMENT_REPLY_REQUEST,
-        data: {
-          postId: post.id,
-          commentId,
-          // commentReplyId: commentReplyIdNum,
-          userId,
-          User: {
-            id: me.id,
-            nickname: me.nickname,
-          },
-          content: commentReply,
-          // bo_no : postId
-          // mem_no : me.id
-          // cmt_no : commentId
-          // cmt_content : commentReply
-          // cmt_parent : ??
-        },
+        data: formDate,
       });
     },
-    [commentId, commentReply, userId],
-  );
-
-  const onCLickCommentReplyCheckdId = useCallback(
-    (postComments) => () => {
-      setCommentReplyCheckdId(postComments.commentReplyId);
-    },
-    [commentReplyCheckdId],
+    [postComments, commentReply],
   );
 
   return (
     <>
-      {!postComments?.Comments[0] ? null : reply ? (
+      {!postComments ? null : reply ? (
         <button type="button" onClick={onClickReply}>
           <span />
           <p>답글 보기({postComments.Comments.length}개)</p>
@@ -120,40 +89,38 @@ const CommentsToReply = ({
       {/* 댓글 더보기 컴포넌트 분리하기 */}
       <div>
         <div>
-          {!reply &&
-            postComments.Comments.map((v) => {
-              return (
-                <ul key={v.commentReplyId}>
-                  <li onClick={onClickOption(v)}>
-                    <div>
-                      <div
-                        className={style.userIcon}
-                        // style={{
-                        //   background: 'url(/icon/profle_img.png) ',
-                        //   backgroundSize: 'contain',
-                        // }}
-                      >
-                        {v.User.nickname[0]}
-                      </div>
-                    </div>
+          {!reply && (
+            <ul>
+              <li>
+                <div>
+                  <div className={style.userIcon}>
+                    {postComments.User.profileImg ? (
+                      <img
+                        src={`${baseURL}/${postComments.User.profileImg}`}
+                        alt="profileImg"
+                      />
+                    ) : (
+                      <img src="/icon/profileBasic.svg" alt="profileImg" />
+                    )}
+                  </div>
+                </div>
 
-                    <div className={style.contentInComment}>
-                      <span>{postComments.User.nickname}</span>
-                      <span>{postComments.content}</span>
-                      <span onClick={onCLickCommentReplyCheckdId(v)}>
-                        <CommentOptionBtn
-                          post={v}
-                          postId={post.id}
-                          bool={false}
-                          commentReplyCheckdId={commentReplyCheckdId}
-                          commentId={commentId}
-                        />
-                      </span>
-                    </div>
-                  </li>
-                </ul>
-              );
-            })}
+                <div className={style.contentInComment}>
+                  <span>{postComments.User.nickname}</span>
+                  <span>{postComments.content}</span>
+                  <span>
+                    <CommentOptionBtn
+                      postComments={postComments}
+                      bool={false}
+                    />
+                  </span>
+                  <div className={style.timeAndReply}>
+                    {timeCalculator(postComments)}
+                  </div>
+                </div>
+              </li>
+            </ul>
+          )}
         </div>
 
         {!commentToReply ? (
@@ -184,20 +151,14 @@ const CommentsToReply = ({
 };
 
 CommentsToReply.proptypes = {
-  v: PropTypes.shape({
-    id: PropTypes.number,
-    user: PropTypes.object,
+  postComments: PropTypes.shape({
+    commentId: PropTypes.number,
+    User: PropTypes.objectOf(PropTypes.string),
     content: PropTypes.string,
-    data: PropTypes.string,
-    comments: PropTypes.arrayOf(PropTypes.object),
-    Images: PropTypes.arrayOf(PropTypes.object),
-    Likers: PropTypes.arrayOf(PropTypes.object),
+    date: PropTypes.string,
+    depth: PropTypes.number,
+    Comments: PropTypes.arrayOf,
   }).isRequired,
-  userId: PropTypes.string.isRequired,
-  nickname: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  commentId: PropTypes.number.isRequired,
-  onClickOption: PropTypes.object.isRequired,
 };
 
 export default CommentsToReply;
