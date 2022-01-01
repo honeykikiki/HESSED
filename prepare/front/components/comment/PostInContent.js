@@ -14,7 +14,7 @@ import useinput from '../../hooks/useinput';
 import Comment from './Comment';
 import { baseURL } from '../../config/config';
 import { timeCalculator } from '../../hooks/timer/timeCalculator';
-import Loading from '../loading/Loading';
+import Loading from '../loading/loading';
 
 const PostInContent = ({ post }) => {
   const dispatch = useDispatch();
