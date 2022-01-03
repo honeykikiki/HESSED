@@ -78,10 +78,12 @@ const Comment = ({ postComments }) => {
             </div>
           </div>
         </li>
-      ) : // <li className={style.reply}>
-      //   <CommentsToReply postComments={postComments} />
-      // </li>
-      null}
+      ) : (
+        // <li className={style.reply}>
+        //   <CommentsToReply postComments={postComments} />
+        // </li>
+        <div />
+      )}
     </>
   );
 };

@@ -76,10 +76,6 @@ const PostIcon = ({ post }) => {
     });
   }, [post]);
 
-  const servicePreparing = () => {
-    alert('댓글서비스 준비중입니다!');
-  };
-
   const onShare = useCallback(async () => {
     setUrl(`http://localhost:3030/post/${post.id}`);
     // navigator.clipboard.writeText(`${window.location.href}${post.id}`);

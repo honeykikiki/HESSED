@@ -156,7 +156,6 @@ const reducer = (state = initialState, action) => {
 
       // 메인 화면에서 댓글달때 게시물에 작성 댓글보이게
       case MAIN_SCREEN_COMMENT_PUSH:
-        console.log(action.data);
         // eslint-disable-next-line no-case-declarations
         const post = draft.mainPosts.find((v) => v.id === action.data.postId);
         post.Comments.push(action.data);
