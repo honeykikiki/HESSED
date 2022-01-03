@@ -13,9 +13,9 @@
 
 ## 배포 vercel
 
-<span><img src="./readme/login.jpeg"/></span><br/>
-<span><img src="./readme/signup.jpeg"/></span><br/>
-<span><img src="./readme/main.jpeg"/></span><br/>
+<span><img src="./readme/login.jpeg" width='300px' /></span><br/>
+<span><img src="./readme/signup.jpeg" width='300px' /></span><br/>
+<span><img src="./readme/main.jpeg" width='300px' /></span><br/>
 
 ### 시작
 
