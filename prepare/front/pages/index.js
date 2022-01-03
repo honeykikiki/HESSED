@@ -26,6 +26,7 @@ const Home = () => {
     loadPostFalid,
     loadPostMoreFalid,
     pageNumber,
+    notice,
   } = useSelector((state) => state.postMainAction);
   const { postCompleat, updateCompleat } = useSelector(
     (state) => state.postAdd,

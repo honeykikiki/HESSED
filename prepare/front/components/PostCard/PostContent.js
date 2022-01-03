@@ -71,14 +71,19 @@ const PostContent = ({ post }) => {
           </span>
         ) : (
           <span>
-            {post.content.split('\n').map((v) => {
-              return (
-                <span key={v}>
-                  {v}
-                  <br />
-                </span>
-              );
-            })}
+            <br />
+            <Link href={`/${post.id}/comment`}>
+              <a>
+                {post.content.split('\n').map((v) => {
+                  return (
+                    <span key={v}>
+                      {v}
+                      <br />
+                    </span>
+                  );
+                })}
+              </a>
+            </Link>
           </span>
         )}
 
@@ -127,7 +132,7 @@ const PostContent = ({ post }) => {
           ) : null}
         </div>
       </div>
-      <div>{timeCalculator(post)}</div>
+      <div className={style.timeCalculator}>{timeCalculator(post)}</div>
     </article>
   );
 };

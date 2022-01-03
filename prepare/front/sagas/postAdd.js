@@ -21,6 +21,7 @@ function* addPost(action) {
       action.data,
       `/board/insert.do`,
     );
+
     yield put({
       type: ADD_POST_SUCCESS,
       data: result.data,
@@ -33,6 +34,7 @@ function* addPost(action) {
     });
   }
 }
+
 // 게시물 수정
 function* updatePost(action) {
   try {
