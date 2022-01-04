@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 import style from '../../styles/css/postImage.module.css';
 import { baseURL } from '../../config/config';
 
-let startX;
-let endX;
-
 const PostImages = ({ images }) => {
   const [imageCuurrentNo, setImageCuurrentNo] = useState(0);
   const [curPos, setCurPos] = useState(0);
+  const [startX, setStartX] = useState();
+  const [endX, setEndX] = useState();
 
   const onClickLeft = useCallback(() => {
     if (imageCuurrentNo > 0) {
@@ -42,25 +41,31 @@ const PostImages = ({ images }) => {
     }
   }, [imageCuurrentNo]);
 
-  const touchStart = (event) => {
-    startX = event.touches[0].pageX;
-  };
+  const touchStart = useCallback(
+    (event) => {
+      setStartX(event.touches[0].pageX);
+    },
+    [startX],
+  );
 
-  const touchEnd = (event) => {
-    endX = event.changedTouches[0].pageX;
-    if (
-      startX === endX ||
-      Math.abs(startX - endX) < 30 ||
-      Math.abs(endX - startX) < 30
-    ) {
-      return;
-    }
-    if (startX > endX) {
-      Next();
-    } else {
-      Prev();
-    }
-  };
+  const touchEnd = useCallback(
+    (event) => {
+      setEndX(event.changedTouches[0].pageX);
+      if (
+        startX === endX ||
+        Math.abs(startX - endX) < 30 ||
+        Math.abs(endX - startX) < 30
+      ) {
+        return;
+      }
+      if (startX > endX) {
+        Next();
+      } else {
+        Prev();
+      }
+    },
+    [startX, endX],
+  );
 
   return (
     <>

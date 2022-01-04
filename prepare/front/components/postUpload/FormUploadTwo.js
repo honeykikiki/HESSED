@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 
 import style from '../../styles/css/postImage.module.css';
 
-let startX;
-let endX;
-
 const FormUploadTwo = ({ images, setPhotoToAddList }) => {
   const [imageCurrentNo, setImageCurrentNo] = useState(0);
   const [curPos, setCurPos] = useState(0);
+  const [startX, setStartX] = useState();
+  const [endX, setEndX] = useState();
 
   const onClickLeft = useCallback(() => {
     if (imageCurrentNo > 0) {
@@ -41,13 +40,16 @@ const FormUploadTwo = ({ images, setPhotoToAddList }) => {
     }
   }, [imageCurrentNo, curPos, images]);
 
-  const touchStart = useCallback((event) => {
-    startX = event.touches[0].pageX;
-  }, []);
+  const touchStart = useCallback(
+    (event) => {
+      setStartX(event.touches[0].pageX);
+    },
+    [startX],
+  );
 
   const touchEnd = useCallback(
     (event) => {
-      endX = event.changedTouches[0].pageX;
+      setEndX(event.changedTouches[0].pageX);
       if (
         startX === endX ||
         Math.abs(startX - endX) < 30 ||
@@ -61,7 +63,7 @@ const FormUploadTwo = ({ images, setPhotoToAddList }) => {
         Prev();
       }
     },
-    [imageCurrentNo, curPos, images],
+    [imageCurrentNo, curPos, images, startX, endX],
   );
 
   const onRemove = useCallback(

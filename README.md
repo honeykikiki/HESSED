@@ -1,21 +1,18 @@
 # HESSED-APP (20210906~)
 
-<!-- 이미지넣기 -->
-
 ## 사용기술스택
 
 <span><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/></span>
 <span><img src="https://img.shields.io/badge/Next.js-1F262C?style=flat&logo=Next.js&logoColor=white"/></span>
 <span><img src="https://img.shields.io/badge/Redux-7247B6?style=flat&logo=Redux&logoColor=white"/></span>
 <span><img src="https://img.shields.io/badge/Redux-saga-7247B6?style=flat&logo=Redux-saga&logoColor=white"/></span>
-
 <span><img src="https://img.shields.io/badge/Sass-cc6699?style=flat&logo=sass&logoColor=white"/></span><br/>
 
 ## 배포 vercel
 
-<span><img src="./readme/login.jpeg" width='300px' /></span><br/>
-<span><img src="./readme/signup.jpeg" width='300px' /></span><br/>
-<span><img src="./readme/main.jpeg" width='300px' /></span><br/>
+<span><img src="./readme/login.jpeg" width='30vw' /></span>
+<span><img src="./readme/signup.jpeg" width='30vw' /></span>
+<span><img src="./readme/main.jpeg" width='30vw' /></span>
 
 ### 시작
 
@@ -57,6 +54,14 @@
 > axios
 
     npm i axios
+
+> 이미지 변환
+
+    npm i heic2any browser-image-compression
+
+> 인피니트스크롤링
+
+    npm i react-intersection-observer
 
 ---
 
@@ -121,14 +126,14 @@
 > postCard관련
 
     2-1 이미지 슬라이드 (완료)
-    2-2 댓글달기
+    2-2 댓글달기 (완료)
     2-3 댓글 더보기기능
     2-4 댓글 삭제기능
     2-5 답글 달기기능
     2-6 답글 삭제기능
     2-7 좋아요 (게시물 좋아요 클릭시 좋아요 수 늘어나기) (완료)
     2-8 게시물 저장히기 (완료)
-    2-9 좋아요 갯수 클릭시 좋아요 한사람들 표시
+    2-9 좋아요 갯수 클릭시 좋아요 한사람들 표시 (완료)
     2-10 공유하기 (완료)
 
 > upload 관련
@@ -136,8 +141,6 @@
     3-1 사진 업로드 (완료)
     3-2 사진 미리보기 (완료)
     3-3 댓글쓰기 (완료)
-
-> qr코드
 
 > 프로필 관련
 
