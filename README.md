@@ -10,9 +10,9 @@
 
 ## 배포 vercel
 
-<span><img src="./readme/login.jpeg" width='30vw' /></span>
-<span><img src="./readme/signup.jpeg" width='30vw' /></span>
-<span><img src="./readme/main.jpeg" width='30vw' /></span>
+<span><img src="./readme/login.jpeg" width='30%' /></span>
+<span><img src="./readme/signup.jpeg" width='30%' /></span>
+<span><img src="./readme/main.jpeg" width='30%' /></span>
 
 ### 시작
 

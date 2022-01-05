@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { all, fork, put, call, takeLatest, throttle } from 'redux-saga/effects';
 import { commonRequestPost } from '../hooks/API';
 
@@ -82,7 +81,11 @@ function* addPostComment(action) {
 // 댓글 삭제하기
 function* removeComment(action) {
   try {
-    const result = yield call(commonRequestPost, action.data, 'url');
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      '/comment/delete.do',
+    );
     yield put({
       type: REMOVE_COMMENT_SUCCESS,
       data: result.data,
@@ -119,7 +122,11 @@ function* addPostCommentReply(action) {
 // 댓글의 답글 삭제하기
 function* removeCommentReply(action) {
   try {
-    const result = yield call(commonRequestPost, action.data, 'url');
+    const result = yield call(
+      commonRequestPost,
+      action.data,
+      '/comment/delete.do',
+    );
     yield put({
       type: REMOVE_COMMENT_REPLY_SUCCESS,
       data: result.data,

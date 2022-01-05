@@ -4,6 +4,7 @@ import {
   dummyMemberList,
   generateDummyPost,
   commentsList,
+  replyCommentsList,
 } from '../hooks/reducer/APIResultChange';
 
 //  더미데이터
@@ -169,11 +170,17 @@ const reducer = (state = initialState, action) => {
         break;
       case LOAD_COMMENT_SUCCESS: {
         if (action.data.result === 'SUCCESS') {
-          draft.postComments = commentsList(action.data.list);
+          const comment = action.data.list.filter((v) => v.cmt_depth === 0);
+          const replyComment = replyCommentsList(
+            action.data.list.filter((v) => v.cmt_depth > 0),
+          );
+          draft.postComments = commentsList(comment, replyComment);
           draft.loadCommentLoading = false;
           draft.loadCommentDone = true;
           draft.addCommentDone = false;
           draft.addCommentReplyDone = false;
+          draft.removeCommentDone = false;
+          draft.removeCommentReplyDone = false;
         } else {
           draft.postComments = [];
           draft.loadCommentLoading = false;
@@ -215,16 +222,20 @@ const reducer = (state = initialState, action) => {
         draft.removeCommentError = null;
         break;
       case REMOVE_COMMENT_SUCCESS: {
-        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-        const postnum = draft.mainPosts.findIndex(
-          (v) => v.id === action.data.postId,
-        );
-        draft.mainPosts[postnum].Comments = post.Comments.filter(
-          (v) => v.commentId !== action.data.commentId,
-        );
-        draft.removeCommentLoading = false;
-        draft.removeCommentDone = true;
-        draft.removeCommentError = null;
+        // const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        // const postnum = draft.mainPosts.findIndex(
+        //   (v) => v.id === action.data.postId,
+        // );
+        // draft.mainPosts[postnum].Comments = post.Comments.filter(
+        //   (v) => v.commentId !== action.data.commentId,
+        // );
+        if (action.data.result === 'OK') {
+          draft.removeCommentLoading = false;
+          draft.removeCommentDone = true;
+        } else {
+          draft.removeCommentLoading = false;
+          draft.removeCommentDone = false;
+        }
 
         break;
       }
@@ -261,20 +272,25 @@ const reducer = (state = initialState, action) => {
         draft.removeCommentReplyError = null;
         break;
       case REMOVE_COMMENT_REPLY_SUCCESS: {
-        const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-        const postNum = draft.mainPosts.findIndex(
-          (v) => v.id === action.data.postId,
-        );
-        const postCommentNum = post.Comments.findIndex(
-          (v) => v.commentId === action.data.commentId,
-        );
-        draft.mainPosts[postNum].Comments[postCommentNum].Comments =
-          post.Comments[postCommentNum].Comments.filter(
-            (v) => v.commentReplyId !== action.data.commentReplyId,
-          );
-        draft.removeCommentReplyLoading = false;
-        draft.removeCommentReplyDone = true;
-        draft.removeCommentReplyError = null;
+        // const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+        // const postNum = draft.mainPosts.findIndex(
+        //   (v) => v.id === action.data.postId,
+        // );
+        // const postCommentNum = post.Comments.findIndex(
+        //   (v) => v.commentId === action.data.commentId,
+        // );
+        // draft.mainPosts[postNum].Comments[postCommentNum].Comments =
+        //   post.Comments[postCommentNum].Comments.filter(
+        //     (v) => v.commentReplyId !== action.data.commentReplyId,
+        //   );
+        if (action.data.result === 'OK') {
+          draft.removeCommentLoading = false;
+          draft.removeCommentDone = true;
+        } else {
+          draft.removeCommentLoading = false;
+          draft.removeCommentDone = false;
+        }
+
         break;
       }
       case REMOVE_COMMENT_REPLY_FAILURE:
@@ -399,6 +415,7 @@ const reducer = (state = initialState, action) => {
 
         break;
       case LOAD_POSTS_SUCCESS:
+        console.log(action.data);
         if (action.data.result === 'SUCCESS') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = true;
@@ -411,9 +428,9 @@ const reducer = (state = initialState, action) => {
             action.data.imgList,
             action.data.goodList,
             action.data.boardSaveList,
+            action.data.commentList,
           );
           draft.memberList = dummyMemberList(action.data.memberList);
-          // draft.memberList = dummyList(26);
         } else if (action.data.result === 'NOTEXIST') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = false;
@@ -447,6 +464,7 @@ const reducer = (state = initialState, action) => {
               action.data.imgList,
               action.data.goodList,
               action.data.boardSaveList,
+              action.data.commentList,
             ),
           );
         } else if (action.data.result === 'NOTEXIST') {

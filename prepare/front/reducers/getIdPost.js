@@ -45,7 +45,10 @@ const reducer = (state = initialState, action) => {
         if (action.data.result === 'SUCCESS') {
           draft.getIdPostLoading = false;
           draft.getIdPostDone = true;
-          draft.boardOneViewPost = boardOneViewPost(action.data.boardVO);
+          draft.boardOneViewPost = boardOneViewPost(
+            action.data.boardVO,
+            action.data.commentList,
+          );
         } else if (action.data.result === 'NOTEXIST') {
           draft.getIdPostLoading = false;
           draft.getIdPostDone = false;
