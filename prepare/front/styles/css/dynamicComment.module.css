@@ -137,7 +137,6 @@
 }
 
 .postComment ul .contentInComment span {
-  margin-right: 10px;
   max-width: 100vw;
   word-break: break-all;
 }
@@ -149,6 +148,7 @@
 
 .postComment ul .contentInComment span:nth-child(1) {
   font-weight: 550;
+  margin-right: 10px;
 }
 
 .postComment ul .reply .userIcon {
