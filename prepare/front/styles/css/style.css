@@ -12,6 +12,11 @@ body {
   background-color: #f9f9f9;
 }
 
+textarea,
+input {
+  word-spacing: -5px;
+}
+
 a {
   text-decoration: none;
   color: black;

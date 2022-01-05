@@ -60,10 +60,6 @@
           align-items: center;
 }
 
-#gnb ul li {
-  padding: 10px;
-}
-
 #gnb ul li > a {
   display: block;
   width: 24px;

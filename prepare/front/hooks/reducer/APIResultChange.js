@@ -64,11 +64,18 @@ export const generateDummyPost = (
     likedNumber: v.goodCnt,
     likeMember: v.goodNick,
     Comments: commentList.filter((commentList) => {
-      if (commentList.bo_no === v.bo_no) {
-        return commentList.bo_no;
-      }
+      return commentList.postId === v.bo_no;
     }),
     date: v.bo_date,
+  }));
+};
+
+// postMainAction = commentList
+export const postMainActionCommentList = (list) => {
+  return list.map((v) => ({
+    postId: v.bo_no,
+    nickname: v.mem_nickname,
+    comment: v.cmt_content,
   }));
 };
 

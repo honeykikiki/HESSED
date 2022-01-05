@@ -5,6 +5,7 @@ import {
   generateDummyPost,
   commentsList,
   replyCommentsList,
+  postMainActionCommentList,
 } from '../hooks/reducer/APIResultChange';
 
 //  더미데이터
@@ -415,7 +416,6 @@ const reducer = (state = initialState, action) => {
 
         break;
       case LOAD_POSTS_SUCCESS:
-        console.log(action.data);
         if (action.data.result === 'SUCCESS') {
           draft.loadPostsLoading = false;
           draft.loadPostsDone = true;
@@ -423,12 +423,15 @@ const reducer = (state = initialState, action) => {
 
           draft.loadPostMoreFalid = true;
           draft.pageNumber = 2;
+          const commentList = postMainActionCommentList(
+            action.data.commentList,
+          );
           draft.mainPosts = generateDummyPost(
             action.data.list,
             action.data.imgList,
             action.data.goodList,
             action.data.boardSaveList,
-            action.data.commentList,
+            commentList,
           );
           draft.memberList = dummyMemberList(action.data.memberList);
         } else if (action.data.result === 'NOTEXIST') {
