@@ -73,7 +73,7 @@ const PostContent = ({ post }) => {
           <span>
             <br />
             <Link href={`/${post.id}/comment`}>
-              <a>
+              <a onClick={loadPostRequest}>
                 {post.content.split('\n').map((v) => {
                   return (
                     <span key={v}>

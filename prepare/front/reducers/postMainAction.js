@@ -461,13 +461,17 @@ const reducer = (state = initialState, action) => {
           draft.loadPostsDone = true;
           draft.loadPostMoreFalid = true;
           draft.pageNumber += 1;
+
+          const commentList = postMainActionCommentList(
+            action.data.commentList,
+          );
           draft.mainPosts = draft.mainPosts.concat(
             generateDummyPost(
               action.data.list,
               action.data.imgList,
               action.data.goodList,
               action.data.boardSaveList,
-              action.data.commentList,
+              commentList,
             ),
           );
         } else if (action.data.result === 'NOTEXIST') {

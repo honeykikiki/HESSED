@@ -68,7 +68,7 @@ const CommentOptionBtn = ({ postComments, bool }) => {
       {bool ? (
         // 댓글용
         <span className={style.menu} onClick={onClickOptionOpen}>
-          <img style={{ marginBottom: '-5px' }} src="/icon/btn.svg" alt="img" />
+          <img style={{ marginBottom: '-3px' }} src="/icon/btn.svg" alt="img" />
           {optionButton ? null : me.nickname === postComments.User.nickname ? (
             <div className={style.buttonWrap} onClick={onClickOptionClose}>
               <div
@@ -102,7 +102,7 @@ const CommentOptionBtn = ({ postComments, bool }) => {
       ) : (
         // 답글용
         <span className={style.menu} onClick={onClickOptionOpen}>
-          <img style={{ marginBottom: '-5px' }} src="/icon/btn.svg" alt="img" />
+          <img style={{ marginBottom: '-3px' }} src="/icon/btn.svg" alt="img" />
           {optionButton ? null : me.nickname === postComments.User.nickname ? (
             <div className={style.buttonWrap} onClick={onClickOptionClose}>
               <div
