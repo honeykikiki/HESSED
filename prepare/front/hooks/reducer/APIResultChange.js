@@ -1,5 +1,5 @@
 // getIdPost
-export const boardOneViewPost = (list) => {
+export const boardOneViewPost = (list, commentList) => {
   return {
     id: list.bo_no,
     User: {
@@ -17,14 +17,25 @@ export const boardOneViewPost = (list) => {
       };
     }),
     likedNumber: list.goodCnt,
-    Comments: [],
+    likeMember: list.goodNick,
+    Comments: commentList.filter((commentList) => {
+      if (commentList.bo_no === list.bo_no) {
+        return commentList.bo_no;
+      }
+    }),
     date: list.bo_date,
   };
 };
 
 // postMainAction
-export const generateDummyPost = (list, listImg, goodList, saveList) => {
-  return list.map((v, i) => ({
+export const generateDummyPost = (
+  list,
+  listImg,
+  goodList,
+  saveList,
+  commentList,
+) => {
+  return list.map((v) => ({
     id: v.bo_no,
     User: {
       id: v.bo_writer,
@@ -52,7 +63,11 @@ export const generateDummyPost = (list, listImg, goodList, saveList) => {
     }),
     likedNumber: v.goodCnt,
     likeMember: v.goodNick,
-    Comments: [],
+    Comments: commentList.filter((commentList) => {
+      if (commentList.bo_no === v.bo_no) {
+        return commentList.bo_no;
+      }
+    }),
     date: v.bo_date,
   }));
 };
@@ -90,8 +105,8 @@ export const myPost = (list) =>
     },
   }));
 
-export const commentsList = (list) =>
-  list.map((v) => ({
+export const commentsList = (list, reply) => {
+  return list.map((v) => ({
     postId: v.bo_no,
     commentId: v.cmt_no,
     User: {
@@ -101,5 +116,21 @@ export const commentsList = (list) =>
     content: v.cmt_content,
     date: v.cmt_date,
     depth: v.cmt_depth,
-    Comments: [],
+    Comments: reply.filter((replys) => replys.group === v.cmt_group),
   }));
+};
+
+export const replyCommentsList = (list) => {
+  return list.map((v) => ({
+    postId: v.bo_no,
+    commentId: v.cmt_no,
+    User: {
+      nickname: v.mem_nickname,
+      profileImg: v.mem_profileimg,
+    },
+    content: v.cmt_content,
+    date: v.cmt_date,
+    depth: v.cmt_depth,
+    group: v.cmt_group,
+  }));
+};

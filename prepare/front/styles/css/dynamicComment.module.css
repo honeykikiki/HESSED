@@ -120,7 +120,10 @@
 }
 
 .postComment ul li {
-  margin-top: 20px;
+  margin-top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .postComment ul li:nth-child(1) {
@@ -148,12 +151,12 @@
   font-weight: 550;
 }
 
-.postComment ul .reply {
-  margin-top: 20px;
-  margin-left: 40px;
+.postComment ul .reply .userIcon {
+  width: 27px;
+  height: 27px;
 }
 
-.postComment ul .reply > button {
+.commentsMore {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -162,13 +165,14 @@
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
+  margin-top: 10px;
 }
 
-.postComment ul .reply > button span {
+.commentsMore span {
   width: 24px;
 }
 
-.postComment ul .reply > button span::after {
+.commentsMore span::after {
   display: block;
   content: '';
   clear: both;
@@ -181,18 +185,9 @@
   border-top: 1px solid #8e8e8e;
 }
 
-.postComment ul .reply > button p {
+.commentsMore p {
   margin-left: 10px;
   color: #8e8e8e;
-}
-
-.postComment ul .reply ul {
-  margin-left: -100px;
-}
-
-.postComment ul .reply ul .userIcon {
-  width: 27px;
-  height: 27px;
 }
 
 .form {
@@ -242,6 +237,62 @@
 }
 
 .form form button {
+  border: none;
+  font-size: 1.4rem;
+  color: #409857;
+  font-weight: bold;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.Replyform {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  max-width: 936px;
+  background-color: #dbdbdb;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+.Replyform form {
+  width: calc(100% - 60px);
+  min-height: 40px;
+  border-radius: 20px;
+  background: white;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Replyform form .text {
+  border: none;
+  overflow: visible;
+  width: 80%;
+  height: 20px;
+  max-height: 80px;
+  outline-color: white;
+  resize: none;
+}
+
+.Replyform form button {
   border: none;
   font-size: 1.4rem;
   color: #409857;

@@ -15,7 +15,7 @@ const CommentOptionBtn = ({ postComments, bool }) => {
   const [optionButton, setOptionButton] = useState(true);
 
   useEffect(() => {
-    if (optionButton) {
+    if (!optionButton) {
       document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
@@ -42,33 +42,26 @@ const CommentOptionBtn = ({ postComments, bool }) => {
   }, [optionButton]);
 
   const onClickCommentRemove = useCallback(() => {
+    const formData = new FormData();
+    formData.append('cmt_no', postComments.commentId);
     dispatch({
       type: REMOVE_COMMENT_REQUEST,
-      data: {
-        postId: postComments.Id,
-        commentId: postComments.commentId,
-        userId: me.id,
-        // bo_no : postId
-        // mem_no : me.id
-        // cmt_no : commentId
-      },
+      data: formData,
     });
   }, [postComments]);
 
   const onClickCommentReplyRemove = useCallback(() => {
+    const formData = new FormData();
+    formData.append('cmt_no', postComments.commentId);
     dispatch({
       type: REMOVE_COMMENT_REPLY_REQUEST,
-      data: {
-        postId: postComments.Id,
-        commentId: postComments.commentId,
-        userId: me.id,
-        // bo_no : postId
-        // mem-no : me.id
-        // cmt_no : commentId
-        // cmt_parent : ??
-      },
+      data: formData,
     });
   }, [postComments]);
+
+  const Declaration = useCallback(() => {
+    alert('신고되었습니다.');
+  }, []);
 
   return (
     <>
@@ -77,27 +70,31 @@ const CommentOptionBtn = ({ postComments, bool }) => {
         <span className={style.menu} onClick={onClickOptionOpen}>
           <img style={{ marginBottom: '-5px' }} src="/icon/btn.svg" alt="img" />
           {optionButton ? null : me.nickname === postComments.User.nickname ? (
-            <div
-              className={style.optionButton}
-              style={{ border: '1px solid black' }}
-            >
-              <div onClick={onClickCommentRemove}>
-                <p>삭제</p>
-              </div>
-              <div onClick={onClickOptionClose}>
-                <p>취소</p>
+            <div className={style.buttonWrap} onClick={onClickOptionClose}>
+              <div
+                className={style.optionButton}
+                style={{ border: '1px solid black' }}
+              >
+                <div onClick={onClickCommentRemove} style={{ color: 'red' }}>
+                  <p>삭제</p>
+                </div>
+                <div onClick={onClickOptionClose}>
+                  <p>취소</p>
+                </div>
               </div>
             </div>
           ) : (
-            <div
-              className={style.optionButton}
-              style={{ border: '1px solid black' }}
-            >
-              <div style={{ color: 'red' }}>
-                <p>신고</p>
-              </div>
-              <div onClick={onClickOptionClose}>
-                <p>취소</p>
+            <div className={style.buttonWrap} onClick={onClickOptionClose}>
+              <div
+                className={style.optionButton}
+                style={{ border: '1px solid black' }}
+              >
+                <div style={{ color: 'red' }} onClick={Declaration}>
+                  <p>신고</p>
+                </div>
+                <div onClick={onClickOptionClose}>
+                  <p>취소</p>
+                </div>
               </div>
             </div>
           )}
@@ -105,29 +102,36 @@ const CommentOptionBtn = ({ postComments, bool }) => {
       ) : (
         // 답글용
         <span className={style.menu} onClick={onClickOptionOpen}>
-          <img src="/icon/btn.svg" alt="img" />
+          <img style={{ marginBottom: '-5px' }} src="/icon/btn.svg" alt="img" />
           {optionButton ? null : me.nickname === postComments.User.nickname ? (
-            <div
-              className={style.optionButton}
-              style={{ border: '1px solid black' }}
-            >
-              <div onClick={onClickCommentReplyRemove}>
-                <p>삭제</p>
-              </div>
-              <div onClick={onClickOptionClose}>
-                <p>취소</p>
+            <div className={style.buttonWrap} onClick={onClickOptionClose}>
+              <div
+                className={style.optionButton}
+                style={{ border: '1px solid black' }}
+              >
+                <div
+                  onClick={onClickCommentReplyRemove}
+                  style={{ color: 'red' }}
+                >
+                  <p>삭제</p>
+                </div>
+                <div onClick={onClickOptionClose}>
+                  <p>취소</p>
+                </div>
               </div>
             </div>
           ) : (
-            <div
-              className={style.optionButton}
-              style={{ border: '1px solid black' }}
-            >
-              <div style={{ color: 'red' }}>
-                <p>신고</p>
-              </div>
-              <div onClick={onClickOptionClose}>
-                <p>취소</p>
+            <div className={style.buttonWrap} onClick={onClickOptionClose}>
+              <div
+                className={style.optionButton}
+                style={{ border: '1px solid black' }}
+              >
+                <div style={{ color: 'red' }} onClick={Declaration}>
+                  <p>신고</p>
+                </div>
+                <div onClick={onClickOptionClose}>
+                  <p>취소</p>
+                </div>
               </div>
             </div>
           )}

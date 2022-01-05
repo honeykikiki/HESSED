@@ -23,9 +23,12 @@ const PostInContent = ({ post }) => {
     (state) => state.postMainAction,
   );
   const { commentToReply } = useSelector((state) => state.menu);
-  const { postComments, addCommentReplyDone } = useSelector(
-    (state) => state.postMainAction,
-  );
+  const {
+    postComments,
+    addCommentReplyDone,
+    removeCommentDone,
+    removeCommentReplyDone,
+  } = useSelector((state) => state.postMainAction);
 
   const [comment, onChangeInput, setComment] = useinput('');
 
@@ -42,7 +45,12 @@ const PostInContent = ({ post }) => {
     if (!me) {
       Router.push('/');
     }
-    if (addCommentDone || addCommentReplyDone) {
+    if (
+      addCommentDone ||
+      addCommentReplyDone ||
+      removeCommentDone ||
+      removeCommentReplyDone
+    ) {
       const formData = new FormData();
       formData.append('bo_no', post.id);
       dispatch({
@@ -50,7 +58,14 @@ const PostInContent = ({ post }) => {
         data: formData,
       });
     }
-  }, [addCommentDone, addCommentReplyDone, me, post]);
+  }, [
+    addCommentDone,
+    addCommentReplyDone,
+    removeCommentDone,
+    removeCommentReplyDone,
+    me,
+    post,
+  ]);
 
   const commentPost = useCallback(
     (e) => {

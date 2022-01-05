@@ -95,7 +95,7 @@ const PostContent = ({ post }) => {
       <Link href={`/${post.id}/comment`}>
         <a>
           <p className={style.commentMore} onClick={loadPostRequest}>
-            {post.Comments.length > 2
+            {post.Comments.length >= 2
               ? `${post.Comments.length}개의댓글 모두보기`
               : null}
           </p>
@@ -110,22 +110,22 @@ const PostContent = ({ post }) => {
                 <div className={style.comment}>
                   {post.Comments[0] ? (
                     <div>
-                      <span>{`${post.Comments[0]?.nickname}`}</span>
-                      <span>{`${post.Comments[0]?.comment}`}</span>
+                      <span>{`${post.Comments[0]?.mem_nickname}`}</span>
+                      <span>{`${post.Comments[0]?.cmt_content}`}</span>
                     </div>
                   ) : null}
                   {post.Comments[1] ? (
                     <div>
-                      <span>{`${post.Comments[1]?.nickname}`}</span>
-                      <span>{`${post.Comments[1]?.comment}`}</span>
+                      <span>{`${post.Comments[1]?.mem_nickname}`}</span>
+                      <span>{`${post.Comments[1]?.cmt_content}`}</span>
                     </div>
                   ) : null}
-                  {post.Comments[2] ? (
+                  {/* {post.Comments[2] ? (
                     <div>
                       <span>{`${post.Comments[2]?.nickname}`}</span>
                       <span>{`${post.Comments[2]?.comment}`}</span>
                     </div>
-                  ) : null}
+                  ) : null} */}
                 </div>
               </a>
             </Link>
