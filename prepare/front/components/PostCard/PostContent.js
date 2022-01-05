@@ -107,17 +107,17 @@ const PostContent = ({ post }) => {
           {post.Comments.length > 0 ? (
             <Link href={`/${post.id}/comment`}>
               <a>
-                <div className={style.comment}>
+                <div className={style.comment} onClick={loadPostRequest}>
                   {post.Comments[0] ? (
                     <div>
-                      <span>{`${post.Comments[0]?.mem_nickname}`}</span>
-                      <span>{`${post.Comments[0]?.cmt_content}`}</span>
+                      <span>{`${post.Comments[0]?.nickname}`}</span>
+                      <span>{`${post.Comments[0]?.comment}`}</span>
                     </div>
                   ) : null}
                   {post.Comments[1] ? (
                     <div>
-                      <span>{`${post.Comments[1]?.mem_nickname}`}</span>
-                      <span>{`${post.Comments[1]?.cmt_content}`}</span>
+                      <span>{`${post.Comments[1]?.nickname}`}</span>
+                      <span>{`${post.Comments[1]?.comment}`}</span>
                     </div>
                   ) : null}
                   {/* {post.Comments[2] ? (
