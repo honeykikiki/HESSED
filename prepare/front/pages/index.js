@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
+import axios from 'axios';
 
+import { END } from 'redux-saga';
 import MainLayout from '../components/MainLayout';
 import LoginForm from '../components/login/LoginForm';
 import PostCard from '../components/PostCard/PostCard';
@@ -17,6 +19,8 @@ import { PAGE_CHANGE } from '../reducers/postAdd';
 import MemberListBox from '../components/memberList/MemberListBox';
 import Loading from '../components/loading/loading';
 
+import wrapper from '../store/configureStore';
+
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
@@ -26,7 +30,6 @@ const Home = () => {
     loadPostFalid,
     loadPostMoreFalid,
     pageNumber,
-    notice,
   } = useSelector((state) => state.postMainAction);
   const { postCompleat, updateCompleat } = useSelector(
     (state) => state.postAdd,
@@ -112,5 +115,21 @@ const Home = () => {
     </>
   );
 };
+
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) =>
+//     async ({ req, params }) => {
+//       const cookie = req ? req.headers.cookie : '';
+//       axios.defaults.headers.Cookie = '';
+//       if (req && cookie) {
+//         axios.defaults.headers.Cookie = cookie;
+//       }
+//       store.dispatch({
+//         type: LOAD_POSTS_REQUEST,
+//       });
+//       store.dispatch(END);
+//       await store.sagaTask.toPromise();
+//     },
+// );
 
 export default Home;
