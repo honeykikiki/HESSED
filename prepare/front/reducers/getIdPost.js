@@ -3,6 +3,7 @@ import produce from 'immer';
 import {
   boardOneViewPost,
   dummyMemberList,
+  postMainActionCommentList,
 } from '../hooks/reducer/APIResultChange';
 import {
   LIKE_POST_SUCCESS,
@@ -43,11 +44,14 @@ const reducer = (state = initialState, action) => {
         break;
       case GET_ID_POST_SUCCESS:
         if (action.data.result === 'SUCCESS') {
+          const commentList = postMainActionCommentList(
+            action.data.commentList,
+          );
           draft.getIdPostLoading = false;
           draft.getIdPostDone = true;
           draft.boardOneViewPost = boardOneViewPost(
             action.data.boardVO,
-            action.data.commentList,
+            commentList,
           );
         } else if (action.data.result === 'NOTEXIST') {
           draft.getIdPostLoading = false;

@@ -19,9 +19,7 @@ export const boardOneViewPost = (list, commentList) => {
     likedNumber: list.goodCnt,
     likeMember: list.goodNick,
     Comments: commentList.filter((commentList) => {
-      if (commentList.bo_no === list.bo_no) {
-        return commentList.bo_no;
-      }
+      return commentList.postId === list.bo_no;
     }),
     date: list.bo_date,
   };
@@ -112,6 +110,7 @@ export const myPost = (list) =>
     },
   }));
 
+// 댓글
 export const commentsList = (list, reply) => {
   return list.map((v) => ({
     postId: v.bo_no,
@@ -126,7 +125,7 @@ export const commentsList = (list, reply) => {
     Comments: reply.filter((replys) => replys.group === v.cmt_group),
   }));
 };
-
+// 답글
 export const replyCommentsList = (list) => {
   return list.map((v) => ({
     postId: v.bo_no,
