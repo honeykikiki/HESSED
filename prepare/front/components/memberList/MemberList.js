@@ -40,7 +40,7 @@ const MemberList = () => {
     async (event) => {
       setEndX(await event.changedTouches[0].pageX);
 
-      if (startX < 0 || endX === 0 || startX + endX < 10) {
+      if (startX === 0 || endX === 0) {
         return;
       }
 
