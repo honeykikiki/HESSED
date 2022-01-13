@@ -8,22 +8,10 @@
 }
 
 .memberlist {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: absolute;
-  left: 0%;
-  top: 0;
-  -webkit-transition: ease-out 0.3s;
-  transition: ease-out 0.3s;
   margin-top: 10px;
-}
-
-.memberlist li {
   text-align: center;
-  width: 80px;
-  padding-top: 20px;
-  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .memberlist .memberListImg {
@@ -48,6 +36,9 @@
 .memberlist p {
   margin-top: 10px;
   font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .hessedMemberNumber {

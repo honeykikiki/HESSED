@@ -50,6 +50,7 @@
     "array-callback-return": 0,
     "no-shadow": 0,
     "@next/next/no-img-element": 0,
-    "import/no-cycle": 0 //import 에러
+    "import/no-cycle": 0, //import 에러
+    "commonjs": true
   }
 }

@@ -1,7 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable import/prefer-default-export */
-
 import imageCompression from 'browser-image-compression';
 
 const options = {

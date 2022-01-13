@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
 
 import style from '../../../styles/css/dynamicPost.module.css';
 import PostCard from '../../../components/PostCard/PostCard';
