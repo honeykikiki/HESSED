@@ -1,6 +1,5 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
-
 import React, { useCallback, useState, useRef } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +8,7 @@ import style from '../../styles/css/upload.module.css';
 import { ADD_POST_REQUEST } from '../../reducers/postAdd';
 import Loading from '../loading/loading';
 import { imageUpdate } from '../../hooks/imageUpdateFunc/imageUpdate';
-import FormUploadTwo from './FormUploadTwo';
+import FormUploadImage from './FormUploadImage';
 
 const FormUpload = () => {
   const dispatch = useDispatch();
@@ -114,14 +113,7 @@ const FormUpload = () => {
         />
 
         <div className={style.imageBox}>
-          {/* <ul>
-            <UploadImages
-              photoToAddList={photoToAddList}
-              imageInput={imageInput}
-              setPhotoToAddList={setPhotoToAddList}
-            />
-          </ul> */}
-          <FormUploadTwo
+          <FormUploadImage
             images={photoToAddList}
             setPhotoToAddList={setPhotoToAddList}
           />
