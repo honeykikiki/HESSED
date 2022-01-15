@@ -132,9 +132,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
       if (req && cookie) {
         axios.defaults.headers.Cookie = cookie;
       }
-      store.dispatch({
-        type: LOG_IN_REQUEST,
-      });
+      // store.dispatch({
+      //   type: LOG_IN_REQUEST,
+      // });
       // store.dispatch({
       //   type: LOAD_POSTS_REQUEST,
       // });
