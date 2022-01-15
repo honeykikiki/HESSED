@@ -3,11 +3,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
-import axios from 'axios';
 
-import { END } from 'redux-saga';
 import MainLayout from '../components/MainLayout';
-import LoginForm from '../components/login/LoginForm';
 import PostCard from '../components/PostCard/PostCard';
 
 import style from '../styles/css/postCard.module.css';
@@ -19,7 +16,7 @@ import { PAGE_CHANGE } from '../reducers/postAdd';
 import MemberListBox from '../components/memberList/MemberListBox';
 import Loading from '../components/loading/loading';
 
-import wrapper from '../store/configureStore';
+import Router from 'next/router';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -38,6 +35,9 @@ const Home = () => {
   const [ref, inView] = useInView();
 
   useEffect(() => {
+    if (!me) {
+      Router.push('/login');
+    }
     if (me && mainPosts.length <= 0 && loadPostFalid) {
       dispatch({
         type: LOAD_POSTS_REQUEST,
@@ -81,7 +81,7 @@ const Home = () => {
 
   return (
     <>
-      {me ? (
+      {me && (
         <MainLayout>
           <div style={{ paddingTop: '50px' }} />
 
@@ -109,8 +109,6 @@ const Home = () => {
 
           <div style={{ paddingBottom: '54px' }} />
         </MainLayout>
-      ) : (
-        <LoginForm />
       )}
     </>
   );

@@ -16,6 +16,7 @@ import {
 function* logIn(action) {
   try {
     const result = yield call(commonRequestPost, action.data, `/login.do`);
+
     yield put({
       type: LOG_IN_SUCCESS,
       data: result.data,

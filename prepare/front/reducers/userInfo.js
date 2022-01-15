@@ -42,7 +42,6 @@ const reducer = (state = initialState, action) => {
         draft.logInError = null;
         break;
       case LOG_IN_SUCCESS:
-        // draft.me = dummyUser();
         if (action.data.result === 'SUCCESS') {
           draft.me = dummyUser(action.data.member); // action.data;
           draft.logInLoading = false;

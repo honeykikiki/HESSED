@@ -48,7 +48,7 @@ const PostContent = ({ post }) => {
   return (
     <>
       <form className={style.form}>
-        <textarea
+        <input
           className={style.text}
           placeholder="댓글달기..."
           autoComplete="off"
