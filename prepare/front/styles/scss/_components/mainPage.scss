@@ -1,0 +1,245 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+#header {
+  width: 100%;
+  background-color: whiter;
+  z-index: 20;
+  & .maxWidth {
+    max-width: 935px;
+    height: 100%;
+  }
+  & .logo {
+    width: 100%;
+    height: $navBar;
+    background-color: white;
+    border-bottom: 1px solid $boxColor;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    & h1 {
+      background: url(../../public/icon/HESSED-logo-G.svg) center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 93px;
+      height: 100%;
+      margin: auto;
+      text-indent: -9999px;
+    }
+  }
+}
+
+#gnb {
+  width: 100%;
+  height: $navBar + 5;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  border-top: 1px solid $boxColor;
+  z-index: 20;
+  & > div {
+    max-width: 800px;
+    height: 100%;
+    margin: auto;
+  }
+
+  & ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    & li {
+      & > a {
+        display: block;
+        width: $iconSize;
+        height: $iconSize;
+      }
+    }
+  }
+}
+.profileimg {
+  position: relative;
+  border-radius: 50%;
+
+  .circle {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+  }
+}
+
+.profileImgBox {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+  & img {
+    @include center(50%);
+    width: 100%;
+  }
+}
+
+.profileBox {
+  & > div {
+    position: absolute;
+    top: -85px;
+    right: -25px;
+    text-align: center;
+    background-color: $backgroundColor;
+    display: block;
+    width: 120px;
+    height: 70px;
+    border-radius: 5px;
+    z-index: 10;
+
+    & div {
+      padding-top: 10px;
+      font-size: 1.4rem;
+      cursor: pointer;
+
+      color: white;
+      & a {
+        color: white;
+      }
+    }
+    & span {
+      display: block;
+      position: absolute;
+      right: 28px;
+      bottom: -7px;
+      width: 20px;
+      height: 20px;
+      background-color: $backgroundColor;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// .profileCircle {
+//   border: 2px solid white;
+//   border-radius: 50%;
+//   width: 14px;
+//   height: 14px;
+//   padding: 7px;
+//   position: absolute;
+//   right: 8.5%;
+//   top: 6px;
+// }
+
+@media screen and (min-width: 768px) {
+  .profileBox {
+    & > div {
+      position: absolute;
+      top: -75px;
+      right: 7%;
+      text-align: center;
+      background-color: $backgroundColor;
+      display: block;
+      width: 120px;
+      height: 70px;
+      border-radius: 5px;
+      z-index: 10;
+
+      & p {
+        padding-top: 10px;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: white;
+        & a {
+          color: white;
+        }
+      }
+      & span {
+        display: block;
+        position: absolute;
+        right: 31px;
+        bottom: -5px;
+        width: 20px;
+        height: 20px;
+        background-color: $boxColor;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 935px) {
+  #header {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    border-bottom: 1px solid $boxColor;
+    & .maxWidth {
+      display: flex;
+      width: 935px;
+      height: 100%;
+    }
+    & .logo {
+      width: 50%;
+      background-color: none;
+      position: relative;
+    }
+    & h1 {
+      float: left;
+    }
+  }
+
+  #gnb {
+    position: relative;
+    & ul {
+      width: 50%;
+      float: right;
+      justify-content: space-between;
+    }
+  }
+
+  .profileBox {
+    & > div {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      text-align: center;
+      background-color: $backgroundColor;
+      display: block;
+      width: 120px;
+      height: 70px;
+      border-radius: 5px;
+      z-index: 10;
+
+      & p {
+        padding-top: 10px;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: white;
+        & a {
+          color: white;
+        }
+      }
+      & span {
+        display: block;
+        position: absolute;
+        right: 12px;
+        top: -5px;
+        width: 20px;
+        height: 20px;
+        background-color: $backgroundColor;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  // .profileCircle {
+  //   border: 2px solid white;
+  //   border-radius: 50%;
+  //   width: 14px;
+  //   height: 14px;
+  //   padding: 7px;
+  //   position: absolute;
+  //   right: 6px;
+  //   top: 6px;
+  // }
+}

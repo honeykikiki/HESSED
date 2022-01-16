@@ -1,0 +1,12 @@
+.a {
+  font-size: 1.4rem;
+  padding-top: $top;
+  & .maxWidth {
+    max-width: 935px;
+    margin: auto;
+    & div {
+      width: 100%;
+      margin: auto;
+    }
+  }
+}

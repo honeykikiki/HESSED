@@ -1,0 +1,57 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.art {
+  width: calc(100% - 40px);
+  margin: auto;
+  margin-top: 10px;
+  & > div {
+    margin-top: 5px;
+  }
+  & em {
+    font-style: normal;
+  }
+
+  & p {
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+}
+
+.content {
+  & > .usernickname {
+    font-size: 1.4rem;
+    font-weight: $nicknameFontWeight;
+  }
+  & > span {
+    font-weight: normal;
+  }
+  & button {
+    border: none;
+    font-size: 1.4rem;
+    background-color: transparent;
+    color: $moreColor;
+  }
+}
+
+.comment {
+  & span:nth-child(1) {
+    font-size: 1.4rem;
+    font-weight: $nicknameFontWeight;
+    margin-right: 10px;
+  }
+  & span:nth-child(2) {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-right: 10px;
+  }
+}
+
+.commentMore {
+  color: $moreColor;
+  margin-top: 5px;
+}
+
+.timeCalculator {
+  color: #8e8e8e;
+}

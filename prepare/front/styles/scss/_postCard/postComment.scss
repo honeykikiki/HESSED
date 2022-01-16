@@ -1,0 +1,26 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.form {
+  width: calc(100% - 40px);
+  margin: auto;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  & .text {
+    border: none;
+    width: calc(100% - 40px);
+    height: 20px;
+    outline-color: white;
+    resize: none;
+    font-size: 1.2rem;
+  }
+  & button {
+    border: none;
+    font-size: 1.4rem;
+    color: $mainColor;
+    font-weight: $nicknameFontWeight;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,261 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.head {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 25px 0px;
+  border-bottom: 1px solid $boxColor;
+  background-color: white;
+  z-index: 100;
+
+  & div:nth-child(1) {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+  }
+  & div:nth-child(2) {
+    @include center(50%);
+    font-weight: $nicknameFontWeight;
+    font-size: 1.6rem;
+  }
+}
+
+.mComment {
+  width: calc(100%);
+  max-width: 936px;
+  height: 100%;
+  margin: auto;
+  font-size: 1.4rem;
+  margin-bottom: 64px;
+  margin-top: 51px;
+  .mContent {
+    // display: flex;
+    padding: 20px 20px;
+    border-top: 1px solid $boxBorderColor;
+    border-bottom: 1px solid $boxBorderColor;
+    & .userNickname {
+      display: flex;
+      & > p {
+        line-height: 24px;
+        font-weight: $nicknameFontWeight;
+      }
+    }
+    & .postContent {
+      margin-left: 44px;
+    }
+    & .time {
+      margin-top: 10px;
+      margin-left: 44px;
+      color: $moreColor;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.userIcon {
+  width: $UserIcon;
+  height: $UserIcon;
+  background-color: $boxColor;
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 10px;
+  position: relative;
+  overflow: hidden;
+  & img {
+    width: 100%;
+    @include center(50%);
+  }
+}
+
+.timeAndReply {
+  display: flex;
+  font-size: 1.2rem;
+  margin-top: 5px;
+  & div {
+    color: $moreColor;
+    margin-right: 10px;
+  }
+  & button {
+    border: 0;
+    background-color: transparent;
+    color: $moreColor;
+    font-size: 1.2rem;
+  }
+  & p {
+    color: #8e8e8e;
+  }
+}
+
+.postComment {
+  width: 100%;
+
+  & ul {
+    margin-top: 15px;
+    padding: 0 20px;
+    & li {
+      margin-top: 15px;
+      display: flex;
+    }
+    & li:nth-child(1) {
+      display: flex;
+    }
+
+    & .contentInComment {
+      width: 100%;
+      & span {
+        max-width: 100vw;
+        word-break: break-all;
+        & img {
+          margin-left: 10px;
+          cursor: pointer;
+        }
+      }
+      & span:nth-child(1) {
+        font-weight: $nicknameFontWeight;
+        margin-right: 10px;
+      }
+    }
+
+    & .reply {
+      & .userIcon {
+        width: $UserIcon - 5;
+        height: $UserIcon - 5;
+      }
+    }
+  }
+}
+
+.commentsMore {
+  display: flex;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  & span {
+    width: 24px;
+  }
+  span::after {
+    display: block;
+    content: '';
+    clear: both;
+    position: absolute;
+    left: 0%;
+    top: 5px;
+    transform: translateY(-50%);
+    width: 24px;
+    border-top: 1px solid $moreColor;
+  }
+  & p {
+    margin-left: 10px;
+    color: $moreColor;
+  }
+}
+
+.form {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 936px;
+  background-color: $boxColor;
+  padding: 10px 0;
+
+  & form {
+    width: calc(100% - 60px);
+    min-height: 40px;
+    border-radius: 20px;
+    background: white;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & .text {
+      border: none;
+      overflow: visible;
+      width: 80%;
+      height: 20px;
+      max-height: 80px;
+      outline-color: white;
+      resize: none;
+    }
+    & button {
+      border: none;
+      font-size: 1.4rem;
+      color: $mainColor;
+      font-weight: bold;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+}
+
+.Replyform {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 936px;
+  background-color: $boxColor;
+  padding: 10px 0;
+  z-index: 10;
+  & form {
+    width: calc(100% - 60px);
+    min-height: 40px;
+    border-radius: 20px;
+    background: white;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & .text {
+      border: none;
+      overflow: visible;
+      width: 80%;
+      height: 20px;
+      max-height: 80px;
+      outline-color: white;
+      resize: none;
+    }
+    & button {
+      border: none;
+      font-size: 1.4rem;
+      color: $mainColor;
+      font-weight: bold;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+}
+
+.commentBox {
+  position: absolute;
+  top: -40px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  background-color: $boxColor;
+  border-bottom: 1px solid $boxBorderColor;
+  border-top: 1px solid $boxBorderColor;
+  & div {
+    margin-right: 40px;
+    padding: 10px 10px;
+    cursor: pointer;
+  }
+}

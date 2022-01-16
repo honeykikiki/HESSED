@@ -1,0 +1,193 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.a {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 40px;
+  & .maxWidth {
+    max-width: 935px;
+    margin: auto;
+    & .postCard {
+      max-width: 600px;
+      height: 100%;
+    }
+  }
+}
+.imagePlus {
+  width: 20%;
+  color: $mainColor;
+  margin-right: 0px;
+  margin-left: auto;
+  margin-bottom: 20px;
+}
+
+.imageBox {
+  overflow: hidden;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+  & ul {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    & li:nth-child(2) {
+      margin-left: 0.5%;
+      margin-right: 0.5%;
+      // display: none;
+    }
+    & li:nth-child(5) {
+      margin-left: 0.5%;
+      margin-right: 0.5%;
+      // display: none;
+    }
+    & li:nth-child(8) {
+      margin-left: 0.5%;
+      margin-right: 0.5%;
+      // display: none;
+    }
+    & li {
+      width: 33%;
+      height: 33vw;
+      margin-top: 1%;
+      position: relative;
+      & .remove {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgba($color: #8e8e8e, $alpha: 0.6);
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        border-radius: 50%;
+      }
+      & img {
+        width: 100%;
+        height: 100%;
+        max-height: 100vw;
+      }
+    }
+  }
+}
+
+.imageInput {
+  width: 100%;
+  height: 33vw;
+  display: flex;
+  align-items: center;
+  background-color: $boxColor;
+  position: relative;
+  & .addImg {
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.textInput {
+  width: calc(100% - 40px);
+  margin: auto;
+  margin-top: 20px;
+  & textarea {
+    // border: none;
+    // width: calc(100% - 60px);
+    // outline-color: white;
+    // resize: none;
+    border: none;
+    border-bottom: 1px solid black;
+    overflow: visible;
+    width: 100%;
+    height: 20px;
+    outline-color: $textBoxBackColor;
+    outline-style: dashed;
+    background-color: $textBoxBackColor;
+    resize: none;
+  }
+  & button {
+    display: block;
+    margin-left: auto;
+    width: 40px;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: $mainColor;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+.notice {
+  margin-bottom: 10px;
+  & div {
+    display: inline-block;
+    line-height: 24px;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 1.6rem;
+  }
+  & p {
+    padding-left: 10px;
+    font-weight: normal;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+}
+
+.switchInput {
+  display: none;
+}
+
+.switchLlabel {
+  display: block;
+  width: 48px;
+  height: 24px;
+  text-indent: -150%;
+  clip: rect(0 0 0 0);
+  color: transparent;
+  user-select: none;
+}
+
+.switchLlabel::before,
+.switchLlabel::after {
+  content: '';
+  display: block;
+  position: absolute;
+  cursor: pointer;
+}
+
+.switchLlabel::before {
+  width: 100%;
+  height: 100%;
+  background-color: #dedede;
+  border-radius: 9999em;
+  -webkit-transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease;
+}
+
+.switchLlabel::after {
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.65);
+  -webkit-transition: left 0.25s ease;
+  transition: left 0.25s ease;
+}
+
+.switchInput:checked + .switchLlabel::before {
+  background-color: #89c12d;
+}
+
+.switchInput:checked + .switchLlabel::after {
+  left: 24px;
+}

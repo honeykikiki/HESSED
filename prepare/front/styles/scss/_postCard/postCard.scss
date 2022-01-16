@@ -1,0 +1,113 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.a {
+  font-size: 1.4rem;
+  font-weight: $nicknameFontWeight;
+  margin-top: 20px;
+
+  & .maxWidth {
+    max-width: 935px;
+    margin: auto;
+    & .postCard {
+      max-width: 600px;
+      height: 100%;
+
+      position: relative;
+    }
+  }
+}
+
+.postCardWrap {
+  background-color: white;
+}
+.postHead {
+  width: calc(100% - 40px);
+  height: 40px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  & header {
+    display: flex;
+    align-items: center;
+    & div {
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    & div:nth-child(1) {
+      & img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+    }
+  }
+  & .menu {
+    margin-right: 0px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+}
+.optionButtonWrap {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  // left: 50%;
+  // transform: translateX(-45.5%); wid 1980이상
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  // background-color: rgba($color: #000000, $alpha: 0.5);
+}
+.buttonWrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+.optionButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: white;
+  text-align: center;
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+  & div {
+    width: 80%;
+    margin: auto;
+    padding: 20px 0;
+  }
+  & div:nth-child(1) {
+    border-bottom: 1px solid $boxBorderColor;
+  }
+  & div:nth-child(2) {
+    border-bottom: 1px solid $boxBorderColor;
+  }
+}
+
+// postImage
+.postImage {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.bottomLogo {
+  margin-top: 10px;
+  font-size: 1.8rem;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+@media screen and (min-width: 720px) {
+}
