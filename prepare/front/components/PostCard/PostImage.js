@@ -15,19 +15,11 @@ const PostImages = ({ images }) => {
   return (
     <>
       <Swiper pagination className={style.imageBox}>
-        {images.map((v) =>
-          useMemo(
-            () => (
-              <SwiperSlide
-                className={style.imageInnerBox}
-                key={v?.bo_img_location}
-              >
-                <img src={`${baseURL}/${v.bo_img_location}`} alt="PostImg" />
-              </SwiperSlide>
-            ),
-            [images],
-          ),
-        )}
+        {images.map((v) => (
+          <SwiperSlide className={style.imageInnerBox} key={v?.bo_img_location}>
+            <img src={`${baseURL}/${v.bo_img_location}`} alt="PostImg" />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );
