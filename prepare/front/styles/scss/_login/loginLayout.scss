@@ -1,0 +1,47 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.back {
+  background-color: $backgroundColor;
+  width: 100vw;
+  height: 100vh;
+  & .maxWidth {
+    max-width: 800px;
+    margin: auto;
+    padding-top: 200px;
+  }
+  & input,
+  button {
+    // display: inline-block;
+    width: calc(100% - 20%);
+    height: 35px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+  }
+  & button {
+    margin-top: 20px;
+    background-color: $mainColor;
+    color: white;
+  }
+  & button:active {
+    transform: scale(0.94);
+  }
+}
+.logoBox {
+  text-align: center;
+}
+.logo {
+  display: inline-block;
+  margin-bottom: 50px;
+  color: white;
+  background: url(../../public/HESSED_LOGO-W.png) center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 37px;
+}
+
+@media screen and (min-width: 720px) {
+}

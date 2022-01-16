@@ -1,0 +1,135 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & div {
+    width: calc(100% - 22%);
+    padding-top: 3px;
+    color: white;
+    font-size: 1.2rem;
+  }
+  & > .signupCheck {
+    margin-bottom: -5px;
+    color: red;
+  }
+  & input {
+    margin-top: 7px;
+  }
+  & .formButton {
+    margin-top: 5px;
+  }
+}
+.div {
+  margin-top: 20px;
+  text-align: center;
+  & a {
+    & p {
+      display: inline;
+      font-size: 1.2rem;
+      color: $mainColor;
+      & em {
+        color: white;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.checkBox {
+  width: calc(100% - 20%);
+  margin-top: -20px;
+  & > input {
+    width: 15px;
+    float: left;
+    margin-top: 0px;
+  }
+  & > label {
+    display: block;
+    margin-top: 12px;
+    margin-left: 30px;
+    font-size: 1.2rem;
+    color: white;
+  }
+  & > .signupCheck {
+    color: red;
+  }
+}
+
+.searchId {
+  & div {
+    width: calc(100% - 20%);
+    margin: auto;
+    background-color: $boxColor;
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    & p {
+      font-size: 1.4rem;
+      color: $backgroundColor;
+      & span {
+        font-size: 1.6rem;
+        color: #181818;
+      }
+    }
+  }
+}
+
+.PrivacyView {
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+@keyframes ani1 {
+  0% {
+    bottom: 20px;
+  }
+
+  100% {
+    bottom: 30px;
+  }
+}
+
+.homePlus {
+  width: 80%;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background-color: $boxColor;
+  padding: 10px 5px;
+  border-radius: 20px;
+  animation: ani1 2s alternate infinite;
+  // animation: name duration timing-function delay iteration-count direction
+  //   fill-mode;
+  // animation: identifier 5s linear infinite;
+  & img:nth-child(1) {
+    margin-right: 20px;
+  }
+
+  & p {
+    font-size: 1.2rem;
+  }
+
+  & span {
+    display: inline-block;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    background-color: $boxColor;
+  }
+}

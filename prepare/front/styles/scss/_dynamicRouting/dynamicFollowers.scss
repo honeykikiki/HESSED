@@ -1,0 +1,19 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.head {
+  padding: 10px 10px;
+  border-bottom: 1px solid $boxColor;
+  padding-bottom: 10px;
+  & div:nth-child(1) {
+    font-size: 1.4rem;
+  }
+  & div:nth-child(2) {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: $nicknameFontWeight;
+    font-size: 1.6rem;
+  }
+}

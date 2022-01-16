@@ -1,0 +1,28 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+@keyframes loading {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 200px;
+  }
+}
+
+.loadingPage {
+  position: absolute;
+  background-color: $backgroundColor;
+  width: 100%;
+  height: 100%;
+  & h1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: loading 1s linear;
+    background: url(../../public/HESSED_LOGO-W.png) center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}

@@ -1,0 +1,78 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.head {
+  padding: 25px 0px;
+  border-top: 1px solid $boxColor;
+  border-bottom: 1px solid $boxColor;
+  background-color: white;
+  // padding-bottom: 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 101;
+  & div:nth-child(1) {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+  }
+  & div:nth-child(2) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: $nicknameFontWeight;
+    font-size: 1.6rem;
+  }
+}
+
+.wrap {
+  overflow: hidden;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 40px;
+  & .maxWidth {
+    max-width: 935px;
+    margin: auto;
+  }
+  & .postImage {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+.textInput {
+  width: calc(100% - 40px);
+  margin: auto;
+  margin-top: 20px;
+  // position: absolute;
+  margin-bottom: 60px;
+  & textarea {
+    border: none;
+    border-bottom: 1px solid black;
+    overflow: visible;
+    width: 100%;
+    height: 20px;
+    outline-color: $textBoxBackColor;
+    background-color: $textBoxBackColor;
+    outline-style: dashed;
+    resize: none;
+  }
+  & button {
+    margin-left: 10px;
+    display: block;
+    margin-left: auto;
+    width: 60px;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: $mainColor;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

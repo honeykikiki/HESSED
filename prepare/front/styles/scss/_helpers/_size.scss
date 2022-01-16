@@ -1,0 +1,16 @@
+$top: 64px;
+$navBar: 44px;
+$maswidth: 935px;
+
+$iconSize: 24px;
+
+$UserIcon: 32px;
+
+$nicknameFontWeight: 550;
+
+@mixin center($center) {
+  position: absolute;
+  top: $center;
+  left: $center;
+  transform: translate(-50%, -50%);
+}

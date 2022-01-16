@@ -1,0 +1,48 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.a {
+  font-size: 1.4rem;
+  font-weight: $nicknameFontWeight;
+  margin-top: 20px;
+
+  & .maxWidth {
+    max-width: 935px;
+    margin: auto;
+    & .postCard {
+      max-width: 600px;
+      height: 100%;
+
+      position: relative;
+    }
+  }
+}
+
+.goodUserBox {
+  width: calc(100% - 20px);
+  margin: auto;
+
+  & .goodUser {
+    & a {
+      display: flex;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+  }
+  & .goodUserImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background-color: $boxBorderColor;
+    & img {
+      @include center(50%);
+      width: 100%;
+    }
+  }
+  & .goodUserNickname {
+    margin-left: 20px;
+    line-height: 32px;
+  }
+}

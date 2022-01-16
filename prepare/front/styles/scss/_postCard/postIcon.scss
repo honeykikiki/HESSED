@@ -1,0 +1,32 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+
+.postIcon {
+  display: flex;
+  width: calc(100% - 40px);
+  margin: auto;
+  align-items: center;
+  margin-top: 10px;
+  & > div {
+    margin-right: 20px;
+    cursor: pointer;
+    & img {
+      width: $iconSize;
+      height: $iconSize;
+      transition: all 0.4;
+    }
+    & img:active {
+      transform: scale(0.7);
+    }
+  }
+  // & > div:nth-child(1) {
+  // }
+  // & > div:nth-child(2) {
+  // }
+  // & > div:nth-child(3) {
+  // }
+  & > div:nth-child(4) {
+    margin-left: auto;
+    margin-right: 0px;
+  }
+}

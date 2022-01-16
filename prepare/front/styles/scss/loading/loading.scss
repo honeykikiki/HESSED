@@ -1,0 +1,20 @@
+@keyframes identifier {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  text-align: center;
+  & img {
+    margin-top: 20px;
+    width: 50px;
+    animation: identifier 5s linear infinite;
+  }
+}
