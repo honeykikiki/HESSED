@@ -7,6 +7,9 @@
   max-height: 500px;
   display: flex;
   & .imageInnerBox {
+    width: 100%;
+    height: 100%;
+    position: relative;
     & .remove {
       position: absolute;
       right: 5px;
@@ -21,12 +24,22 @@
     }
   }
 
-  & .imageInnerBox > img {
+  & .imageInnerBox div {
+    position: relative;
+  }
+  & .Swiper_ImageBox {
+    position: relative;
     width: 100%;
+    height: 500px;
+  }
+
+  & .Swiper_ImageBox img {
+    width: 100%;
+    @include center(50%);
   }
 
   & span {
-    background-color: white;
+    --swiper-theme-color: #409857;
   }
 }
 

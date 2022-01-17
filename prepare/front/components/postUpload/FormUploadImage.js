@@ -39,7 +39,9 @@ const FormUploadTwo = ({ images, setPhotoToAddList }) => {
                 x
               </p>
             </div>
-            <img src={v.url} alt="PostImg" />
+            <div className={style.Swiper_ImageBox}>
+              <img src={v.url} alt="PostImg" />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
