@@ -43,9 +43,9 @@ const Post = () => {
 
       {post ? (
         <PostInContent post={post} />
-      ) : (
+      ) : boardOneViewPost ? (
         <PostInContent post={boardOneViewPost} />
-      )}
+      ) : null}
     </>
   );
 };
