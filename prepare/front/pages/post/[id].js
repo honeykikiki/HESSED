@@ -11,6 +11,9 @@ import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
 import { PROFILE } from '../../reducers/menu';
 
+import { END } from 'redux-saga';
+import wrapper from '../../store/configureStore';
+
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -65,6 +68,7 @@ const Post = () => {
           </div>
           <div style={{ paddingTop: '34px' }} />
           <PostCard post={boardOneViewPost} />
+          <div style={{ paddingBottom: '54px' }} />
         </section>
       )}
     </MainLayout>
@@ -75,8 +79,8 @@ const Post = () => {
 //   (store) =>
 //     async ({ req, params }) => {
 //       store.dispatch({
-//         type: LOAD_POSTS_REQUEST,
-//         data: params.id,
+//         type: MY_POST_AND_SAVE_POST_GET_REQUEST,
+//         data: { mem_id : Number(params.id)},
 //       });
 //       store.dispatch(END);
 //       await store.sagaTask.toPromise();
