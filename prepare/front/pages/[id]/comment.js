@@ -9,6 +9,7 @@ const Post = () => {
   const router = useRouter();
   const { id } = router.query;
   const { mainPosts } = useSelector((state) => state.postMainAction);
+  const { boardOneViewPost } = useSelector((state) => state.getIdPost);
   const { me } = useSelector((state) => state.userInfo);
   const post = mainPosts.find((v) => v.id === +id);
   useEffect(() => {
@@ -40,7 +41,11 @@ const Post = () => {
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
       </Head>
 
-      {post ? <PostInContent post={post} /> : null}
+      {post ? (
+        <PostInContent post={post} />
+      ) : boardOneViewPost ? (
+        <PostInContent post={boardOneViewPost} />
+      ) : null}
     </>
   );
 };

@@ -47,7 +47,7 @@ const Post = () => {
 
   const onClickBack = useCallback(() => {
     Router.back();
-  }, [me]);
+  }, []);
 
   const updatePost = useCallback(
     (e) => {
