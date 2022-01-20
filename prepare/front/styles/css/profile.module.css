@@ -1,16 +1,6 @@
-.a {
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-.a .maxWidth {
-  max-width: 935px;
-  margin: auto;
-}
-
 .setting {
-  position: absolute;
-  top: 10px;
+  position: fixed;
+  top: 15px;
   right: 20px;
   z-index: 100;
 }
@@ -20,13 +10,12 @@
 }
 
 .stteingBox {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .stteingBox .optionButton {
@@ -57,6 +46,16 @@
 
 .stteingBox .optionButton div:nth-child(2) {
   border-bottom: 1px solid #dfdfdf;
+}
+
+.a {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.a .maxWidth {
+  max-width: 935px;
+  margin: auto;
 }
 
 .profileImg {

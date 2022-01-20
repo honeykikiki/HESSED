@@ -1,0 +1,119 @@
+.setting {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 100;
+}
+
+.setting img {
+  width: 24px;
+}
+
+.stteingBox {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.stteingBox .optionButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: white;
+  text-align: center;
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.stteingBox .optionButton div {
+  width: 80%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.stteingBox .optionButton div:nth-child(1) {
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.stteingBox .optionButton div:nth-child(2) {
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.a {
+  font-size: 1.4rem;
+}
+
+.a .maxWidth {
+  max-width: 935px;
+  margin: auto;
+}
+
+.noticeWrap {
+  width: calc(100% - 20px);
+  margin: auto;
+}
+
+.noticeWrap > p {
+  margin-top: 20px;
+  font-size: 1.8rem;
+}
+
+.noticeWrap button {
+  border: none;
+  font-size: 1.4rem;
+  background-color: transparent;
+  color: #8e8e8e;
+}
+
+.noticeWrap .comment {
+  margin-top: 10px;
+  margin-left: 44px;
+}
+
+.test .userIcon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+}
+
+.test .userIcon img {
+  width: 34px;
+  height: 34px;
+  background-color: #dfdfdf;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 10px;
+}
+
+.test .noticeInfoTop {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.test .title {
+  margin-left: 44px;
+  margin-top: -15px;
+}

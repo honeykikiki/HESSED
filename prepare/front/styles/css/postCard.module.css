@@ -1,3 +1,53 @@
+.setting {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 100;
+}
+
+.setting img {
+  width: 24px;
+}
+
+.stteingBox {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.stteingBox .optionButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: white;
+  text-align: center;
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.stteingBox .optionButton div {
+  width: 80%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.stteingBox .optionButton div:nth-child(1) {
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.stteingBox .optionButton div:nth-child(2) {
+  border-bottom: 1px solid #dfdfdf;
+}
+
 .a {
   font-size: 1.4rem;
   font-weight: 550;
@@ -13,6 +63,24 @@
   max-width: 600px;
   height: 100%;
   position: relative;
+}
+
+.noticeNumber {
+  position: absolute;
+  right: -12px;
+  top: -10px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: #409857;
+  text-align: center;
+  line-height: 18px;
+}
+
+.noticeNumber > span {
+  color: white;
+  font-size: 1rem;
 }
 
 .postCardWrap {
@@ -119,4 +187,11 @@
   font-size: 1.8rem;
   text-align: center;
   padding-bottom: 10px;
+}
+
+.notice {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 50;
 }
