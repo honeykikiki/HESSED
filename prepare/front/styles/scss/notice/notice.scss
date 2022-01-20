@@ -1,0 +1,59 @@
+@import '../_helpers/color';
+@import '../_helpers/size';
+@import '../_helpers/headerOptionBtn';
+
+.a {
+  font-size: 1.4rem;
+  & .maxWidth {
+    max-width: 935px;
+    margin: auto;
+  }
+}
+
+.noticeWrap {
+  width: calc(100% - 20px);
+  margin: auto;
+
+  & > p {
+    margin-top: 20px;
+    font-size: 1.8rem;
+  }
+
+  & button {
+    border: none;
+    font-size: 1.4rem;
+    background-color: transparent;
+    color: $moreColor;
+  }
+  & .comment {
+    margin-top: 10px;
+    margin-left: 44px;
+  }
+}
+
+.test {
+  & .userIcon {
+    display: flex;
+    margin-top: 20px;
+    & img {
+      width: 34px;
+      height: 34px;
+      background-color: $boxBorderColor;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 10px;
+    }
+  }
+  & .noticeInfoTop {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & .title {
+    margin-left: 44px;
+    margin-top: -15px;
+  }
+}

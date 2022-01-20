@@ -12,7 +12,7 @@ import {
 import style from '../styles/css/loginForm.module.css';
 import Loading from '../components/loading/loading';
 
-const Login = () => {
+const Signup = () => {
   const dispatch = useDispatch();
   const {
     duplicateCheckDone,
@@ -294,4 +294,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

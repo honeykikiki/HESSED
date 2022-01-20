@@ -1,5 +1,6 @@
 @import '../_helpers/color';
 @import '../_helpers/size';
+@import '../_helpers/headerOptionBtn';
 
 .a {
   font-size: 1.4rem;
@@ -15,6 +16,23 @@
 
       position: relative;
     }
+  }
+}
+
+.noticeNumber {
+  position: absolute;
+  right: -12px;
+  top: -10px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: $mainColor;
+  text-align: center;
+  line-height: 18px;
+  & > span {
+    color: white;
+    font-size: 1rem;
   }
 }
 
@@ -107,6 +125,13 @@
   font-size: 1.8rem;
   text-align: center;
   padding-bottom: 10px;
+}
+
+.notice {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 50;
 }
 
 @media screen and (min-width: 720px) {

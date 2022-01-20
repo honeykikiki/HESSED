@@ -10,7 +10,7 @@ import FormUpload from '../components/postUpload/FormUpload';
 
 import { POST_CARD } from '../reducers/menu';
 
-const Home = () => {
+const Upload = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
 
@@ -71,4 +71,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Upload;

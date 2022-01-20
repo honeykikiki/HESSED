@@ -1,9 +1,10 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
 
+import Router from 'next/router';
 import MainLayout from '../components/MainLayout';
 import PostCard from '../components/PostCard/PostCard';
 
@@ -15,8 +16,6 @@ import {
 import { PAGE_CHANGE } from '../reducers/postAdd';
 import MemberListBox from '../components/memberList/MemberListBox';
 import Loading from '../components/loading/loading';
-
-import Router from 'next/router';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -79,11 +78,24 @@ const Home = () => {
     loadPostsLoading,
   ]);
 
+  const service = useCallback(() => {
+    alert('공지사항 서비스 준비중입니다.');
+  }, []);
+
   return (
     <>
       {me && (
         <MainLayout>
-          <div style={{ paddingTop: '50px' }} />
+          <div style={{ paddingTop: '44px' }} />
+
+          <div className={style.setting} onClick={service}>
+            {/* <Link href="/notice"> */}
+            <a>
+              <img src="/icon/notice.png" alt="icon" />
+              <p className={style.noticeNumber}>{/* <span>5</span> */}</p>
+            </a>
+            {/* </Link> */}
+          </div>
 
           <MemberListBox />
 

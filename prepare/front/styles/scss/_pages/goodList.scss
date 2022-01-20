@@ -3,7 +3,7 @@
 
 .a {
   font-size: 1.4rem;
-  font-weight: $nicknameFontWeight;
+
   margin-top: 20px;
 
   & .maxWidth {
@@ -27,6 +27,7 @@
       display: flex;
       margin-bottom: 20px;
       width: 100%;
+      font-weight: $nicknameFontWeight;
     }
   }
   & .goodUserImg {

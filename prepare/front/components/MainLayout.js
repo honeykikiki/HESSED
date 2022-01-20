@@ -60,11 +60,7 @@ const MainLayout = ({ children }) => {
         <header id={style.header}>
           <div className={style.maxWidth}>
             <div className={style.logo}>
-              {/* <Link href="/">
-                <a> */}
               <h1>logo</h1>
-              {/* </a>
-              </Link> */}
             </div>
             <nav id={style.gnb}>
               <div>
@@ -133,9 +129,9 @@ const MainLayout = ({ children }) => {
         </header>
 
         <section>{children}</section>
-        <section>
+        {/* <section>
           <QrCode />
-        </section>
+        </section> */}
       </div>
     </>
   );

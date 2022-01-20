@@ -1,0 +1,43 @@
+.setting {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 100;
+  & img {
+    width: $iconSize;
+  }
+}
+
+.stteingBox {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  .optionButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: white;
+    text-align: center;
+    width: 80%;
+    height: auto;
+    border-radius: 15px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    & div {
+      width: 80%;
+      margin: auto;
+      padding: 20px 0;
+    }
+    & div:nth-child(1) {
+      border-bottom: 1px solid $boxBorderColor;
+    }
+    & div:nth-child(2) {
+      border-bottom: 1px solid $boxBorderColor;
+    }
+  }
+}
