@@ -13,20 +13,27 @@ const Hessed = ({ Component }) => {
       <Head>
         <title>HESSED</title>
         <meta charSet="utf-8" />
+        <meta name="title" content="HESSED" />
         <meta name="og:title" content="HESSED Web App" />
-        <meta
-          name="og:url"
-          content="https://hessed-app2-git-devlop-honeykikiki.vercel.app/"
-        />
+
+        <meta name="og:url" content="https://hessed-app.vercel.app/" />
         <meta name="og:type" content="website" />
         <meta name="og:description" content="HESSED 공동체 커뮤니티" />
-        <link
+        <meta
           rel="og:image"
-          href="https://hessed-app2-git-devlop-honeykikiki.vercel.app/icon/HESSED-green.png"
+          href="https://hessed-app.vercel.app//icon/HESSED-green.png"
         />
         <meta name="Description" content="HESSED Web App" />
         <meta name="Keywords" content="HESSED sns" />
         <meta name="Author" content="honey-kikiki" />
+        <meta property="twitter:card" content="HESSED 공동체 커뮤니티" />
+        <meta property="twitter:title" content="HESSED" />
+        <meta property="twitter:description" content="HESSED 공동체 커뮤니티" />
+        <meta
+          property="twitter:image"
+          content="https://hessed-app.vercel.app//icon/HESSED-green.png"
+        />
+
         <meta
           httpEquiv="Content-Security-Policy"
           // content="upgrade-insecure-requests"

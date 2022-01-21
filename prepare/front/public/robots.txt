@@ -1,11 +1,8 @@
 User-agent: *
+Disallow: /admin
+
+User-agent: *
 Allow: /
-Disallow: /[id]/
-Disallow: /post/
-Disallow: /updatePost/
-Disallow: /user/
-Disallow: /upload/
-Disallow: /profile/
 
 User-agent: Mediapartners-Google
 Allow: /
