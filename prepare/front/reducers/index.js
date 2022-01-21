@@ -10,6 +10,8 @@ import postMainAction from './postMainAction';
 import getIdPost from './getIdPost';
 import userPost from './userPost';
 
+import content from './content';
+
 import menu from './menu';
 
 const rootReducer = (state, action) => {
@@ -25,6 +27,7 @@ const rootReducer = (state, action) => {
         postMainAction,
         getIdPost,
         userPost,
+        content,
         menu,
       });
       return combineReducer(state, action);
