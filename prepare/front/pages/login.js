@@ -3,6 +3,8 @@ import Link from 'next/link';
 import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { END } from 'redux-saga';
+import Router from 'next/router';
 import LoginLayout from '../components/LoginLayout';
 import useinput from '../hooks/useinput';
 import style from '../styles/css/loginForm.module.css';
@@ -10,9 +12,7 @@ import { LOG_IN_REQUEST } from '../reducers/userInfo';
 import { SIGN_UP_REQUEST } from '../reducers/userSign';
 import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
 
-import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
-import Router from 'next/router';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -132,9 +132,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
       if (req && cookie) {
         axios.defaults.headers.Cookie = cookie;
       }
-      // store.dispatch({
-      //   type: LOG_IN_REQUEST,
-      // });
+      store.dispatch({
+        type: LOG_IN_REQUEST,
+      });
       // store.dispatch({
       //   type: LOAD_POSTS_REQUEST,
       // });
