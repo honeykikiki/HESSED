@@ -24,7 +24,9 @@ const PostCard = ({ post }) => {
 
             <div className={style.postImage}>
               <div>
-                {post?.Images.length > 0 && <PostImages images={post.Images} />}
+                {post?.Images.length > 0 && (
+                  <PostImages post={post} images={post.Images} />
+                )}
               </div>
             </div>
 

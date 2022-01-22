@@ -51,6 +51,7 @@
     "no-shadow": 0,
     "@next/next/no-img-element": 0,
     "commonjs": 0,
+    "import/no-unresolved": 0,
     "import/no-cycle": 0 //import 에러
   }
 }
