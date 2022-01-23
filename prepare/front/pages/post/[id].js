@@ -3,6 +3,7 @@ import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { END } from 'redux-saga';
 import style from '../../styles/css/dynamicPost.module.css';
 import PostCard from '../../components/PostCard/PostCard';
 import MainLayout from '../../components/MainLayout';
@@ -11,7 +12,6 @@ import { GET_ID_POST_REQUEST } from '../../reducers/getIdPost';
 import { MY_POST_AND_SAVE_POST_GET_REQUEST } from '../../reducers/userPost';
 import { PROFILE } from '../../reducers/menu';
 
-import { END } from 'redux-saga';
 import wrapper from '../../store/configureStore';
 
 const Post = () => {
@@ -66,6 +66,7 @@ const Post = () => {
             </div>
             <div>{`${boardOneViewPost.User.nickname}님의 게시글`}</div>
           </div>
+
           <div style={{ paddingTop: '34px' }} />
           <PostCard post={boardOneViewPost} />
           <div style={{ paddingBottom: '54px' }} />

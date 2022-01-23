@@ -133,22 +133,22 @@ const Home = () => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ req, params }) => {
-      const cookie = req ? req.headers.cookie : '';
-      axios.defaults.headers.Cookie = '';
-      if (req && cookie) {
-        axios.defaults.headers.Cookie = cookie;
-      }
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) =>
+//     async ({ req, params }) => {
+//       const cookie = req ? req.headers.cookie : '';
+//       axios.defaults.headers.Cookie = '';
+//       if (req && cookie) {
+//         axios.defaults.headers.Cookie = cookie;
+//       }
 
-      // store.dispatch({
-      //   type: LOAD_POSTS_REQUEST,
-      //   // data: { mem_id: 'jin@n.com' },
-      // });
-      store.dispatch(END);
-      await store.sagaTask.toPromise();
-    },
-);
+//       // store.dispatch({
+//       //   type: LOAD_POSTS_REQUEST,
+//       //   // data: { mem_id: 'jin@n.com' },
+//       // });
+//       store.dispatch(END);
+//       await store.sagaTask.toPromise();
+//     },
+// );
 
 export default Home;

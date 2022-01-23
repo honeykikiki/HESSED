@@ -124,23 +124,23 @@ const Login = () => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ req, params }) => {
-      const cookie = req ? req.headers.cookie : '';
-      axios.defaults.headers.Cookie = '';
-      if (req && cookie) {
-        axios.defaults.headers.Cookie = cookie;
-      }
-      store.dispatch({
-        type: LOG_IN_REQUEST,
-      });
-      // store.dispatch({
-      //   type: LOAD_POSTS_REQUEST,
-      // });
-      store.dispatch(END);
-      await store.sagaTask.toPromise();
-    },
-);
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) =>
+//     async ({ req, params }) => {
+//       const cookie = req ? req.headers.cookie : '';
+//       axios.defaults.headers.Cookie = '';
+//       if (req && cookie) {
+//         axios.defaults.headers.Cookie = cookie;
+//       }
+//       store.dispatch({
+//         type: LOG_IN_REQUEST,
+//       });
+//       // store.dispatch({
+//       //   type: LOAD_POSTS_REQUEST,
+//       // });
+//       store.dispatch(END);
+//       await store.sagaTask.toPromise();
+//     },
+// );
 
 export default Login;
