@@ -16,7 +16,7 @@ SwiperCore.use([Pagination]);
 const PostImages = ({ post, images }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.userInfo);
-  console.log(post.liked[0]?.mem_id === me?.id);
+
   const doubleClickGoodRequest = useCallback(() => {
     if (post.liked[0]?.mem_id || post.liked?.mem_id === me?.id) {
       return;
