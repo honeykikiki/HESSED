@@ -50,6 +50,7 @@ const Post = () => {
             </div>
             <div>{`${boardOneViewPost.User.nickname}님의 게시글`}</div>
           </div>
+
           <div style={{ paddingTop: '34px' }} />
           <PostCard post={boardOneViewPost} />
         </section>
