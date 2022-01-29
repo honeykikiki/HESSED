@@ -20,7 +20,7 @@ const Post = () => {
   return (
     <>
       <Head>
-        <title>{`HESSED ${post?.User.nickname} 님의 게사글`}</title>
+        <title>{`YOUTHHILLTOP ${post?.User.nickname} 님의 게사글`}</title>
         <meta
           name="description"
           content={`${post?.User.nickname}님의 게시글`}
@@ -35,7 +35,7 @@ const Post = () => {
         />
         <meta
           property="og:image"
-          content="/icon/HESSED_LOGO-W.png"
+          content="/icon/youth_logo_line_black.png"
           layout="fill"
         />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}

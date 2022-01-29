@@ -73,7 +73,7 @@ const Post = () => {
     <MainLayout>
       {boardOneViewPost && (
         <Head>
-          <title>{`HESSED ${boardOneViewPost?.User.nickname} 님의 게시글`}</title>
+          <title>{`YOUTHHILLTOP ${boardOneViewPost?.User.nickname} 님의 게시글`}</title>
         </Head>
       )}
 

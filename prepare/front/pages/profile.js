@@ -263,7 +263,7 @@ const Profile = () => {
             {myPostMoreGetDone || userPostMoreGetDone ? null : (
               <Link href="https://open.kakao.com/o/sJECgaRd">
                 <a target="_blank">
-                  <div className={style.moerPostGet}>@HESSED</div>
+                  <div className={style.moerPostGet}>@YOUTHHILLTOP</div>
                 </a>
               </Link>
             )}

@@ -36,7 +36,7 @@ const MemberList = () => {
     <>
       <div className={style.memberlistInnerBox}>
         <p className={style.hessedMemberNumber}>
-          HESSED FAMILY {memberList.length}명
+          YOUTHHILLTOP FAMILY {memberList.length}명
         </p>
 
         {windowScreenWidth < 1025 ? (
