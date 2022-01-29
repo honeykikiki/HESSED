@@ -39,7 +39,7 @@ const Profile = () => {
   return (
     <MainLayout>
       <Head>
-        <title>{`HESSED ${userPostNickname} 님의 게사글`}</title>
+        <title>{`YOUTHHILLTOP ${userPostNickname} 님의 게사글`}</title>
         <meta name="description" content={`${userPostNickname}님의 게시글`} />
         <meta property="og:title" content={`${userPostNickname}님의 게시글`} />
         <meta
@@ -48,7 +48,7 @@ const Profile = () => {
         />
         <meta
           property="og:image"
-          content="/icon/HESSED_LOGO-W.png"
+          content="/icon/youth_logo_line_black.png"
           layout="fill"
         />
         {/* <meta property="og:url" content={`https://nodebird.com/user/${id}`} /> */}
@@ -101,7 +101,7 @@ const Profile = () => {
           {userPostMoreGetDone ? null : (
             <Link href="https://open.kakao.com/o/sJECgaRd">
               <a target="_blank">
-                <div className={style.moerPostGet}>@HESSED</div>
+                <div className={style.moerPostGet}>@YOUTHHILLTOP</div>
               </a>
             </Link>
           )}

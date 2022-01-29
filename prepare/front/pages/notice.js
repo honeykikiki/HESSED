@@ -48,6 +48,7 @@ const Notice = () => {
           </div>
         </article>
       </section>
+      <div style={{ paddingTop: '54px' }} />
     </MainLayout>
   );
 };

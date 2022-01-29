@@ -11,27 +11,30 @@ const Hessed = ({ Component }) => {
   return (
     <>
       <Head>
-        <title>HESSED</title>
+        <title>YOUTHHILLTOP</title>
         <meta charSet="utf-8" />
-        <meta name="title" content="HESSED" />
-        <meta name="og:title" content="HESSED Web App" />
+        <meta name="title" content="YOUTHHILLTOP" />
+        <meta name="og:title" content="YOUTHHILLTOP Web App" />
 
         <meta name="og:url" content="https://hessed-app.vercel.app/" />
         <meta name="og:type" content="website" />
-        <meta name="og:description" content="HESSED 공동체 커뮤니티" />
+        <meta name="og:description" content="YOUTHHILLTOP 공동체 커뮤니티" />
         <meta
           rel="og:image"
-          href="https://hessed-app.vercel.app//icon/HESSED-green.png"
+          href="https://hessed-app.vercel.app//icon/YOUTHHILLTOP-green.png"
         />
-        <meta name="Description" content="HESSED Web App" />
-        <meta name="Keywords" content="HESSED sns" />
+        <meta name="Description" content="YOUTHHILLTOP Web App" />
+        <meta name="Keywords" content="YOUTHHILLTOP sns" />
         <meta name="Author" content="honey-kikiki" />
-        <meta property="twitter:card" content="HESSED 공동체 커뮤니티" />
-        <meta property="twitter:title" content="HESSED" />
-        <meta property="twitter:description" content="HESSED 공동체 커뮤니티" />
+        <meta property="twitter:card" content="YOUTHHILLTOP 공동체 커뮤니티" />
+        <meta property="twitter:title" content="YOUTHHILLTOP" />
+        <meta
+          property="twitter:description"
+          content="YOUTHHILLTOP 공동체 커뮤니티"
+        />
         <meta
           property="twitter:image"
-          content="https://hessed-app.vercel.app//icon/HESSED-green.png"
+          content="https://hessed-app.vercel.app//icon/YOUTHHILLTOP-green.png"
         />
 
         <meta

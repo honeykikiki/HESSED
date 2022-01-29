@@ -265,7 +265,7 @@ const Signup = () => {
       {signUpLoading && <Loading />}
       {privacyViewAgree && (
         <div className={style.PrivacyView}>
-          (HESSED)는 아래의 목적으로 개인정보를 수집 및 이용하며, 회원의
+          (YOUTHHILLTOP)는 아래의 목적으로 개인정보를 수집 및 이용하며, 회원의
           개인정보를 안전하게 취급하는데 최선을 다하고 있습니다.
           <br />
           <br />

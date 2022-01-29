@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
 
 import style from '../../styles/css/QrCode.module.css';
 import { POST_CARD } from '../../reducers/menu';
@@ -41,7 +40,7 @@ const QrCode = () => {
         <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
+              <img src="/icon/youth_logo_line_green.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>
@@ -66,7 +65,7 @@ const QrCode = () => {
         <div className={style.wrap} onClick={onClose}>
           <div className={style.qr}>
             <h1>
-              <img src="/icon/HESSED-logo-G.svg" alt="LogoImg" />
+              <img src="/icon/youth_logo_line_green.svg" alt="LogoImg" />
               <p>입장을 위한 QR코드</p>
             </h1>
             <div className={style.qr_text}>

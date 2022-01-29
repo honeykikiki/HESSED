@@ -118,7 +118,7 @@ const Home = () => {
             {loadPostMoreFalid ? null : (
               <Link href="https://open.kakao.com/o/sJECgaRd">
                 <a target="_blank">
-                  <div className={style.bottomLogo}>@HESSED</div>
+                  <div className={style.bottomLogo}>@YOUTHHILLTOP</div>
                 </a>
               </Link>
             )}

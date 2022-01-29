@@ -31,6 +31,9 @@ const Post = () => {
         data: { bo_no: +id, mem_id: me?.id },
       });
     }
+    if (!me) {
+      Router.push('/');
+    }
     if (loginNotConnected) {
       Router.push('/');
     }
@@ -54,7 +57,7 @@ const Post = () => {
     <MainLayout>
       {boardOneViewPost && (
         <Head>
-          <title>{`HESSED ${boardOneViewPost?.User.nickname} 님의 게시글`}</title>
+          <title>{`YOUTHHILLTOP ${boardOneViewPost?.User.nickname} 님의 게시글`}</title>
         </Head>
       )}
 
