@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-title-in-document-head */
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
@@ -24,11 +25,35 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <title>YOUTHHILLTOP</title>
           <meta charSet="utf-8" />
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="title" content="YOUTHHILLTOP" />
+          <meta name="og:title" content="YOUTHHILLTOP Web App" />
 
-          <meta name="description" content="Description" />
-          <meta name="keywords" content="Keywords" />
+          <meta name="og:url" content="https://hessed-app.vercel.app/" />
+          <meta name="og:type" content="website" />
+          <meta name="og:description" content="YOUTHHILLTOP 공동체 커뮤니티" />
+          <meta
+            rel="og:image"
+            href="https://hessed-app.vercel.app//icon/YOUTHHILLTOP-green.png"
+          />
+          <meta name="description" content="YOUTHHILLTOP Web App" />
+          <meta name="keywords" content="YOUTHHILLTOP sns" />
+          <meta name="Author" content="honey-kikiki" />
+          <meta
+            property="twitter:card"
+            content="YOUTHHILLTOP 공동체 커뮤니티"
+          />
+          <meta property="twitter:title" content="YOUTHHILLTOP" />
+          <meta
+            property="twitter:description"
+            content="YOUTHHILLTOP 공동체 커뮤니티"
+          />
+          <meta
+            property="twitter:image"
+            content="https://hessed-app.vercel.app//icon/YOUTHHILLTOP-green.png"
+          />
+
           <link rel="manifest" href="/manifest.json" />
           <link href="/favicon.ico" rel="icon" type="image/png" sizes="16x16" />
           <link href="/favicon.ico" rel="icon" type="image/png" sizes="32x32" />

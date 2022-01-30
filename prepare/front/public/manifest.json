@@ -3,9 +3,9 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "https://hessed-app.vercel.app/",
   "name": "YOUTHHILLTOP",
-  "short_name": "",
+  "short_name": "YH",
   "description": "This app is to demo PWA in Next.js",
   "icons": [
     {
