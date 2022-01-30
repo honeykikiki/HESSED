@@ -23,9 +23,9 @@ const Hessed = ({ Component }) => {
           rel="og:image"
           href="https://hessed-app.vercel.app//icon/YOUTHHILLTOP-green.png"
         />
-        <meta name="Description" content="YOUTHHILLTOP Web App" />
-        <meta name="Keywords" content="YOUTHHILLTOP sns" />
-        <meta name="Author" content="honey-kikiki" />
+        <meta name="description" content="YOUTHHILLTOP Web App" />
+        <meta name="keywords" content="YOUTHHILLTOP sns" />
+        <meta name="author" content="honey-kikiki" />
         <meta property="twitter:card" content="YOUTHHILLTOP 공동체 커뮤니티" />
         <meta property="twitter:title" content="YOUTHHILLTOP" />
         <meta
