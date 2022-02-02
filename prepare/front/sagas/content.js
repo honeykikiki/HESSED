@@ -10,11 +10,7 @@ import {
 // 공지사항 가져오기
 function* getNotice(action) {
   try {
-    const result = yield call(
-      commonRequestPost,
-      action.data,
-      `/notice/list.do`,
-    );
+    const result = yield call(commonRequestPost, action.data, `notice/list.do`);
     yield put({
       type: GET_NOTICE_SUCCESS,
       data: result.data,

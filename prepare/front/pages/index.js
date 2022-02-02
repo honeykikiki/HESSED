@@ -21,6 +21,7 @@ import Loading from '../components/loading/loading';
 
 import wrapper from '../store/configureStore';
 import Login from './login';
+import { GET_NOTICE_REQUEST } from '../reducers/content';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -84,7 +85,10 @@ const Home = () => {
   ]);
 
   const service = useCallback(() => {
-    alert('공지사항 서비스 준비중입니다.');
+    alert('서비스 준비중입니다.');
+    // dispatch({
+    //   type: GET_NOTICE_REQUEST,
+    // });
   }, []);
 
   return (

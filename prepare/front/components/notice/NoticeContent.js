@@ -9,6 +9,7 @@ const NoticeContent = ({ content }) => {
   const contentMore = useCallback(() => {
     setMoreButtonOnClick((prev) => !prev);
   }, [moreButtonOnClick]);
+
   return (
     <>
       <div className={style.content}>
@@ -23,9 +24,9 @@ const NoticeContent = ({ content }) => {
           </div>
 
           <div className={style.title}>
-            <span>2022.01.20 대학 청년부 연합예배 공지</span>
+            <span>{content.title}</span>
             {moreButtonOnClick ? (
-              <button onClick={contentMore}>... 더보기</button>
+              <button onClick={contentMore}>&nbsp; 내용 자세히보기</button>
             ) : null}
           </div>
         </div>

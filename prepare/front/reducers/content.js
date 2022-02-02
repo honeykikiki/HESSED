@@ -1,9 +1,12 @@
 import produce from 'immer';
+import { noticeList } from '../hooks/reducer/APIResultChange';
 
 export const initialState = {
   noticeLoadings: false,
   noticeDone: false,
   noticeError: null,
+
+  notice: [],
 };
 
 export const GET_NOTICE_REQUEST = 'GET_NOTICE_REQUEST';
@@ -18,8 +21,14 @@ const reducer = (state = initialState, action) => {
         draft.noticeDone = false;
         break;
       case GET_NOTICE_SUCCESS:
-        draft.noticeLoadings = false;
-        draft.noticeDone = true;
+        if (action.data.result === 'SUCCESS') {
+          draft.noticeLoadings = false;
+          draft.noticeDone = true;
+          draft.notice = noticeList(action.data.noticeList);
+        } else {
+          draft.noticeLoadings = false;
+          draft.noticeDone = false;
+        }
         break;
       case GET_NOTICE_FAILURE:
         draft.noticeLoadings = false;

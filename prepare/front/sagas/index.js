@@ -6,6 +6,7 @@ import postAddSaga from './postAdd';
 import userPostSaga from './userPost';
 import getIdPostSaga from './getIdPost';
 import postMainAction from './postMainAction';
+import content from './content';
 
 import userInfoSaga from './userInfo';
 import userSignSaga from './userSign';
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     fork(userPostSaga),
     fork(getIdPostSaga),
     fork(postMainAction),
+    fork(content),
   ]);
 }
