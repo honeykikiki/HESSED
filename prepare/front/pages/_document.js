@@ -25,7 +25,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>YOUTHHILLTOP</title>
           <meta charSet="utf-8" />
           <meta name="title" content="YOUTHHILLTOP" />
           <meta name="og:title" content="YOUTHHILLTOP Web App" />

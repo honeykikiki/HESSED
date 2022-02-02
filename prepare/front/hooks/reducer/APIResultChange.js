@@ -140,3 +140,15 @@ export const replyCommentsList = (list) => {
     group: v.cmt_group,
   }));
 };
+
+// 공지사항
+export const noticeList = (list) => {
+  return list.map((v) => ({
+    noticeId: v.bo_no,
+    title: v.bo_title,
+    image: v.bo_image,
+    content: v.bo_content,
+    write: v.bo_writer,
+    date: v.bo_date,
+  }));
+};
