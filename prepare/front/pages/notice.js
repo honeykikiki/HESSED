@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Router from 'next/router';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import MainLayout from '../components/MainLayout';
@@ -15,10 +15,15 @@ import wrapper from '../store/configureStore';
 const Notice = () => {
   const { notice } = useSelector((state) => state.content);
   const { me } = useSelector((state) => state.userInfo);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!me || !notice) {
       Router.push('/');
+    }
+    if (notice.length === 0) {
+      dispatch({
+        type: GET_NOTICE_REQUEST,
+      });
     }
   }, [me, notice]);
 
