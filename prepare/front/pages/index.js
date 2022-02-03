@@ -85,10 +85,13 @@ const Home = () => {
   ]);
 
   const service = useCallback(() => {
-    alert('서비스 준비중입니다.');
-    // dispatch({
-    //   type: GET_NOTICE_REQUEST,
-    // });
+    if (me.grade === 'admin') {
+      dispatch({
+        type: GET_NOTICE_REQUEST,
+      });
+    } else {
+      alert('서비스 준비중입니다.');
+    }
   }, []);
 
   return (
@@ -96,15 +99,23 @@ const Home = () => {
       {me ? (
         <MainLayout>
           <div style={{ paddingTop: '44px' }} />
-
-          <div className={style.setting} onClick={service}>
-            {/* <Link href="/notice"> */}
-            <a>
-              <img src="/icon/notice.png" alt="icon" />
-              <p className={style.noticeNumber}>{/* <span>5</span> */}</p>
-            </a>
-            {/* </Link> */}
-          </div>
+          {me.grade === 'admin' ? (
+            <div className={style.setting} onClick={service}>
+              <Link href="/notice">
+                <a>
+                  <img src="/icon/notice.png" alt="icon" />
+                  <p className={style.noticeNumber}>{/* <span>5</span> */}</p>
+                </a>
+              </Link>
+            </div>
+          ) : (
+            <div className={style.setting} onClick={service}>
+              <a>
+                <img src="/icon/notice.png" alt="icon" />
+                <p className={style.noticeNumber}>{/* <span>5</span> */}</p>
+              </a>
+            </div>
+          )}
 
           <MemberListBox />
 
