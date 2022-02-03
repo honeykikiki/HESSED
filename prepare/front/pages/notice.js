@@ -20,11 +20,6 @@ const Notice = () => {
     if (!me || !notice) {
       Router.push('/');
     }
-    if (notice.length === 0) {
-      dispatch({
-        type: GET_NOTICE_REQUEST,
-      });
-    }
   }, [me, notice]);
 
   const onClickBack = useCallback(() => {
