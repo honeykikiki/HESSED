@@ -92,7 +92,7 @@ const Home = () => {
     } else {
       alert('서비스 준비중입니다.');
     }
-  }, []);
+  }, [me]);
 
   return (
     <>

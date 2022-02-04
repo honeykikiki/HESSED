@@ -79,6 +79,11 @@
   margin-left: 44px;
 }
 
+.noticeWrap .comment img {
+  width: 100%;
+  height: auto;
+}
+
 .test .userIcon {
   display: -webkit-box;
   display: -ms-flexbox;
