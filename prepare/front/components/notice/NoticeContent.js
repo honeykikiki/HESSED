@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { baseURL } from '../../config/config';
 import { timeCalculator } from '../../hooks/timer/timeCalculator';
 
 import style from '../../styles/css/notice.module.css';
@@ -33,6 +34,8 @@ const NoticeContent = ({ content }) => {
 
         {moreButtonOnClick ? null : (
           <div className={style.comment}>
+            <img src={content.image} alt="공지사항 이미지" />
+            {/* <img src={`${baseURL}/${content.image}`} alt="PostImg" /> */}
             {content.content.split('\n').map((v) => {
               return (
                 <span key={v}>
