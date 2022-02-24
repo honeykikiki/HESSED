@@ -62,8 +62,8 @@ const Profile = () => {
       </div>
 
       <div style={{ paddingTop: '44px' }} />
-      <section className={style.a}>
-        <article className={style.maxWidth}>
+      <article className={style.a}>
+        <section className={style.maxWidth}>
           <div className={style.profileImg}>
             <div>
               <div className={style.profileImgOutBox}>
@@ -105,8 +105,8 @@ const Profile = () => {
               </a>
             </Link>
           )}
-        </article>
-      </section>
+        </section>
+      </article>
       <div style={{ paddingBottom: '54px' }} />
     </MainLayout>
   );

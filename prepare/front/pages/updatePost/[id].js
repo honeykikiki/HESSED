@@ -78,8 +78,8 @@ const Post = () => {
       )}
 
       {boardOneViewPost && (
-        <section className={style.wrap}>
-          <article className={style.maxWidth}>
+        <article className={style.wrap}>
+          <section className={style.maxWidth}>
             <div className={style.head}>
               <div onClick={onClickBack}>
                 <img src="/icon/back.svg" width="12px" alt="BackIcon" />
@@ -104,8 +104,8 @@ const Post = () => {
               />
               <button>수정하기</button>
             </form>
-          </article>
-        </section>
+          </section>
+        </article>
       )}
     </MainLayout>
   );

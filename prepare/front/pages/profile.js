@@ -167,8 +167,8 @@ const Profile = () => {
         ) : null}
       </div>
 
-      <section className={style.a}>
-        <article className={style.maxWidth}>
+      <article className={style.a}>
+        <section className={style.maxWidth}>
           <div className={style.profileImg}>
             <div>
               <div className={style.profileImgOutBox}>
@@ -268,8 +268,8 @@ const Profile = () => {
               </Link>
             )}
           </div>
-        </article>
-      </section>
+        </section>
+      </article>
       <div style={{ paddingBottom: '54px' }} />
     </MainLayout>
   );

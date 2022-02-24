@@ -7,13 +7,13 @@ import styles from '../../styles/css/postCard.module.css';
 const MemberListBox = () => {
   return (
     <>
-      <section className={styles.a}>
-        <article className={styles.maxWidth}>
+      <article className={styles.a}>
+        <section className={styles.maxWidth}>
           <div className={style.memberListWrap}>
             <MemberList />
           </div>
-        </article>
-      </section>
+        </section>
+      </article>
     </>
   );
 };

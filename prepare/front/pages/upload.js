@@ -40,8 +40,8 @@ const Upload = () => {
     <>
       <MainLayout>
         <div style={{ paddingTop: '24px' }} />
-        <section className={style.a}>
-          <article className={style.maxWidth}>
+        <article className={style.a}>
+          <section className={style.maxWidth}>
             {me?.grade === 'admin' && (
               <div className={style.notice}>
                 <div>
@@ -63,8 +63,8 @@ const Upload = () => {
               </div>
             )}
             <FormUpload />
-          </article>
-        </section>
+          </section>
+        </article>
         <div style={{ paddingBottom: '44px' }} />
       </MainLayout>
     </>
