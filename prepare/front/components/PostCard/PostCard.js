@@ -13,8 +13,8 @@ import PostHeader from './PostHeader';
 const PostCard = ({ post }) => {
   return (
     <>
-      <section className={style.a}>
-        <article className={style.maxWidth}>
+      <article className={style.a}>
+        <section className={style.maxWidth}>
           <div className={style.postCard}>
             <div className={style.postHead}>
               <PostHeader post={post} />
@@ -41,8 +41,8 @@ const PostCard = ({ post }) => {
               <PostComment post={post} />
             </div>
           </div>
-        </article>
-      </section>
+        </section>
+      </article>
     </>
   );
 };

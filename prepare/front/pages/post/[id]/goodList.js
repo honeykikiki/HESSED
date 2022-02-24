@@ -29,11 +29,11 @@ const goodList = () => {
       </div>
       <div style={{ paddingTop: '44px' }} />
 
-      <section className={style.a}>
-        <article className={style.maxWidth}>
+      <article className={style.a}>
+        <section className={style.maxWidth}>
           <GoodList />
-        </article>
-      </section>
+        </section>
+      </article>
     </MainLayout>
   );
 };
