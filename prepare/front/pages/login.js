@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import axios from 'axios';
+// import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { END } from 'redux-saga';
+// import { END } from 'redux-saga';
 import Router from 'next/router';
 import LoginLayout from '../components/LoginLayout';
 import useinput from '../hooks/useinput';
 import style from '../styles/css/loginForm.module.css';
 import { LOG_IN_REQUEST } from '../reducers/userInfo';
 import { SIGN_UP_REQUEST } from '../reducers/userSign';
-import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
+// import { LOAD_POSTS_REQUEST } from '../reducers/postMainAction';
 
-import wrapper from '../store/configureStore';
+// import wrapper from '../store/configureStore';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -41,15 +41,16 @@ const Login = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      alert('서비스를 잠시 중단합니다. 감사합니다.');
 
-      const formData = new FormData();
-      formData.append('mem_id', id);
-      formData.append('mem_pw', password);
+      // const formData = new FormData();
+      // formData.append('mem_id', id);
+      // formData.append('mem_pw', password);
 
-      dispatch({
-        type: LOG_IN_REQUEST,
-        data: formData,
-      });
+      // dispatch({
+      //   type: LOG_IN_REQUEST,
+      //   data: formData,
+      // });
     },
     [id, password],
   );
